@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- 🔧 EDITE: título, description e canonical -->
+  <title>NOME DA FERRAMENTA — TudoPDF</title>
+  <meta name="description" content="DESCRIÇÃO DA FERRAMENTA. Grátis, online e sem cadastro. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/SLUG-DA-FERRAMENTA/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <!-- ⚠️ Ajuste o caminho relativo conforme a profundidade da pasta -->
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <!-- 🔧 CSS específico desta ferramenta (opcional) -->
+  <style>
+    /* Estilos da ferramenta ficam AQUI — isolados do site */
+    .tool-ui-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--gray-2);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<!-- ============================================================
+     HEADER  (copie exatamente do index.html ou use JS includes)
+============================================================ -->
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/">
+      <div class="logo-icon">📄</div>
+      Tudo<span>PDF</span>
+    </a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/dividir-pdf/">Dividir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px; left:auto; right:0; transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">✏️</span> Editar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas as ferramentas →</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     TOOL PAGE WRAP
+============================================================ -->
+<div class="tool-page-wrap">
+
+  <!-- Topbar breadcrumb -->
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb" aria-label="Navegação">
+        <a href="/">Início</a>
+        <span class="sep">›</span>
+        <!-- 🔧 EDITE: nome da ferramenta -->
+        <span>NOME DA FERRAMENTA</span>
+      </nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="tool-content-area">
+
+    <!-- 🔧 COLE O HTML DA SUA FERRAMENTA ABAIXO -->
+    <!-- =========================================
+         ÁREA DA FERRAMENTA
+         Tudo que está aqui é isolado do CSS do site.
+         Você pode usar seus próprios estilos no <style> do <head>.
+    ========================================= -->
+
+    <div class="tool-ui-wrap">
+      <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.8rem;margin-bottom:8px">
+        🔧 NOME DA FERRAMENTA
+      </h1>
+      <p style="color:var(--text-muted);margin-bottom:32px">
+        Descrição curta do que a ferramenta faz.
+      </p>
+
+      <!-- COLE O CONTEÚDO DA FERRAMENTA AQUI -->
+
+    </div>
+
+    <!-- 🔧 FIM DA FERRAMENTA -->
+
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px">
+          <div class="logo-icon">📄</div>
+          Tudo<span style="color:#475569">PDF</span>
+        </div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social">
+          <div class="social-btn">𝕏</div>
+          <div class="social-btn">f</div>
+          <div class="social-btn">📸</div>
+          <div class="social-btn">in</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="/">Página Inicial</a></li>
+          <li><a href="/#tools">Ferramentas</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ferramentas</h4>
+        <ul>
+          <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
+          <li><a href="/tools/juntar-pdf/">Juntar PDF</a></li>
+          <li><a href="/tools/word-para-pdf/">WORD para PDF</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Sobre nós</a></li>
+          <li><a href="#">Privacidade</a></li>
+          <li><a href="#">Termos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="#">contato@tudopdf.com.br</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ⚠️ Ajuste o caminho relativo -->
+<script src="../../assets/js/main.js"></script>
+<!-- 🔧 JS específico desta ferramenta (opcional) -->
+<script>
+  // Seu JS da ferramenta aqui — não vai conflitar com main.js
+</script>
+</body>
+</html>
