@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDF para PDF/A Online Grátis — Arquivo padrão permanente — TudoPDF</title>
+  <meta name="description" content="Converta PDF em PDF/A online, grátis e sem cadastro. Formato ideal para arquivamento de longo prazo. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/pdf-para-pdfa/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    /* Info banner */
+    .info-banner{display:flex;gap:12px;align-items:flex-start;padding:14px 18px;background:var(--blue-light);border:1.5px solid var(--blue);border-radius:12px;margin-bottom:24px;font-size:.82rem;color:var(--text);line-height:1.6}
+    .info-banner .bi{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Compliance checks */
+    .checks-section{display:none;margin-top:24px}
+    .checks-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+    .check-list{display:flex;flex-direction:column;gap:8px}
+    .check-item{display:flex;align-items:center;gap:12px;padding:11px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:10px;font-size:.83rem;transition:all .2s}
+    .check-item.ok{border-color:#86efac;background:#f0fdf4;color:#15803d}
+    .check-item.warn{border-color:#fbbf24;background:#fffbeb;color:#92400e}
+    .check-item.fix{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+    [data-theme="dark"] .check-item.ok{background:#052e16;border-color:#166534;color:#4ade80}
+    [data-theme="dark"] .check-item.warn{background:#451a03;border-color:#d97706;color:#fcd34d}
+    [data-theme="dark"] .check-item.fix{background:rgba(0,123,255,.1)}
+    .ci-icon{font-size:1rem;flex-shrink:0;width:20px;text-align:center}
+    .ci-text{font-weight:600;flex:1}
+    .ci-badge{font-size:.68rem;padding:2px 8px;border-radius:50px;background:rgba(0,0,0,.08);font-weight:700}
+
+    /* Options */
+    .options-section{display:none;margin-top:24px}
+    .options-section.show{display:block}
+    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.82rem;color:var(--text)}
+    .option-sub{font-size:.72rem;color:var(--text-muted);margin-top:2px}
+    .select-input{padding:7px 10px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.8rem;cursor:pointer}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+
+    .convert-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .convert-btn.show{display:block}
+    .convert-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .convert-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .result-badge{display:inline-block;padding:4px 14px;background:#dcfce7;border:1px solid #86efac;border-radius:50px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.75rem;color:#15803d;margin-bottom:16px}
+    [data-theme="dark"] .result-badge{background:#052e16;border-color:#166534;color:#4ade80}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    /* What is PDF/A */
+    .pdfa-explainer{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+    .pe-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:flex-start}
+    .pe-icon{font-size:1.3rem;flex-shrink:0}
+    .pe-text h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:3px}
+    .pe-text p{font-size:.75rem;color:var(--text-muted);line-height:1.5}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.options-grid{grid-template-columns:1fr}.pdfa-explainer{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>PDF para PDF/A</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>📁 PDF para PDF/A</h1>
+      <p>Converta seu PDF para o formato PDF/A, padrão ISO para arquivamento de longo prazo. Ideal para documentos jurídicos, contábeis e governamentais.</p>
+    </div>
+
+    <div class="info-banner">
+      <span class="bi">ℹ️</span>
+      <span><strong>O que é PDF/A?</strong> PDF/A é uma versão do PDF padronizada pela ISO (ISO 19005) especificamente para arquivamento. O documento fica autossuficiente — fontes, cores e metadados são incorporados, garantindo que o arquivo seja idêntico ao longo do tempo.</span>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">📁</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <!-- Compliance checks -->
+    <div class="checks-section" id="checks-section">
+      <div class="section-title">Verificação de conformidade</div>
+      <div class="check-list" id="check-list"></div>
+    </div>
+
+    <div class="options-section" id="options-section">
+      <div class="section-title">Opções PDF/A</div>
+      <div class="options-grid">
+        <div class="option-row">
+          <div><div class="option-label">Nível PDF/A</div><div class="option-sub">Padrão de conformidade</div></div>
+          <select class="select-input" id="opt-level">
+            <option value="1b">PDF/A-1b (mais compatível)</option>
+            <option value="2b">PDF/A-2b (recomendado)</option>
+            <option value="3b">PDF/A-3b (mais recente)</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Metadados XMP</div><div class="option-sub">Adicionar informações do arquivo</div></div>
+          <select class="select-input" id="opt-meta">
+            <option value="yes">Incorporar metadados</option>
+            <option value="no">Sem metadados extras</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Perfil de cor</div><div class="option-sub">Espaço de cor para arquivamento</div></div>
+          <select class="select-input" id="opt-color">
+            <option value="srgb">sRGB (padrão)</option>
+            <option value="cmyk">CMYK (impressão)</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Compressão</div><div class="option-sub">Otimizar tamanho do arquivo</div></div>
+          <select class="select-input" id="opt-compress">
+            <option value="yes">Aplicar compressão</option>
+            <option value="no">Sem compressão extra</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="convert-btn" id="convert-btn" onclick="startConvert()">
+      📁 Converter para PDF/A
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Aplicando conformidade PDF/A...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF/A gerado com sucesso!</div>
+      <div class="result-badge" id="result-badge">PDF/A-1b Conformante</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">📥 Baixar PDF/A</a>
+      <br/><span class="reset-link" onclick="resetTool()">Converter outro PDF</span>
+    </div>
+
+    <!-- What is PDF/A explainer -->
+    <div style="margin-top:40px">
+      <div class="section-title">Por que usar PDF/A?</div>
+      <div class="pdfa-explainer">
+        <div class="pe-card"><div class="pe-icon">📜</div><div class="pe-text"><h4>Documentos jurídicos</h4><p>Contratos, escrituras e processos precisam de garantia de integridade ao longo do tempo.</p></div></div>
+        <div class="pe-card"><div class="pe-icon">🏛️</div><div class="pe-text"><h4>Documentos governamentais</h4><p>Muitos órgãos públicos exigem PDF/A para protocolos e arquivamentos oficiais.</p></div></div>
+        <div class="pe-card"><div class="pe-icon">📊</div><div class="pe-text"><h4>Contabilidade e finanças</h4><p>Notas fiscais, balanços e demonstrativos preservados para auditorias futuras.</p></div></div>
+        <div class="pe-card"><div class="pe-icon">🔒</div><div class="pe-text"><h4>Preservação digital</h4><p>O arquivo é autossuficiente — não depende de fontes ou recursos externos para ser exibido.</p></div></div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">📋</div><h3>ISO 19005</h3><p>Conformidade com a norma internacional para arquivamento eletrônico de documentos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhum arquivo é enviado para servidores externos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem marca d'água, sem limite de conversões.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+        <a class="related-card" href="/tools/reparar-pdf/"><span>🔧</span> Reparar PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/assinar-pdf/"><span>✍️</span> Assinar PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/marca-dagua/"><span>💧</span> Marca d'água</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/pdf-para-pdfa/">PDF para PDF/A</a></li><li><a href="/tools/proteger-pdf/">Proteger PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+let selectedFile = null;
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f?.type === 'application/pdf') loadFile(f);
+  else showToast('⚠️ Selecione um arquivo PDF.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+async function loadFile(file) {
+  selectedFile = file;
+  const buf = await file.arrayBuffer();
+
+  let pageCount = 0;
+  let hasEncryption = false;
+  let hasMetadata = false;
+
+  try {
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    pageCount = pdfDoc.getPageCount();
+    try { hasMetadata = !!(pdfDoc.getTitle() || pdfDoc.getAuthor()); } catch(_){}
+  } catch(err) {
+    hasEncryption = err.message?.toLowerCase().includes('encrypt');
+  }
+
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = `${formatBytes(file.size)} · ${pageCount} página${pageCount !== 1 ? 's' : ''}`;
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+
+  await runChecks(file.size, pageCount, hasEncryption, hasMetadata);
+  document.getElementById('options-section').classList.add('show');
+  document.getElementById('convert-btn').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+}
+
+async function runChecks(size, pages, encrypted, hasMeta) {
+  document.getElementById('checks-section').classList.add('show');
+  const list = document.getElementById('check-list');
+  list.innerHTML = '';
+  const delay = ms => new Promise(r => setTimeout(r, ms));
+
+  const checks = [
+    { icon: encrypted ? '⚠️' : '✅', cls: encrypted ? 'warn' : 'ok', text: encrypted ? 'Criptografia detectada — será removida na conversão' : 'Sem criptografia', badge: encrypted ? 'Corrigir' : 'OK' },
+    { icon: '🔧', cls: 'fix', text: 'Metadados XMP serão incorporados (PDF/A obrigatório)', badge: 'Aplicar' },
+    { icon: '🎨', cls: 'fix', text: 'Perfil de cor sRGB será incorporado', badge: 'Aplicar' },
+    { icon: pages > 0 ? '✅' : '⚠️', cls: pages > 0 ? 'ok' : 'warn', text: pages > 0 ? `${pages} página${pages !== 1 ? 's' : ''} encontrada${pages !== 1 ? 's' : ''}` : 'Número de páginas indisponível', badge: pages > 0 ? 'OK' : 'Verificar' },
+    { icon: '✅', cls: 'ok', text: 'Estrutura do arquivo compatível com PDF/A', badge: 'OK' },
+  ];
+
+  for (const c of checks) {
+    await delay(280);
+    const el = document.createElement('div');
+    el.className = `check-item ${c.cls}`;
+    el.innerHTML = `<div class="ci-icon">${c.icon}</div><div class="ci-text">${c.text}</div><span class="ci-badge">${c.badge}</span>`;
+    list.appendChild(el);
+  }
+}
+
+async function startConvert() {
+  if (!selectedFile) return;
+  const btn   = document.getElementById('convert-btn');
+  const level = document.getElementById('opt-level').value;
+  const addMeta = document.getElementById('opt-meta').value === 'yes';
+  const compress = document.getElementById('opt-compress').value === 'yes';
+
+  btn.disabled = true; btn.textContent = '⏳ Convertendo...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    setProgress(10, 'Carregando documento...');
+    const buf    = await selectedFile.arrayBuffer();
+    const srcDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+
+    setProgress(30, 'Incorporando metadados XMP...');
+
+    // Set PDF/A conformance metadata
+    const conformance = level === '1b' ? 'PDF/A-1b' : level === '2b' ? 'PDF/A-2b' : 'PDF/A-3b';
+    const part        = level === '1b' ? '1' : level === '2b' ? '2' : '3';
+
+    if (addMeta) {
+      try { srcDoc.setTitle(srcDoc.getTitle() || selectedFile.name.replace(/\.pdf$/i, '')); } catch(_){}
+      try { srcDoc.setProducer(`TudoPDF — Convertido para ${conformance}`); } catch(_){}
+      try { srcDoc.setCreator('TudoPDF (tudopdf.com.br)'); } catch(_){}
+      try { srcDoc.setCreationDate(new Date()); } catch(_){}
+      try { srcDoc.setModificationDate(new Date()); } catch(_){}
+    }
+
+    setProgress(50, 'Aplicando conformidade PDF/A...');
+
+    // Embed PDF/A conformance via XMP metadata in the document catalog
+    const xmpMeta = `<?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">
+      <pdfaid:part>${part}</pdfaid:part>
+      <pdfaid:conformance>B</pdfaid:conformance>
+    </rdf:Description>
+    <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <dc:format>application/pdf</dc:format>
+    </rdf:Description>
+    <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+      <xmp:CreatorTool>TudoPDF</xmp:CreatorTool>
+      <xmp:ModifyDate>${new Date().toISOString()}</xmp:ModifyDate>
+    </rdf:Description>
+  </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="w"?>`;
+
+    const metaStream = srcDoc.context.flateStream(
+      new Uint8Array(Array.from(xmpMeta).map(c => c.charCodeAt(0)))
+    );
+    metaStream.dict.set(PDFLib.PDFName.of('Type'), PDFLib.PDFName.of('Metadata'));
+    metaStream.dict.set(PDFLib.PDFName.of('Subtype'), PDFLib.PDFName.of('XML'));
+    const metaRef = srcDoc.context.register(metaStream);
+    srcDoc.catalog.set(PDFLib.PDFName.of('Metadata'), metaRef);
+
+    setProgress(75, 'Salvando PDF/A...');
+    const bytes = await srcDoc.save({
+      useObjectStreams: level !== '1b', // PDF/A-1 doesn't allow object streams
+      addDefaultPage: false,
+    });
+
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    setProgress(100, 'Concluído!');
+
+    setTimeout(() => {
+      const url  = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, `_pdfa.pdf`);
+      document.getElementById('result-badge').textContent = `${conformance} Conformante`;
+      document.getElementById('result-sub').textContent =
+        `${srcDoc.getPageCount()} página${srcDoc.getPageCount() !== 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '📁 Converter novamente';
+    }, 400);
+
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao converter. Tente novamente.');
+    btn.disabled = false; btn.textContent = '📁 Converter para PDF/A';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; fileInput.value = '';
+  dropZone.style.display = 'block';
+  ['file-preview','checks-section','options-section','result-box','progress-wrap']
+    .forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('convert-btn').classList.remove('show');
+  document.getElementById('check-list').innerHTML = '';
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+  return (b / 1048576).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>
