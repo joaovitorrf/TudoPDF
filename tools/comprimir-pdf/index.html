@@ -224,6 +224,16 @@
     }
     .compress-again:hover { color: var(--blue); }
 
+    /* Warning box */
+    .warn-box {
+      display: none; margin-top: 16px;
+      background: #fffbeb; border: 1.5px solid #fbbf24;
+      border-radius: 12px; padding: 14px 18px;
+      font-size: 0.82rem; color: #92400e; line-height: 1.5;
+    }
+    .warn-box.show { display: block; }
+    [data-theme="dark"] .warn-box { background: #451a03; border-color: #d97706; color: #fcd34d; }
+
     /* Info cards */
     .info-cards {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -387,6 +397,11 @@
       🗜️ Comprimir PDF agora
     </button>
 
+    <!-- AVISO -->
+    <div class="warn-box" id="warn-box">
+      ℹ️ <strong>Como funciona:</strong> A compressão é feita renderizando cada página do PDF como imagem e recomprimindo. PDFs com muitas imagens de alta resolução terão melhor resultado. PDFs que são só texto podem ter compressão menor.
+    </div>
+
     <!-- BARRA DE PROGRESSO -->
     <div class="progress-wrap" id="progress-wrap">
       <div class="progress-label">
@@ -514,16 +529,25 @@
   </div>
 </footer>
 
+<!-- PDF.js para renderizar páginas do PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- jsPDF para montar o PDF comprimido -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script src="../../assets/js/main.js"></script>
 <script>
 /* ── LÓGICA DA FERRAMENTA COMPRIMIR PDF ── */
 
-let selectedFile = null;
+// Configura worker do PDF.js
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let selectedFile   = null;
 let selectedQuality = 'medium';
 let compressedBlob = null;
 
-/* Drag & Drop */
-const dropZone = document.getElementById('drop-zone');
+/* ── Drag & Drop ── */
+const dropZone  = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
 
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -546,8 +570,8 @@ function loadFile(file) {
   document.getElementById('file-preview').classList.add('show');
   document.getElementById('compress-options').style.display = 'block';
   document.getElementById('compress-btn').classList.add('show');
+  document.getElementById('warn-box').classList.add('show');
   dropZone.style.display = 'none';
-  // Reset result
   document.getElementById('result-box').classList.remove('show');
   document.getElementById('progress-wrap').classList.remove('show');
 }
@@ -555,13 +579,14 @@ function loadFile(file) {
 document.getElementById('file-remove').addEventListener('click', resetTool);
 
 function resetTool() {
-  selectedFile = null;
+  selectedFile   = null;
   compressedBlob = null;
   fileInput.value = '';
   dropZone.style.display = 'block';
   document.getElementById('file-preview').classList.remove('show');
   document.getElementById('compress-options').style.display = 'none';
   document.getElementById('compress-btn').classList.remove('show');
+  document.getElementById('warn-box').classList.remove('show');
   document.getElementById('result-box').classList.remove('show');
   document.getElementById('progress-wrap').classList.remove('show');
   document.getElementById('progress-bar').style.width = '0%';
@@ -573,91 +598,148 @@ function selectQuality(q, el) {
   el.classList.add('selected');
 }
 
-/* Compressão — processamento real no browser via FileReader + canvas */
+/* ── Compressão REAL: PDF.js renderiza → canvas → jsPDF remonta ── */
 async function startCompress() {
   if (!selectedFile) return;
 
   const btn = document.getElementById('compress-btn');
   btn.disabled = true;
   btn.textContent = '⏳ Processando...';
-
   document.getElementById('progress-wrap').classList.add('show');
   document.getElementById('result-box').classList.remove('show');
+  document.getElementById('warn-box').classList.remove('show');
 
-  // Simula progresso visual enquanto processa
-  animateProgress(0, 70, 800);
+  // Configurações por nível de qualidade
+  // scale: resolução de renderização (menor = menor arquivo)
+  // imgQ:  qualidade JPEG (0.0 - 1.0)
+  const configs = {
+    low:    { scale: 1.5, imgQ: 0.82 },  // Alta qualidade visual
+    medium: { scale: 1.2, imgQ: 0.65 },  // Recomendado
+    high:   { scale: 0.9, imgQ: 0.45 },  // Máxima compressão
+  };
+  const { scale, imgQ } = configs[selectedQuality];
 
   try {
     const originalSize = selectedFile.size;
-    const arrayBuffer = await selectedFile.arrayBuffer();
+    const arrayBuffer  = await selectedFile.arrayBuffer();
 
-    // Fator de compressão por qualidade
-    const factors = { low: 0.72, medium: 0.48, high: 0.28 };
-    const factor  = factors[selectedQuality];
+    // Carrega o PDF com PDF.js
+    setProgress(5, 'Carregando PDF...');
+    const pdfDoc   = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const numPages = pdfDoc.numPages;
 
-    /* Re-cria o PDF com um zip stream simples para demonstração.
-       Em produção, use uma lib como pdf-lib ou comprima via API.
-       Por ora, usamos o ArrayBuffer original mas reportamos a estimativa. */
-    compressedBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+    // Detecta orientação da primeira página
+    const firstPage    = await pdfDoc.getPage(1);
+    const firstVP      = firstPage.getViewport({ scale: 1 });
+    const isLandscape  = firstVP.width > firstVP.height;
 
-    // Tamanho estimado (demonstração — em produção use pdf-lib)
-    const estimatedSize = Math.floor(originalSize * factor);
+    // Cria instância do jsPDF com o tamanho correto
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: isLandscape ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: 'a4',
+      compress: true,
+    });
 
-    animateProgress(70, 100, 400);
+    // Dimensões A4 em px (jsPDF interno)
+    const pdfW = pdf.internal.pageSize.getWidth();
+    const pdfH = pdf.internal.pageSize.getHeight();
+
+    // Canvas reutilizável
+    const canvas = document.createElement('canvas');
+    const ctx    = canvas.getContext('2d');
+
+    for (let i = 1; i <= numPages; i++) {
+      const pct = Math.round(5 + (i / numPages) * 88);
+      setProgress(pct, `Comprimindo página ${i} de ${numPages}...`);
+
+      const page     = await pdfDoc.getPage(i);
+      const viewport = page.getViewport({ scale });
+
+      canvas.width  = viewport.width;
+      canvas.height = viewport.height;
+
+      // Fundo branco (evita transparência virar preto no JPEG)
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      // Converte para JPEG com a qualidade escolhida
+      const imgData = canvas.toDataURL('image/jpeg', imgQ);
+
+      // Calcula proporção para caber na página A4
+      const ratio    = Math.min(pdfW / viewport.width, pdfH / viewport.height);
+      const imgW     = viewport.width  * ratio;
+      const imgH     = viewport.height * ratio;
+      const offsetX  = (pdfW - imgW) / 2;
+      const offsetY  = (pdfH - imgH) / 2;
+
+      if (i > 1) pdf.addPage();
+      pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH, undefined, 'FAST');
+    }
+
+    setProgress(96, 'Finalizando...');
+
+    // Gera o Blob final
+    const pdfBytes    = pdf.output('arraybuffer');
+    compressedBlob    = new Blob([pdfBytes], { type: 'application/pdf' });
+
+    setProgress(100, 'Concluído!');
 
     setTimeout(() => {
-      showResult(originalSize, estimatedSize);
-      btn.disabled = false;
-      btn.textContent = '🗜️ Comprimir PDF novamente';
-    }, 500);
+      showResult(originalSize, compressedBlob.size);
+      btn.disabled  = false;
+      btn.textContent = '🗜️ Comprimir outro PDF';
+    }, 400);
 
   } catch (err) {
+    console.error(err);
     showToast('❌ Erro ao processar o arquivo. Tente novamente.');
     btn.disabled = false;
     btn.textContent = '🗜️ Comprimir PDF agora';
     document.getElementById('progress-wrap').classList.remove('show');
+    document.getElementById('warn-box').classList.add('show');
   }
 }
 
-function animateProgress(from, to, duration) {
-  const bar  = document.getElementById('progress-bar');
-  const pct  = document.getElementById('progress-pct');
-  const text = document.getElementById('progress-text');
-  const steps = ['Analisando PDF...', 'Otimizando imagens...', 'Comprimindo streams...', 'Finalizando...'];
-  let stepIdx = 0;
-  const start = performance.now();
-  const tick = (now) => {
-    const progress = Math.min((now - start) / duration, 1);
-    const current  = Math.round(from + (to - from) * progress);
-    bar.style.width = current + '%';
-    pct.textContent = current + '%';
-    const sIdx = Math.floor(progress * (steps.length - 1));
-    if (sIdx !== stepIdx) { stepIdx = sIdx; text.textContent = steps[stepIdx]; }
-    if (progress < 1) requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('progress-text').textContent = label;
 }
 
 function showResult(originalSize, newSize) {
   document.getElementById('progress-wrap').classList.remove('show');
   document.getElementById('original-size-result').textContent = formatBytes(originalSize);
-  document.getElementById('new-size-result').textContent = formatBytes(newSize);
-  const saved = Math.round((1 - newSize / originalSize) * 100);
-  document.getElementById('saved-result').textContent = saved + '%';
+  document.getElementById('new-size-result').textContent      = formatBytes(newSize);
 
-  // Link de download
+  const saved = Math.round((1 - newSize / originalSize) * 100);
+  const savedEl = document.getElementById('saved-result');
+  savedEl.textContent = (saved > 0 ? saved : 0) + '%';
+
+  // Se ficou maior (PDF só-texto pode acontecer), avisa
+  if (newSize >= originalSize) {
+    savedEl.textContent = '—';
+    savedEl.style.color = 'var(--text-muted)';
+    document.getElementById('result-box').querySelector('.result-title').textContent =
+      'PDF processado! (já estava otimizado)';
+  }
+
+  // Link de download com o arquivo REAL comprimido
   const url  = URL.createObjectURL(compressedBlob);
   const link = document.getElementById('download-link');
-  link.href  = url;
-  link.download = selectedFile.name.replace('.pdf', '_comprimido.pdf');
+  link.href     = url;
+  link.download = selectedFile.name.replace(/\.pdf$/i, '_comprimido.pdf');
 
   document.getElementById('result-box').classList.add('show');
   document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function formatBytes(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  if (bytes < 1024)             return bytes + ' B';
+  if (bytes < 1024 * 1024)     return (bytes / 1024).toFixed(1) + ' KB';
   return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
 }
 </script>
