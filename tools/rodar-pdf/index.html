@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rodar PDF Online Grátis — Corrija a orientação das páginas — TudoPDF</title>
+  <meta name="description" content="Rode as páginas do seu PDF online, grátis e sem cadastro. Rode todas ou escolha páginas específicas. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/rodar-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    /* Toolbar */
+    .tool-toolbar{display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px;padding:14px 18px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px}
+    .tool-toolbar.show{display:flex}
+    .toolbar-info{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text)}
+    .toolbar-sub{color:var(--text-muted);font-weight:400;font-size:.78rem;display:block;margin-top:2px}
+    .toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .tb-btn{padding:7px 14px;border-radius:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.75rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s}
+    .tb-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .tb-btn.active{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    /* Global rotation bar */
+    .global-rotate{display:none;margin-top:16px;padding:14px 18px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .global-rotate.show{display:flex}
+    .gr-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.83rem;color:var(--text)}
+    .gr-btns{display:flex;gap:8px}
+    .rot-btn{padding:9px 18px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);transition:all .2s;display:flex;align-items:center;gap:6px}
+    .rot-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    /* Pages grid */
+    .pages-section{display:none;margin-top:16px}
+    .pages-section.show{display:block}
+    .pages-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
+    .page-card{background:var(--card-bg);border:2px solid var(--gray-2);border-radius:12px;padding:10px;position:relative;transition:border-color .2s,box-shadow .2s}
+    .page-card.selected{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,123,255,.15)}
+    .pt-preview{width:100%;aspect-ratio:.707/1;background:white;border-radius:6px;overflow:hidden;margin-bottom:8px;border:1px solid var(--gray-2);display:flex;align-items:center;justify-content:center;transition:transform .3s ease}
+    .pt-preview canvas{width:100%;height:100%;display:block;object-fit:contain;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+    .pt-footer{display:flex;align-items:center;justify-content:space-between;gap:4px}
+    .pt-num{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;color:var(--text-muted)}
+    .pt-rot-badge{font-size:.65rem;font-weight:700;font-family:'Montserrat',sans-serif;padding:2px 7px;border-radius:50px;background:var(--blue-light);color:var(--blue);display:none}
+    .pt-rot-badge.show{display:block}
+    .pt-mini-btns{display:flex;gap:3px}
+    .pt-mini-btn{width:24px;height:24px;border-radius:6px;border:1.5px solid var(--gray-2);background:transparent;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;transition:all .2s;color:var(--text-muted)}
+    .pt-mini-btn:hover{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+
+    .pages-loading{grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);font-size:.9rem}
+
+    /* Save btn */
+    .save-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .save-btn.show{display:block}
+    .save-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .save-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.pages-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/organizar-pdf/">Organizar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Rodar PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+    <div class="tool-hero">
+      <h1>🔄 Rodar PDF</h1>
+      <p>Corrija a orientação das páginas do seu PDF. Rode todas de uma vez ou escolha páginas específicas individualmente.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">🔄</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="tool-toolbar" id="tool-toolbar">
+      <div class="toolbar-info">
+        Rodar páginas
+        <span class="toolbar-sub" id="toolbar-sub"></span>
+      </div>
+      <div class="toolbar-actions">
+        <button class="tb-btn active" id="mode-all-btn" onclick="setMode('all')">🌐 Todas as páginas</button>
+        <button class="tb-btn" id="mode-individual-btn" onclick="setMode('individual')">☝️ Individual</button>
+        <button class="tb-btn" onclick="resetTool()">✕ Trocar arquivo</button>
+      </div>
+    </div>
+
+    <!-- Global rotation controls -->
+    <div class="global-rotate show" id="global-rotate">
+      <div class="gr-label">Aplicar rotação em todas as páginas:</div>
+      <div class="gr-btns">
+        <button class="rot-btn" onclick="rotateAll(-90)">↺ 90° Esquerda</button>
+        <button class="rot-btn" onclick="rotateAll(180)">↕ 180°</button>
+        <button class="rot-btn" onclick="rotateAll(90)">↻ 90° Direita</button>
+      </div>
+    </div>
+
+    <!-- Pages grid -->
+    <div class="pages-section" id="pages-section">
+      <div class="pages-grid" id="pages-grid">
+        <div class="pages-loading">⏳ Gerando miniaturas...</div>
+      </div>
+    </div>
+
+    <button class="save-btn" id="save-btn" onclick="savePDF()">🔄 Salvar PDF rotacionado</button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Processando...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF rotacionado com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF Rotacionado</a>
+      <br/><span class="reset-link" onclick="resetTool()">Rodar outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">👁️</div><h3>Prévia em tempo real</h3><p>Veja a rotação aplicada antes de salvar. Cada miniatura reflete a orientação exata.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhum arquivo é enviado para servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem marca d'água, sem limite de páginas.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/organizar-pdf/"><span>📂</span> Organizar PDF</a>
+        <a class="related-card" href="/tools/remover-paginas/"><span>🗑️</span> Remover Páginas</a>
+        <a class="related-card" href="/tools/recortar-pdf/"><span>✂️</span> Recortar PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/dividir-pdf/"><span>✂️</span> Dividir PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/rodar-pdf/">Rodar PDF</a></li><li><a href="/tools/organizar-pdf/">Organizar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let selectedFile = null, pdfJsDoc = null, totalPages = 0;
+let rotations = []; // degrees per page (cumulative), 0-based
+let mode = 'all';
+
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f?.type === 'application/pdf') loadFile(f); else showToast('⚠️ Selecione um PDF.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+
+async function loadFile(file) {
+  selectedFile = file;
+  const buf = await file.arrayBuffer();
+  pdfJsDoc   = await pdfjsLib.getDocument({ data: buf }).promise;
+  totalPages = pdfJsDoc.numPages;
+  rotations  = new Array(totalPages).fill(0);
+
+  dropZone.style.display = 'none';
+  document.getElementById('tool-toolbar').classList.add('show');
+  document.getElementById('toolbar-sub').textContent = `${totalPages} página${totalPages !== 1 ? 's' : ''}`;
+  document.getElementById('pages-section').classList.add('show');
+  document.getElementById('save-btn').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+  await renderGrid();
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('mode-all-btn').classList.toggle('active', m === 'all');
+  document.getElementById('mode-individual-btn').classList.toggle('active', m === 'individual');
+  document.getElementById('global-rotate').classList.toggle('show', m === 'all');
+}
+
+async function renderGrid() {
+  const grid = document.getElementById('pages-grid');
+  grid.innerHTML = '<div class="pages-loading">⏳ Gerando miniaturas...</div>';
+  await new Promise(r => setTimeout(r, 10));
+  grid.innerHTML = '';
+
+  for (let i = 1; i <= totalPages; i++) {
+    const page = await pdfJsDoc.getPage(i);
+    const vp   = page.getViewport({ scale: 0.35 });
+    const c    = document.createElement('canvas');
+    c.width = vp.width; c.height = vp.height;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+    await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+    const card = document.createElement('div');
+    card.className = 'page-card'; card.dataset.page = i;
+    card.innerHTML = `
+      <div class="pt-preview"><canvas></canvas></div>
+      <div class="pt-footer">
+        <div class="pt-num">Pág. ${i}</div>
+        <span class="pt-rot-badge" id="badge-${i}">0°</span>
+        <div class="pt-mini-btns">
+          <button class="pt-mini-btn" title="Rodar 90° esquerda" onclick="rotatePage(${i},-90)">↺</button>
+          <button class="pt-mini-btn" title="Rodar 90° direita" onclick="rotatePage(${i},90)">↻</button>
+        </div>
+      </div>`;
+    card.querySelector('canvas').replaceWith(c);
+    grid.appendChild(card);
+    updatePageVisual(i);
+  }
+}
+
+function rotateAll(deg) {
+  for (let i = 0; i < totalPages; i++) rotations[i] = ((rotations[i] + deg) % 360 + 360) % 360;
+  for (let i = 1; i <= totalPages; i++) updatePageVisual(i);
+}
+
+function rotatePage(pageNum, deg) {
+  if (mode === 'all') { rotateAll(deg); return; }
+  rotations[pageNum - 1] = ((rotations[pageNum - 1] + deg) % 360 + 360) % 360;
+  updatePageVisual(pageNum);
+}
+
+function updatePageVisual(pageNum) {
+  const rot = rotations[pageNum - 1];
+  const card = document.querySelector(`.page-card[data-page="${pageNum}"]`);
+  if (!card) return;
+  const canvas = card.querySelector('canvas');
+  canvas.style.transform = `rotate(${rot}deg)`;
+  const badge = document.getElementById(`badge-${pageNum}`);
+  if (badge) { badge.textContent = rot + '°'; badge.classList.toggle('show', rot !== 0); }
+  card.classList.toggle('selected', rot !== 0);
+}
+
+async function savePDF() {
+  const changedPages = rotations.filter(r => r !== 0).length;
+  if (changedPages === 0) { showToast('⚠️ Nenhuma rotação aplicada ainda.'); return; }
+
+  const btn = document.getElementById('save-btn');
+  btn.disabled = true; btn.textContent = '⏳ Processando...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    setProgress(10, 'Carregando PDF...');
+    const buf    = await selectedFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    const pages  = pdfDoc.getPages();
+
+    setProgress(40, 'Aplicando rotações...');
+    pages.forEach((page, i) => {
+      if (rotations[i] !== 0) {
+        const current = page.getRotation().angle;
+        page.setRotation(PDFLib.degrees((current + rotations[i]) % 360));
+      }
+    });
+
+    setProgress(80, 'Salvando...');
+    const bytes = await pdfDoc.save();
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
+    setProgress(100, 'Concluído!');
+
+    setTimeout(() => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '_rotacionado.pdf');
+      document.getElementById('result-sub').textContent = `${changedPages} página${changedPages !== 1 ? 's' : ''} rotacionada${changedPages !== 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '🔄 Salvar novamente';
+    }, 400);
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao processar. Tente novamente.');
+    btn.disabled = false; btn.textContent = '🔄 Salvar PDF rotacionado';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; pdfJsDoc = null; totalPages = 0; rotations = []; mode = 'all';
+  fileInput.value = ''; dropZone.style.display = 'block';
+  ['tool-toolbar','pages-section','result-box','progress-wrap'].forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('save-btn').classList.remove('show');
+  document.getElementById('global-rotate').classList.add('show');
+  document.getElementById('pages-grid').innerHTML = '';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('mode-all-btn').classList.add('active');
+  document.getElementById('mode-individual-btn').classList.remove('active');
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>

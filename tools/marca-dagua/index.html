@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marca d'água em PDF Online Grátis — TudoPDF</title>
+  <meta name="description" content="Adicione marca d'água ao seu PDF online, grátis e sem cadastro. Texto ou imagem, com opacidade, posição e ângulo ajustáveis. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/marca-dagua/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Options */
+    .options-section{display:none;margin-top:24px}
+    .options-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+
+    /* Type tabs */
+    .type-tabs{display:flex;gap:0;background:var(--gray-1);border:1.5px solid var(--gray-2);border-radius:12px;padding:4px;margin-bottom:20px;width:fit-content}
+    .type-tab{padding:9px 22px;border-radius:9px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;border:none;background:transparent;color:var(--text-muted);transition:all .2s}
+    .type-tab.active{background:var(--card-bg);color:var(--blue);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+
+    /* Text wm panel */
+    .wm-panel{display:none}
+    .wm-panel.active{display:block}
+    .text-input-row{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+    .wm-text-input{flex:1;padding:12px 16px;border-radius:12px;border:1.5px solid var(--gray-2);background:var(--card-bg);font-family:'Open Sans',sans-serif;font-size:.9rem;color:var(--text);transition:border-color .2s}
+    .wm-text-input:focus{outline:none;border-color:var(--blue)}
+
+    /* Image wm panel */
+    .img-upload-zone{border:2px dashed var(--gray-2);border-radius:12px;padding:28px;text-align:center;cursor:pointer;position:relative;transition:all .2s;margin-bottom:14px}
+    .img-upload-zone:hover{border-color:var(--blue);background:var(--blue-light)}
+    .img-upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .img-loaded-preview{display:none;align-items:center;gap:12px;padding:12px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:10px;margin-bottom:14px}
+    .img-loaded-preview.show{display:flex}
+    .img-loaded-preview img{width:50px;height:50px;object-fit:contain;border-radius:6px;border:1px solid var(--gray-2)}
+    .img-remove-btn{margin-left:auto;width:26px;height:26px;border-radius:6px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.8rem;transition:all .2s}
+    .img-remove-btn:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.82rem;color:var(--text)}
+    .option-sub{font-size:.72rem;color:var(--text-muted);margin-top:2px}
+    .select-input{padding:7px 10px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.8rem;cursor:pointer}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+    .color-input{width:40px;height:34px;border-radius:8px;border:1.5px solid var(--gray-2);padding:2px;cursor:pointer;background:var(--card-bg)}
+
+    /* Range slider */
+    .range-wrap{display:flex;align-items:center;gap:10px}
+    .range-input{-webkit-appearance:none;width:120px;height:4px;border-radius:2px;background:var(--gray-2);outline:none}
+    .range-input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer}
+    .range-val{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;color:var(--blue);min-width:32px;text-align:right}
+
+    /* Preview mockup */
+    .preview-card{margin-top:20px;padding:20px;background:var(--card-bg);border:1.5px solid var(--gray-2);border-radius:14px}
+    .preview-card-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:12px}
+    .page-mockup{width:100%;max-width:300px;margin:0 auto;aspect-ratio:.707/1;background:white;border-radius:8px;border:1px solid var(--gray-2);position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+    [data-theme="dark"] .page-mockup{background:#1e293b}
+    .page-lines{padding:20px;display:flex;flex-direction:column;gap:8px}
+    .page-line{height:6px;background:#e2e8f0;border-radius:3px}
+    .page-line:nth-child(1){width:60%}.page-line:nth-child(2){width:90%}
+    .page-line:nth-child(3){width:80%}.page-line:nth-child(4){width:70%}
+    [data-theme="dark"] .page-line{background:#334155}
+    .wm-mockup-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .wm-mockup-text{font-family:'Helvetica',sans-serif;font-weight:bold;white-space:nowrap;transition:all .2s}
+    .wm-mockup-img{max-width:60%;max-height:60%;object-fit:contain;transition:all .2s}
+
+    /* Apply btn */
+    .apply-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .apply-btn.show{display:block}
+    .apply-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .apply-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.options-grid{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/numeros-pagina/">Nº de Página <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Marca d'água</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+    <div class="tool-hero">
+      <h1>💧 Marca d'água</h1>
+      <p>Adicione texto personalizado ou seu logo ao PDF. Controle opacidade, posição e ângulo com prévia em tempo real.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">💧</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <div class="options-section" id="options-section">
+      <!-- Type tabs -->
+      <div class="section-title">Tipo de marca d'água</div>
+      <div class="type-tabs">
+        <button class="type-tab active" onclick="switchType('text',this)">💬 Texto</button>
+        <button class="type-tab" onclick="switchType('image',this)">🖼️ Imagem</button>
+      </div>
+
+      <!-- Text panel -->
+      <div class="wm-panel active" id="panel-text">
+        <div class="text-input-row">
+          <input class="wm-text-input" type="text" id="wm-text" value="CONFIDENCIAL" placeholder="Digite o texto da marca d'água" oninput="updatePreview()"/>
+        </div>
+      </div>
+
+      <!-- Image panel -->
+      <div class="wm-panel" id="panel-image">
+        <div class="img-upload-zone" id="img-upload-zone">
+          <input type="file" id="wm-img-input" accept="image/*"/>
+          <div style="font-size:1.8rem;margin-bottom:8px">🖼️</div>
+          <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:4px">Clique ou arraste a imagem</div>
+          <div style="font-size:.75rem;color:var(--text-muted)">PNG com fundo transparente recomendado</div>
+        </div>
+        <div class="img-loaded-preview" id="img-loaded-preview">
+          <img id="wm-img-preview" src="" alt="Marca d'água"/>
+          <span style="font-family:Montserrat,sans-serif;font-size:.82rem;font-weight:700;color:var(--text);flex:1" id="wm-img-name"></span>
+          <div class="img-remove-btn" onclick="removeWmImg()">✕</div>
+        </div>
+      </div>
+
+      <!-- Common options -->
+      <div class="section-title" style="margin-top:20px">Opções</div>
+      <div class="options-grid">
+        <div class="option-row">
+          <div><div class="option-label">Posição</div><div class="option-sub">Onde a marca aparece</div></div>
+          <select class="select-input" id="opt-pos" onchange="updatePreview()">
+            <option value="center">Centro</option>
+            <option value="top-left">Sup. Esquerda</option>
+            <option value="top-right">Sup. Direita</option>
+            <option value="bottom-left">Inf. Esquerda</option>
+            <option value="bottom-right">Inf. Direita</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Ângulo</div><div class="option-sub">Rotação da marca</div></div>
+          <select class="select-input" id="opt-angle" onchange="updatePreview()">
+            <option value="0">0° (horizontal)</option>
+            <option value="45" selected>45° (diagonal)</option>
+            <option value="-45">-45° (diagonal)</option>
+            <option value="90">90° (vertical)</option>
+          </select>
+        </div>
+        <div class="option-row" id="text-color-row">
+          <div><div class="option-label">Cor do texto</div><div class="option-sub">Cor da marca d'água</div></div>
+          <input type="color" class="color-input" id="opt-color" value="#cccccc" onchange="updatePreview()"/>
+        </div>
+        <div class="option-row" id="text-size-row">
+          <div><div class="option-label">Tamanho</div><div class="option-sub">Tamanho do texto</div></div>
+          <select class="select-input" id="opt-textsize" onchange="updatePreview()">
+            <option value="24">Pequeno</option>
+            <option value="40" selected>Médio</option>
+            <option value="60">Grande</option>
+            <option value="80">Muito grande</option>
+          </select>
+        </div>
+        <div class="option-row" style="grid-column:1/-1">
+          <div><div class="option-label">Opacidade</div><div class="option-sub">Transparência da marca</div></div>
+          <div class="range-wrap">
+            <input type="range" class="range-input" id="opt-opacity" min="5" max="100" value="30" oninput="updateOpacity(this.value)"/>
+            <span class="range-val" id="opacity-val">30%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview mockup -->
+      <div class="preview-card">
+        <div class="preview-card-title">👁️ Pré-visualização</div>
+        <div class="page-mockup" id="page-mockup">
+          <div class="page-lines">
+            <div class="page-line"></div><div class="page-line"></div>
+            <div class="page-line"></div><div class="page-line"></div>
+          </div>
+          <div class="wm-mockup-overlay" id="wm-overlay">
+            <span class="wm-mockup-text" id="wm-mock-text">CONFIDENCIAL</span>
+            <img class="wm-mockup-img" id="wm-mock-img" src="" alt="" style="display:none"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="apply-btn" id="apply-btn" onclick="applyWatermark()">💧 Aplicar marca d'água</button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Aplicando marca d'água...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">Marca d'água aplicada!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF com Marca d'água</a>
+      <br/><span class="reset-link" onclick="resetTool()">Aplicar em outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🎨</div><h3>Texto ou logo</h3><p>Use texto personalizado ou faça upload do seu logo para proteger e identificar seus documentos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhum arquivo é enviado a servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de aplicações.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/numeros-pagina/"><span>🔢</span> Nº de Página</a>
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+        <a class="related-card" href="/tools/assinar-pdf/"><span>✍️</span> Assinar PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/organizar-pdf/"><span>📂</span> Organizar PDF</a>
+        <a class="related-card" href="/tools/rodar-pdf/"><span>🔄</span> Rodar PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/marca-dagua/">Marca d'água</a></li><li><a href="/tools/proteger-pdf/">Proteger PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+let selectedFile = null, totalPages = 0, wmType = 'text', wmImgDataUrl = null;
+
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f?.type === 'application/pdf') loadFile(f); else showToast('⚠️ Selecione um PDF.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+document.getElementById('wm-img-input').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    wmImgDataUrl = ev.target.result;
+    document.getElementById('wm-img-preview').src = wmImgDataUrl;
+    document.getElementById('wm-img-name').textContent = f.name;
+    document.getElementById('img-loaded-preview').classList.add('show');
+    document.getElementById('img-upload-zone').style.display = 'none';
+    document.getElementById('wm-mock-img').src = wmImgDataUrl;
+    updatePreview();
+  };
+  reader.readAsDataURL(f);
+});
+
+function removeWmImg() {
+  wmImgDataUrl = null;
+  document.getElementById('wm-img-input').value = '';
+  document.getElementById('img-loaded-preview').classList.remove('show');
+  document.getElementById('img-upload-zone').style.display = 'block';
+  document.getElementById('wm-mock-img').src = '';
+  updatePreview();
+}
+
+async function loadFile(file) {
+  selectedFile = file;
+  const buf = await file.arrayBuffer();
+  const pdf = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+  totalPages = pdf.getPageCount();
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = `${formatBytes(file.size)} · ${totalPages} página${totalPages !== 1 ? 's' : ''}`;
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('options-section').classList.add('show');
+  document.getElementById('apply-btn').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+  updatePreview();
+}
+
+function switchType(type, el) {
+  wmType = type;
+  document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.wm-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-'+type).classList.add('active');
+  const isImg = type === 'image';
+  document.getElementById('text-color-row').style.display = isImg ? 'none' : '';
+  document.getElementById('text-size-row').style.display  = isImg ? 'none' : '';
+  updatePreview();
+}
+
+function updateOpacity(val) {
+  document.getElementById('opacity-val').textContent = val + '%';
+  updatePreview();
+}
+
+function updatePreview() {
+  const opacity = parseInt(document.getElementById('opt-opacity').value) / 100;
+  const angle   = parseInt(document.getElementById('opt-angle').value);
+  const pos     = document.getElementById('opt-pos').value;
+  const text    = document.getElementById('wm-text').value || 'MARCA D\'ÁGUA';
+  const color   = document.getElementById('opt-color').value;
+  const size    = parseInt(document.getElementById('opt-textsize').value);
+
+  const mockText = document.getElementById('wm-mock-text');
+  const mockImg  = document.getElementById('wm-mock-img');
+  const overlay  = document.getElementById('wm-overlay');
+
+  if (wmType === 'text') {
+    mockText.style.display = ''; mockImg.style.display = 'none';
+    mockText.textContent = text;
+    mockText.style.color = color;
+    mockText.style.fontSize = Math.round(size * 0.28) + 'px';
+    mockText.style.opacity = opacity;
+    mockText.style.transform = `rotate(${angle}deg)`;
+  } else {
+    mockText.style.display = 'none';
+    if (wmImgDataUrl) { mockImg.style.display = ''; mockImg.style.opacity = opacity; mockImg.style.transform = `rotate(${angle}deg)`; }
+    else { mockText.style.display = ''; mockText.textContent = '🖼️ Aguardando imagem...'; mockText.style.color = '#aaa'; mockText.style.opacity = 1; mockText.style.fontSize = '14px'; mockText.style.transform = 'none'; }
+  }
+
+  // Position overlay
+  const posMap = {
+    'center':       { alignItems:'center',    justifyContent:'center' },
+    'top-left':     { alignItems:'flex-start', justifyContent:'flex-start' },
+    'top-right':    { alignItems:'flex-start', justifyContent:'flex-end' },
+    'bottom-left':  { alignItems:'flex-end',   justifyContent:'flex-start' },
+    'bottom-right': { alignItems:'flex-end',   justifyContent:'flex-end' },
+  };
+  const p = posMap[pos] || posMap['center'];
+  overlay.style.alignItems     = p.alignItems;
+  overlay.style.justifyContent = p.justifyContent;
+  overlay.style.padding = pos === 'center' ? '0' : '12px';
+}
+
+async function applyWatermark() {
+  if (!selectedFile) return;
+  if (wmType === 'image' && !wmImgDataUrl) { showToast('⚠️ Faça upload de uma imagem primeiro.'); return; }
+
+  const btn = document.getElementById('apply-btn');
+  btn.disabled = true; btn.textContent = '⏳ Aplicando...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  const opacity  = parseInt(document.getElementById('opt-opacity').value) / 100;
+  const angle    = parseInt(document.getElementById('opt-angle').value);
+  const pos      = document.getElementById('opt-pos').value;
+  const text     = document.getElementById('wm-text').value || 'MARCA D\'ÁGUA';
+  const color    = document.getElementById('opt-color').value;
+  const fontSize = parseInt(document.getElementById('opt-textsize').value);
+
+  try {
+    setProgress(10, 'Carregando PDF...');
+    const buf    = await selectedFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    const pages  = pdfDoc.getPages();
+
+    let wmImageEmbed = null;
+    if (wmType === 'image' && wmImgDataUrl) {
+      setProgress(25, 'Processando imagem...');
+      // Use canvas to convert to PNG bytes
+      const img = await loadImage(wmImgDataUrl);
+      const c   = document.createElement('canvas');
+      c.width = img.naturalWidth; c.height = img.naturalHeight;
+      c.getContext('2d').drawImage(img, 0, 0);
+      const pngBytes = await fetch(c.toDataURL('image/png')).then(r => r.arrayBuffer());
+      wmImageEmbed = await pdfDoc.embedPng(pngBytes);
+    }
+
+    const font = wmType === 'text' ? await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold) : null;
+    const r = parseInt(color.slice(1,3),16)/255;
+    const g = parseInt(color.slice(3,5),16)/255;
+    const b = parseInt(color.slice(5,7),16)/255;
+
+    for (let i = 0; i < pages.length; i++) {
+      const pct = Math.round(25 + ((i+1)/pages.length)*65);
+      setProgress(pct, `Aplicando na página ${i+1}...`);
+      const page = pages[i];
+      const { width, height } = page.getSize();
+      const rad = (angle * Math.PI) / 180;
+
+      if (wmType === 'text') {
+        const textW = font.widthOfTextAtSize(text, fontSize);
+        let x, y;
+        const m = 40;
+        switch(pos) {
+          case 'top-left':     x = m; y = height - m - fontSize; break;
+          case 'top-right':    x = width - textW - m; y = height - m - fontSize; break;
+          case 'bottom-left':  x = m; y = m; break;
+          case 'bottom-right': x = width - textW - m; y = m; break;
+          default:             x = (width - textW) / 2; y = (height - fontSize) / 2;
+        }
+        page.drawText(text, {
+          x, y, size: fontSize, font,
+          color: PDFLib.rgb(r,g,b),
+          opacity,
+          rotate: PDFLib.degrees(angle),
+        });
+      } else if (wmImageEmbed) {
+        const imgDims = wmImageEmbed.scale(0.4);
+        let x, y;
+        const m = 40;
+        switch(pos) {
+          case 'top-left':     x = m; y = height - imgDims.height - m; break;
+          case 'top-right':    x = width - imgDims.width - m; y = height - imgDims.height - m; break;
+          case 'bottom-left':  x = m; y = m; break;
+          case 'bottom-right': x = width - imgDims.width - m; y = m; break;
+          default:             x = (width - imgDims.width)/2; y = (height - imgDims.height)/2;
+        }
+        page.drawImage(wmImageEmbed, {
+          x, y, width: imgDims.width, height: imgDims.height,
+          opacity,
+          rotate: PDFLib.degrees(angle),
+        });
+      }
+    }
+
+    setProgress(95, 'Salvando...');
+    const bytes = await pdfDoc.save();
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
+    setProgress(100, 'Concluído!');
+
+    setTimeout(() => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '_marca_dagua.pdf');
+      document.getElementById('result-sub').textContent = `${pages.length} página${pages.length !== 1 ? 's' : ''} com marca d'água · ${formatBytes(blob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '💧 Aplicar novamente';
+    }, 400);
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao aplicar. Tente novamente.');
+    btn.disabled = false; btn.textContent = '💧 Aplicar marca d\'água';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function loadImage(src) {
+  return new Promise((res,rej) => { const i = new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=src; });
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; totalPages = 0; wmImgDataUrl = null; wmType = 'text'; fileInput.value = '';
+  dropZone.style.display = 'block';
+  ['file-preview','options-section','result-box','progress-wrap'].forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('apply-btn').classList.remove('show');
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>

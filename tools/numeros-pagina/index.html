@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inserir Número de Página em PDF Online Grátis — TudoPDF</title>
+  <meta name="description" content="Adicione números de página ao seu PDF online, grátis e sem cadastro. Escolha posição, formato e fonte. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/numeros-pagina/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Options */
+    .options-section{display:none;margin-top:24px}
+    .options-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+
+    /* Position picker */
+    .position-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:320px;margin-bottom:20px}
+    .pos-btn{aspect-ratio:1.4/1;border:2px solid var(--gray-2);border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-family:'Montserrat',sans-serif;font-weight:700;color:var(--text-muted);transition:all .2s;background:var(--card-bg)}
+    .pos-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .pos-btn.selected{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .pos-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
+
+    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.82rem;color:var(--text)}
+    .option-sub{font-size:.72rem;color:var(--text-muted);margin-top:2px}
+    .select-input{padding:7px 10px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.8rem;cursor:pointer}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+    .color-input{width:40px;height:34px;border-radius:8px;border:1.5px solid var(--gray-2);padding:2px;cursor:pointer;background:var(--card-bg)}
+
+    /* Live preview card */
+    .preview-card{margin-top:20px;padding:20px;background:var(--card-bg);border:1.5px solid var(--gray-2);border-radius:14px}
+    .preview-card-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:12px}
+    .page-mockup{width:100%;max-width:300px;margin:0 auto;aspect-ratio:.707/1;background:white;border-radius:8px;border:1px solid var(--gray-2);position:relative;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+    [data-theme="dark"] .page-mockup{background:#1e293b}
+    .page-lines{padding:20px;display:flex;flex-direction:column;gap:8px}
+    .page-line{height:6px;background:#e2e8f0;border-radius:3px}
+    .page-line:first-child{width:60%}
+    .page-line:nth-child(2){width:90%}
+    .page-line:nth-child(3){width:80%}
+    .page-line:nth-child(4){width:70%}
+    [data-theme="dark"] .page-line{background:#334155}
+    .page-number-preview{position:absolute;font-family:'Helvetica',sans-serif;font-weight:normal;white-space:nowrap;pointer-events:none;transition:all .2s}
+
+    /* Apply btn */
+    .apply-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .apply-btn.show{display:block}
+    .apply-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .apply-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.options-grid{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/organizar-pdf/">Organizar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Inserir Nº de Página</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+    <div class="tool-hero">
+      <h1>🔢 Inserir Nº de Página</h1>
+      <p>Adicione números de página ao seu PDF com controle total sobre posição, formato e aparência.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">🔢</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <div class="options-section" id="options-section">
+      <!-- Position picker -->
+      <div class="section-title">Posição do número</div>
+      <div class="position-picker" id="position-picker">
+        <button class="pos-btn" data-pos="top-left"    onclick="selectPos('top-left',this)">↖ Sup. Esq.</button>
+        <button class="pos-btn" data-pos="top-center"  onclick="selectPos('top-center',this)">↑ Sup. Centro</button>
+        <button class="pos-btn" data-pos="top-right"   onclick="selectPos('top-right',this)">↗ Sup. Dir.</button>
+        <button class="pos-btn" data-pos="bottom-left" onclick="selectPos('bottom-left',this)">↙ Inf. Esq.</button>
+        <button class="pos-btn selected" data-pos="bottom-center" onclick="selectPos('bottom-center',this)">↓ Inf. Centro</button>
+        <button class="pos-btn" data-pos="bottom-right" onclick="selectPos('bottom-right',this)">↘ Inf. Dir.</button>
+      </div>
+
+      <div class="section-title">Configurações</div>
+      <div class="options-grid">
+        <div class="option-row">
+          <div><div class="option-label">Formato</div><div class="option-sub">Como o número aparece</div></div>
+          <select class="select-input" id="opt-format" onchange="updatePreview()">
+            <option value="n">1, 2, 3...</option>
+            <option value="pag-n">Pág. 1, Pág. 2...</option>
+            <option value="n-total">1/10, 2/10...</option>
+            <option value="page-n-of-total">Página 1 de 10</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Tamanho da fonte</div><div class="option-sub">Em pontos</div></div>
+          <select class="select-input" id="opt-size" onchange="updatePreview()">
+            <option value="8">8pt</option>
+            <option value="10" selected>10pt</option>
+            <option value="12">12pt</option>
+            <option value="14">14pt</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Cor do número</div><div class="option-sub">Clique para escolher</div></div>
+          <input type="color" class="color-input" id="opt-color" value="#000000" onchange="updatePreview()"/>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Começar a partir da página</div><div class="option-sub">Ignorar páginas iniciais</div></div>
+          <select class="select-input" id="opt-start">
+            <option value="1">Página 1 (todas)</option>
+            <option value="2">Página 2</option>
+            <option value="3">Página 3</option>
+            <option value="4">Página 4</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Número inicial</div><div class="option-sub">Com qual número começar</div></div>
+          <select class="select-input" id="opt-startnum">
+            <option value="1">1</option>
+            <option value="0">0</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Margem da borda</div><div class="option-sub">Distância da borda em pt</div></div>
+          <select class="select-input" id="opt-margin">
+            <option value="20">20pt</option>
+            <option value="30" selected>30pt</option>
+            <option value="40">40pt</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Live preview -->
+      <div class="preview-card">
+        <div class="preview-card-title">👁️ Pré-visualização</div>
+        <div class="page-mockup" id="page-mockup">
+          <div class="page-lines">
+            <div class="page-line"></div><div class="page-line"></div>
+            <div class="page-line"></div><div class="page-line"></div>
+          </div>
+          <div class="page-number-preview" id="num-preview">1</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="apply-btn" id="apply-btn" onclick="applyNumbers()">🔢 Inserir números de página</button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Inserindo números...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">Números inseridos com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF com Numeração</a>
+      <br/><span class="reset-link" onclick="resetTool()">Numerar outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🎨</div><h3>Prévia em tempo real</h3><p>Veja exatamente como o número ficará na página antes de aplicar.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhum arquivo é enviado a servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem marca d'água adicional, sem limite.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/marca-dagua/"><span>💧</span> Marca d'água</a>
+        <a class="related-card" href="/tools/rodar-pdf/"><span>🔄</span> Rodar PDF</a>
+        <a class="related-card" href="/tools/organizar-pdf/"><span>📂</span> Organizar PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/numeros-pagina/">Nº de Página</a></li><li><a href="/tools/rodar-pdf/">Rodar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+let selectedFile = null, totalPages = 0;
+let selectedPos  = 'bottom-center';
+
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f?.type === 'application/pdf') loadFile(f); else showToast('⚠️ Selecione um PDF.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+async function loadFile(file) {
+  selectedFile = file;
+  const buf = await file.arrayBuffer();
+  const pdf = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+  totalPages = pdf.getPageCount();
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = `${formatBytes(file.size)} · ${totalPages} página${totalPages !== 1 ? 's' : ''}`;
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('options-section').classList.add('show');
+  document.getElementById('apply-btn').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+  updatePreview();
+}
+
+function selectPos(pos, el) {
+  selectedPos = pos;
+  document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  updatePreview();
+}
+
+function updatePreview() {
+  const fmt    = document.getElementById('opt-format').value;
+  const size   = parseInt(document.getElementById('opt-size').value);
+  const color  = document.getElementById('opt-color').value;
+  const label  = getPageLabel(1, totalPages || 10, fmt);
+  const mockup = document.getElementById('page-mockup');
+  const prev   = document.getElementById('num-preview');
+  const margin = 5; // % of mockup
+
+  prev.textContent = label;
+  prev.style.fontSize = (size * 0.7) + 'px';
+  prev.style.color    = color;
+
+  const [vert, horiz] = selectedPos.split('-');
+  prev.style.top    = vert === 'top'    ? margin + '%' : '';
+  prev.style.bottom = vert === 'bottom' ? margin + '%' : '';
+  prev.style.left   = horiz === 'left'   ? margin + '%' : horiz === 'center' ? '50%' : '';
+  prev.style.right  = horiz === 'right'  ? margin + '%' : '';
+  prev.style.transform = horiz === 'center' ? 'translateX(-50%)' : '';
+}
+
+function getPageLabel(pageNum, total, fmt) {
+  switch(fmt) {
+    case 'n':             return String(pageNum);
+    case 'pag-n':         return `Pág. ${pageNum}`;
+    case 'n-total':       return `${pageNum}/${total}`;
+    case 'page-n-of-total': return `Página ${pageNum} de ${total}`;
+    default: return String(pageNum);
+  }
+}
+
+async function applyNumbers() {
+  if (!selectedFile) return;
+  const btn = document.getElementById('apply-btn');
+  btn.disabled = true; btn.textContent = '⏳ Inserindo...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  const fmt      = document.getElementById('opt-format').value;
+  const fontSize = parseInt(document.getElementById('opt-size').value);
+  const color    = document.getElementById('opt-color').value;
+  const startPage = parseInt(document.getElementById('opt-start').value);
+  const startNum  = parseInt(document.getElementById('opt-startnum').value);
+  const margin    = parseInt(document.getElementById('opt-margin').value);
+
+  // Parse hex color to RGB 0-1
+  const r = parseInt(color.slice(1,3),16)/255;
+  const g = parseInt(color.slice(3,5),16)/255;
+  const b = parseInt(color.slice(5,7),16)/255;
+
+  try {
+    setProgress(10, 'Carregando PDF...');
+    const buf    = await selectedFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    const pages  = pdfDoc.getPages();
+    const font   = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+
+    for (let i = 0; i < pages.length; i++) {
+      const pct = Math.round(10 + ((i+1)/pages.length)*80);
+      setProgress(pct, `Adicionando número na página ${i+1}...`);
+      if (i + 1 < startPage) continue;
+
+      const page   = pages[i];
+      const { width, height } = page.getSize();
+      const pageNum = i + 1 - startPage + startNum + (startPage > 1 ? 0 : 0);
+      const displayNum = i + startNum;
+      const label  = getPageLabel(displayNum, pages.length, fmt);
+      const textW  = font.widthOfTextAtSize(label, fontSize);
+
+      let x, y;
+      const [vert, horiz] = selectedPos.split('-');
+      y = vert === 'top' ? height - margin - fontSize : margin;
+      if (horiz === 'left')   x = margin;
+      else if (horiz === 'right')  x = width - textW - margin;
+      else x = (width - textW) / 2;
+
+      page.drawText(label, { x, y, size: fontSize, font, color: PDFLib.rgb(r,g,b) });
+    }
+
+    setProgress(95, 'Salvando...');
+    const bytes = await pdfDoc.save();
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
+    setProgress(100, 'Concluído!');
+
+    setTimeout(() => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '_numerado.pdf');
+      document.getElementById('result-sub').textContent = `${pages.length} página${pages.length !== 1 ? 's' : ''} numerada${pages.length !== 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '🔢 Inserir novamente';
+    }, 400);
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao processar. Tente novamente.');
+    btn.disabled = false; btn.textContent = '🔢 Inserir números de página';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; totalPages = 0; fileInput.value = '';
+  dropZone.style.display = 'block';
+  ['file-preview','options-section','result-box','progress-wrap'].forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('apply-btn').classList.remove('show');
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>
