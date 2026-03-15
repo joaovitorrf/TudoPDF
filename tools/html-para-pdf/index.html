@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML para PDF Online Grátis — Página web em documento — TudoPDF</title>
+  <meta name="description" content="Converta HTML em PDF online, grátis e sem cadastro. Cole o código, faça upload ou informe uma URL. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/html-para-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    /* Mode tabs */
+    .mode-tabs{display:flex;gap:0;margin-bottom:24px;background:var(--gray-1);border:1.5px solid var(--gray-2);border-radius:14px;padding:5px;overflow:hidden}
+    .mode-tab{flex:1;padding:11px 8px;text-align:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8rem;color:var(--text-muted);cursor:pointer;border-radius:10px;transition:background .2s,color .2s,box-shadow .2s;border:none;background:transparent}
+    .mode-tab.active{background:var(--card-bg);color:var(--blue);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .mode-tab:hover:not(.active){color:var(--text)}
+
+    /* Input panels */
+    .input-panel{display:none}
+    .input-panel.active{display:block}
+
+    /* Code editor */
+    .code-editor{
+      width:100%;min-height:280px;padding:18px;
+      background:var(--card-bg);border:1.5px solid var(--gray-2);
+      border-radius:14px;font-family:'Courier New',monospace;font-size:.85rem;
+      color:var(--text);line-height:1.6;resize:vertical;
+      transition:border-color .2s;
+    }
+    .code-editor:focus{outline:none;border-color:var(--blue)}
+    .code-editor-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+    .code-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text)}
+    .code-actions{display:flex;gap:8px}
+    .code-btn{padding:5px 12px;border-radius:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s}
+    .code-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    /* Upload zone */
+    .upload-zone{border:2.5px dashed var(--gray-2);border-radius:16px;background:var(--gray-1);padding:48px 32px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .upload-zone:hover,.upload-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .uz-icon{font-size:2.8rem;margin-bottom:12px}
+    .uz-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:6px}
+    .uz-sub{font-size:.82rem;color:var(--text-muted)}
+    .uz-btn{margin-top:16px;display:inline-block;padding:10px 24px;background:var(--blue);color:white;border-radius:9px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;pointer-events:none}
+
+    .file-loaded{display:none;align-items:center;gap:14px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:12px;padding:16px 20px;margin-top:14px}
+    .file-loaded.show{display:flex}
+    .fl-icon{font-size:2rem;flex-shrink:0}
+    .fl-info{flex:1;min-width:0}
+    .fl-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fl-size{font-size:.75rem;color:var(--text-muted);margin-top:3px}
+    .fl-remove{width:30px;height:30px;border-radius:7px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;flex-shrink:0;transition:all .2s}
+    .fl-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* URL input */
+    .url-wrap{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+    .url-input{flex:1;min-width:200px;padding:13px 16px;border-radius:12px;border:1.5px solid var(--gray-2);background:var(--card-bg);font-family:'Open Sans',sans-serif;font-size:.9rem;color:var(--text);transition:border-color .2s}
+    .url-input:focus{outline:none;border-color:var(--blue)}
+    .url-input.error{border-color:#ef4444}
+    .url-fetch-btn{padding:13px 20px;border-radius:12px;background:var(--blue);color:white;border:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;transition:background .2s,transform .2s;white-space:nowrap}
+    .url-fetch-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-1px)}
+    .url-fetch-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .url-hint{font-size:.75rem;color:var(--text-muted);margin-top:8px;line-height:1.5}
+    .url-status{display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:.8rem;font-weight:600;font-family:'Montserrat',sans-serif}
+    .url-status.show{display:block}
+    .url-status.loading{background:var(--blue-light);color:var(--blue);border:1px solid var(--blue)}
+    .url-status.ok{background:#f0fdf4;color:#15803d;border:1px solid #86efac}
+    .url-status.fail{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5}
+    [data-theme="dark"] .url-status.ok{background:#052e16;border-color:#166534;color:#4ade80}
+    [data-theme="dark"] .url-status.fail{background:#450a0a;border-color:#991b1b;color:#f87171}
+
+    /* Preview iframe */
+    .preview-section{display:none;margin-top:24px}
+    .preview-section.show{display:block}
+    .preview-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+    .preview-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text)}
+    .preview-toggle{padding:5px 12px;border-radius:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s}
+    .preview-toggle:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .preview-frame{width:100%;height:360px;border:1.5px solid var(--gray-2);border-radius:12px;background:white;overflow:hidden}
+
+    /* Options */
+    .options-section{display:none;margin-top:24px}
+    .options-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.82rem;color:var(--text)}
+    .option-sub{font-size:.72rem;color:var(--text-muted);margin-top:2px}
+    .select-input{padding:7px 10px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.8rem;cursor:pointer;transition:border-color .2s}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+
+    /* Convert button */
+    .convert-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .convert-btn.show{display:block}
+    .convert-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .convert-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Progress + Result */
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .35s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    @media(max-width:640px){
+      .options-grid{grid-template-columns:1fr}
+      .info-cards{grid-template-columns:1fr}
+      .mode-tab{font-size:.7rem;padding:10px 4px}
+    }
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>HTML para PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>🌐 HTML para PDF</h1>
+      <p>Cole seu código HTML, faça upload de um arquivo <code>.html</code> ou informe uma URL para converter em PDF.</p>
+    </div>
+
+    <!-- Mode tabs -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="switchMode('code', this)">💻 Colar código</button>
+      <button class="mode-tab" onclick="switchMode('upload', this)">📁 Upload .html</button>
+      <button class="mode-tab" onclick="switchMode('url', this)">🔗 URL da página</button>
+    </div>
+
+    <!-- Panel: code -->
+    <div class="input-panel active" id="panel-code">
+      <div class="code-editor-header">
+        <span class="code-label">Código HTML</span>
+        <div class="code-actions">
+          <button class="code-btn" onclick="loadSample()">📋 Carregar exemplo</button>
+          <button class="code-btn" onclick="clearCode()">✕ Limpar</button>
+        </div>
+      </div>
+      <textarea class="code-editor" id="html-code" placeholder="<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 40px; }
+    h1 { color: #007BFF; }
+  </style>
+</head>
+<body>
+  <h1>Meu documento</h1>
+  <p>Cole seu HTML aqui...</p>
+</body>
+</html>"></textarea>
+    </div>
+
+    <!-- Panel: upload -->
+    <div class="input-panel" id="panel-upload">
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="html-file-input" accept=".html,.htm"/>
+        <div class="uz-icon">📁</div>
+        <div class="uz-title">Arraste seu arquivo HTML aqui</div>
+        <div class="uz-sub">ou clique para selecionar (.html, .htm)</div>
+        <div class="uz-btn">Selecionar arquivo</div>
+      </div>
+      <div class="file-loaded" id="file-loaded">
+        <div class="fl-icon">🌐</div>
+        <div class="fl-info">
+          <div class="fl-name" id="fl-name"></div>
+          <div class="fl-size" id="fl-size"></div>
+        </div>
+        <div class="fl-remove" onclick="removeHtmlFile()">✕</div>
+      </div>
+    </div>
+
+    <!-- Panel: url -->
+    <div class="input-panel" id="panel-url">
+      <div class="url-wrap">
+        <input class="url-input" type="url" id="url-input" placeholder="https://exemplo.com.br"/>
+        <button class="url-fetch-btn" id="url-fetch-btn" onclick="fetchURL()">🔗 Buscar página</button>
+      </div>
+      <div class="url-hint">
+        ⚠️ A busca usa um proxy público (allorigins.win). Sites com JavaScript pesado ou proteção anti-bot podem não carregar corretamente.
+      </div>
+      <div class="url-status" id="url-status"></div>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-section" id="preview-section">
+      <div class="preview-header">
+        <span class="preview-title">👁️ Pré-visualização</span>
+        <button class="preview-toggle" onclick="togglePreview()">Ocultar prévia</button>
+      </div>
+      <iframe class="preview-frame" id="preview-frame" sandbox="allow-same-origin"></iframe>
+    </div>
+
+    <!-- Options -->
+    <div class="options-section" id="options-section">
+      <div class="section-title">Opções do PDF</div>
+      <div class="options-grid">
+        <div class="option-row">
+          <div><div class="option-label">Tamanho</div><div class="option-sub">Formato da página</div></div>
+          <select class="select-input" id="pdf-size">
+            <option value="a4">A4</option>
+            <option value="letter">Carta</option>
+            <option value="a3">A3</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Orientação</div><div class="option-sub">Retrato ou paisagem</div></div>
+          <select class="select-input" id="pdf-orient">
+            <option value="portrait">Retrato</option>
+            <option value="landscape">Paisagem</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Escala</div><div class="option-sub">Zoom do conteúdo</div></div>
+          <select class="select-input" id="pdf-scale">
+            <option value="1">100% (padrão)</option>
+            <option value="0.8">80%</option>
+            <option value="0.6">60% (mais conteúdo)</option>
+            <option value="1.2">120% (maior)</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <div><div class="option-label">Fundo</div><div class="option-sub">Imprimir cores de fundo</div></div>
+          <select class="select-input" id="pdf-bg">
+            <option value="yes">Incluir fundo</option>
+            <option value="no">Sem fundo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <button class="convert-btn show" id="convert-btn" onclick="convertToPDF()">
+      🌐 Converter para PDF
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Renderizando HTML...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF gerado com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="pagina.pdf">⬇️ Baixar PDF</a>
+      <br/><span class="reset-link" onclick="softReset()">Converter outro HTML</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🔗</div><h3>3 formas de entrada</h3><p>Cole o código diretamente, faça upload de um arquivo .html ou informe a URL de qualquer página web.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no seu navegador. Nenhum arquivo ou código é enviado a servidores externos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de conversões, sem marca d'água no resultado.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/jpg-para-pdf/"><span>🖼️</span> JPG para PDF</a>
+        <a class="related-card" href="/tools/digitalizar-pdf/"><span>📷</span> Digitalizar PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/pdf-para-jpg/"><span>🖼️</span> PDF para JPG</a>
+        <a class="related-card" href="/tools/ocr-pdf/"><span>🔍</span> OCR PDF</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/html-para-pdf/">HTML para PDF</a></li><li><a href="/tools/jpg-para-pdf/">JPG para PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<!-- html2canvas para capturar o HTML renderizado -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- jsPDF para montar o PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+let currentMode   = 'code';
+let loadedHTML    = '';   // HTML string pronta para uso
+let previewVisible = true;
+let uploadedFile  = null;
+
+/* ── Mode switch ── */
+function switchMode(mode, tab) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  document.querySelectorAll('.input-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-'+mode).classList.add('active');
+  document.getElementById('preview-section').classList.remove('show');
+  document.getElementById('result-box').classList.remove('show');
+  loadedHTML = '';
+}
+
+/* ── Code panel ── */
+function loadSample() {
+  document.getElementById('html-code').value = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; padding: 48px; color: #1e293b; background: #fff; }
+    h1 { font-size: 2rem; color: #007BFF; margin-bottom: 8px; }
+    p  { line-height: 1.7; color: #475569; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+    th { background: #007BFF; color: white; padding: 10px 14px; text-align: left; }
+    td { padding: 9px 14px; border-bottom: 1px solid #e2e8f0; }
+    tr:nth-child(even) td { background: #f8fafc; }
+  </style>
+</head>
+<body>
+  <h1>Relatório TudoPDF</h1>
+  <p>Este é um exemplo de documento gerado a partir de HTML. Você pode personalizar completamente o layout, estilos e conteúdo antes de converter.</p>
+  <table>
+    <tr><th>Item</th><th>Valor</th><th>Status</th></tr>
+    <tr><td>Produto A</td><td>R$ 150,00</td><td>✅ Ativo</td></tr>
+    <tr><td>Produto B</td><td>R$ 320,00</td><td>✅ Ativo</td></tr>
+    <tr><td>Produto C</td><td>R$ 89,90</td><td>⏸️ Pausado</td></tr>
+  </table>
+</body>
+</html>`;
+  updatePreview();
+}
+
+function clearCode() {
+  document.getElementById('html-code').value = '';
+  document.getElementById('preview-section').classList.remove('show');
+}
+
+document.getElementById('html-code').addEventListener('input', debounce(updatePreview, 600));
+
+/* ── Upload panel ── */
+const uploadZone    = document.getElementById('upload-zone');
+const htmlFileInput = document.getElementById('html-file-input');
+
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault(); uploadZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f && (f.name.endsWith('.html') || f.name.endsWith('.htm'))) loadHTMLFile(f);
+  else showToast('⚠️ Selecione um arquivo .html ou .htm');
+});
+htmlFileInput.addEventListener('change', e => { if (e.target.files[0]) loadHTMLFile(e.target.files[0]); });
+
+function loadHTMLFile(file) {
+  uploadedFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    loadedHTML = e.target.result;
+    document.getElementById('fl-name').textContent = file.name;
+    document.getElementById('fl-size').textContent = formatBytes(file.size);
+    document.getElementById('file-loaded').classList.add('show');
+    uploadZone.style.display = 'none';
+    updatePreviewFromHTML(loadedHTML);
+  };
+  reader.readAsText(file);
+}
+
+function removeHtmlFile() {
+  uploadedFile = null; loadedHTML = '';
+  htmlFileInput.value = '';
+  document.getElementById('file-loaded').classList.remove('show');
+  uploadZone.style.display = 'block';
+  document.getElementById('preview-section').classList.remove('show');
+}
+
+/* ── URL panel ── */
+async function fetchURL() {
+  const url = document.getElementById('url-input').value.trim();
+  if (!url || !url.startsWith('http')) {
+    document.getElementById('url-input').classList.add('error');
+    showToast('⚠️ Informe uma URL válida começando com http://');
+    return;
+  }
+  document.getElementById('url-input').classList.remove('error');
+  const btn    = document.getElementById('url-fetch-btn');
+  const status = document.getElementById('url-status');
+  btn.disabled = true; btn.textContent = '⏳ Buscando...';
+  status.className = 'url-status show loading';
+  status.textContent = '⏳ Buscando o HTML da página via proxy...';
+
+  try {
+    const proxyURL = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+    const resp     = await fetch(proxyURL);
+    if (!resp.ok) throw new Error('Proxy retornou erro');
+    const data = await resp.json();
+    if (!data.contents) throw new Error('Conteúdo vazio');
+
+    // Injeta base href para que recursos relativos resolvam
+    const base    = new URL(url);
+    const baseTag = `<base href="${base.origin}${base.pathname.replace(/[^/]*$/, '')}"/>`;
+    loadedHTML = data.contents.replace(/<head[^>]*>/i, m => m + baseTag);
+
+    status.className = 'url-status show ok';
+    status.textContent = `✅ HTML carregado com sucesso! (${formatBytes(loadedHTML.length)})`;
+    updatePreviewFromHTML(loadedHTML);
+  } catch (err) {
+    status.className = 'url-status show fail';
+    status.textContent = '❌ Não foi possível carregar a página. O site pode ter proteção anti-bot ou CORS restrito.';
+    loadedHTML = '';
+  }
+  btn.disabled = false; btn.textContent = '🔗 Buscar página';
+}
+
+/* ── Preview ── */
+function getActiveHTML() {
+  if (currentMode === 'code') return document.getElementById('html-code').value.trim();
+  return loadedHTML;
+}
+
+function updatePreview() {
+  const html = getActiveHTML();
+  if (!html) return;
+  updatePreviewFromHTML(html);
+}
+
+function updatePreviewFromHTML(html) {
+  if (!html) return;
+  const frame = document.getElementById('preview-frame');
+  frame.srcdoc = html;
+  document.getElementById('preview-section').classList.add('show');
+  document.getElementById('options-section').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+}
+
+function togglePreview() {
+  previewVisible = !previewVisible;
+  const frame  = document.getElementById('preview-frame');
+  const toggle = document.querySelector('.preview-toggle');
+  frame.style.display    = previewVisible ? 'block' : 'none';
+  toggle.textContent     = previewVisible ? 'Ocultar prévia' : 'Mostrar prévia';
+}
+
+/* ── Convert ── */
+async function convertToPDF() {
+  const html = getActiveHTML();
+  if (!html) { showToast('⚠️ Nenhum conteúdo HTML para converter.'); return; }
+
+  const btn = document.getElementById('convert-btn');
+  btn.disabled = true; btn.textContent = '⏳ Convertendo...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  const pdfSize  = document.getElementById('pdf-size').value;
+  const orient   = document.getElementById('pdf-orient').value;
+  const scale    = parseFloat(document.getElementById('pdf-scale').value);
+  const includeBg = document.getElementById('pdf-bg').value === 'yes';
+
+  try {
+    setProgress(10, 'Preparando renderização...');
+
+    // Render HTML in a hidden iframe → capture with html2canvas
+    const container = document.createElement('div');
+    container.style.cssText = 'position:fixed;left:-9999px;top:0;width:900px;background:white;z-index:-1';
+    container.innerHTML = html;
+    document.body.appendChild(container);
+
+    setProgress(30, 'Renderizando HTML...');
+    await new Promise(r => setTimeout(r, 200));
+
+    const canvas = await html2canvas(container, {
+      scale,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: includeBg ? null : '#ffffff',
+      logging: false,
+      windowWidth: 900,
+    });
+
+    document.body.removeChild(container);
+    setProgress(70, 'Gerando PDF...');
+
+    const { jsPDF } = window.jspdf;
+    const imgData   = canvas.toDataURL('image/jpeg', 0.92);
+    const pdf       = new jsPDF({ orientation: orient, unit: 'pt', format: pdfSize, compress: true });
+    const docW = pdf.internal.pageSize.getWidth();
+    const docH = pdf.internal.pageSize.getHeight();
+
+    // Paginate if content is taller than one page
+    const imgW   = docW;
+    const imgH   = (canvas.height * docW) / canvas.width;
+    let yOffset  = 0;
+    let pageNum  = 0;
+
+    while (yOffset < imgH) {
+      if (pageNum > 0) pdf.addPage(pdfSize, orient);
+      pdf.addImage(imgData, 'JPEG', 0, -yOffset, imgW, imgH, undefined, 'FAST');
+      yOffset += docH;
+      pageNum++;
+    }
+
+    setProgress(95, 'Finalizando...');
+    const bytes = pdf.output('arraybuffer');
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
+
+    setProgress(100, 'Concluído!');
+    setTimeout(() => {
+      const url  = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('result-sub').textContent =
+        `${pageNum} página${pageNum > 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '🌐 Converter novamente';
+    }, 400);
+
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao converter. Verifique se o HTML é válido.');
+    btn.disabled = false; btn.textContent = '🌐 Converter para PDF';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function softReset() {
+  document.getElementById('result-box').classList.remove('show');
+  document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function debounce(fn, delay) {
+  let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+  return (b / 1048576).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>
