@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JPG para PDF Online Grátis — Imagens para PDF — TudoPDF</title>
+  <meta name="description" content="Converta JPG, PNG e outras imagens em PDF online, grátis e sem cadastro. Un arquivo ou um PDF por imagem. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/jpg-para-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    /* Images section */
+    .images-section{display:none;margin-top:20px}
+    .images-section.show{display:block}
+    .images-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;padding:12px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px}
+    .images-count{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text)}
+    .images-hint{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+    .toolbar-btns{display:flex;gap:8px}
+    .tb-btn{padding:7px 13px;border-radius:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.73rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s}
+    .tb-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    .images-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+    .img-card{background:var(--card-bg);border:2px solid var(--gray-2);border-radius:12px;padding:8px;cursor:grab;user-select:none;position:relative;transition:border-color .2s,box-shadow .2s,transform .15s,opacity .2s}
+    .img-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+    .img-card.dragging{opacity:.35;transform:scale(.97)}
+    .img-card.drag-over{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,123,255,.2)}
+    .img-thumb{width:100%;aspect-ratio:.707/1;object-fit:cover;border-radius:7px;display:block;background:var(--gray-1)}
+    .img-footer{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
+    .img-name{font-size:.65rem;color:var(--text-muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:4px}
+    .img-num{width:20px;height:20px;border-radius:50%;background:var(--blue);color:white;font-family:'Montserrat',sans-serif;font-weight:900;font-size:.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .img-remove{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.7rem;flex-shrink:0;transition:all .2s}
+    .img-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    .add-more-wrap{margin-top:10px;position:relative}
+    .add-more-btn{width:100%;padding:11px;border-radius:11px;border:2px dashed var(--gray-2);background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .2s;position:relative}
+    .add-more-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+    .add-more-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    /* Options */
+    .options-section{display:none;margin-top:24px}
+    .options-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+
+    /* Output mode cards */
+    .mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+    .mode-card{border:2px solid var(--gray-2);border-radius:14px;padding:18px 16px;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
+    .mode-card:hover{border-color:var(--blue);background:var(--blue-light)}
+    .mode-card.selected{border-color:var(--blue);background:var(--blue-light)}
+    .mode-card.selected::after{content:'✓';position:absolute;top:10px;right:14px;font-size:.8rem;color:var(--blue);font-weight:700}
+    .mc-icon{font-size:1.6rem;margin-bottom:8px}
+    .mc-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:4px}
+    .mc-desc{font-size:.75rem;color:var(--text-muted);line-height:1.5}
+
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 18px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;margin-bottom:10px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.85rem;color:var(--text)}
+    .option-sub{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+    .select-input{padding:8px 12px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.82rem;cursor:pointer;transition:border-color .2s}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+
+    /* Convert button */
+    .convert-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .convert-btn.show{display:block}
+    .convert-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .convert-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Progress */
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    /* Result */
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-header{text-align:center;margin-bottom:20px}
+    .result-icon{font-size:2.5rem;margin-bottom:10px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.1rem;color:#15803d}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .single-download{text-align:center}
+    .single-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .result-files-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+    .result-file-item{display:flex;align-items:center;gap:12px;background:white;border-radius:10px;padding:12px 16px;border:1px solid #bbf7d0}
+    [data-theme="dark"] .result-file-item{background:rgba(255,255,255,.05);border-color:#166534}
+    .rfi-icon{font-size:1.4rem}
+    .rfi-info{flex:1;min-width:0}
+    .rfi-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rfi-meta{font-size:.72rem;color:var(--text-muted);margin-top:2px}
+    .rfi-dl{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#16a34a;color:white;border-radius:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.75rem;transition:background .2s;white-space:nowrap;flex-shrink:0}
+    .rfi-dl:hover{background:#15803d}
+    .download-all-btn{display:block;width:100%;margin-top:14px;padding:13px;background:#16a34a;color:white;border-radius:12px;text-align:center;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;transition:background .2s,transform .2s;box-shadow:0 4px 14px rgba(22,163,74,.3);cursor:pointer;border:none}
+    .download-all-btn:hover{background:#15803d;transform:translateY(-1px)}
+    .reset-link{display:block;text-align:center;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    @media(max-width:640px){.mode-cards{grid-template-columns:1fr}.images-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/digitalizar-pdf/">Digitalizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/digitalizar-pdf/">Digitalizar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>JPG para PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>🖼️ JPG para PDF</h1>
+      <p>Converta imagens JPG, PNG ou WEBP em PDF. Escolha entre reunir tudo em um único arquivo ou gerar um PDF por imagem.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept="image/*" multiple/>
+      <div class="drop-icon">🖼️</div>
+      <div class="drop-title">Arraste suas imagens aqui</div>
+      <div class="drop-sub">JPG, PNG, WEBP — selecione uma ou várias de uma vez</div>
+      <div class="drop-btn">Selecionar imagens</div>
+    </div>
+
+    <!-- Images section -->
+    <div class="images-section" id="images-section">
+      <div class="images-toolbar">
+        <div>
+          <div class="images-count" id="images-count">0 imagens</div>
+          <div class="images-hint">☰ Arraste para reordenar</div>
+        </div>
+        <div class="toolbar-btns">
+          <button class="tb-btn" onclick="resetTool()">✕ Limpar tudo</button>
+        </div>
+      </div>
+      <div class="images-grid" id="images-grid"></div>
+      <div class="add-more-wrap">
+        <button class="add-more-btn">
+          <input type="file" id="add-more-input" accept="image/*" multiple/>
+          ＋ Adicionar mais imagens
+        </button>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-section" id="options-section">
+      <div class="section-title">Formato de saída</div>
+      <div class="mode-cards">
+        <div class="mode-card selected" data-mode="single" onclick="selectMode('single',this)">
+          <div class="mc-icon">📄</div>
+          <div class="mc-label">Um único PDF</div>
+          <div class="mc-desc">Todas as imagens em um só arquivo, na ordem que você definir.</div>
+        </div>
+        <div class="mode-card" data-mode="separate" onclick="selectMode('separate',this)">
+          <div class="mc-icon">📁</div>
+          <div class="mc-label">Um PDF por imagem</div>
+          <div class="mc-desc">Cada imagem vira um PDF individual. Baixe todos em ZIP.</div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top:8px">Configurações</div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">Tamanho da página</div>
+          <div class="option-sub">Formato do papel no PDF</div>
+        </div>
+        <select class="select-input" id="page-size">
+          <option value="a4">A4 (padrão)</option>
+          <option value="letter">Carta (Letter)</option>
+          <option value="fit">Ajustar à imagem</option>
+        </select>
+      </div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">Margens</div>
+          <div class="option-sub">Espaçamento em torno da imagem</div>
+        </div>
+        <select class="select-input" id="margin">
+          <option value="0">Sem margens</option>
+          <option value="20" selected>Pequena (20pt)</option>
+          <option value="40">Média (40pt)</option>
+        </select>
+      </div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">Qualidade</div>
+          <div class="option-sub">Impacta no tamanho do arquivo final</div>
+        </div>
+        <select class="select-input" id="quality">
+          <option value="0.95">Alta (recomendado)</option>
+          <option value="0.75">Média</option>
+          <option value="0.55">Baixa (menor arquivo)</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="convert-btn" id="convert-btn" onclick="startConvert()">
+      🖼️ Converter para PDF
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Convertendo...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-header">
+        <div class="result-icon">🎉</div>
+        <div class="result-title">Conversão concluída!</div>
+      </div>
+      <div id="result-content"></div>
+      <span class="reset-link" onclick="resetTool()">Converter outras imagens</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🎨</div><h3>Alta fidelidade</h3><p>As imagens são incorporadas ao PDF mantendo a resolução e cores originais.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhuma imagem é enviada para servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de imagens, sem marca d'água no resultado.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/digitalizar-pdf/"><span>📷</span> Digitalizar PDF</a>
+        <a class="related-card" href="/tools/ocr-pdf/"><span>🔍</span> OCR PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/pdf-para-jpg/"><span>🖼️</span> PDF para JPG</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/organizar-pdf/"><span>📂</span> Organizar PDF</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/jpg-para-pdf/">JPG para PDF</a></li><li><a href="/tools/digitalizar-pdf/">Digitalizar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+let images    = []; // [{id, dataUrl, name, file}]
+let outputMode = 'single';
+let dragSrcIdx = null;
+
+const fileInput    = document.getElementById('file-input');
+const addMoreInput = document.getElementById('add-more-input');
+
+fileInput.addEventListener('change',    e => { addImages([...e.target.files]); e.target.value=''; });
+addMoreInput.addEventListener('change', e => { addImages([...e.target.files]); e.target.value=''; });
+
+const dropZone = document.getElementById('drop-zone');
+dropZone.addEventListener('dragover', e=>{ e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', ()=> dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e=>{
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const files = [...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'));
+  if(files.length) addImages(files); else showToast('⚠️ Selecione apenas imagens.');
+});
+
+async function addImages(files) {
+  for (const f of files) {
+    if (!f.type.startsWith('image/')) continue;
+    const dataUrl = await readAsDataURL(f);
+    images.push({ id:'i_'+Date.now()+'_'+Math.random().toString(36).slice(2), dataUrl, name:f.name, file:f });
+  }
+  renderImages();
+  document.getElementById('images-section').classList.add('show');
+  document.getElementById('options-section').classList.add('show');
+  document.getElementById('convert-btn').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+}
+
+function readAsDataURL(file) {
+  return new Promise(r=>{ const fr=new FileReader(); fr.onload=e=>r(e.target.result); fr.readAsDataURL(file); });
+}
+
+function renderImages() {
+  const grid = document.getElementById('images-grid');
+  grid.innerHTML = '';
+  document.getElementById('images-count').textContent = `${images.length} imagem${images.length!==1?'s':''}`;
+
+  images.forEach((img, idx) => {
+    const card = document.createElement('div');
+    card.className = 'img-card';
+    card.draggable = true;
+    card.dataset.idx = idx;
+    card.innerHTML = `
+      <img class="img-thumb" src="${img.dataUrl}" alt="${img.name}"/>
+      <div class="img-footer">
+        <div class="img-name" title="${img.name}">${img.name}</div>
+        <div class="img-num">${idx+1}</div>
+        <div class="img-remove" data-idx="${idx}">✕</div>
+      </div>`;
+    card.querySelector('.img-remove').addEventListener('click', e=>{ e.stopPropagation(); removeImage(idx); });
+    card.addEventListener('dragstart', e=>{ dragSrcIdx=idx; card.classList.add('dragging'); e.dataTransfer.effectAllowed='move'; });
+    card.addEventListener('dragover',  e=>{ e.preventDefault(); document.querySelectorAll('.img-card').forEach(c=>c.classList.remove('drag-over')); card.classList.add('drag-over'); });
+    card.addEventListener('drop',      e=>{ e.preventDefault(); if(dragSrcIdx===idx) return; const [m]=images.splice(dragSrcIdx,1); images.splice(idx,0,m); renderImages(); });
+    card.addEventListener('dragend',   ()=>{ document.querySelectorAll('.img-card').forEach(c=>c.classList.remove('dragging','drag-over')); dragSrcIdx=null; });
+    grid.appendChild(card);
+  });
+}
+
+function removeImage(idx) {
+  images.splice(idx,1);
+  if(images.length===0) resetTool();
+  else renderImages();
+}
+
+function selectMode(mode, el) {
+  outputMode = mode;
+  document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+async function startConvert() {
+  if(images.length===0) return;
+  const btn = document.getElementById('convert-btn');
+  btn.disabled = true; btn.textContent = '⏳ Convertendo...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  const { jsPDF }  = window.jspdf;
+  const pageSize   = document.getElementById('page-size').value;
+  const margin     = parseInt(document.getElementById('margin').value);
+  const quality    = parseFloat(document.getElementById('quality').value);
+
+  try {
+    if (outputMode === 'single') {
+      // All images → one PDF
+      let pdf = null;
+
+      for (let i = 0; i < images.length; i++) {
+        setProgress(Math.round(5+((i+1)/images.length)*88), `Processando imagem ${i+1} de ${images.length}...`);
+        const imgEl = await loadImage(images[i].dataUrl);
+        const iw=imgEl.naturalWidth, ih=imgEl.naturalHeight;
+        const isLand = iw>ih;
+        const orient = isLand ? 'landscape' : 'portrait';
+
+        if (!pdf) {
+          pdf = new jsPDF({ orientation: pageSize==='fit'?orient:orient, unit:'pt', format: pageSize==='fit'?[iw,ih]:pageSize, compress:true });
+        } else {
+          pdf.addPage(pageSize==='fit'?[iw,ih]:pageSize, orient);
+        }
+
+        const docW = pdf.internal.pageSize.getWidth();
+        const docH = pdf.internal.pageSize.getHeight();
+        const avW = docW - margin*2, avH = docH - margin*2;
+        const ratio = Math.min(avW/iw, avH/ih);
+        const rw=iw*ratio, rh=ih*ratio;
+        const ox=(docW-rw)/2, oy=(docH-rh)/2;
+
+        const canvas = document.createElement('canvas');
+        canvas.width=iw; canvas.height=ih;
+        canvas.getContext('2d').drawImage(imgEl,0,0);
+        pdf.addImage(canvas.toDataURL('image/jpeg',quality),'JPEG',ox,oy,rw,rh,undefined,'FAST');
+      }
+
+      setProgress(98,'Finalizando...');
+      const bytes = pdf.output('arraybuffer');
+      const blob  = new Blob([bytes],{type:'application/pdf'});
+      setProgress(100,'Concluído!');
+
+      setTimeout(()=>{
+        const url  = URL.createObjectURL(blob);
+        const rc   = document.getElementById('result-content');
+        rc.innerHTML = `
+          <div class="single-download">
+            <div class="single-sub">${images.length} imagem${images.length>1?'s':''} · ${images.length} página${images.length>1?'s':''} · ${formatBytes(blob.size)}</div>
+            <a class="download-btn" href="${url}" download="imagens_tudopdf.pdf">⬇️ Baixar PDF</a>
+          </div>`;
+        finish(btn);
+      },400);
+
+    } else {
+      // One PDF per image
+      const blobs = [];
+      for (let i=0; i<images.length; i++) {
+        setProgress(Math.round(5+((i+1)/images.length)*88), `Convertendo imagem ${i+1} de ${images.length}...`);
+        const imgEl = await loadImage(images[i].dataUrl);
+        const iw=imgEl.naturalWidth, ih=imgEl.naturalHeight;
+        const isLand = iw>ih;
+        const orient = isLand?'landscape':'portrait';
+        const pdf = new jsPDF({ orientation:pageSize==='fit'?orient:orient, unit:'pt', format:pageSize==='fit'?[iw,ih]:pageSize, compress:true });
+        const docW=pdf.internal.pageSize.getWidth(), docH=pdf.internal.pageSize.getHeight();
+        const avW=docW-margin*2, avH=docH-margin*2;
+        const ratio=Math.min(avW/iw,avH/ih);
+        const rw=iw*ratio, rh=ih*ratio;
+        const ox=(docW-rw)/2, oy=(docH-rh)/2;
+        const canvas=document.createElement('canvas'); canvas.width=iw; canvas.height=ih;
+        canvas.getContext('2d').drawImage(imgEl,0,0);
+        pdf.addImage(canvas.toDataURL('image/jpeg',quality),'JPEG',ox,oy,rw,rh,undefined,'FAST');
+        const bytes=pdf.output('arraybuffer');
+        const blob=new Blob([bytes],{type:'application/pdf'});
+        const outName = images[i].name.replace(/\.[^.]+$/,'')+'.pdf';
+        blobs.push({name:outName, blob});
+      }
+
+      setProgress(96,'Preparando downloads...');
+      setTimeout(()=>{
+        const rc = document.getElementById('result-content');
+        let html='<div class="result-files-list">';
+        blobs.forEach(b=>{
+          const url=URL.createObjectURL(b.blob);
+          html+=`<div class="result-file-item"><div class="rfi-icon">📄</div><div class="rfi-info"><div class="rfi-name">${b.name}</div><div class="rfi-meta">${formatBytes(b.blob.size)}</div></div><a class="rfi-dl" href="${url}" download="${b.name}">⬇️ Baixar</a></div>`;
+        });
+        html+='</div>';
+        rc.innerHTML=html;
+
+        if(blobs.length>1){
+          const zipBtn=document.createElement('button');
+          zipBtn.className='download-all-btn';
+          zipBtn.textContent='⬇️ Baixar todos como ZIP';
+          zipBtn.onclick=async()=>{
+            zipBtn.textContent='⏳ Compactando...';
+            const zip=new JSZip();
+            blobs.forEach(b=>zip.file(b.name,b.blob));
+            const zb=await zip.generateAsync({type:'blob'});
+            const a=document.createElement('a'); a.href=URL.createObjectURL(zb); a.download='imagens_pdf.zip'; a.click();
+            zipBtn.textContent='⬇️ Baixar todos como ZIP';
+          };
+          rc.appendChild(zipBtn);
+        }
+        setProgress(100,'Concluído!');
+        finish(btn);
+      },400);
+    }
+  } catch(err){
+    console.error(err);
+    showToast('❌ Erro ao converter. Tente novamente.');
+    btn.disabled=false; btn.textContent='🖼️ Converter para PDF';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function finish(btn) {
+  document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('result-box').classList.add('show');
+  document.getElementById('result-box').scrollIntoView({behavior:'smooth',block:'start'});
+  btn.disabled=false; btn.textContent='🖼️ Converter novamente';
+}
+
+function loadImage(src){
+  return new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=src; });
+}
+
+function setProgress(pct,label){
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('progress-pct').textContent=pct+'%';
+  document.getElementById('progress-text').textContent=label;
+}
+
+function resetTool(){
+  images=[]; dragSrcIdx=null; outputMode='single';
+  fileInput.value='';
+  dropZone.style.display='block';
+  ['images-section','options-section','result-box','progress-wrap'].forEach(id=>document.getElementById(id).classList.remove('show'));
+  document.getElementById('convert-btn').classList.remove('show');
+  document.getElementById('images-grid').innerHTML='';
+  document.getElementById('result-content').innerHTML='';
+  document.getElementById('progress-bar').style.width='0%';
+  document.querySelector('[data-mode="single"]').classList.add('selected');
+  document.querySelector('[data-mode="separate"]').classList.remove('selected');
+}
+
+function formatBytes(b){
+  if(b<1024) return b+' B';
+  if(b<1048576) return (b/1024).toFixed(1)+' KB';
+  return (b/1048576).toFixed(2)+' MB';
+}
+</script>
+</body>
+</html>

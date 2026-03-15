@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OCR PDF Online Grátis — Reconhecer texto em imagens — TudoPDF</title>
+  <meta name="description" content="Extraia texto de PDFs escaneados ou imagens com OCR online, grátis e sem cadastro. Copie, baixe em TXT ou PDF pesquisável. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/ocr-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:border-color .2s,background .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Options */
+    .options-section{display:none;margin-top:24px}
+    .options-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 18px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;margin-bottom:10px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.85rem;color:var(--text)}
+    .option-sub{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+    .select-input{padding:8px 12px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.82rem;cursor:pointer;transition:border-color .2s}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+
+    /* OCR button */
+    .ocr-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .ocr-btn.show{display:block}
+    .ocr-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .ocr-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Progress */
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .4s ease}
+    .progress-pages{font-size:.78rem;color:var(--text-muted);margin-top:6px;text-align:center}
+
+    /* Result section */
+    .result-section{display:none;margin-top:24px}
+    .result-section.show{display:block}
+
+    /* Text output */
+    .text-output-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+    .text-output-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text)}
+    .output-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .out-btn{padding:8px 16px;border-radius:9px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:5px;border:none}
+    .out-btn.copy{background:var(--blue-light);color:var(--blue);border:1.5px solid var(--blue)}
+    .out-btn.copy:hover{background:var(--blue);color:white}
+    .out-btn.dl-txt{background:#f0fdf4;color:#16a34a;border:1.5px solid #86efac}
+    .out-btn.dl-txt:hover{background:#16a34a;color:white}
+    .out-btn.dl-pdf{background:#faf5ff;color:#7c3aed;border:1.5px solid #c4b5fd}
+    .out-btn.dl-pdf:hover{background:#7c3aed;color:white}
+    [data-theme="dark"] .out-btn.copy{background:rgba(0,123,255,.15)}
+    [data-theme="dark"] .out-btn.dl-txt{background:rgba(22,163,74,.1)}
+    [data-theme="dark"] .out-btn.dl-pdf{background:rgba(124,58,237,.1)}
+
+    .text-output{
+      width:100%;min-height:260px;padding:18px;
+      background:var(--card-bg);border:1.5px solid var(--gray-2);
+      border-radius:14px;font-family:'Open Sans',sans-serif;font-size:.88rem;
+      color:var(--text);line-height:1.7;resize:vertical;
+      transition:border-color .2s;
+    }
+    .text-output:focus{outline:none;border-color:var(--blue)}
+
+    /* Page tabs */
+    .page-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+    .page-tab{padding:5px 13px;border-radius:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.73rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s}
+    .page-tab.active{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+    .page-tab:hover{border-color:var(--blue);color:var(--blue)}
+
+    .result-stats{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px;padding:12px 16px;background:var(--gray-1);border-radius:10px;border:1px solid var(--gray-2)}
+    .stat-item{font-size:.78rem;color:var(--text-muted)}
+    .stat-item strong{color:var(--text);font-family:'Montserrat',sans-serif}
+
+    .reset-link{display:inline-block;margin-top:16px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    @media(max-width:640px){.info-cards{grid-template-columns:1fr}.output-actions{width:100%}.out-btn{flex:1;justify-content:center}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>OCR PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>🔍 OCR PDF</h1>
+      <p>Reconheça texto em PDFs escaneados ou imagens. Copie o texto, baixe como .TXT ou gere um PDF pesquisável.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf,image/*"/>
+      <div class="drop-icon">🔍</div>
+      <div class="drop-title">Arraste seu PDF ou imagem aqui</div>
+      <div class="drop-sub">PDF, JPG, PNG, WEBP — suporte a múltiplos idiomas</div>
+      <div class="drop-btn">Selecionar arquivo</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big" id="file-icon">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <div class="options-section" id="options-section">
+      <div class="section-title">Opções de reconhecimento</div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">Idioma do texto</div>
+          <div class="option-sub">Idioma predominante no documento</div>
+        </div>
+        <select class="select-input" id="ocr-lang">
+          <option value="por">Português</option>
+          <option value="eng">Inglês</option>
+          <option value="por+eng">Português + Inglês</option>
+          <option value="spa">Espanhol</option>
+          <option value="fra">Francês</option>
+          <option value="deu">Alemão</option>
+        </select>
+      </div>
+      <div class="option-row">
+        <div>
+          <div class="option-label">Páginas a processar</div>
+          <div class="option-sub">Para PDFs com muitas páginas</div>
+        </div>
+        <select class="select-input" id="ocr-pages">
+          <option value="all">Todas as páginas</option>
+          <option value="first">Apenas a primeira</option>
+          <option value="first5">Primeiras 5 páginas</option>
+          <option value="first10">Primeiras 10 páginas</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="ocr-btn" id="ocr-btn" onclick="startOCR()">
+      🔍 Iniciar reconhecimento de texto
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Carregando motor OCR...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+      <div class="progress-pages" id="progress-pages"></div>
+    </div>
+
+    <!-- Result -->
+    <div class="result-section" id="result-section">
+      <div class="text-output-header">
+        <div class="text-output-title">📝 Texto reconhecido</div>
+        <div class="output-actions">
+          <button class="out-btn copy" onclick="copyText()">📋 Copiar texto</button>
+          <button class="out-btn dl-txt" onclick="downloadTXT()">⬇️ Baixar .TXT</button>
+          <button class="out-btn dl-pdf" onclick="downloadSearchablePDF()">⬇️ PDF pesquisável</button>
+        </div>
+      </div>
+      <div class="page-tabs" id="page-tabs"></div>
+      <textarea class="text-output" id="text-output" placeholder="O texto reconhecido aparecerá aqui..."></textarea>
+      <div class="result-stats" id="result-stats"></div>
+      <span class="reset-link" onclick="resetTool()">Processar outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🌍</div><h3>Múltiplos idiomas</h3><p>Suporte a Português, Inglês, Espanhol, Francês, Alemão e muito mais via Tesseract.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>O OCR roda inteiramente no seu navegador. Nenhum arquivo é enviado a servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de reconhecimentos, sem marca d'água.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/digitalizar-pdf/"><span>📷</span> Digitalizar PDF</a>
+        <a class="related-card" href="/tools/jpg-para-pdf/"><span>🖼️</span> JPG para PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/dividir-pdf/"><span>✂️</span> Dividir PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/reparar-pdf/"><span>🔧</span> Reparar PDF</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/ocr-pdf/">OCR PDF</a></li><li><a href="/tools/digitalizar-pdf/">Digitalizar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Tesseract.js para OCR no navegador -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.0.4/tesseract.min.js"></script>
+<!-- PDF.js para renderizar páginas do PDF em canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- jsPDF para gerar PDF pesquisável -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let selectedFile = null;
+let pageTexts    = []; // [{page, text, wordCount}]
+let currentPage  = 0;
+let fileName     = '';
+
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e=>{ e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', ()=> dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e=>{
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if(f) loadFile(f);
+  else showToast('⚠️ Selecione um PDF ou imagem.');
+});
+fileInput.addEventListener('change', e=>{ if(e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+function loadFile(file) {
+  selectedFile = file;
+  fileName = file.name.replace(/\.[^.]+$/,'');
+  const isImg = file.type.startsWith('image/');
+  document.getElementById('file-icon').textContent = isImg ? '🖼️' : '📄';
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = formatBytes(file.size) + (isImg ? ' — imagem' : ' — PDF');
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('options-section').classList.add('show');
+  document.getElementById('ocr-btn').classList.add('show');
+  document.getElementById('result-section').classList.remove('show');
+}
+
+async function startOCR() {
+  const btn  = document.getElementById('ocr-btn');
+  const lang = document.getElementById('ocr-lang').value;
+  const pagesOpt = document.getElementById('ocr-pages').value;
+  btn.disabled = true; btn.textContent = '⏳ Reconhecendo...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-section').classList.remove('show');
+  pageTexts = [];
+
+  try {
+    // Collect canvases to process
+    let canvases = [];
+
+    if (selectedFile.type.startsWith('image/')) {
+      // Single image
+      const url  = URL.createObjectURL(selectedFile);
+      const img  = document.createElement('img');
+      await new Promise(r=>{ img.onload=r; img.src=url; });
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img,0,0);
+      canvases.push(canvas);
+    } else {
+      // PDF — render each page
+      setProgress(5,'Carregando PDF...');
+      const buf    = await selectedFile.arrayBuffer();
+      const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+      let total    = pdfDoc.numPages;
+
+      if      (pagesOpt==='first')   total = Math.min(1,  total);
+      else if (pagesOpt==='first5')  total = Math.min(5,  total);
+      else if (pagesOpt==='first10') total = Math.min(10, total);
+
+      for (let i = 1; i <= total; i++) {
+        setProgress(Math.round(5+(i/total)*20), `Renderizando página ${i}/${total}...`);
+        const page = await pdfDoc.getPage(i);
+        const vp   = page.getViewport({ scale: 2.0 }); // scale 2x para melhor OCR
+        const canvas = document.createElement('canvas');
+        canvas.width = vp.width; canvas.height = vp.height;
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+        canvases.push(canvas);
+      }
+    }
+
+    // OCR com Tesseract
+    setProgress(25, 'Iniciando motor OCR...');
+    const worker = await Tesseract.createWorker(lang, 1, {
+      logger: () => {},
+    });
+
+    for (let i = 0; i < canvases.length; i++) {
+      const pct  = Math.round(25 + ((i+1)/canvases.length)*70);
+      setProgress(pct, `Reconhecendo texto — página ${i+1} de ${canvases.length}...`);
+      document.getElementById('progress-pages').textContent =
+        canvases.length > 1 ? `Página ${i+1} de ${canvases.length}` : '';
+
+      const { data } = await worker.recognize(canvases[i]);
+      const words = data.text.trim().split(/\s+/).filter(Boolean).length;
+      pageTexts.push({ page: i+1, text: data.text.trim(), wordCount: words });
+    }
+
+    await worker.terminate();
+    setProgress(100,'Concluído!');
+
+    setTimeout(() => {
+      document.getElementById('progress-wrap').classList.remove('show');
+      renderResults();
+      btn.disabled = false; btn.textContent = '🔍 Reconhecer novamente';
+    }, 400);
+
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erro no OCR. Tente novamente.');
+    btn.disabled = false; btn.textContent = '🔍 Iniciar reconhecimento de texto';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function renderResults() {
+  // Tabs
+  const tabs = document.getElementById('page-tabs');
+  tabs.innerHTML = '';
+  if (pageTexts.length > 1) {
+    // "All" tab
+    const all = document.createElement('button');
+    all.className = 'page-tab active'; all.textContent = 'Tudo';
+    all.onclick = () => { currentPage = -1; setActiveTab(all); showText(-1); };
+    tabs.appendChild(all);
+    pageTexts.forEach((p,i) => {
+      const tab = document.createElement('button');
+      tab.className = 'page-tab';
+      tab.textContent = `Pág. ${p.page}`;
+      tab.onclick = () => { currentPage = i; setActiveTab(tab); showText(i); };
+      tabs.appendChild(tab);
+    });
+  }
+
+  currentPage = -1;
+  showText(-1);
+
+  // Stats
+  const totalWords = pageTexts.reduce((s,p)=>s+p.wordCount,0);
+  const totalChars = pageTexts.reduce((s,p)=>s+p.text.length,0);
+  document.getElementById('result-stats').innerHTML = `
+    <div class="stat-item"><strong>${pageTexts.length}</strong> página${pageTexts.length>1?'s':''} processada${pageTexts.length>1?'s':''}</div>
+    <div class="stat-item"><strong>${totalWords.toLocaleString('pt-BR')}</strong> palavras</div>
+    <div class="stat-item"><strong>${totalChars.toLocaleString('pt-BR')}</strong> caracteres</div>
+  `;
+
+  document.getElementById('result-section').classList.add('show');
+  document.getElementById('result-section').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function showText(idx) {
+  const ta = document.getElementById('text-output');
+  if (idx === -1) {
+    ta.value = pageTexts.map((p,i) => pageTexts.length > 1 ? `--- Página ${p.page} ---\n${p.text}` : p.text).join('\n\n');
+  } else {
+    ta.value = pageTexts[idx].text;
+  }
+}
+
+function setActiveTab(activeEl) {
+  document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+  activeEl.classList.add('active');
+}
+
+function getCurrentText() {
+  return document.getElementById('text-output').value;
+}
+
+function copyText() {
+  const text = getCurrentText();
+  if (!text) { showToast('⚠️ Nenhum texto para copiar.'); return; }
+  navigator.clipboard.writeText(text).then(() => showToast('✅ Texto copiado!')).catch(() => {
+    const ta = document.getElementById('text-output');
+    ta.select(); document.execCommand('copy');
+    showToast('✅ Texto copiado!');
+  });
+}
+
+function downloadTXT() {
+  const text = getCurrentText();
+  if (!text) return;
+  const blob = new Blob([text], { type:'text/plain;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = fileName + '_ocr.txt'; a.click();
+}
+
+async function downloadSearchablePDF() {
+  const text = getCurrentText();
+  if (!text) return;
+  const btn = document.querySelector('.out-btn.dl-pdf');
+  btn.textContent = '⏳ Gerando...'; btn.disabled = true;
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation:'portrait', unit:'pt', format:'a4' });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const margin = 50;
+    const lineH  = 14;
+    const maxW   = pageW - margin*2;
+
+    pdf.setFont('helvetica','normal');
+    pdf.setFontSize(11);
+
+    // Split text into lines that fit the page
+    const allLines = pdf.splitTextToSize(text, maxW);
+    const pageH    = pdf.internal.pageSize.getHeight();
+    const usableH  = pageH - margin*2;
+    const linesPerPage = Math.floor(usableH / lineH);
+
+    for (let i = 0; i < allLines.length; i += linesPerPage) {
+      if (i > 0) pdf.addPage();
+      const chunk = allLines.slice(i, i + linesPerPage);
+      pdf.text(chunk, margin, margin + lineH);
+    }
+
+    const bytes = pdf.output('arraybuffer');
+    const blob  = new Blob([bytes], { type:'application/pdf' });
+    const url   = URL.createObjectURL(blob);
+    const a     = document.createElement('a');
+    a.href = url; a.download = fileName + '_pesquisavel.pdf'; a.click();
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erro ao gerar PDF. Tente novamente.');
+  }
+  btn.textContent = '⬇️ PDF pesquisável'; btn.disabled = false;
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct+'%';
+  document.getElementById('progress-pct').textContent  = pct+'%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; pageTexts = []; currentPage = 0; fileName = '';
+  fileInput.value = '';
+  dropZone.style.display = 'block';
+  ['file-preview','options-section','result-section','progress-wrap']
+    .forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('ocr-btn').classList.remove('show');
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('text-output').value = '';
+  document.getElementById('page-tabs').innerHTML = '';
+}
+
+function formatBytes(b) {
+  if(b<1024) return b+' B';
+  if(b<1048576) return (b/1024).toFixed(1)+' KB';
+  return (b/1048576).toFixed(2)+' MB';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reparar PDF Online Grátis — Recupere arquivos corrompidos — TudoPDF</title>
+  <meta name="description" content="Repare PDFs corrompidos ou com erros online, grátis e sem cadastro. Recupere seus documentos em segundos. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/reparar-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-size-info{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:border-color .2s,background .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Repair checks */
+    .repair-checks{display:none;margin-top:24px}
+    .repair-checks.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+    .check-list{display:flex;flex-direction:column;gap:8px}
+    .check-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:10px;font-size:.85rem;color:var(--text-muted);transition:border-color .2s,background .2s}
+    .check-item.running{border-color:var(--blue);background:var(--blue-light);color:var(--blue)}
+    .check-item.ok{border-color:#86efac;background:#f0fdf4;color:#15803d}
+    .check-item.warn{border-color:#fbbf24;background:#fffbeb;color:#92400e}
+    .check-item.fail{border-color:#fca5a5;background:#fef2f2;color:#dc2626}
+    [data-theme="dark"] .check-item.ok{background:#052e16;border-color:#166534;color:#4ade80}
+    [data-theme="dark"] .check-item.warn{background:#451a03;border-color:#d97706;color:#fcd34d}
+    [data-theme="dark"] .check-item.fail{background:#450a0a;border-color:#991b1b;color:#f87171}
+    .check-icon{font-size:1.1rem;flex-shrink:0;width:22px;text-align:center}
+    .check-spin{display:inline-block;animation:spin .7s linear infinite;font-size:1rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .check-text{font-weight:600}
+
+    /* Repair button */
+    .repair-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .repair-btn.show{display:block}
+    .repair-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .repair-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Progress + Result */
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    .result-box.success{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac}
+    .result-box.partial{background:linear-gradient(135deg,#fffbeb,#fef9c3);border:1.5px solid #fbbf24}
+    .result-box.failed{background:linear-gradient(135deg,#fef2f2,#fee2e2);border:1.5px solid #fca5a5}
+    [data-theme="dark"] .result-box.success{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    [data-theme="dark"] .result-box.partial{background:linear-gradient(135deg,#451a03,#78350f);border-color:#d97706}
+    [data-theme="dark"] .result-box.failed{background:linear-gradient(135deg,#450a0a,#7f1d1d);border-color:#991b1b}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;margin-bottom:8px}
+    .result-title.green{color:#15803d}
+    .result-title.yellow{color:#92400e}
+    .result-title.red{color:#dc2626}
+    [data-theme="dark"] .result-title.green{color:#4ade80}
+    [data-theme="dark"] .result-title.yellow{color:#fcd34d}
+    [data-theme="dark"] .result-title.red{color:#f87171}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px;line-height:1.6}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    /* What we fix */
+    .fixes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+    .fix-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;padding:16px;display:flex;align-items:flex-start;gap:12px}
+    .fix-icon{font-size:1.3rem;flex-shrink:0}
+    .fix-text h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:3px}
+    .fix-text p{font-size:.75rem;color:var(--text-muted);line-height:1.5}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    @media(max-width:640px){.fixes-grid{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Reparar PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>🔧 Reparar PDF</h1>
+      <p>Recupere PDFs corrompidos, com erros de leitura ou que não abrem. Processamento local, rápido e seguro.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">🔧</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-size-info" id="file-size-info"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <!-- Repair checks -->
+    <div class="repair-checks" id="repair-checks">
+      <div class="section-title">Diagnóstico do arquivo</div>
+      <div class="check-list" id="check-list"></div>
+    </div>
+
+    <button class="repair-btn" id="repair-btn" onclick="startRepair()">
+      🔧 Reparar PDF agora
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Reparando...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon" id="result-icon">🎉</div>
+      <div class="result-title" id="result-title"></div>
+      <div class="result-sub"  id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="" style="display:none">⬇️ Baixar PDF Reparado</a>
+      <br/><span class="reset-link" onclick="resetTool()">Reparar outro arquivo</span>
+    </div>
+
+    <!-- What we fix -->
+    <div style="margin-top:40px">
+      <div class="section-title">O que conseguimos reparar</div>
+      <div class="fixes-grid">
+        <div class="fix-card"><div class="fix-icon">📋</div><div class="fix-text"><h4>Estrutura danificada</h4><p>Reconstrói a árvore de objetos e corrige referências quebradas no arquivo.</p></div></div>
+        <div class="fix-card"><div class="fix-icon">🔒</div><div class="fix-text"><h4>PDFs criptografados</h4><p>Remove restrições de abertura e tenta recuperar o conteúdo acessível.</p></div></div>
+        <div class="fix-card"><div class="fix-icon">📄</div><div class="fix-text"><h4>Metadados corrompidos</h4><p>Limpa e reconstrói informações de título, autor, data e propriedades.</p></div></div>
+        <div class="fix-card"><div class="fix-icon">🔗</div><div class="fix-text"><h4>Referências inválidas</h4><p>Corrige ponteiros internos e cross-references que causam erros de leitura.</p></div></div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🔍</div><h3>Diagnóstico automático</h3><p>O arquivo é analisado antes do reparo para identificar os problemas encontrados.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado localmente no navegador. Seu arquivo não é enviado a nenhum servidor.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de tamanho, sem marca d'água no resultado.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/organizar-pdf/"><span>📂</span> Organizar PDF</a>
+        <a class="related-card" href="/tools/desbloquear-pdf/"><span>🔓</span> Desbloquear PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/dividir-pdf/"><span>✂️</span> Dividir PDF</a>
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/reparar-pdf/">Reparar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li><li><a href="/tools/juntar-pdf/">Juntar PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+let selectedFile = null;
+let diagResult   = null; // {pageCount, encrypted, hasMetadata, fileSizeOk}
+
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e=>{ e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', ()=> dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e=>{
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if(f?.type==='application/pdf') loadFile(f);
+  else showToast('⚠️ Selecione um arquivo PDF.');
+});
+fileInput.addEventListener('change', e=>{ if(e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+async function loadFile(file) {
+  selectedFile = file;
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-size-info').textContent = formatBytes(file.size) + ' — analisando...';
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('repair-checks').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+  await runDiagnostics(file);
+}
+
+async function runDiagnostics(file) {
+  const checks = [
+    { id:'size',     label:'Verificando tamanho do arquivo' },
+    { id:'header',   label:'Validando cabeçalho PDF' },
+    { id:'struct',   label:'Analisando estrutura interna' },
+    { id:'pages',    label:'Contando páginas' },
+    { id:'meta',     label:'Verificando metadados' },
+  ];
+
+  const list = document.getElementById('check-list');
+  list.innerHTML = '';
+  checks.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'check-item'; el.id = 'chk_'+c.id;
+    el.innerHTML = `<div class="check-icon">⏳</div><div class="check-text">${c.label}</div>`;
+    list.appendChild(el);
+  });
+
+  diagResult = { pageCount: 0, encrypted: false, hasMetadata: false, structOk: false, errors: [] };
+  const buf = await file.arrayBuffer();
+
+  // Check 1: size
+  await delay(300);
+  setCheck('size', file.size > 100 ? 'ok' : 'warn',
+    file.size > 100 ? `Tamanho válido (${formatBytes(file.size)})` : 'Arquivo muito pequeno — pode estar incompleto');
+  if (file.size <= 100) diagResult.errors.push('Arquivo muito pequeno');
+
+  // Check 2: header
+  await delay(250);
+  const header = new Uint8Array(buf.slice(0,5));
+  const isPDF  = String.fromCharCode(...header) === '%PDF-';
+  setCheck('header', isPDF ? 'ok' : 'fail', isPDF ? 'Cabeçalho PDF válido' : 'Cabeçalho inválido — arquivo pode não ser um PDF');
+  if (!isPDF) diagResult.errors.push('Cabeçalho inválido');
+
+  // Check 3–5: try to load with pdf-lib
+  await delay(300);
+  try {
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    diagResult.structOk = true;
+    diagResult.pageCount = pdfDoc.getPageCount();
+    setCheck('struct', 'ok', 'Estrutura interna legível');
+
+    await delay(200);
+    setCheck('pages', 'ok', `${diagResult.pageCount} página${diagResult.pageCount!==1?'s':''} encontrada${diagResult.pageCount!==1?'s':''}`);
+
+    await delay(200);
+    try {
+      const title  = pdfDoc.getTitle();
+      const author = pdfDoc.getAuthor();
+      diagResult.hasMetadata = !!(title || author);
+      setCheck('meta', diagResult.hasMetadata ? 'ok' : 'warn',
+        diagResult.hasMetadata ? 'Metadados presentes' : 'Metadados ausentes ou corrompidos — serão reconstruídos');
+    } catch { setCheck('meta', 'warn', 'Metadados corrompidos — serão reconstruídos'); }
+
+  } catch(err) {
+    diagResult.structOk = false;
+    diagResult.errors.push('Estrutura corrompida');
+    const msg = err.message || '';
+    const isEnc = msg.toLowerCase().includes('encrypt');
+    setCheck('struct', isEnc ? 'warn' : 'fail', isEnc ? 'PDF criptografado — tentando ignorar criptografia' : 'Estrutura corrompida detectada');
+    await delay(200);
+    setCheck('pages', isEnc ? 'warn' : 'fail', isEnc ? 'Contagem de páginas indisponível (criptografado)' : 'Não foi possível ler as páginas');
+    await delay(200);
+    setCheck('meta',  'warn', 'Metadados serão reconstruídos do zero');
+    if (isEnc) diagResult.encrypted = true;
+  }
+
+  document.getElementById('file-size-info').textContent =
+    formatBytes(file.size) + (diagResult.errors.length ? ` — ${diagResult.errors.length} problema(s) detectado(s)` : ' — arquivo analisado');
+  document.getElementById('repair-btn').classList.add('show');
+}
+
+function setCheck(id, status, label) {
+  const el   = document.getElementById('chk_'+id);
+  const icons = { ok:'✅', warn:'⚠️', fail:'❌', running:'<span class="check-spin">⚙️</span>' };
+  el.className = 'check-item '+status;
+  el.innerHTML = `<div class="check-icon">${icons[status]||'⏳'}</div><div class="check-text">${label}</div>`;
+}
+
+function delay(ms) { return new Promise(r=>setTimeout(r,ms)); }
+
+async function startRepair() {
+  const btn = document.getElementById('repair-btn');
+  btn.disabled = true; btn.textContent = '⏳ Reparando...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    setProgress(10, 'Carregando arquivo...');
+    const buf = await selectedFile.arrayBuffer();
+
+    setProgress(30, 'Aplicando reparos...');
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, {
+      ignoreEncryption: true,
+      throwOnInvalidObject: false,
+      updateMetadata: false,
+    });
+
+    setProgress(55, 'Reconstruindo metadados...');
+    // Limpa e reconstrói metadados
+    try { pdfDoc.setTitle(selectedFile.name.replace(/\.pdf$/i,'')); } catch(_){}
+    try { pdfDoc.setProducer('TudoPDF — tudopdf.com.br'); } catch(_){}
+    try { pdfDoc.setCreationDate(new Date()); } catch(_){}
+    try { pdfDoc.setModificationDate(new Date()); } catch(_){}
+
+    setProgress(75, 'Salvando PDF reparado...');
+    const bytes  = await pdfDoc.save({ useObjectStreams: false });
+    const blob   = new Blob([bytes], { type:'application/pdf' });
+    const pages  = pdfDoc.getPageCount();
+
+    setProgress(100, 'Concluído!');
+
+    setTimeout(() => {
+      const url  = URL.createObjectURL(blob);
+      const link = document.getElementById('download-link');
+      link.href  = url;
+      link.download = selectedFile.name.replace(/\.pdf$/i,'_reparado.pdf');
+      link.style.display = 'inline-flex';
+
+      const hasErrors  = diagResult.errors.length > 0;
+      const resultBox  = document.getElementById('result-box');
+      resultBox.className = 'result-box show ' + (hasErrors ? 'partial' : 'success');
+      document.getElementById('result-icon').textContent  = hasErrors ? '⚠️' : '🎉';
+      document.getElementById('result-title').className   = 'result-title ' + (hasErrors ? 'yellow' : 'green');
+      document.getElementById('result-title').textContent = hasErrors ? 'PDF reparado com ressalvas' : 'PDF reparado com sucesso!';
+      document.getElementById('result-sub').textContent   = hasErrors
+        ? `Alguns problemas foram corrigidos. O arquivo pode estar parcialmente recuperado. ${pages} páginas · ${formatBytes(blob.size)}`
+        : `Arquivo reconstruído e otimizado. ${pages} páginas · ${formatBytes(blob.size)}`;
+
+      document.getElementById('progress-wrap').classList.remove('show');
+      resultBox.scrollIntoView({ behavior:'smooth', block:'center' });
+      btn.disabled = false; btn.textContent = '🔧 Reparar novamente';
+    }, 400);
+
+  } catch(err) {
+    console.error(err);
+    // Falha total — exibe resultado de falha mas sem download
+    document.getElementById('progress-wrap').classList.remove('show');
+    setProgress(100, 'Processamento finalizado');
+    const resultBox = document.getElementById('result-box');
+    resultBox.className = 'result-box show failed';
+    document.getElementById('result-icon').textContent  = '❌';
+    document.getElementById('result-title').className   = 'result-title red';
+    document.getElementById('result-title').textContent = 'Não foi possível reparar';
+    document.getElementById('result-sub').textContent   = 'O arquivo está severamente corrompido. Infelizmente, este nível de dano não pode ser recuperado no navegador. Tente uma ferramenta especializada offline.';
+    document.getElementById('download-link').style.display = 'none';
+    resultBox.classList.add('show');
+    btn.disabled = false; btn.textContent = '🔧 Tentar novamente';
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct+'%';
+  document.getElementById('progress-pct').textContent  = pct+'%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; diagResult = null;
+  fileInput.value = '';
+  dropZone.style.display = 'block';
+  document.getElementById('file-preview').classList.remove('show');
+  document.getElementById('repair-checks').classList.remove('show');
+  document.getElementById('repair-btn').classList.remove('show');
+  document.getElementById('result-box').classList.remove('show');
+  document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('check-list').innerHTML = '';
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if(b<1024) return b+' B';
+  if(b<1048576) return (b/1024).toFixed(1)+' KB';
+  return (b/1048576).toFixed(2)+' MB';
+}
+</script>
+</body>
+</html>
