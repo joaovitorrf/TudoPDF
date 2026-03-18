@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ocultar Conteúdo em PDF Online Grátis — Redação — TudoPDF</title>
+  <meta name="description" content="Oculte informações sensíveis no seu PDF online, grátis e sem cadastro. Pinte sobre o conteúdo e salve com redação permanente. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/ocultar-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .warn-banner{display:flex;gap:12px;align-items:flex-start;padding:14px 18px;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;margin-bottom:24px;font-size:.82rem;color:#7f1d1d;line-height:1.6}
+    [data-theme="dark"] .warn-banner{background:#450a0a;border-color:#991b1b;color:#fca5a5}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Editor section */
+    .editor-section{display:none;margin-top:24px}
+    .editor-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+
+    /* Toolbar */
+    .editor-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;margin-bottom:12px}
+    .tool-btn{padding:7px 14px;border-radius:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.75rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s;display:flex;align-items:center;gap:5px}
+    .tool-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .tool-btn.active{border-color:#1f2937;background:#1f2937;color:white}
+    .tool-separator{width:1px;height:28px;background:var(--gray-2)}
+    .size-wrap{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-weight:700}
+    .size-range{-webkit-appearance:none;width:80px;height:4px;border-radius:2px;background:var(--gray-2)}
+    .size-range::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#1f2937;cursor:pointer}
+    .color-select{display:flex;gap:6px}
+    .col-swatch{width:22px;height:22px;border-radius:4px;cursor:pointer;border:2px solid transparent;transition:border-color .2s}
+    .col-swatch.selected{border-color:var(--blue)}
+    .redaction-count{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.75rem;padding:4px 10px;border-radius:50px;background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;margin-left:auto}
+    [data-theme="dark"] .redaction-count{background:#450a0a;border-color:#991b1b}
+
+    /* Canvas editor */
+    .canvas-container{position:relative;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:12px;overflow:hidden;line-height:0}
+    #pdf-render-canvas{display:block;max-width:100%}
+    #redact-canvas{position:absolute;top:0;left:0;max-width:100%;cursor:crosshair;touch-action:none}
+
+    /* Page nav */
+    .page-nav{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap}
+    .page-nav-btn{padding:7px 16px;border-radius:9px;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;transition:all .2s}
+    .page-nav-btn:hover:not(:disabled){border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .page-nav-btn:disabled{opacity:.4;cursor:not-allowed}
+    .page-info{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;color:var(--text-muted)}
+
+    /* Save section */
+    .save-section{display:none;margin-top:20px}
+    .save-section.show{display:block}
+    .save-summary{padding:12px 16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:10px;font-size:.82rem;color:var(--text-muted);margin-bottom:14px}
+    .save-btn{width:100%;padding:16px;background:#dc2626;color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(220,38,38,.35)}
+    .save-btn:hover:not(:disabled){background:#b91c1c;transform:translateY(-2px)}
+    .save-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,#dc2626,#f87171);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/proteger-pdf/">Proteger PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/assinar-pdf/">Assinar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/proteger-pdf/">Proteger PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Ocultar Conteúdo</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+    <div class="tool-hero">
+      <h1>🙈 Ocultar Conteúdo</h1>
+      <p>Pinte sobre informações sensíveis no PDF. O conteúdo é removido permanentemente — não pode ser recuperado.</p>
+    </div>
+
+    <div class="warn-banner">
+      <span style="font-size:1.2rem;flex-shrink:0">⚠️</span>
+      <span><strong>Redação permanente:</strong> o conteúdo coberto é <strong>removido definitivamente</strong> do PDF. Esta ação não pode ser desfeita no arquivo salvo. Guarde uma cópia do original antes de continuar.</span>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">🙈</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <!-- Editor -->
+    <div class="editor-section" id="editor-section">
+      <div class="section-title">Redatar conteúdo</div>
+
+      <div class="editor-toolbar">
+        <!-- Brush tool (default) -->
+        <button class="tool-btn active" id="btn-brush" onclick="setTool('brush')">🖌️ Pincel</button>
+        <button class="tool-btn" id="btn-rect" onclick="setTool('rect')">▬ Retângulo</button>
+        <div class="tool-separator"></div>
+        <div class="size-wrap">
+          Tamanho:
+          <input type="range" class="size-range" id="brush-size" min="8" max="60" value="20" oninput="updateBrushSize()"/>
+          <span id="brush-size-val" style="color:#1f2937;min-width:28px">20</span>
+        </div>
+        <div class="tool-separator"></div>
+        <div class="color-select" title="Cor de redação">
+          <div class="col-swatch selected" style="background:#000000" data-color="#000000" onclick="selectColor(this)"></div>
+          <div class="col-swatch" style="background:#1f2937" data-color="#1f2937" onclick="selectColor(this)"></div>
+          <div class="col-swatch" style="background:#7f1d1d" data-color="#7f1d1d" onclick="selectColor(this)"></div>
+          <div class="col-swatch" style="background:#1e3a5f" data-color="#1e3a5f" onclick="selectColor(this)"></div>
+        </div>
+        <div class="tool-separator"></div>
+        <button class="tool-btn" onclick="undoLast()">↩️ Desfazer</button>
+        <button class="tool-btn" onclick="clearPage()">🗑️ Limpar página</button>
+        <span class="redaction-count" id="redaction-count">0 redações</span>
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-container" id="canvas-container">
+        <canvas id="pdf-render-canvas"></canvas>
+        <canvas id="redact-canvas"></canvas>
+      </div>
+
+      <!-- Page nav -->
+      <div class="page-nav">
+        <button class="page-nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>← Anterior</button>
+        <span class="page-info" id="page-info">Página 1 de 1</span>
+        <button class="page-nav-btn" id="next-btn" onclick="changePage(1)">Próxima →</button>
+      </div>
+    </div>
+
+    <!-- Save section -->
+    <div class="save-section" id="save-section">
+      <div class="save-summary" id="save-summary"></div>
+      <button class="save-btn" id="save-btn" onclick="saveRedacted()">🙈 Aplicar redações e salvar PDF</button>
+    </div>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Aplicando redações...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">✅</div>
+      <div class="result-title">Conteúdo ocultado com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF Redatado</a>
+      <br/><span class="reset-link" onclick="resetTool()">Trabalhar com outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🔥</div><h3>Remoção permanente</h3><p>O conteúdo coberto é queimado no PDF — não pode ser recuperado, nem pelo texto original do arquivo.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhum arquivo é enviado a servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limites de redações.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas de segurança</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+        <a class="related-card" href="/tools/desbloquear-pdf/"><span>🔓</span> Desbloquear PDF</a>
+        <a class="related-card" href="/tools/assinar-pdf/"><span>✍️</span> Assinar PDF</a>
+        <a class="related-card" href="/tools/marca-dagua/"><span>💧</span> Marca d'água</a>
+        <a class="related-card" href="/tools/comparar-pdf/"><span>⚖️</span> Comparar PDF</a>
+        <a class="related-card" href="/tools/reparar-pdf/"><span>🔧</span> Reparar PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Segurança</h4><ul><li><a href="/tools/ocultar-pdf/">Ocultar Conteúdo</a></li><li><a href="/tools/proteger-pdf/">Proteger PDF</a></li><li><a href="/tools/assinar-pdf/">Assinar PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let selectedFile = null, pdfJsDoc = null, totalPages = 0, currentPage = 1;
+let currentTool = 'brush', brushSize = 20, redactColor = '#000000';
+let isDrawing = false, lastX = 0, lastY = 0;
+// Per-page redaction data: pageNum → array of {type, data} 
+let pageRedactions = {};
+// Rect tool
+let rectStart = null;
+let renderScale = 1;
+
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f?.type === 'application/pdf') loadFile(f); else showToast('⚠️ Selecione um PDF.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+async function loadFile(file) {
+  selectedFile = file;
+  const buf = await file.arrayBuffer();
+  pdfJsDoc  = await pdfjsLib.getDocument({ data: buf }).promise;
+  totalPages = pdfJsDoc.numPages;
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = `${formatBytes(file.size)} · ${totalPages} pág.`;
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('editor-section').classList.add('show');
+  document.getElementById('save-section').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+  await renderCurrentPage();
+  initRedactCanvas();
+  updateSaveSummary();
+}
+
+async function renderCurrentPage() {
+  const page  = await pdfJsDoc.getPage(currentPage);
+  const maxW  = Math.min(700, document.getElementById('canvas-container').clientWidth || 700);
+  renderScale = maxW / page.getViewport({ scale: 1 }).width;
+  const vp    = page.getViewport({ scale: renderScale });
+
+  const rc = document.getElementById('pdf-render-canvas');
+  rc.width = vp.width; rc.height = vp.height;
+  const ctx = rc.getContext('2d');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, rc.width, rc.height);
+  await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+  const ec = document.getElementById('redact-canvas');
+  ec.width = vp.width; ec.height = vp.height;
+  ec.style.width  = rc.style.width  = '100%';
+  ec.style.height = rc.style.height = 'auto';
+
+  // Restore existing redactions for this page
+  replayRedactions();
+
+  document.getElementById('page-info').textContent = `Página ${currentPage} de ${totalPages}`;
+  document.getElementById('prev-btn').disabled = currentPage <= 1;
+  document.getElementById('next-btn').disabled = currentPage >= totalPages;
+}
+
+function initRedactCanvas() {
+  const ec = document.getElementById('redact-canvas');
+
+  const getPos = e => {
+    const r  = ec.getBoundingClientRect();
+    const sx = ec.width  / r.width;
+    const sy = ec.height / r.height;
+    const src = e.touches ? e.touches[0] : e;
+    return { x: (src.clientX - r.left) * sx, y: (src.clientY - r.top) * sy };
+  };
+
+  ec.addEventListener('mousedown', e => { isDrawing = true; const p = getPos(e); lastX = p.x; lastY = p.y; rectStart = p; });
+  ec.addEventListener('touchstart', e => { e.preventDefault(); isDrawing = true; const p = getPos(e); lastX = p.x; lastY = p.y; rectStart = p; }, { passive:false });
+
+  ec.addEventListener('mousemove', e => {
+    if (!isDrawing) return;
+    const p = getPos(e);
+    if (currentTool === 'brush') {
+      drawBrushStroke(lastX, lastY, p.x, p.y);
+      saveRedaction({ type:'brush', x1:lastX, y1:lastY, x2:p.x, y2:p.y, size:brushSize, color:redactColor });
+      lastX = p.x; lastY = p.y;
+    } else {
+      // Rect: preview
+      replayRedactions();
+      const ctx = ec.getContext('2d');
+      ctx.fillStyle = redactColor;
+      ctx.fillRect(rectStart.x, rectStart.y, p.x - rectStart.x, p.y - rectStart.y);
+    }
+  });
+  ec.addEventListener('touchmove', e => { e.preventDefault(); e.target.dispatchEvent(new MouseEvent('mousemove', { clientX: e.touches[0].clientX, clientY: e.touches[0].clientY })); }, { passive:false });
+
+  ec.addEventListener('mouseup', e => {
+    if (!isDrawing) return;
+    isDrawing = false;
+    if (currentTool === 'rect') {
+      const p = getPos(e);
+      saveRedaction({ type:'rect', x:rectStart.x, y:rectStart.y, w:p.x-rectStart.x, h:p.y-rectStart.y, color:redactColor });
+      replayRedactions();
+    }
+    updateSaveSummary();
+  });
+  ec.addEventListener('touchend', () => { isDrawing = false; updateSaveSummary(); });
+}
+
+function drawBrushStroke(x1, y1, x2, y2) {
+  const ctx = document.getElementById('redact-canvas').getContext('2d');
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+  ctx.strokeStyle = redactColor; ctx.lineWidth = brushSize;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke();
+}
+
+function saveRedaction(r) {
+  if (!pageRedactions[currentPage]) pageRedactions[currentPage] = [];
+  pageRedactions[currentPage].push(r);
+  updateRedactionCount();
+}
+
+function replayRedactions() {
+  const ec  = document.getElementById('redact-canvas');
+  const ctx = ec.getContext('2d');
+  ctx.clearRect(0, 0, ec.width, ec.height);
+  const reds = pageRedactions[currentPage] || [];
+  reds.forEach(r => {
+    if (r.type === 'brush') { drawBrushStroke(r.x1, r.y1, r.x2, r.y2); }
+    else if (r.type === 'rect') { ctx.fillStyle = r.color; ctx.fillRect(r.x, r.y, r.w, r.h); }
+  });
+}
+
+function undoLast() {
+  if (!pageRedactions[currentPage]?.length) return;
+  pageRedactions[currentPage].pop();
+  replayRedactions();
+  updateRedactionCount();
+  updateSaveSummary();
+}
+
+function clearPage() {
+  pageRedactions[currentPage] = [];
+  document.getElementById('redact-canvas').getContext('2d').clearRect(0, 0, 9999, 9999);
+  updateRedactionCount();
+  updateSaveSummary();
+}
+
+function updateRedactionCount() {
+  const total = Object.values(pageRedactions).reduce((s, a) => s + a.length, 0);
+  document.getElementById('redaction-count').textContent = `${total} redação${total !== 1 ? 'ões' : ''}`;
+}
+
+function updateSaveSummary() {
+  const pages = Object.keys(pageRedactions).filter(k => pageRedactions[k]?.length > 0);
+  const total = Object.values(pageRedactions).reduce((s, a) => s + a.length, 0);
+  document.getElementById('save-summary').textContent = total === 0
+    ? '⚠️ Nenhuma redação aplicada ainda. Pinte sobre o conteúdo a ocultar.'
+    : `🙈 ${total} redação${total !== 1 ? 'ões' : ''} em ${pages.length} página${pages.length !== 1 ? 's' : ''}. Ao salvar, o conteúdo será removido permanentemente.`;
+  document.getElementById('save-btn').disabled = total === 0;
+}
+
+function setTool(tool) {
+  currentTool = tool;
+  document.getElementById('btn-brush').classList.toggle('active', tool === 'brush');
+  document.getElementById('btn-rect').classList.toggle('active', tool === 'rect');
+  document.getElementById('redact-canvas').style.cursor = tool === 'brush' ? 'crosshair' : 'cell';
+}
+
+function updateBrushSize() {
+  brushSize = parseInt(document.getElementById('brush-size').value);
+  document.getElementById('brush-size-val').textContent = brushSize;
+}
+
+function selectColor(el) {
+  redactColor = el.dataset.color;
+  document.querySelectorAll('.col-swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+async function changePage(delta) {
+  currentPage = Math.max(1, Math.min(totalPages, currentPage + delta));
+  await renderCurrentPage();
+}
+
+async function saveRedacted() {
+  const totalReds = Object.values(pageRedactions).reduce((s, a) => s + a.length, 0);
+  if (totalReds === 0) { showToast('⚠️ Nenhuma redação aplicada.'); return; }
+
+  const btn = document.getElementById('save-btn');
+  btn.disabled = true; btn.textContent = '⏳ Aplicando...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    setProgress(10, 'Carregando PDF...');
+    const buf    = await selectedFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    const pdfLibPages = pdfDoc.getPages();
+
+    for (let p = 1; p <= totalPages; p++) {
+      const reds = pageRedactions[p];
+      if (!reds?.length) continue;
+
+      const pct = Math.round(10 + (p/totalPages)*80);
+      setProgress(pct, `Redatando página ${p}...`);
+
+      // Render page to canvas at full scale for accuracy
+      const pjPage  = await pdfJsDoc.getPage(p);
+      const vp      = pjPage.getViewport({ scale: 2 });
+      const fc      = document.createElement('canvas');
+      fc.width = vp.width; fc.height = vp.height;
+      const fctx = fc.getContext('2d');
+      fctx.fillStyle = '#fff'; fctx.fillRect(0, 0, fc.width, fc.height);
+      await pjPage.render({ canvasContext: fctx, viewport: vp }).promise;
+
+      // Draw redactions scaled to full canvas
+      const scaleF = 2 / renderScale;
+      reds.forEach(r => {
+        if (r.type === 'brush') {
+          fctx.beginPath(); fctx.moveTo(r.x1*scaleF, r.y1*scaleF); fctx.lineTo(r.x2*scaleF, r.y2*scaleF);
+          fctx.strokeStyle = r.color; fctx.lineWidth = r.size*scaleF; fctx.lineCap = 'round'; fctx.stroke();
+        } else if (r.type === 'rect') {
+          fctx.fillStyle = r.color; fctx.fillRect(r.x*scaleF, r.y*scaleF, r.w*scaleF, r.h*scaleF);
+        }
+      });
+
+      // Embed composite image into pdf-lib page
+      const pngBytes = await fetch(fc.toDataURL('image/png')).then(res => res.arrayBuffer());
+      const imgEmbed = await pdfDoc.embedPng(pngBytes);
+      const pdfPage  = pdfLibPages[p - 1];
+      const { width, height } = pdfPage.getSize();
+      pdfPage.drawImage(imgEmbed, { x: 0, y: 0, width, height });
+    }
+
+    setProgress(95, 'Salvando...');
+    const bytes = await pdfDoc.save();
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
+    setProgress(100, 'Concluído!');
+
+    const redPages = Object.keys(pageRedactions).filter(k => pageRedactions[k]?.length > 0).length;
+    setTimeout(() => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '_redatado.pdf');
+      document.getElementById('result-sub').textContent = `${totalReds} redação${totalReds !== 1 ? 'ões' : ''} em ${redPages} página${redPages !== 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior:'smooth', block:'center' });
+      btn.disabled = false; btn.textContent = '🙈 Aplicar redações e salvar PDF';
+    }, 400);
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erro ao salvar. Tente novamente.');
+    btn.disabled = false; btn.textContent = '🙈 Aplicar redações e salvar PDF';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; pdfJsDoc = null; totalPages = 0; currentPage = 1;
+  pageRedactions = {}; fileInput.value = ''; dropZone.style.display = 'block';
+  ['file-preview','editor-section','save-section','result-box','progress-wrap']
+    .forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>

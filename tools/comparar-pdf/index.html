@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comparar PDF Online Grátis — Encontre diferenças — TudoPDF</title>
+  <meta name="description" content="Compare dois PDFs online, grátis e sem cadastro. Modo texto lado a lado ou comparação visual de páginas. TudoPDF."/>
+  <link rel="canonical" href="https://tudopdf.com.br/tools/comparar-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    /* Upload grid */
+    .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .upload-card{border:2px dashed var(--gray-2);border-radius:16px;background:var(--gray-1);padding:32px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+    .upload-card:hover,.upload-card.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .upload-card input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .uc-badge{display:inline-block;padding:3px 10px;border-radius:50px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.68rem;margin-bottom:10px}
+    .uc-badge.a{background:#dbeafe;color:#1d4ed8}
+    .uc-badge.b{background:#fce7f3;color:#9d174d}
+    .uc-icon{font-size:2rem;margin-bottom:8px}
+    .uc-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;color:var(--text);margin-bottom:4px}
+    .uc-sub{font-size:.75rem;color:var(--text-muted)}
+
+    /* Loaded file cards */
+    .loaded-file{display:none;align-items:center;gap:12px;background:var(--card-bg);border:2px solid var(--gray-2);border-radius:12px;padding:14px 16px;margin-top:10px}
+    .loaded-file.show{display:flex}
+    .loaded-file.a{border-color:#93c5fd}
+    .loaded-file.b{border-color:#f9a8d4}
+    .lf-icon{font-size:1.8rem;flex-shrink:0}
+    .lf-info{flex:1;min-width:0}
+    .lf-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .lf-meta{font-size:.72rem;color:var(--text-muted);margin-top:2px}
+    .lf-remove{width:28px;height:28px;border-radius:7px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.85rem;flex-shrink:0;transition:all .2s}
+    .lf-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Mode selector */
+    .mode-section{display:none;margin-top:24px}
+    .mode-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+    .mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mode-card{border:2px solid var(--gray-2);border-radius:14px;padding:18px 16px;cursor:pointer;transition:all .2s;position:relative}
+    .mode-card:hover{border-color:var(--blue);background:var(--blue-light)}
+    .mode-card.selected{border-color:var(--blue);background:var(--blue-light)}
+    .mode-card.selected::after{content:'✓';position:absolute;top:10px;right:14px;font-size:.8rem;color:var(--blue);font-weight:700}
+    .mc-icon{font-size:1.6rem;margin-bottom:8px}
+    .mc-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:4px}
+    .mc-desc{font-size:.75rem;color:var(--text-muted);line-height:1.5}
+
+    /* Compare btn */
+    .compare-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .compare-btn.show{display:block}
+    .compare-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .compare-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    /* Results */
+    .results-section{display:none;margin-top:28px}
+    .results-section.show{display:block}
+
+    /* Stats bar */
+    .stats-bar{display:flex;gap:16px;flex-wrap:wrap;padding:14px 18px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;margin-bottom:20px}
+    .stat-chip{display:flex;align-items:center;gap:6px;font-size:.8rem;font-family:'Montserrat',sans-serif;font-weight:700}
+    .stat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .stat-dot.added{background:#22c55e}
+    .stat-dot.removed{background:#ef4444}
+    .stat-dot.unchanged{background:#94a3b8}
+
+    /* Text diff mode */
+    .diff-container{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--gray-2);border-radius:14px;overflow:hidden}
+    .diff-panel{background:var(--card-bg)}
+    .diff-header{padding:10px 16px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8rem;border-bottom:1px solid var(--gray-2);display:flex;align-items:center;gap:8px;position:sticky;top:0;z-index:1}
+    .diff-header.a{background:#eff6ff;color:#1d4ed8}
+    .diff-header.b{background:#fdf2f8;color:#9d174d;border-left:1px solid var(--gray-2)}
+    [data-theme="dark"] .diff-header.a{background:#1e3a5f;color:#93c5fd}
+    [data-theme="dark"] .diff-header.b{background:#4a1242;color:#f9a8d4}
+    .diff-content{padding:16px;font-family:'Open Sans',sans-serif;font-size:.82rem;line-height:1.7;max-height:500px;overflow-y:auto;white-space:pre-wrap;word-break:break-word}
+    .diff-content.b{border-left:1px solid var(--gray-2)}
+    .diff-line{display:block;padding:1px 4px;border-radius:3px;margin:1px 0}
+    .diff-line.added{background:#dcfce7;color:#15803d}
+    .diff-line.removed{background:#fee2e2;color:#dc2626;text-decoration:line-through}
+    [data-theme="dark"] .diff-line.added{background:rgba(34,197,94,.15);color:#4ade80}
+    [data-theme="dark"] .diff-line.removed{background:rgba(239,68,68,.15);color:#f87171}
+
+    /* Visual diff mode */
+    .visual-diff-grid{display:flex;flex-direction:column;gap:20px}
+    .visual-diff-page{border:1.5px solid var(--gray-2);border-radius:14px;overflow:hidden}
+    .vdp-header{padding:10px 16px;background:var(--card-bg);border-bottom:1px solid var(--gray-2);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8rem;color:var(--text);display:flex;align-items:center;justify-content:space-between}
+    .vdp-badge{font-size:.68rem;padding:2px 8px;border-radius:50px;font-weight:700}
+    .vdp-badge.diff{background:#fef9c3;color:#854d0e;border:1px solid #fbbf24}
+    .vdp-badge.same{background:#f0fdf4;color:#15803d;border:1px solid #86efac}
+    .vdp-canvases{display:grid;grid-template-columns:1fr 1fr;gap:0}
+    .vdp-canvas-wrap{position:relative}
+    .vdp-label{position:absolute;top:8px;left:8px;padding:2px 8px;border-radius:50px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.65rem;z-index:2}
+    .vdp-label.a{background:#dbeafe;color:#1d4ed8}
+    .vdp-label.b{background:#fce7f3;color:#9d174d;right:8px;left:auto}
+    .vdp-canvas-wrap canvas{width:100%;display:block}
+    .vdp-diff-overlay{position:absolute;inset:0;pointer-events:none}
+
+    .no-diff-msg{text-align:center;padding:40px;color:var(--text-muted);font-size:.9rem}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.upload-grid,.mode-cards,.diff-container,.vdp-canvases{grid-template-columns:1fr}.diff-content.b{border-left:none;border-top:1px solid var(--gray-2)}.info-cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header">Entrar</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Comparar PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+    <div class="tool-hero">
+      <h1>⚖️ Comparar PDF</h1>
+      <p>Compare dois PDFs e encontre as diferenças. Modo texto lado a lado com destaques ou comparação visual página por página.</p>
+    </div>
+
+    <!-- Upload -->
+    <div class="upload-grid">
+      <div>
+        <div class="upload-card" id="drop-a">
+          <input type="file" id="file-a" accept=".pdf"/>
+          <div class="uc-badge a">PDF A — Original</div>
+          <div class="uc-icon">📄</div>
+          <div class="uc-title">Arraste o PDF original</div>
+          <div class="uc-sub">ou clique para selecionar</div>
+        </div>
+        <div class="loaded-file a" id="loaded-a">
+          <div class="lf-icon">📄</div>
+          <div class="lf-info">
+            <div class="lf-name" id="name-a"></div>
+            <div class="lf-meta" id="meta-a"></div>
+          </div>
+          <div class="lf-remove" onclick="removeFile('a')">✕</div>
+        </div>
+      </div>
+      <div>
+        <div class="upload-card" id="drop-b">
+          <input type="file" id="file-b" accept=".pdf"/>
+          <div class="uc-badge b">PDF B — Modificado</div>
+          <div class="uc-icon">📄</div>
+          <div class="uc-title">Arraste o PDF modificado</div>
+          <div class="uc-sub">ou clique para selecionar</div>
+        </div>
+        <div class="loaded-file b" id="loaded-b">
+          <div class="lf-icon">📄</div>
+          <div class="lf-info">
+            <div class="lf-name" id="name-b"></div>
+            <div class="lf-meta" id="meta-b"></div>
+          </div>
+          <div class="lf-remove" onclick="removeFile('b')">✕</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode selection -->
+    <div class="mode-section" id="mode-section">
+      <div class="section-title">Modo de comparação</div>
+      <div class="mode-cards">
+        <div class="mode-card selected" data-mode="text" onclick="selectMode('text',this)">
+          <div class="mc-icon">📝</div>
+          <div class="mc-label">Comparação de texto</div>
+          <div class="mc-desc">Extrai o texto de ambos os PDFs e mostra as diferenças linha por linha com destaques coloridos.</div>
+        </div>
+        <div class="mode-card" data-mode="visual" onclick="selectMode('visual',this)">
+          <div class="mc-icon">👁️</div>
+          <div class="mc-label">Comparação visual</div>
+          <div class="mc-desc">Renderiza cada página e destaca visualmente as áreas com diferenças entre os dois PDFs.</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="compare-btn" id="compare-btn" onclick="startCompare()">⚖️ Comparar PDFs</button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Comparando...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-section" id="results-section">
+      <div class="stats-bar" id="stats-bar"></div>
+      <div id="diff-output"></div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🔍</div><h3>Dois modos</h3><p>Compare texto com diff colorido ou visualize diferenças página a página com destaque visual.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhum arquivo é enviado a servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de comparações.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/organizar-pdf/"><span>📂</span> Organizar PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/ocr-pdf/"><span>🔍</span> OCR PDF</a>
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+        <a class="related-card" href="/tools/dividir-pdf/"><span>✂️</span> Dividir PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/comparar-pdf/">Comparar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li><li><a href="/tools/juntar-pdf/">Juntar PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@tudopdf.com.br</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let fileA = null, fileB = null, compareMode = 'text';
+
+// Setup dropzones
+['a','b'].forEach(side => {
+  const dz = document.getElementById('drop-' + side);
+  const fi = document.getElementById('file-' + side);
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f?.type === 'application/pdf') loadFile(side, f); else showToast('⚠️ Selecione um PDF.');
+  });
+  fi.addEventListener('change', e => { if (e.target.files[0]) loadFile(side, e.target.files[0]); });
+});
+
+async function loadFile(side, file) {
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  if (side === 'a') fileA = file; else fileB = file;
+  document.getElementById('name-' + side).textContent = file.name;
+  document.getElementById('meta-' + side).textContent = `${formatBytes(file.size)} · ${pdf.numPages} pág.`;
+  document.getElementById('drop-' + side).style.display = 'none';
+  document.getElementById('loaded-' + side).classList.add('show');
+  checkBothLoaded();
+}
+
+function removeFile(side) {
+  if (side === 'a') fileA = null; else fileB = null;
+  document.getElementById('file-' + side).value = '';
+  document.getElementById('drop-' + side).style.display = 'block';
+  document.getElementById('loaded-' + side).classList.remove('show');
+  checkBothLoaded();
+  document.getElementById('results-section').classList.remove('show');
+}
+
+function checkBothLoaded() {
+  const ready = fileA && fileB;
+  document.getElementById('mode-section').classList.toggle('show', !!ready);
+  document.getElementById('compare-btn').classList.toggle('show', !!ready);
+}
+
+function selectMode(mode, el) {
+  compareMode = mode;
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+async function startCompare() {
+  const btn = document.getElementById('compare-btn');
+  btn.disabled = true; btn.textContent = '⏳ Comparando...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('results-section').classList.remove('show');
+
+  try {
+    if (compareMode === 'text') await compareText();
+    else await compareVisual();
+    document.getElementById('results-section').classList.add('show');
+    document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erro ao comparar. Tente novamente.');
+  }
+  document.getElementById('progress-wrap').classList.remove('show');
+  btn.disabled = false; btn.textContent = '⚖️ Comparar novamente';
+}
+
+/* ── Text diff ── */
+async function compareText() {
+  setProgress(10, 'Extraindo texto do PDF A...');
+  const textA = await extractText(fileA, p => setProgress(10 + p*0.35, `Extraindo PDF A... ${Math.round(p*100)}%`));
+  setProgress(50, 'Extraindo texto do PDF B...');
+  const textB = await extractText(fileB, p => setProgress(50 + p*0.35, `Extraindo PDF B... ${Math.round(p*100)}%`));
+  setProgress(90, 'Calculando diferenças...');
+
+  const linesA = textA.split('\n');
+  const linesB = textB.split('\n');
+  const diff   = computeDiff(linesA, linesB);
+
+  const added    = diff.filter(d => d.type === 'added').length;
+  const removed  = diff.filter(d => d.type === 'removed').length;
+  const unchanged = diff.filter(d => d.type === 'unchanged').length;
+
+  renderStats(added, removed, unchanged, 'text');
+
+  const lA = diff.filter(d => d.type !== 'added');
+  const lB = diff.filter(d => d.type !== 'removed');
+
+  const diffOut = document.getElementById('diff-output');
+  diffOut.innerHTML = `
+    <div class="diff-container">
+      <div class="diff-panel">
+        <div class="diff-header a">📄 PDF A — Original <span style="opacity:.6;font-weight:400">(${linesA.length} linhas)</span></div>
+        <div class="diff-content" id="dc-a"></div>
+      </div>
+      <div class="diff-panel">
+        <div class="diff-header b">📄 PDF B — Modificado <span style="opacity:.6;font-weight:400">(${linesB.length} linhas)</span></div>
+        <div class="diff-content b" id="dc-b"></div>
+      </div>
+    </div>`;
+
+  const dcA = document.getElementById('dc-a');
+  const dcB = document.getElementById('dc-b');
+  lA.forEach(d => { const s = document.createElement('span'); s.className = 'diff-line ' + (d.type === 'removed' ? 'removed' : ''); s.textContent = d.text || ' '; dcA.appendChild(s); });
+  lB.forEach(d => { const s = document.createElement('span'); s.className = 'diff-line ' + (d.type === 'added' ? 'added' : ''); s.textContent = d.text || ' '; dcB.appendChild(s); });
+  setProgress(100, 'Concluído!');
+}
+
+async function extractText(file, onProgress) {
+  const buf    = await file.arrayBuffer();
+  const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+  const lines  = [];
+  for (let i = 1; i <= pdfDoc.numPages; i++) {
+    onProgress(i / pdfDoc.numPages);
+    const page    = await pdfDoc.getPage(i);
+    const content = await page.getTextContent();
+    const pageText = content.items.map(item => item.str).join(' ');
+    lines.push(...pageText.split('\n'));
+  }
+  return lines.join('\n');
+}
+
+// Simple LCS-based diff
+function computeDiff(linesA, linesB) {
+  const result = [];
+  let i = 0, j = 0;
+  // Build LCS table
+  const m = Math.min(linesA.length, 200), n = Math.min(linesB.length, 200);
+  const lcs = Array.from({length: m+1}, () => new Array(n+1).fill(0));
+  for (let a = 1; a <= m; a++) for (let b = 1; b <= n; b++)
+    lcs[a][b] = linesA[a-1] === linesB[b-1] ? lcs[a-1][b-1] + 1 : Math.max(lcs[a-1][b], lcs[a][b-1]);
+
+  // Backtrack
+  const seq = [];
+  let a = m, b = n;
+  while (a > 0 && b > 0) {
+    if (linesA[a-1] === linesB[b-1]) { seq.unshift({ type:'unchanged', text: linesA[a-1] }); a--; b--; }
+    else if (lcs[a-1][b] >= lcs[a][b-1]) { seq.unshift({ type:'removed', text: linesA[a-1] }); a--; }
+    else { seq.unshift({ type:'added', text: linesB[b-1] }); b--; }
+  }
+  while (a > 0) { seq.unshift({ type:'removed', text: linesA[a-1] }); a--; }
+  while (b > 0) { seq.unshift({ type:'added',   text: linesB[b-1] }); b--; }
+
+  // Append remaining lines beyond LCS limit as unchanged
+  linesA.slice(m).forEach(l => seq.push({ type:'unchanged', text: l }));
+  return seq;
+}
+
+/* ── Visual diff ── */
+async function compareVisual() {
+  const bufA = await fileA.arrayBuffer();
+  const bufB = await fileB.arrayBuffer();
+  setProgress(5, 'Carregando PDFs...');
+  const docA = await pdfjsLib.getDocument({ data: bufA }).promise;
+  const docB = await pdfjsLib.getDocument({ data: bufB }).promise;
+  const pages = Math.max(docA.numPages, docB.numPages);
+
+  const diffOut = document.getElementById('diff-output');
+  diffOut.innerHTML = '<div class="visual-diff-grid" id="vdg"></div>';
+  const vdg = document.getElementById('vdg');
+
+  let diffPages = 0;
+  for (let i = 1; i <= pages; i++) {
+    const pct = Math.round(5 + (i/pages)*88);
+    setProgress(pct, `Comparando página ${i} de ${pages}...`);
+
+    const scale = 0.6;
+    const renderPage = async (doc, num) => {
+      if (num > doc.numPages) return null;
+      const page = await doc.getPage(num);
+      const vp   = page.getViewport({ scale });
+      const c    = document.createElement('canvas');
+      c.width = vp.width; c.height = vp.height;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+      return c;
+    };
+
+    const [cA, cB] = await Promise.all([renderPage(docA, i), renderPage(docB, i)]);
+
+    // Pixel diff
+    let hasDiff = false;
+    if (cA && cB && cA.width === cB.width && cA.height === cB.height) {
+      const dA = cA.getContext('2d').getImageData(0, 0, cA.width, cA.height).data;
+      const dB = cB.getContext('2d').getImageData(0, 0, cB.width, cB.height).data;
+      for (let p = 0; p < dA.length; p += 4) {
+        if (Math.abs(dA[p]-dB[p]) > 15 || Math.abs(dA[p+1]-dB[p+1]) > 15 || Math.abs(dA[p+2]-dB[p+2]) > 15) {
+          hasDiff = true; break;
+        }
+      }
+    } else if (cA !== cB) hasDiff = true;
+    if (hasDiff) diffPages++;
+
+    const card = document.createElement('div');
+    card.className = 'visual-diff-page';
+    card.innerHTML = `
+      <div class="vdp-header">
+        Página ${i}
+        <span class="vdp-badge ${hasDiff ? 'diff' : 'same'}">${hasDiff ? '⚠️ Com diferenças' : '✅ Idêntica'}</span>
+      </div>
+      <div class="vdp-canvases">
+        <div class="vdp-canvas-wrap"><div class="vdp-label a">PDF A</div></div>
+        <div class="vdp-canvas-wrap"><div class="vdp-label b">PDF B</div></div>
+      </div>`;
+    const wraps = card.querySelectorAll('.vdp-canvas-wrap');
+    if (cA) wraps[0].appendChild(cA); else wraps[0].innerHTML += '<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:.8rem">Página não existe</div>';
+    if (cB) wraps[1].appendChild(cB); else wraps[1].innerHTML += '<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:.8rem">Página não existe</div>';
+    vdg.appendChild(card);
+  }
+
+  renderStats(diffPages, 0, pages - diffPages, 'visual', pages);
+  setProgress(100, 'Concluído!');
+}
+
+function renderStats(added, removed, unchanged, mode, totalPages) {
+  const bar = document.getElementById('stats-bar');
+  if (mode === 'text') {
+    bar.innerHTML = `
+      <div class="stat-chip"><div class="stat-dot added"></div>${added} linha${added !== 1 ? 's' : ''} adicionada${added !== 1 ? 's' : ''}</div>
+      <div class="stat-chip"><div class="stat-dot removed"></div>${removed} linha${removed !== 1 ? 's' : ''} removida${removed !== 1 ? 's' : ''}</div>
+      <div class="stat-chip"><div class="stat-dot unchanged"></div>${unchanged} linha${unchanged !== 1 ? 's' : ''} iguais</div>
+      ${added + removed === 0 ? '<div class="stat-chip">✅ Textos idênticos!</div>' : ''}`;
+  } else {
+    bar.innerHTML = `
+      <div class="stat-chip"><div class="stat-dot added"></div>${added} página${added !== 1 ? 's' : ''} com diferenças</div>
+      <div class="stat-chip"><div class="stat-dot unchanged"></div>${unchanged} página${unchanged !== 1 ? 's' : ''} idêntica${unchanged !== 1 ? 's' : ''}</div>
+      <div class="stat-chip">📄 Total: ${totalPages} página${totalPages !== 1 ? 's' : ''}</div>`;
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>
