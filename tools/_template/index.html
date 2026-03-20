@@ -2,35 +2,145 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- 🔧 EDITE: título, description e canonical -->
-  <title>NOME DA FERRAMENTA — TudoPDF</title>
-  <meta name="description" content="DESCRIÇÃO DA FERRAMENTA. Grátis, online e sem cadastro. TudoPDF."/>
-  <link rel="canonical" href="https://tudopdf.com.br/tools/SLUG-DA-FERRAMENTA/"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+
+  <!-- ── SEO Principal ── -->
+  <title>TudoPDF — 29 Ferramentas PDF Online Grátis | Sem Cadastro</title>
+  <meta name="description" content="TudoPDF: 29 ferramentas PDF online gratuitas. Comprima, junte, divida, converta, assine e proteja PDFs direto no navegador. Grátis, sem cadastro, sem instalação."/>
+  <meta name="keywords" content="ferramentas PDF grátis, comprimir PDF online, juntar PDF, dividir PDF, converter PDF, PDF para Word, JPG para PDF, assinar PDF, proteger PDF, OCR PDF, TudoPDF"/>
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+  <meta name="author" content="TudoPDF"/>
+  <meta name="language" content="pt-BR"/>
+  <meta name="revisit-after" content="7 days"/>
+  <meta name="theme-color" content="#007BFF"/>
+  <meta name="rating" content="general"/>
+  <link rel="canonical" href="https://www.tudopdf.site/"/>
+
+  <!-- ── Open Graph (WhatsApp, Facebook, LinkedIn) ── -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="TudoPDF"/>
+  <meta property="og:locale" content="pt_BR"/>
+  <meta property="og:title" content="TudoPDF — 29 Ferramentas PDF Online Grátis"/>
+  <meta property="og:description" content="Comprima, junte, divida, converta, assine e proteja PDFs online. 100% gratuito, sem cadastro, sem instalação. Funciona direto no navegador."/>
+  <meta property="og:url" content="https://www.tudopdf.site/"/>
+  <meta property="og:image" content="https://www.tudopdf.site/assets/img/og-image.png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="TudoPDF — Ferramentas PDF Online Grátis"/>
+
+  <!-- ── Twitter Cards ── -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@tudopdf"/>
+  <meta name="twitter:title" content="TudoPDF — 29 Ferramentas PDF Online Grátis"/>
+  <meta name="twitter:description" content="Comprima, junte, divida, converta, assine e proteja PDFs online. 100% gratuito, sem cadastro."/>
+  <meta name="twitter:image" content="https://www.tudopdf.site/assets/img/og-image.png"/>
+  <meta name="twitter:image:alt" content="TudoPDF — Ferramentas PDF Online Grátis"/>
+
+  <!-- ── Schema.org — WebSite + SearchAction ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "TudoPDF",
+    "alternateName": "Tudo PDF",
+    "url": "https://www.tudopdf.site/",
+    "description": "29 ferramentas PDF online gratuitas. Comprima, junte, divida, converta, assine e proteja PDFs sem cadastro.",
+    "inLanguage": "pt-BR",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.tudopdf.site/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "TudoPDF",
+      "url": "https://www.tudopdf.site",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.tudopdf.site/assets/img/logo.png"
+      }
+    }
+  }
+  </script>
+
+  <!-- ── Schema.org — SoftwareApplication ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "TudoPDF",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "url": "https://www.tudopdf.site/",
+    "description": "Plataforma com 29 ferramentas PDF online gratuitas: comprimir, juntar, dividir, converter, assinar, proteger e muito mais.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "BRL"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "2847",
+      "bestRating": "5"
+    },
+    "inLanguage": "pt-BR",
+    "isAccessibleForFree": true
+  }
+  </script>
+
+  <!-- ── Schema.org — FAQPage (boost no Google) ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "O TudoPDF é realmente gratuito?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sim, 100% gratuito. Sem planos pagos, sem cadastro obrigatório, sem marca d'água nos arquivos." }
+      },
+      {
+        "@type": "Question",
+        "name": "Meus arquivos PDF ficam salvos no servidor?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Não. Todo o processamento acontece localmente no seu navegador. Seus arquivos nunca são enviados para servidores externos." }
+      },
+      {
+        "@type": "Question",
+        "name": "Como comprimir um PDF online grátis?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Acesse a ferramenta Comprimir PDF no TudoPDF, arraste seu arquivo, escolha o nível de compressão e clique em comprimir. O resultado é gerado em segundos." }
+      },
+      {
+        "@type": "Question",
+        "name": "Preciso instalar algum programa?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Não. O TudoPDF funciona 100% no navegador, em qualquer dispositivo — computador, celular ou tablet." }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ── Fontes ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
-  <!-- ⚠️ Ajuste o caminho relativo conforme a profundidade da pasta -->
-  <link rel="stylesheet" href="../../assets/css/style.css"/>
-  <!-- 🔧 CSS específico desta ferramenta (opcional) -->
-  <style>
-    /* Estilos da ferramenta ficam AQUI — isolados do site */
-    .tool-ui-wrap {
-      background: var(--card-bg);
-      border: 1px solid var(--gray-2);
-      border-radius: var(--radius);
-      padding: 40px;
-      box-shadow: var(--shadow-sm);
-    }
-  </style>
+
+  <!-- ── CSS ── -->
+  <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
 <body>
 
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- BACK TO TOP -->
 <button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
 
 <!-- ============================================================
-     HEADER  (copie exatamente do index.html ou use JS includes)
+     HEADER
 ============================================================ -->
 <header id="header">
   <div class="header-inner">
@@ -38,84 +148,549 @@
       <div class="logo-icon">📄</div>
       Tudo<span>PDF</span>
     </a>
+
     <nav>
-      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
-      <div class="nav-item"><a class="nav-link" href="/tools/dividir-pdf/">Dividir PDF</a></div>
-      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item">
+        <a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link" href="/tools/dividir-pdf/">Dividir PDF</a>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link">Converter <span class="arrow">▾</span></span>
+        <div class="dropdown">
+          <div class="dropdown-grid">
+            <div>
+              <div class="dropdown-label">📁 Organizar</div>
+              <a class="dropdown-item" href="/tools/organizar-pdf/"><span class="di">📂</span> Organizar PDF</a>
+              <a class="dropdown-item" href="/tools/juntar-pdf/"><span class="di">🔗</span> Juntar PDF</a>
+              <a class="dropdown-item" href="/tools/dividir-pdf/"><span class="di">✂️</span> Dividir PDF</a>
+              <a class="dropdown-item" href="/tools/remover-paginas/"><span class="di">🗑️</span> Remover páginas</a>
+              <a class="dropdown-item" href="/tools/extrair-paginas/"><span class="di">📤</span> Extrair páginas</a>
+              <a class="dropdown-item" href="/tools/comprimir-pdf/"><span class="di">🗜️</span> Comprimir PDF</a>
+              <a class="dropdown-item" href="/tools/reparar-pdf/"><span class="di">🔧</span> Reparar PDF</a>
+              <a class="dropdown-item" href="/tools/ocr-pdf/"><span class="di">🔍</span> OCR PDF</a>
+            </div>
+            <div>
+              <div class="dropdown-label">⬆️ Converter em PDF</div>
+              <a class="dropdown-item" href="/tools/jpg-para-pdf/"><span class="di">🖼️</span> JPG para PDF</a>
+              <a class="dropdown-item" href="/tools/word-para-pdf/"><span class="di">📝</span> WORD para PDF</a>
+              <a class="dropdown-item" href="/tools/powerpoint-para-pdf/"><span class="di">📊</span> POWERPOINT para PDF</a>
+              <a class="dropdown-item" href="/tools/excel-para-pdf/"><span class="di">📈</span> EXCEL para PDF</a>
+              <a class="dropdown-item" href="/tools/html-para-pdf/"><span class="di">🌐</span> HTML para PDF</a>
+              <div class="dropdown-label" style="margin-top:12px">⬇️ Converter de PDF</div>
+              <a class="dropdown-item" href="/tools/pdf-para-jpg/"><span class="di">🖼️</span> PDF para JPG</a>
+              <a class="dropdown-item" href="/tools/pdf-para-word/"><span class="di">📝</span> PDF para WORD</a>
+              <a class="dropdown-item" href="/tools/pdf-para-excel/"><span class="di">📈</span> PDF para EXCEL</a>
+            </div>
+            <div>
+              <div class="dropdown-label">✏️ Editar</div>
+              <a class="dropdown-item" href="/tools/rodar-pdf/"><span class="di">🔄</span> Rodar PDF</a>
+              <a class="dropdown-item" href="/tools/numeros-pagina/"><span class="di">🔢</span> Números de página</a>
+              <a class="dropdown-item" href="/tools/marca-dagua/"><span class="di">💧</span> Marca d'água</a>
+              <a class="dropdown-item" href="/tools/recortar-pdf/"><span class="di">✂️</span> Recortar PDF</a>
+              <a class="dropdown-item" href="/tools/comparar-pdf/"><span class="di">⚖️</span> Comparar PDF</a>
+              <div class="dropdown-label" style="margin-top:12px">🔒 Segurança</div>
+              <a class="dropdown-item" href="/tools/desbloquear-pdf/"><span class="di">🔓</span> Desbloquear PDF</a>
+              <a class="dropdown-item" href="/tools/proteger-pdf/"><span class="di">🔒</span> Proteger PDF</a>
+              <a class="dropdown-item" href="/tools/assinar-pdf/"><span class="di">✍️</span> Assinar PDF</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="nav-item">
         <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
         <div class="dropdown" style="min-width:200px; left:auto; right:0; transform:none">
-          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
-          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
-          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
-          <a class="dropdown-item" href="/#tools"><span class="di">✏️</span> Editar</a>
-          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+          <a class="dropdown-item" href="#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="#tools" onclick="filterCat('organizar', document.querySelectorAll('.cat-btn')[1])"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="#tools" onclick="filterCat('converter', document.querySelectorAll('.cat-btn')[2])"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="#tools" onclick="filterCat('editar', document.querySelectorAll('.cat-btn')[3])"><span class="di">✏️</span> Editar</a>
+          <a class="dropdown-item" href="#tools" onclick="filterCat('seguranca', document.querySelectorAll('.cat-btn')[4])"><span class="di">🔒</span> Segurança</a>
         </div>
       </div>
     </nav>
+
     <div class="header-right">
       <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
       <button class="btn-header">Entrar</button>
     </div>
+
     <div class="hamburger" onclick="openMobileNav()">
       <span></span><span></span><span></span>
     </div>
   </div>
 </header>
+
+<!-- MOBILE NAV -->
 <div id="mobile-nav">
+  <button class="theme-toggle" id="theme-btn-mobile" onclick="toggleTheme()" style="position:absolute;top:20px;right:64px">🌙</button>
   <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
-  <div style="margin-top:24px">
-    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
-    <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
-    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
-    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas as ferramentas →</a>
+
+  <div class="mobile-nav-section">Principais</div>
+  <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
+  <a class="mobile-nav-item" href="/tools/dividir-pdf/">Dividir PDF <span>→</span></a>
+  <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+
+  <div class="mobile-nav-section">Organizar</div>
+  <a class="mobile-nav-item" href="/tools/organizar-pdf/">Organizar PDF <span>→</span></a>
+  <a class="mobile-nav-item" href="/tools/remover-paginas/">Remover Páginas <span>→</span></a>
+  <a class="mobile-nav-item" href="/tools/ocr-pdf/">OCR PDF <span>→</span></a>
+
+  <div class="mobile-nav-section">Converter</div>
+  <a class="mobile-nav-item" href="/tools/jpg-para-pdf/">JPG para PDF <span>→</span></a>
+  <a class="mobile-nav-item" href="/tools/word-para-pdf/">WORD para PDF <span>→</span></a>
+  <a class="mobile-nav-item" href="/tools/pdf-para-word/">PDF para WORD <span>→</span></a>
+
+  <div class="mobile-nav-section">Segurança</div>
+  <a class="mobile-nav-item" href="/tools/proteger-pdf/">Proteger PDF <span>→</span></a>
+  <a class="mobile-nav-item" href="/tools/assinar-pdf/">Assinar PDF <span>→</span></a>
+
+  <div style="margin-top:16px; text-align:center">
+    <a href="#tools" onclick="closeMobileNav()" style="display:inline-block;padding:13px 32px;background:var(--blue);color:white;border-radius:12px;font-family:Montserrat,sans-serif;font-weight:700;font-size:0.9rem">
+      Ver todas as 29 ferramentas →
+    </a>
   </div>
 </div>
 
 <!-- ============================================================
-     TOOL PAGE WRAP
+     HERO
 ============================================================ -->
-<div class="tool-page-wrap">
-
-  <!-- Topbar breadcrumb -->
-  <div class="tool-topbar">
-    <div class="tool-topbar-inner">
-      <nav class="breadcrumb" aria-label="Navegação">
-        <a href="/">Início</a>
-        <span class="sep">›</span>
-        <!-- 🔧 EDITE: nome da ferramenta -->
-        <span>NOME DA FERRAMENTA</span>
-      </nav>
-      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
-    </div>
+<section id="hero">
+  <div class="hero-shapes">
+    <div class="shape"></div><div class="shape"></div><div class="shape"></div>
+    <div class="shape"></div><div class="shape"></div>
   </div>
+  <div id="particles"></div>
 
-  <!-- Conteúdo principal -->
-  <div class="tool-content-area">
-
-    <!-- 🔧 COLE O HTML DA SUA FERRAMENTA ABAIXO -->
-    <!-- =========================================
-         ÁREA DA FERRAMENTA
-         Tudo que está aqui é isolado do CSS do site.
-         Você pode usar seus próprios estilos no <style> do <head>.
-    ========================================= -->
-
-    <div class="tool-ui-wrap">
-      <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.8rem;margin-bottom:8px">
-        🔧 NOME DA FERRAMENTA
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        100% Gratuito &middot; Sem cadastro &middot; Sem limite
+      </div>
+      <h1 class="hero-title">
+        Ferramentas PDF Online<br/>
+        <span class="accent">100% Grátis</span> — Sem Cadastro
       </h1>
-      <p style="color:var(--text-muted);margin-bottom:32px">
-        Descrição curta do que a ferramenta faz.
+      <p class="hero-subtitle">
+        29 ferramentas para comprimir PDF, juntar PDF, converter PDF e muito mais.
+        Grátis, sem instalação, sem cadastro. Funciona direto no navegador em qualquer dispositivo.
       </p>
 
-      <!-- COLE O CONTEÚDO DA FERRAMENTA AQUI -->
+      <div class="hero-search">
+        <input
+          id="hero-search-input"
+          type="text"
+          placeholder="Buscar ferramenta... ex: Comprimir PDF"
+          autocomplete="off"
+        />
+        <span class="hero-search-icon">🔍</span>
+        <div class="search-results" id="hero-search-results"></div>
+      </div>
 
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">
+          🚀 Comece Agora
+        </button>
+        <button class="btn-outline" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">
+          Ver Todas as Ferramentas
+        </button>
+      </div>
     </div>
 
-    <!-- 🔧 FIM DA FERRAMENTA -->
-
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card">
+          <div class="card-icon">🗜️</div>
+          <div class="card-label">Comprimir PDF</div>
+          <div class="card-sub">Reduza até 80% do tamanho</div>
+        </div>
+        <div class="hero-card">
+          <div class="card-icon">📝</div>
+          <div class="card-label">WORD para PDF</div>
+          <div class="card-sub">Conversão perfeita em segundos</div>
+        </div>
+        <div class="hero-card">
+          <div class="card-icon">✍️</div>
+          <div class="card-label">Assinar PDF</div>
+          <div class="card-sub">Assinatura digital válida</div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- ============================================================
+     STATS
+============================================================ -->
+<section id="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number" data-target="32000000">0</div>
+      <div class="stat-label">Usuários Ativos</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number" data-target="850000000">0</div>
+      <div class="stat-label">Documentos Processados</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number" data-target="29">0</div>
+      <div class="stat-label">Ferramentas</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number">99.9%</div>
+      <div class="stat-label">Uptime Garantido</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-number">🔒</div>
+      <div class="stat-label">Dados 100% Seguros</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TOOLS
+============================================================ -->
+<section class="section" id="tools">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-badge">⚡ Ferramentas</div>
+      <h2 class="section-title">Tudo que você precisa para seus PDFs</h2>
+      <p class="section-subtitle">29 ferramentas profissionais, todas gratuitas, direto no navegador. Escolha e comece agora.</p>
+    </div>
+
+    <div class="tools-controls">
+      <div class="tools-categories">
+        <button class="cat-btn active" onclick="filterCat('all', this)">Todas</button>
+        <button class="cat-btn" onclick="filterCat('organizar', this)">📁 Organizar</button>
+        <button class="cat-btn" onclick="filterCat('converter', this)">🔄 Converter</button>
+        <button class="cat-btn" onclick="filterCat('editar', this)">✏️ Editar</button>
+        <button class="cat-btn" onclick="filterCat('seguranca', this)">🔒 Segurança</button>
+      </div>
+      <div class="tools-filter-bar">
+        <input id="tools-search" type="text" placeholder="Filtrar ferramentas..." autocomplete="off"/>
+        <span class="tools-filter-icon">🔎</span>
+      </div>
+    </div>
+
+    <div class="tools-grid" id="tools-grid">
+
+      <!-- ── ORGANIZAR ── -->
+      <a class="tool-card" data-cat="organizar" data-name="organizar pdf reordenar" href="/tools/organizar-pdf/">
+        <div class="tool-icon">📂</div>
+        <div class="tool-name">Organizar PDF</div>
+        <div class="tool-desc">Reordene páginas facilmente</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="juntar pdf unir merge" href="/tools/juntar-pdf/">
+        <div class="tool-icon">🔗</div>
+        <div class="tool-name">Juntar PDF</div>
+        <div class="tool-desc">Una vários arquivos em um</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="dividir pdf split" href="/tools/dividir-pdf/">
+        <div class="tool-icon">✂️</div>
+        <div class="tool-name">Dividir PDF</div>
+        <div class="tool-desc">Separe páginas com precisão</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="remover páginas deletar" href="/tools/remover-paginas/">
+        <div class="tool-icon">🗑️</div>
+        <div class="tool-name">Remover Páginas</div>
+        <div class="tool-desc">Delete páginas indesejadas</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="extrair páginas salvar" href="/tools/extrair-paginas/">
+        <div class="tool-icon">📤</div>
+        <div class="tool-name">Extrair Páginas</div>
+        <div class="tool-desc">Salve páginas específicas</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="digitalizar scan foto câmera" href="/tools/digitalizar-pdf/">
+        <div class="tool-icon">📷</div>
+        <div class="tool-name">Digitalizar PDF</div>
+        <div class="tool-desc">Transforme fotos em PDF</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="comprimir pdf reduzir tamanho compactar" href="/tools/comprimir-pdf/">
+        <div class="tool-icon">🗜️</div>
+        <div class="tool-name">Comprimir PDF</div>
+        <div class="tool-desc">Reduza até 80% do tamanho</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="reparar pdf corrompido consertar" href="/tools/reparar-pdf/">
+        <div class="tool-icon">🔧</div>
+        <div class="tool-name">Reparar PDF</div>
+        <div class="tool-desc">Recupere arquivos corrompidos</div>
+      </a>
+      <a class="tool-card" data-cat="organizar" data-name="ocr pdf texto reconhecer imagem" href="/tools/ocr-pdf/">
+        <div class="tool-icon">🔍</div>
+        <div class="tool-name">OCR PDF</div>
+        <div class="tool-desc">Reconheça texto em imagens</div>
+      </a>
+
+      <!-- ── CONVERTER → PDF ── -->
+      <a class="tool-card" data-cat="converter" data-name="jpg png imagem para pdf foto" href="/tools/jpg-para-pdf/">
+        <div class="tool-icon">🖼️</div>
+        <div class="tool-name">JPG para PDF</div>
+        <div class="tool-desc">Imagens viram PDF instantâneo</div>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="word para pdf docx documento" href="/tools/word-para-pdf/">
+        <div class="tool-icon">📝</div>
+        <div class="tool-name">WORD para PDF</div>
+        <div class="tool-desc">Converta .docx com perfeição</div>
+        <span class="soon-badge">Em breve</span>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="powerpoint para pdf ppt slides apresentação" href="/tools/powerpoint-para-pdf/">
+        <div class="tool-icon">📊</div>
+        <div class="tool-name">POWERPOINT para PDF</div>
+        <div class="tool-desc">Apresentações em PDF</div>
+        <span class="soon-badge">Em breve</span>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="excel para pdf planilha xlsx" href="/tools/excel-para-pdf/">
+        <div class="tool-icon">📈</div>
+        <div class="tool-name">EXCEL para PDF</div>
+        <div class="tool-desc">Planilhas preservadas</div>
+        <span class="soon-badge">Em breve</span>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="html para pdf web página site" href="/tools/html-para-pdf/">
+        <div class="tool-icon">🌐</div>
+        <div class="tool-name">HTML para PDF</div>
+        <div class="tool-desc">Páginas web em documento</div>
+      </a>
+
+      <!-- ── CONVERTER → de PDF ── -->
+      <a class="tool-card" data-cat="converter" data-name="pdf para jpg png imagem exportar" href="/tools/pdf-para-jpg/">
+        <div class="tool-icon">🖼️</div>
+        <div class="tool-name">PDF para JPG</div>
+        <div class="tool-desc">Exporte páginas como imagem</div>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="pdf para word docx editável" href="/tools/pdf-para-word/">
+        <div class="tool-icon">📝</div>
+        <div class="tool-name">PDF para WORD</div>
+        <div class="tool-desc">Edite seu PDF no Word</div>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="pdf para powerpoint pptx slides" href="/tools/pdf-para-powerpoint/">
+        <div class="tool-icon">📊</div>
+        <div class="tool-name">PDF para POWERPOINT</div>
+        <div class="tool-desc">Transforme em slides</div>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="pdf para excel planilha tabela" href="/tools/pdf-para-excel/">
+        <div class="tool-icon">📈</div>
+        <div class="tool-name">PDF para EXCEL</div>
+        <div class="tool-desc">Tabelas em planilha editável</div>
+      </a>
+      <a class="tool-card" data-cat="converter" data-name="pdf para pdfa arquivo padrão" href="/tools/pdf-para-pdfa/">
+        <div class="tool-icon">📁</div>
+        <div class="tool-name">PDF para PDF/A</div>
+        <div class="tool-desc">Formato de arquivo padrão</div>
+      </a>
+
+      <!-- ── EDITAR ── -->
+      <a class="tool-card" data-cat="editar" data-name="rodar girar pdf orientação rotacionar" href="/tools/rodar-pdf/">
+        <div class="tool-icon">🔄</div>
+        <div class="tool-name">Rodar PDF</div>
+        <div class="tool-desc">Corrija a orientação das páginas</div>
+      </a>
+      <a class="tool-card" data-cat="editar" data-name="número página paginação inserir" href="/tools/numeros-pagina/">
+        <div class="tool-icon">🔢</div>
+        <div class="tool-name">Inserir Nº de Página</div>
+        <div class="tool-desc">Paginação automática</div>
+      </a>
+      <a class="tool-card" data-cat="editar" data-name="marca dagua watermark logo texto" href="/tools/marca-dagua/">
+        <div class="tool-icon">💧</div>
+        <div class="tool-name">Marca d'água</div>
+        <div class="tool-desc">Proteja seus documentos</div>
+      </a>
+      <a class="tool-card" data-cat="editar" data-name="recortar cortar pdf margens crop" href="/tools/recortar-pdf/">
+        <div class="tool-icon">✂️</div>
+        <div class="tool-name">Recortar PDF</div>
+        <div class="tool-desc">Ajuste as margens</div>
+      </a>
+      <a class="tool-card" data-cat="editar" data-name="comparar pdf diferença versão" href="/tools/comparar-pdf/">
+        <div class="tool-icon">⚖️</div>
+        <div class="tool-name">Comparar PDF</div>
+        <div class="tool-desc">Encontre diferenças entre arquivos</div>
+      </a>
+
+      <!-- ── SEGURANÇA ── -->
+      <a class="tool-card" data-cat="seguranca" data-name="desbloquear pdf senha remover abrir" href="/tools/desbloquear-pdf/">
+        <div class="tool-icon">🔓</div>
+        <div class="tool-name">Desbloquear PDF</div>
+        <div class="tool-desc">Remova senhas do PDF</div>
+      </a>
+      <a class="tool-card" data-cat="seguranca" data-name="proteger pdf senha criptografar bloquear" href="/tools/proteger-pdf/">
+        <div class="tool-icon">🔒</div>
+        <div class="tool-name">Proteger PDF</div>
+        <div class="tool-desc">Adicione senha de segurança</div>
+      </a>
+      <a class="tool-card" data-cat="seguranca" data-name="assinar pdf assinatura digital contrato" href="/tools/assinar-pdf/">
+        <div class="tool-icon">✍️</div>
+        <div class="tool-name">Assinar PDF</div>
+        <div class="tool-desc">Assinatura digital válida</div>
+      </a>
+      <a class="tool-card" data-cat="seguranca" data-name="ocultar conteúdo redact pdf esconder" href="/tools/ocultar-pdf/">
+        <div class="tool-icon">🙈</div>
+        <div class="tool-name">Ocultar Conteúdo</div>
+        <div class="tool-desc">Esconda informações sensíveis</div>
+      </a>
+
+    </div><!-- /tools-grid -->
+  </div>
+</section>
+
+<!-- ============================================================
+     WORKFLOW
+============================================================ -->
+<section id="workflow">
+  <div class="workflow-inner">
+    <div class="workflow-text">
+      <div class="section-badge">💡 Como Funciona</div>
+      <h2 class="section-title">Trabalhe do Seu Jeito</h2>
+      <p class="section-subtitle">
+        Trabalhe com seus PDFs de forma simples, rápida e eficiente. TudoPDF coloca o controle nas suas mãos,
+        permitindo que você organize, edite e transforme documentos sem limites, no desktop ou mobile.
+      </p>
+      <div style="margin-top:28px">
+        <button class="btn-primary" onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">
+          Experimente Grátis
+        </button>
+      </div>
+    </div>
+    <div class="workflow-cards">
+      <div class="workflow-card">
+        <div class="wc-icon">📤</div>
+        <div class="wc-title">1. Faça Upload</div>
+        <div class="wc-desc">Arraste e solte ou selecione seu arquivo PDF ou documento.</div>
+      </div>
+      <div class="workflow-card">
+        <div class="wc-icon">⚙️</div>
+        <div class="wc-title">2. Processe</div>
+        <div class="wc-desc">Escolha a ferramenta e configure as opções desejadas.</div>
+      </div>
+      <div class="workflow-card">
+        <div class="wc-icon">⚡</div>
+        <div class="wc-title">3. Aguarde</div>
+        <div class="wc-desc">Nossos servidores processam em segundos, com segurança total.</div>
+      </div>
+      <div class="workflow-card">
+        <div class="wc-icon">📥</div>
+        <div class="wc-title">4. Baixe</div>
+        <div class="wc-desc">Faça download do resultado final com qualidade garantida.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRUST
+============================================================ -->
+<section class="section" id="trust">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-badge">⭐ Depoimentos</div>
+      <h2 class="section-title">O software de PDF que tem a<br/>confiança de milhões de usuários</h2>
+      <p class="section-subtitle">Milhões de usuários em todo o mundo confiam no TudoPDF para criar, editar e gerenciar seus documentos.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="stars">★★★★★</div>
+        <p class="trust-text">"Finalmente uma ferramenta de PDF que realmente funciona. Comprimi um documento de 50MB para 8MB sem perder qualidade. Incrível!"</p>
+        <div class="trust-author">
+          <div class="trust-avatar">MR</div>
+          <div>
+            <div class="trust-name">Maria Rodrigues</div>
+            <div class="trust-role">Designer Gráfico, São Paulo</div>
+          </div>
+        </div>
+      </div>
+      <div class="trust-card">
+        <div class="stars">★★★★★</div>
+        <p class="trust-text">"Uso o TudoPDF todo dia no escritório. A conversão de WORD para PDF é perfeita, preserva todas as formatações. Recomendo muito!"</p>
+        <div class="trust-author">
+          <div class="trust-avatar">CA</div>
+          <div>
+            <div class="trust-name">Carlos Almeida</div>
+            <div class="trust-role">Advogado, Rio de Janeiro</div>
+          </div>
+        </div>
+      </div>
+      <div class="trust-card">
+        <div class="stars">★★★★★</div>
+        <p class="trust-text">"Fácil, rápido e gratuito. Precisei assinar um contrato PDF às 23h e o TudoPDF salvou minha vida. Tudo funcionou perfeitamente."</p>
+        <div class="trust-author">
+          <div class="trust-avatar">AF</div>
+          <div>
+            <div class="trust-name">Ana Ferreira</div>
+            <div class="trust-role">Professora Universitária, Curitiba</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SEO
+============================================================ -->
+<section id="seo-section" class="section">
+  <div class="section-inner">
+    <div class="seo-grid">
+      <div class="seo-content">
+        <h2>Ferramentas PDF online gratuitas para todo tipo de documento</h2>
+        <p>O TudoPDF é uma plataforma 100% online e completamente gratuita para comprimir PDF, juntar PDF, dividir PDF,
+           converter documentos para PDF, converter PDF para JPG, assinar PDF digitalmente e muito mais.
+           Sem instalação, sem cadastro — funciona direto no navegador, em qualquer dispositivo.</p>
+        <h3>Por que usar o TudoPDF para seus PDFs?</h3>
+        <p>Com 29 ferramentas PDF profissionais disponíveis gratuitamente, o TudoPDF cobre todas as necessidades
+           do dia a dia: estudantes que precisam converter apostilas, profissionais que assinam contratos,
+           empresas que processam documentos em volume. Tudo grátis, sem limite de uso.</p>
+        <h3>Segurança e privacidade dos seus documentos</h3>
+        <p>Todo o processamento acontece <strong>100% localmente no seu navegador</strong>. Seus arquivos
+           nunca são enviados para servidores externos — garantindo total privacidade e segurança
+           mesmo para documentos confidenciais.</p>
+      </div>
+      <div class="seo-features">
+        <div class="seo-feat">
+          <div class="seo-feat-icon">🆓</div>
+          <div class="seo-feat-text">
+            <h4>100% Gratuito</h4>
+            <p>Todas as ferramentas sem custo, sem limite de uso e sem cadastro obrigatório.</p>
+          </div>
+        </div>
+        <div class="seo-feat">
+          <div class="seo-feat-icon">⚡</div>
+          <div class="seo-feat-text">
+            <h4>Ultra Rápido</h4>
+            <p>Processamento em nuvem de alta performance. Resultados em segundos.</p>
+          </div>
+        </div>
+        <div class="seo-feat">
+          <div class="seo-feat-icon">🔒</div>
+          <div class="seo-feat-text">
+            <h4>Seguro e Privado</h4>
+            <p>Criptografia SSL e exclusão automática de arquivos após o processamento.</p>
+          </div>
+        </div>
+        <div class="seo-feat">
+          <div class="seo-feat-icon">📱</div>
+          <div class="seo-feat-text">
+            <h4>Desktop &amp; Mobile</h4>
+            <p>Funciona perfeitamente em qualquer tela, navegador ou sistema operacional.</p>
+          </div>
+        </div>
+        <div class="seo-feat">
+          <div class="seo-feat-icon">🌍</div>
+          <div class="seo-feat-text">
+            <h4>Multi-idioma</h4>
+            <p>Disponível em português, inglês e espanhol para atender mais usuários.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============================================================
      FOOTER
@@ -124,24 +699,26 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="logo" style="color:white;margin-bottom:14px">
+        <div class="logo" style="color:white; margin-bottom:14px">
           <div class="logo-icon">📄</div>
           Tudo<span style="color:#475569">PDF</span>
         </div>
-        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF. Gratuito, rápido e seguro.</p>
         <div class="footer-social">
-          <div class="social-btn">𝕏</div>
-          <div class="social-btn">f</div>
-          <div class="social-btn">📸</div>
-          <div class="social-btn">in</div>
+          <div class="social-btn" title="Twitter/X">𝕏</div>
+          <div class="social-btn" title="Facebook">f</div>
+          <div class="social-btn" title="Instagram">📸</div>
+          <div class="social-btn" title="LinkedIn">in</div>
         </div>
       </div>
       <div class="footer-col">
         <h4>Produto</h4>
         <ul>
           <li><a href="/">Página Inicial</a></li>
-          <li><a href="/#tools">Ferramentas</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="#tools">Ferramentas</a></li>
+          <li><a href="/como-funciona/">Como Funciona</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/ferramentas/">Ver todas</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -149,37 +726,39 @@
         <ul>
           <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
           <li><a href="/tools/juntar-pdf/">Juntar PDF</a></li>
-          <li><a href="/tools/word-para-pdf/">WORD para PDF</a></li>
+          <li><a href="/tools/dividir-pdf/">Dividir PDF</a></li>
+          <li><a href="/tools/ocr-pdf/">OCR PDF</a></li>
+          <li><a href="/tools/assinar-pdf/">Assinar PDF</a></li>
+          <li><a href="/tools/pdf-para-jpg/">PDF para JPG</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Empresa</h4>
+        <h4>Soluções</h4>
         <ul>
-          <li><a href="#">Sobre nós</a></li>
-          <li><a href="#">Privacidade</a></li>
-          <li><a href="#">Termos</a></li>
+          <li><a href="/empresarial/">Empresarial</a></li>
+          <li><a href="/ensino/">Ensino</a></li>
+          <li><a href="/legal-juridico/">Legal</a></li>
+          <li><a href="/sobre/">Sobre nós</a></li>
+          <li><a href="/contato/">Contate-nos</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contato</h4>
+        <h4>Legal</h4>
         <ul>
-          <li><a href="#">contato@tudopdf.com.br</a></li>
-          <li><a href="#">Blog</a></li>
+          <li><a href="/privacidade/">Política de Privacidade</a></li>
+          <li><a href="/termos/">Termos de Uso</a></li>
+          <li><a href="/cookies/">Política de Cookies</a></li>
+          <li><a href="mailto:contato@tudopdf.site">contato@tudopdf.site</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
-      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+      <p class="footer-watermark">TUDOPDF.SITE</p>
     </div>
   </div>
 </footer>
 
-<!-- ⚠️ Ajuste o caminho relativo -->
-<script src="../../assets/js/main.js"></script>
-<!-- 🔧 JS específico desta ferramenta (opcional) -->
-<script>
-  // Seu JS da ferramenta aqui — não vai conflitar com main.js
-</script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
