@@ -7,39 +7,38 @@
 /* ── DADOS DAS FERRAMENTAS (usados na busca global) ── */
 const TOOLS = [
   // Organizar
-  { name: 'Organizar PDF',       icon: '📂', cat: 'organizar', url: '/tools/organizar-pdf/',       desc: 'Reordene páginas facilmente',      live: false },
-  { name: 'Juntar PDF',          icon: '🔗', cat: 'organizar', url: '/tools/juntar-pdf/',          desc: 'Una vários arquivos em um',        live: false },
-  { name: 'Dividir PDF',         icon: '✂️',  cat: 'organizar', url: '/tools/dividir-pdf/',         desc: 'Separe páginas com precisão',     live: false },
-  { name: 'Remover Páginas',     icon: '🗑️',  cat: 'organizar', url: '/tools/remover-paginas/',     desc: 'Delete páginas indesejadas',      live: false },
-  { name: 'Extrair Páginas',     icon: '📤', cat: 'organizar', url: '/tools/extrair-paginas/',     desc: 'Salve páginas específicas',       live: false },
-  { name: 'Digitalizar PDF',     icon: '📷', cat: 'organizar', url: '/tools/digitalizar-pdf/',     desc: 'Transforme fotos em PDF',         live: false },
-  { name: 'Otimizar PDF',        icon: '⚡', cat: 'organizar', url: '/tools/otimizar-pdf/',        desc: 'Melhore a qualidade',             live: false },
-  { name: 'Comprimir PDF',       icon: '🗜️',  cat: 'organizar', url: '/tools/comprimir-pdf/',       desc: 'Reduza até 80% do tamanho',       live: true  },
-  { name: 'Reparar PDF',         icon: '🔧', cat: 'organizar', url: '/tools/reparar-pdf/',         desc: 'Recupere arquivos corrompidos',   live: false },
-  { name: 'OCR PDF',             icon: '🔍', cat: 'organizar', url: '/tools/ocr-pdf/',             desc: 'Reconheça texto em imagens',      live: false },
+  { name: 'Organizar PDF',        icon: '📂', cat: 'organizar', url: '/tools/organizar-pdf/',       desc: 'Reordene páginas facilmente',          live: true  },
+  { name: 'Juntar PDF',           icon: '🔗', cat: 'organizar', url: '/tools/juntar-pdf/',           desc: 'Una vários arquivos em um',            live: true  },
+  { name: 'Dividir PDF',          icon: '✂️',  cat: 'organizar', url: '/tools/dividir-pdf/',          desc: 'Separe páginas com precisão',          live: true  },
+  { name: 'Remover Páginas',      icon: '🗑️',  cat: 'organizar', url: '/tools/remover-paginas/',      desc: 'Delete páginas indesejadas',           live: true  },
+  { name: 'Extrair Páginas',      icon: '📤', cat: 'organizar', url: '/tools/extrair-paginas/',      desc: 'Salve páginas específicas',            live: true  },
+  { name: 'Digitalizar PDF',      icon: '📷', cat: 'organizar', url: '/tools/digitalizar-pdf/',      desc: 'Transforme fotos em PDF',              live: true  },
+  { name: 'Comprimir PDF',        icon: '🗜️',  cat: 'organizar', url: '/tools/comprimir-pdf/',        desc: 'Reduza até 80% do tamanho',            live: true  },
+  { name: 'Reparar PDF',          icon: '🔧', cat: 'organizar', url: '/tools/reparar-pdf/',          desc: 'Recupere arquivos corrompidos',        live: true  },
+  { name: 'OCR PDF',              icon: '🔍', cat: 'organizar', url: '/tools/ocr-pdf/',              desc: 'Reconheça texto em imagens',           live: true  },
   // Converter → PDF
-  { name: 'JPG para PDF',        icon: '🖼️',  cat: 'converter', url: '/tools/jpg-para-pdf/',        desc: 'Imagens viram PDF instantâneo',   live: false },
-  { name: 'WORD para PDF',       icon: '📝', cat: 'converter', url: '/tools/word-para-pdf/',       desc: 'Converta .docx com perfeição',    live: false },
-  { name: 'POWERPOINT para PDF', icon: '📊', cat: 'converter', url: '/tools/powerpoint-para-pdf/', desc: 'Apresentações em PDF',            live: false },
-  { name: 'EXCEL para PDF',      icon: '📈', cat: 'converter', url: '/tools/excel-para-pdf/',      desc: 'Planilhas preservadas',           live: false },
-  { name: 'HTML para PDF',       icon: '🌐', cat: 'converter', url: '/tools/html-para-pdf/',       desc: 'Páginas web em documento',        live: false },
+  { name: 'JPG para PDF',         icon: '🖼️',  cat: 'converter', url: '/tools/jpg-para-pdf/',         desc: 'Imagens viram PDF instantâneo',        live: true  },
+  { name: 'WORD para PDF',        icon: '📝', cat: 'converter', url: '/tools/word-para-pdf/',        desc: 'Converta .docx com perfeição',         live: false },
+  { name: 'POWERPOINT para PDF',  icon: '📊', cat: 'converter', url: '/tools/powerpoint-para-pdf/',  desc: 'Apresentações em PDF',                 live: false },
+  { name: 'EXCEL para PDF',       icon: '📈', cat: 'converter', url: '/tools/excel-para-pdf/',       desc: 'Planilhas preservadas',                live: false },
+  { name: 'HTML para PDF',        icon: '🌐', cat: 'converter', url: '/tools/html-para-pdf/',        desc: 'Páginas web em documento',             live: true  },
   // Converter → de PDF
-  { name: 'PDF para JPG',        icon: '🖼️',  cat: 'converter', url: '/tools/pdf-para-jpg/',        desc: 'Exporte páginas como imagem',     live: false },
-  { name: 'PDF para WORD',       icon: '📝', cat: 'converter', url: '/tools/pdf-para-word/',       desc: 'Edite seu PDF no Word',           live: false },
-  { name: 'PDF para POWERPOINT', icon: '📊', cat: 'converter', url: '/tools/pdf-para-powerpoint/', desc: 'Transforme em slides',            live: false },
-  { name: 'PDF para EXCEL',      icon: '📈', cat: 'converter', url: '/tools/pdf-para-excel/',      desc: 'Tabelas em planilha editável',    live: false },
-  { name: 'PDF para PDF/A',      icon: '📁', cat: 'converter', url: '/tools/pdf-para-pdfa/',       desc: 'Formato de arquivo padrão',       live: false },
+  { name: 'PDF para JPG',         icon: '🖼️',  cat: 'converter', url: '/tools/pdf-para-jpg/',         desc: 'Exporte páginas como imagem',          live: true  },
+  { name: 'PDF para WORD',        icon: '📝', cat: 'converter', url: '/tools/pdf-para-word/',        desc: 'Edite seu PDF no Word',                live: true  },
+  { name: 'PDF para POWERPOINT',  icon: '📊', cat: 'converter', url: '/tools/pdf-para-powerpoint/',  desc: 'Transforme em slides',                 live: true  },
+  { name: 'PDF para EXCEL',       icon: '📈', cat: 'converter', url: '/tools/pdf-para-excel/',       desc: 'Tabelas em planilha editável',         live: true  },
+  { name: 'PDF para PDF/A',       icon: '📁', cat: 'converter', url: '/tools/pdf-para-pdfa/',        desc: 'Formato de arquivo padrão',            live: true  },
   // Editar
-  { name: 'Rodar PDF',           icon: '🔄', cat: 'editar',    url: '/tools/rodar-pdf/',           desc: 'Corrija a orientação das páginas', live: false },
-  { name: 'Inserir Nº de Página',icon: '🔢', cat: 'editar',    url: '/tools/numeros-pagina/',      desc: 'Paginação automática',            live: false },
-  { name: 'Marca d\'água',       icon: '💧', cat: 'editar',    url: '/tools/marca-dagua/',         desc: 'Proteja seus documentos',         live: false },
-  { name: 'Recortar PDF',        icon: '✂️',  cat: 'editar',    url: '/tools/recortar-pdf/',        desc: 'Ajuste as margens',               live: false },
-  { name: 'Comparar PDF',        icon: '⚖️',  cat: 'editar',    url: '/tools/comparar-pdf/',        desc: 'Encontre diferenças entre arquivos', live: false },
+  { name: 'Rodar PDF',            icon: '🔄', cat: 'editar',    url: '/tools/rodar-pdf/',            desc: 'Corrija a orientação das páginas',     live: true  },
+  { name: 'Inserir Nº de Página', icon: '🔢', cat: 'editar',    url: '/tools/numeros-pagina/',       desc: 'Paginação automática',                 live: true  },
+  { name: 'Marca d\'água',        icon: '💧', cat: 'editar',    url: '/tools/marca-dagua/',          desc: 'Proteja seus documentos',              live: true  },
+  { name: 'Recortar PDF',         icon: '✂️',  cat: 'editar',    url: '/tools/recortar-pdf/',         desc: 'Ajuste as margens',                   live: true  },
+  { name: 'Comparar PDF',         icon: '⚖️',  cat: 'editar',    url: '/tools/comparar-pdf/',         desc: 'Encontre diferenças entre arquivos',  live: true  },
   // Segurança
-  { name: 'Desbloquear PDF',     icon: '🔓', cat: 'seguranca', url: '/tools/desbloquear-pdf/',     desc: 'Remova senhas do PDF',            live: false },
-  { name: 'Proteger PDF',        icon: '🔒', cat: 'seguranca', url: '/tools/proteger-pdf/',        desc: 'Adicione senha de segurança',     live: false },
-  { name: 'Assinar PDF',         icon: '✍️',  cat: 'seguranca', url: '/tools/assinar-pdf/',         desc: 'Assinatura digital válida',       live: false },
-  { name: 'Ocultar Conteúdo',    icon: '🙈', cat: 'seguranca', url: '/tools/ocultar-pdf/',         desc: 'Esconda informações sensíveis',   live: false },
+  { name: 'Desbloquear PDF',      icon: '🔓', cat: 'seguranca', url: '/tools/desbloquear-pdf/',      desc: 'Remova senhas do PDF',                 live: true  },
+  { name: 'Proteger PDF',         icon: '🔒', cat: 'seguranca', url: '/tools/proteger-pdf/',         desc: 'Adicione senha de segurança',          live: true  },
+  { name: 'Assinar PDF',          icon: '✍️',  cat: 'seguranca', url: '/tools/assinar-pdf/',          desc: 'Assinatura digital válida',            live: true  },
+  { name: 'Ocultar Conteúdo',     icon: '🙈', cat: 'seguranca', url: '/tools/ocultar-pdf/',          desc: 'Esconda informações sensíveis',        live: true  },
 ];
 
 /* ── TEMA ── */
@@ -53,8 +52,10 @@ function initTheme() {
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   document.body.setAttribute('data-theme', theme);
-  const btn = document.getElementById('theme-btn');
-  if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  const btn  = document.getElementById('theme-btn');
+  const btnM = document.getElementById('theme-btn-mobile');
+  if (btn)  btn.textContent  = theme === 'dark' ? '☀️' : '🌙';
+  if (btnM) btnM.textContent = theme === 'dark' ? '☀️' : '🌙';
   localStorage.setItem(THEME_KEY, theme);
 }
 
@@ -231,7 +232,6 @@ function filterToolsGrid(query) {
     card.classList.toggle('hidden', !show);
     if (show) visible++;
   });
-  // No result
   let noResult = document.getElementById('tools-no-result');
   if (visible === 0) {
     if (!noResult) {
@@ -250,7 +250,6 @@ function filterCat(cat, btn) {
   currentCat = cat;
   document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  // Reset text filter
   const toolSearch = document.getElementById('tools-search');
   if (toolSearch) toolSearch.value = '';
   currentQuery = '';
@@ -283,6 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroSearch();
   initToolsFilter();
 
-  // Theme btn
   document.getElementById('theme-btn')?.addEventListener('click', toggleTheme);
+  document.getElementById('theme-btn-mobile')?.addEventListener('click', toggleTheme);
 });
