@@ -770,3 +770,64 @@ nav { display: flex; align-items: center; gap: 4px; flex: 1; }
   .tools-grid { grid-template-columns: 1fr 1fr; }
   .hero-search { max-width: 100%; }
 }
+
+/* ============================================================
+   MOBILE IMPROVEMENTS — TudoPDF SEO Update 2025
+============================================================ */
+
+/* Touch targets mínimos 44px */
+.tool-card, .cat-btn, .btn-primary, .btn-outline, .nav-link,
+.dropdown-item, .mobile-nav-item { min-height: 44px; }
+
+/* Hero melhorado no mobile */
+@media (max-width: 480px) {
+  .hero-title { font-size: 1.7rem !important; line-height: 1.25; }
+  .hero-subtitle { font-size: .9rem; }
+  .hero-ctas { flex-direction: column; gap: 10px; }
+  .hero-ctas .btn-primary, .hero-ctas .btn-outline { width: 100%; text-align: center; }
+  .hero-search input { font-size: 16px; } /* evita zoom no iOS */
+  #tools-search { font-size: 16px; }
+}
+
+/* Grid de ferramentas — mínimo 1 coluna no mobile */
+@media (max-width: 400px) {
+  .tools-grid { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+  .tool-card { padding: 14px 10px; }
+  .tool-icon { font-size: 1.6rem; }
+  .tool-name { font-size: .78rem; }
+  .tool-desc { font-size: .68rem; }
+}
+
+/* Stats responsivos */
+@media (max-width: 520px) {
+  .stats-inner { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat-divider { display: none; }
+  .stat-number { font-size: 1.6rem; }
+}
+
+/* Workflow cards */
+@media (max-width: 480px) {
+  .workflow-cards { grid-template-columns: 1fr 1fr; }
+}
+
+/* Trust cards */
+@media (max-width: 480px) {
+  .trust-grid { grid-template-columns: 1fr; }
+}
+
+/* Footer mobile */
+@media (max-width: 480px) {
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-col { margin-bottom: 8px; }
+}
+
+/* Back to top — melhor posição no mobile */
+@media (max-width: 640px) {
+  #back-top { bottom: 16px; right: 16px; width: 40px; height: 40px; font-size: 1rem; }
+}
+
+/* SEO section mobile */
+@media (max-width: 640px) {
+  .seo-grid { grid-template-columns: 1fr; }
+  .seo-features { grid-template-columns: 1fr; }
+}
