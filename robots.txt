@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Bloquear arquivos desnecessários para o Google
+Disallow: /cdn-cgi/
+Disallow: /assets/js/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: https://www.tudopdf.site/sitemap.xml
+
+# Crawl-delay (não agressivo)
+Crawl-delay: 1
