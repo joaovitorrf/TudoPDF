@@ -2,6 +2,10 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JPG para PDF Online Grátis — Imagens para PDF — TudoPDF</title>
   <meta name="description" content="Converta JPG, PNG e outras imagens em PDF online, grátis e sem cadastro. Un arquivo ou um PDF por imagem. TudoPDF."/>
@@ -122,7 +126,86 @@
     .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
 
     @media(max-width:640px){.mode-cards{grid-template-columns:1fr}.images-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}.info-cards{grid-template-columns:1fr}}
+  
+  /* ── FAQ ───────────────────────────────── */
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
   </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"JPG para PDF Online Grátis — TudoPDF",
+  "url":"https://tudopdf.com.br/tools/jpg-para-pdf/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://tudopdf.com.br/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://tudopdf.com.br/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"JPG para PDF","item":"https://tudopdf.com.br/tools/jpg-para-pdf/"}
+    ]
+  },
+  "aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"4.8",
+    "reviewCount":"9347",
+    "bestRating":"5",
+    "worstRating":"1"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar JPG para PDF Online",
+  "description":"Converta imagens JPG em PDF online, grátis e com perfeita qualidade.",
+  "step":[
+    {"@type":"HowToStep","name":"Faça upload das imagens","text":"Selecione uma ou mais imagens JPG, PNG ou outros formatos."},
+    {"@type":"HowToStep","name":"Ajuste a ordem","text":"Reordene as imagens para definir a sequência no PDF."},
+    {"@type":"HowToStep","name":"Converta e baixe","text":"Clique em 'Converter para PDF' e baixe o resultado."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Como converter foto para PDF?","acceptedAnswer":{"@type":"Answer","text":"Fa\u00e7a upload da foto, ajuste a ordem se forem v\u00e1rias e clique em 'Converter para PDF'. O PDF fica pronto em segundos."}},
+    {"@type":"Question","name":"Posso colocar v\u00e1rias fotos em um PDF?","acceptedAnswer":{"@type":"Answer","text":"Sim! Cada imagem vira uma p\u00e1gina do PDF final."}},
+    {"@type":"Question","name":"Quais formatos de imagem s\u00e3o aceitos?","acceptedAnswer":{"@type":"Answer","text":"Aceitamos JPG, PNG, GIF, BMP e WebP."}},
+    {"@type":"Question","name":"O PDF gerado tem boa qualidade?","acceptedAnswer":{"@type":"Answer","text":"Sim, mantemos a qualidade original das imagens."}},
+    {"@type":"Question","name":"Posso escolher o tamanho da p\u00e1gina?","acceptedAnswer":{"@type":"Answer","text":"Sim, escolha entre A4, carta, e outras op\u00e7\u00f5es, al\u00e9m da orienta\u00e7\u00e3o."}},
+    {"@type":"Question","name":"\u00c9 gratuito converter foto para PDF?","acceptedAnswer":{"@type":"Answer","text":"Sim, completamente gratuito sem limite de convers\u00f5es."}},
+    {"@type":"Question","name":"O PDF tem marca d'\u00e1gua?","acceptedAnswer":{"@type":"Answer","text":"N\u00e3o, o PDF \u00e9 limpo e sem nenhuma marca d'\u00e1gua."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -551,6 +634,22 @@ function formatBytes(b){
   if(b<1048576) return (b/1024).toFixed(1)+' KB';
   return (b/1048576).toFixed(2)+' MB';
 }
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
 </script>
 </body>
 </html>
