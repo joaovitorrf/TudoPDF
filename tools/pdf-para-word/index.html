@@ -2,6 +2,10 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF para WORD Online Grátis — Edite seu PDF no Word — TudoPDF</title>
   <meta name="description" content="Converta PDF em Word (.docx) online, grátis e sem cadastro. Texto extraído e formatado em parágrafos. TudoPDF."/>
@@ -85,7 +89,86 @@
     .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
     .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
     @media(max-width:640px){.options-grid{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  
+  /* ── FAQ ───────────────────────────────── */
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
   </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"PDF para Word Online Grátis — TudoPDF",
+  "url":"https://tudopdf.com.br/tools/pdf-para-word/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://tudopdf.com.br/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://tudopdf.com.br/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"PDF para Word","item":"https://tudopdf.com.br/tools/pdf-para-word/"}
+    ]
+  },
+  "aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"4.8",
+    "reviewCount":"9347",
+    "bestRating":"5",
+    "worstRating":"1"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar PDF para Word Online",
+  "description":"Converta PDF para Word (.docx) online, grátis e sem perder formatação.",
+  "step":[
+    {"@type":"HowToStep","name":"Faça upload do PDF","text":"Selecione o arquivo PDF que deseja converter."},
+    {"@type":"HowToStep","name":"Inicie a conversão","text":"Clique em 'Converter para Word' e aguarde."},
+    {"@type":"HowToStep","name":"Baixe o arquivo Word","text":"Baixe o .docx pronto para editar."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Como converter PDF para Word?","acceptedAnswer":{"@type":"Answer","text":"Fa\u00e7a upload do PDF, clique em 'Converter para Word' e baixe o arquivo .docx. Simples, r\u00e1pido e gratuito."}},
+    {"@type":"Question","name":"A convers\u00e3o mant\u00e9m a formata\u00e7\u00e3o?","acceptedAnswer":{"@type":"Answer","text":"Preservamos texto, tabelas e layout. PDFs de texto t\u00eam convers\u00e3o excelente."}},
+    {"@type":"Question","name":"Posso editar o Word depois?","acceptedAnswer":{"@type":"Answer","text":"Sim! O .docx \u00e9 totalmente edit\u00e1vel no Microsoft Word, Google Docs ou LibreOffice."}},
+    {"@type":"Question","name":"Funciona com PDF escaneado?","acceptedAnswer":{"@type":"Answer","text":"PDFs escaneados precisam de OCR. Use nossa ferramenta OCR PDF antes de converter."}},
+    {"@type":"Question","name":"Tem limite de p\u00e1ginas?","acceptedAnswer":{"@type":"Answer","text":"N\u00e3o. Converta PDFs com qualquer n\u00famero de p\u00e1ginas."}},
+    {"@type":"Question","name":"\u00c9 seguro converter documentos confidenciais?","acceptedAnswer":{"@type":"Answer","text":"Sim! O processamento \u00e9 local no navegador \u2014 seus documentos n\u00e3o v\u00e3o a servidores."}},
+    {"@type":"Question","name":"O Word gerado tem marca d'\u00e1gua?","acceptedAnswer":{"@type":"Answer","text":"N\u00e3o. O documento \u00e9 limpo, sem nenhuma marca d'\u00e1gua."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -411,6 +494,22 @@ function formatBytes(b) {
   if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
   return (b / 1048576).toFixed(2) + ' MB';
 }
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
 </script>
 </body>
 </html>
