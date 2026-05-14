@@ -285,3 +285,115 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('theme-btn')?.addEventListener('click', toggleTheme);
   document.getElementById('theme-btn-mobile')?.addEventListener('click', toggleTheme);
 });
+
+/* ── HISTÓRICO DE ARQUIVOS RECENTES ─────────────────────────────────
+   Salva os últimos 5 arquivos processados no localStorage
+   Chamado pelas ferramentas individuais via: trackRecentFile(toolName, fileName)
+────────────────────────────────────────────────────────────────────── */
+const HISTORY_KEY = 'tudopdf-history';
+const HISTORY_MAX = 5;
+
+function trackRecentFile(toolName, fileName) {
+  try {
+    const history = getRecentFiles();
+    const entry = {
+      tool: toolName,
+      file: fileName,
+      date: new Date().toLocaleDateString('pt-BR'),
+      url: window.location.pathname,
+    };
+    // Remove duplicata do mesmo arquivo+ferramenta
+    const filtered = history.filter(h => !(h.tool === toolName && h.file === fileName));
+    filtered.unshift(entry);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(filtered.slice(0, HISTORY_MAX)));
+  } catch(e) {}
+}
+
+function getRecentFiles() {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+  } catch(e) { return []; }
+}
+
+function renderRecentFiles() {
+  const container = document.getElementById('recent-files');
+  if (!container) return;
+  const history = getRecentFiles();
+  if (history.length === 0) {
+    container.closest('.recent-section')?.style && (container.closest('.recent-section').style.display = 'none');
+    return;
+  }
+  container.innerHTML = history.map(h => `
+    <a class="recent-card" href="${h.url}">
+      <span class="recent-icon">📄</span>
+      <div class="recent-info">
+        <div class="recent-file">${h.file}</div>
+        <div class="recent-meta">${h.tool} · ${h.date}</div>
+      </div>
+      <span class="recent-arrow">→</span>
+    </a>
+  `).join('');
+}
+
+/* ── FERRAMENTAS FAVORITAS ───────────────────────────────────────────
+   Salva ferramentas favoritas e as mostra no topo na home
+────────────────────────────────────────────────────────────────────── */
+const FAVS_KEY = 'tudopdf-favorites';
+
+function getFavorites() {
+  try {
+    return JSON.parse(localStorage.getItem(FAVS_KEY) || '[]');
+  } catch(e) { return []; }
+}
+
+function toggleFavorite(url) {
+  const favs = getFavorites();
+  const idx = favs.indexOf(url);
+  if (idx === -1) {
+    favs.push(url);
+    showToast('⭐ Ferramenta adicionada aos favoritos!');
+  } else {
+    favs.splice(idx, 1);
+    showToast('Ferramenta removida dos favoritos.');
+  }
+  localStorage.setItem(FAVS_KEY, JSON.stringify(favs));
+  renderFavoritesSection();
+  updateFavBtns();
+}
+
+function updateFavBtns() {
+  const favs = getFavorites();
+  document.querySelectorAll('.fav-btn').forEach(btn => {
+    const url = btn.dataset.url;
+    btn.classList.toggle('active', favs.includes(url));
+    btn.title = favs.includes(url) ? 'Remover dos favoritos' : 'Adicionar aos favoritos';
+    btn.textContent = favs.includes(url) ? '★' : '☆';
+  });
+}
+
+function renderFavoritesSection() {
+  const section = document.getElementById('favorites-section');
+  if (!section) return;
+  const favs = getFavorites();
+  if (favs.length === 0) { section.style.display = 'none'; return; }
+  const favTools = TOOLS.filter(t => favs.includes(t.url));
+  if (favTools.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = '';
+  const grid = section.querySelector('.favs-grid');
+  if (!grid) return;
+  grid.innerHTML = favTools.map(t => `
+    <a class="tool-card" href="${t.live ? t.url : '#'}" data-name="${t.name}" data-cat="${t.cat}">
+      <div class="tc-icon">${t.icon}</div>
+      <div class="tc-name">${t.name}</div>
+      <div class="tc-desc">${t.desc}</div>
+      ${!t.live ? '<div class="tc-badge">Em breve</div>' : ''}
+    </a>
+  `).join('');
+}
+
+/* ── INIT atualizado ── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderRecentFiles();
+  renderFavoritesSection();
+  updateFavBtns();
+});
