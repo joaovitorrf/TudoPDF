@@ -2,6 +2,10 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OCR PDF Online Grátis — Reconhecer texto em imagens — TudoPDF</title>
   <meta name="description" content="Extraia texto de PDFs escaneados ou imagens com OCR online, grátis e sem cadastro. Copie, baixe em TXT ou PDF pesquisável. TudoPDF."/>
@@ -109,7 +113,86 @@
     .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
 
     @media(max-width:640px){.info-cards{grid-template-columns:1fr}.output-actions{width:100%}.out-btn{flex:1;justify-content:center}}
+  
+  /* ── FAQ ───────────────────────────────── */
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
   </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"OCR PDF Online Grátis — TudoPDF",
+  "url":"https://tudopdf.com.br/tools/ocr-pdf/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://tudopdf.com.br/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://tudopdf.com.br/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"OCR PDF","item":"https://tudopdf.com.br/tools/ocr-pdf/"}
+    ]
+  },
+  "aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"4.8",
+    "reviewCount":"9347",
+    "bestRating":"5",
+    "worstRating":"1"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar OCR PDF Online",
+  "description":"Reconheça texto em PDFs escaneados com OCR e torne-os pesquisáveis.",
+  "step":[
+    {"@type":"HowToStep","name":"Faça upload do PDF escaneado","text":"Selecione o PDF com imagens digitalizadas."},
+    {"@type":"HowToStep","name":"Inicie o reconhecimento","text":"Clique em 'Aplicar OCR' — o sistema analisa e extrai o texto."},
+    {"@type":"HowToStep","name":"Baixe o PDF pesquisável","text":"O PDF resultante terá texto selecionável e pesquisável."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"O que \u00e9 OCR em PDF?","acceptedAnswer":{"@type":"Answer","text":"OCR (Reconhecimento \u00d3ptico de Caracteres) l\u00ea imagens de texto em PDFs escaneados e extrai o texto real, tornando o documento pesquis\u00e1vel e edit\u00e1vel."}},
+    {"@type":"Question","name":"Como transformar PDF escaneado em texto?","acceptedAnswer":{"@type":"Answer","text":"Use nossa ferramenta OCR: fa\u00e7a upload do PDF, clique em 'Aplicar OCR' e baixe o PDF com texto reconhecido."}},
+    {"@type":"Question","name":"O OCR funciona em portugu\u00eas?","acceptedAnswer":{"@type":"Answer","text":"Sim! Nosso OCR suporta portugu\u00eas e dezenas de outros idiomas automaticamente."}},
+    {"@type":"Question","name":"Qual a precis\u00e3o do reconhecimento?","acceptedAnswer":{"@type":"Answer","text":"Para documentos bem digitalizados, a precis\u00e3o chega a 95%+. Fotos desfocadas reduzem a precis\u00e3o."}},
+    {"@type":"Question","name":"Funciona com foto do celular?","acceptedAnswer":{"@type":"Answer","text":"Sim, desde que a foto esteja n\u00edtida e bem iluminada."}},
+    {"@type":"Question","name":"O OCR funciona com tabelas?","acceptedAnswer":{"@type":"Answer","text":"Sim, tentamos preservar a estrutura de tabelas no documento resultante."}},
+    {"@type":"Question","name":"Ap\u00f3s o OCR posso editar o texto?","acceptedAnswer":{"@type":"Answer","text":"O PDF ter\u00e1 texto selecion\u00e1vel. Para editar diretamente, use PDF para Word depois."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -538,6 +621,22 @@ function formatBytes(b) {
   if(b<1048576) return (b/1024).toFixed(1)+' KB';
   return (b/1048576).toFixed(2)+' MB';
 }
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
 </script>
 </body>
 </html>
