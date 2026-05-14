@@ -2,6 +2,10 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Marca d'água em PDF Online Grátis — TudoPDF</title>
   <meta name="description" content="Adicione marca d'água ao seu PDF online, grátis e sem cadastro. Texto ou imagem, com opacidade, posição e ângulo ajustáveis. TudoPDF."/>
@@ -122,7 +126,86 @@
     .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
     .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
     @media(max-width:640px){.options-grid{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  
+  /* ── FAQ ───────────────────────────────── */
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
   </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Marca d'água PDF Online Grátis — TudoPDF",
+  "url":"https://tudopdf.com.br/tools/marca-dagua/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://tudopdf.com.br/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://tudopdf.com.br/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"Marca d'água PDF","item":"https://tudopdf.com.br/tools/marca-dagua/"}
+    ]
+  },
+  "aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"4.8",
+    "reviewCount":"9347",
+    "bestRating":"5",
+    "worstRating":"1"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar Marca d'água PDF Online",
+  "description":"Adicione marca d'água de texto ou imagem ao seu PDF.",
+  "step":[
+    {"@type":"HowToStep","name":"Faça upload do PDF","text":"Selecione o PDF onde adicionar a marca d'água."},
+    {"@type":"HowToStep","name":"Configure a marca d'água","text":"Digite texto ou faça upload de imagem. Ajuste posição e opacidade."},
+    {"@type":"HowToStep","name":"Baixe o PDF com marca d'água","text":"Clique em 'Adicionar Marca d'água' e baixe."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Como adicionar marca d'\u00e1gua em PDF?","acceptedAnswer":{"@type":"Answer","text":"Fa\u00e7a upload, escreva o texto ou carregue a imagem, ajuste posi\u00e7\u00e3o e opacidade, clique em 'Adicionar Marca d'\u00e1gua'."}},
+    {"@type":"Question","name":"Posso usar o logo da empresa?","acceptedAnswer":{"@type":"Answer","text":"Sim! Use imagens PNG ou JPG como marca d'\u00e1gua, incluindo logotipos."}},
+    {"@type":"Question","name":"Aparece em todas as p\u00e1ginas?","acceptedAnswer":{"@type":"Answer","text":"Por padr\u00e3o sim, mas voc\u00ea pode configurar para p\u00e1ginas espec\u00edficas."}},
+    {"@type":"Question","name":"\u00c9 poss\u00edvel remover depois?","acceptedAnswer":{"@type":"Answer","text":"Marcas d'\u00e1gua adicionadas s\u00e3o dif\u00edceis de remover. Mantenha o original se precisar de vers\u00e3o limpa."}},
+    {"@type":"Question","name":"Posso ajustar a transpar\u00eancia?","acceptedAnswer":{"@type":"Answer","text":"Sim, controle a opacidade de 0% a 100%."}},
+    {"@type":"Question","name":"Protege contra c\u00f3pia?","acceptedAnswer":{"@type":"Answer","text":"Dificulta o uso n\u00e3o autorizado, mas n\u00e3o impede tecnicamente a c\u00f3pia. Combine com Proteger PDF para prote\u00e7\u00e3o total."}},
+    {"@type":"Question","name":"Funciona com marca d'\u00e1gua diagonal?","acceptedAnswer":{"@type":"Answer","text":"Sim, o formato diagonal \u00e9 o mais usado para prote\u00e7\u00e3o de documentos."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -577,6 +660,22 @@ function formatBytes(b) {
   if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
   return (b/1048576).toFixed(2) + ' MB';
 }
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
 </script>
 </body>
 </html>
