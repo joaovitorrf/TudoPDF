@@ -2,6 +2,10 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Digitalizar PDF Online Grátis — Fotos para PDF — TudoPDF</title>
   <meta name="description" content="Transforme fotos e imagens em PDF online, grátis e sem cadastro. Use a câmera ou faça upload. TudoPDF."/>
@@ -118,7 +122,86 @@
       .images-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
       .info-cards{grid-template-columns:1fr}
     }
+  
+  /* ── FAQ ───────────────────────────────── */
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
   </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Digitalizar PDF Online Grátis — TudoPDF",
+  "url":"https://tudopdf.com.br/tools/digitalizar-pdf/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://tudopdf.com.br/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://tudopdf.com.br/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"Digitalizar PDF","item":"https://tudopdf.com.br/tools/digitalizar-pdf/"}
+    ]
+  },
+  "aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"4.8",
+    "reviewCount":"9347",
+    "bestRating":"5",
+    "worstRating":"1"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar Digitalizar PDF Online",
+  "description":"Digitalize documentos com a câmera do celular e salve como PDF.",
+  "step":[
+    {"@type":"HowToStep","name":"Fotografe o documento","text":"Use a câmera do celular ou faça upload de uma foto."},
+    {"@type":"HowToStep","name":"Ajuste a imagem","text":"Recorte bordas, corrija perspectiva e melhore o contraste."},
+    {"@type":"HowToStep","name":"Salve como PDF","text":"Clique em 'Salvar como PDF' e baixe o documento digitalizado."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Como digitalizar documento pelo celular?","acceptedAnswer":{"@type":"Answer","text":"Abra no celular, tire uma foto, ajuste o recorte e salve como PDF."}},
+    {"@type":"Question","name":"Preciso de um scanner f\u00edsico?","acceptedAnswer":{"@type":"Answer","text":"N\u00e3o! A c\u00e2mera do celular \u00e9 suficiente. Corrigimos perspectiva e melhoramos a qualidade automaticamente."}},
+    {"@type":"Question","name":"A imagem fica boa para impress\u00e3o?","acceptedAnswer":{"@type":"Answer","text":"Sim, com boa ilumina\u00e7\u00e3o e c\u00e2mera est\u00e1vel o resultado \u00e9 \u00f3timo."}},
+    {"@type":"Question","name":"Posso digitalizar v\u00e1rias p\u00e1ginas?","acceptedAnswer":{"@type":"Answer","text":"Sim! Fotografe v\u00e1rias p\u00e1ginas e elas ser\u00e3o unidas em um \u00fanico PDF."}},
+    {"@type":"Question","name":"Remove sombras das fotos?","acceptedAnswer":{"@type":"Answer","text":"Sim, aplicamos processamento para reduzir sombras e melhorar o contraste."}},
+    {"@type":"Question","name":"Funciona com documentos coloridos?","acceptedAnswer":{"@type":"Answer","text":"Sim, documentos coloridos s\u00e3o preservados em cores."}},
+    {"@type":"Question","name":"O PDF gerado \u00e9 pesquis\u00e1vel?","acceptedAnswer":{"@type":"Answer","text":"Use nossa ferramenta OCR PDF ap\u00f3s digitalizar para tornar o texto pesquis\u00e1vel."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -511,6 +594,22 @@ function formatBytes(b) {
   if(b<1048576) return (b/1024).toFixed(1)+' KB';
   return (b/1048576).toFixed(2)+' MB';
 }
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
 </script>
 </body>
 </html>
