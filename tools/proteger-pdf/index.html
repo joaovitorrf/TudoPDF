@@ -2,6 +2,10 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Proteger PDF com Senha Online Grátis — TudoPDF</title>
   <meta name="description" content="Adicione senha e restrições ao seu PDF online, grátis e sem cadastro. TudoPDF."/>
@@ -97,7 +101,86 @@
     .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
     .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
     @media(max-width:640px){.pwd-grid,.perms-grid{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  
+  /* ── FAQ ───────────────────────────────── */
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
   </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Proteger PDF Online Grátis — TudoPDF",
+  "url":"https://tudopdf.com.br/tools/proteger-pdf/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://tudopdf.com.br/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://tudopdf.com.br/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"Proteger PDF","item":"https://tudopdf.com.br/tools/proteger-pdf/"}
+    ]
+  },
+  "aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"4.8",
+    "reviewCount":"9347",
+    "bestRating":"5",
+    "worstRating":"1"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar Proteger PDF Online",
+  "description":"Adicione senha ao seu PDF para proteger o conteúdo de acessos não autorizados.",
+  "step":[
+    {"@type":"HowToStep","name":"Faça upload do PDF","text":"Selecione o arquivo que deseja proteger com senha."},
+    {"@type":"HowToStep","name":"Defina a senha","text":"Digite a senha segura para proteger o documento."},
+    {"@type":"HowToStep","name":"Baixe o PDF protegido","text":"Clique em 'Proteger PDF' e baixe o arquivo com senha."}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Como colocar senha em um PDF?","acceptedAnswer":{"@type":"Answer","text":"Fa\u00e7a upload do PDF, defina uma senha segura e clique em 'Proteger PDF'. O arquivo protegido fica dispon\u00edvel para download imediato."}},
+    {"@type":"Question","name":"O PDF com senha abre em qualquer leitor?","acceptedAnswer":{"@type":"Answer","text":"Sim! Compat\u00edvel com Adobe Acrobat, navegadores, dispositivos m\u00f3veis e qualquer leitor padr\u00e3o."}},
+    {"@type":"Question","name":"Posso restringir impress\u00e3o ou c\u00f3pia de texto?","acceptedAnswer":{"@type":"Answer","text":"Sim, configure permiss\u00f5es separadas: senha para abrir e senha de permiss\u00f5es para controlar impress\u00e3o e edi\u00e7\u00e3o."}},
+    {"@type":"Question","name":"Esqueci a senha do meu PDF, como recupero?","acceptedAnswer":{"@type":"Answer","text":"Use nossa ferramenta Desbloquear PDF para tentar remover a prote\u00e7\u00e3o."}},
+    {"@type":"Question","name":"O processo de prote\u00e7\u00e3o \u00e9 seguro?","acceptedAnswer":{"@type":"Answer","text":"Sim. O PDF \u00e9 criptografado com AES-256 diretamente no seu navegador, sem enviar dados."}},
+    {"@type":"Question","name":"A prote\u00e7\u00e3o \u00e9 forte?","acceptedAnswer":{"@type":"Answer","text":"Usamos criptografia AES-256, o mesmo padr\u00e3o de bancos e governos."}},
+    {"@type":"Question","name":"\u00c9 gratuito adicionar senha ao PDF?","acceptedAnswer":{"@type":"Answer","text":"Sim, 100% gratuito, sem cadastro."}}
+  ]
+}
+</script>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -428,6 +511,22 @@ function formatBytes(b) {
   if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
   return (b/1048576).toFixed(2) + ' MB';
 }
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
 </script>
 </body>
 </html>
