@@ -4,4 +4,4 @@ Allow: /
 Disallow: /cdn-cgi/
 Disallow: /tools/_template/
 
-Sitemap: https://tudopdf.com.br/sitemap.xml
+Sitemap: https://www.tudopdf.site/sitemap.xml
