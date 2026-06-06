@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="google-adsense-account" content="ca-pub-9029786875800750">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
+  <meta name="author" content="TudoPDF"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recortar PDF Online Grátis — Ajuste as margens — TudoPDF</title>
+  <meta name="description" content="Recorte seu PDF online, grátis e sem cadastro. Arraste as bordas para definir o corte com prévia visual. TudoPDF."/>
+  <link rel="canonical" href="https://www.tudopdf.site/tools/recortar-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Crop editor */
+    .crop-section{display:none;margin-top:24px}
+    .crop-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+
+    .crop-layout{display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
+    @media(max-width:768px){.crop-layout{grid-template-columns:1fr}}
+
+    /* Canvas crop area */
+    .crop-canvas-wrap{position:relative;background:var(--gray-1);border-radius:14px;padding:16px;border:1px solid var(--gray-2)}
+    .crop-canvas-inner{position:relative;display:inline-block;cursor:crosshair;user-select:none}
+    #crop-canvas{display:block;border-radius:4px;max-width:100%}
+
+    /* Crop overlay */
+    .crop-overlay{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}
+    .crop-box{position:absolute;border:2px solid var(--blue);box-shadow:0 0 0 9999px rgba(0,0,0,.45)}
+    /* Handles */
+    .crop-handle{position:absolute;width:14px;height:14px;background:white;border:2px solid var(--blue);border-radius:3px;pointer-events:all;z-index:10}
+    .crop-handle.nw{top:-7px;left:-7px;cursor:nw-resize}
+    .crop-handle.ne{top:-7px;right:-7px;cursor:ne-resize}
+    .crop-handle.sw{bottom:-7px;left:-7px;cursor:sw-resize}
+    .crop-handle.se{bottom:-7px;right:-7px;cursor:se-resize}
+    .crop-handle.n{top:-7px;left:calc(50% - 7px);cursor:n-resize}
+    .crop-handle.s{bottom:-7px;left:calc(50% - 7px);cursor:s-resize}
+    .crop-handle.w{left:-7px;top:calc(50% - 7px);cursor:w-resize}
+    .crop-handle.e{right:-7px;top:calc(50% - 7px);cursor:e-resize}
+
+    /* Crop dimensions badge */
+    .crop-dims{position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);background:var(--blue);color:white;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.7rem;padding:3px 10px;border-radius:50px;white-space:nowrap}
+
+    /* Controls panel */
+    .crop-controls{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:18px}
+    .control-group{margin-bottom:16px}
+    .control-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;color:var(--text);margin-bottom:8px;display:flex;justify-content:space-between}
+    .control-val{color:var(--blue)}
+    .margin-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .margin-input-wrap{display:flex;flex-direction:column;gap:4px}
+    .margin-input-label{font-size:.68rem;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-weight:600}
+    .margin-input{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);font-family:'Montserrat',sans-serif;font-size:.82rem;color:var(--text);transition:border-color .2s}
+    .margin-input:focus{outline:none;border-color:var(--blue)}
+    .ctrl-btn{width:100%;padding:9px;border-radius:9px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s;margin-bottom:8px}
+    .ctrl-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    .apply-section{display:none;margin-top:24px}
+    .apply-section.show{display:block}
+    .apply-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.82rem;color:var(--text)}
+    .option-sub{font-size:.72rem;color:var(--text-muted);margin-top:2px}
+    .select-input{padding:7px 10px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.8rem;cursor:pointer}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+
+    .crop-btn{width:100%;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35)}
+    .crop-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .crop-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.margin-inputs{grid-template-columns:1fr 1fr}.apply-opts{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+@media (max-width: 767px) {
+  .ad-leaderboard,
+  .ad-banner468,
+  .ad-halfpage { display: none !important; }
+}
+@media (min-width: 768px) {
+  .ad-mobile320 { display: none !important; }
+}
+function initDragHandles() {
+  document.querySelectorAll('.crop-handle').forEach(h => {
+    h.addEventListener('mousedown', onHandleMouseDown);
+    h.addEventListener('touchstart', e => onHandleMouseDown(e.touches[0], h.dataset.dir), { passive: false });
+  });
+  document.getElementById('crop-canvas-inner').addEventListener('mousedown', onCanvasMouseDown);
+}
+
+function onHandleMouseDown(e, dir) {
+  e.stopPropagation(); e.preventDefault();
+  dragging = dir || e.target.dataset.dir;
+  dragStart = { x: e.clientX, y: e.clientY };
+  startCrop = { ...crop };
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+  document.addEventListener('touchmove', onTouchMove, { passive: false });
+  document.addEventListener('touchend', onMouseUp);
+}
+
+function onCanvasMouseDown(e) {
+  if (e.target.classList.contains('crop-handle')) return;
+  dragging = 'move';
+  dragStart = { x: e.clientX, y: e.clientY };
+  startCrop = { ...crop };
+  document.getElementById('crop-box').style.cursor = 'grabbing';
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+}
+
+function onTouchMove(e) { e.preventDefault(); onMouseMove(e.touches[0]); }
+
+function onMouseMove(e) {
+  if (!dragging) return;
+  const dx = e.clientX - dragStart.x;
+  const dy = e.clientY - dragStart.y;
+  let { x, y, w, h } = startCrop;
+  const MIN = 20;
+
+  if (dragging === 'move') {
+    x = Math.max(0, Math.min(canvasW - w, x + dx));
+    y = Math.max(0, Math.min(canvasH - h, y + dy));
+  } else {
+    if (dragging.includes('e')) { w = Math.max(MIN, Math.min(canvasW - x, w + dx)); }
+    if (dragging.includes('s')) { h = Math.max(MIN, Math.min(canvasH - y, h + dy)); }
+    if (dragging.includes('w')) { const nw = Math.max(MIN, w - dx); x = Math.max(0, x + w - nw); w = nw; }
+    if (dragging.includes('n')) { const nh = Math.max(MIN, h - dy); y = Math.max(0, y + h - nh); h = nh; }
+  }
+  crop = { x, y, w, h };
+  updateCropBox();
+  updateMarginInputs();
+}
+
+function onMouseUp() {
+  dragging = null; dragStart = null; startCrop = null;
+  document.getElementById('crop-box').style.cursor = '';
+  document.removeEventListener('mousemove', onMouseMove);
+  document.removeEventListener('mouseup', onMouseUp);
+  document.removeEventListener('touchmove', onTouchMove);
+  document.removeEventListener('touchend', onMouseUp);
+}
+
+async function applyAndSave() {
+  if (!selectedFile) return;
+  const btn = document.getElementById('crop-btn');
+  btn.disabled = true; btn.textContent = '⏳ Recortando...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  const applyTo = document.getElementById('opt-pages').value;
+  const cropType = document.getElementById('opt-type').value;
+
+  // Convert canvas crop to PDF points
+  const left   = crop.x / scale;
+  const bottom = (canvasH - crop.y - crop.h) / scale;
+  const right  = pdfPageWidth  - (crop.x + crop.w) / scale;
+  const top    = pdfPageHeight - crop.y / scale;
+
+  try {
+    setProgress(10, 'Carregando PDF...');
+    const buf    = await selectedFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    const pages  = pdfDoc.getPages();
+
+    setProgress(40, 'Aplicando recorte...');
+    pages.forEach((page, i) => {
+      const pageNum = i + 1;
+      if (applyTo === 'odd'  && pageNum % 2 === 0) return;
+      if (applyTo === 'even' && pageNum % 2 !== 0) return;
+
+      const { width, height } = page.getSize();
+      const cropBox = {
+        x:      left,
+        y:      height - top,
+        width:  width - left - right,
+        height: top - (height - top) - bottom + height - top,
+      };
+
+      // Correct calculation
+      const newX = left;
+      const newY = bottom;
+      const newW = width  - left - right;
+      const newH = height - top  - bottom;  // wait — top is in pdf coords from bottom
+
+      const pdfLeft   = left;
+      const pdfBottom = bottom;
+      const pdfRight  = width  - right;
+      const pdfTop    = height - top;  // this is actually bottom margin from top
+
+      // Simpler: define new MediaBox / CropBox directly
+      const newBox = [pdfLeft, pdfBottom, width - right, height - (height - top + bottom) + height - top];
+
+      // Clean calculation: left, bottom, right_edge, top_edge in PDF coords (origin bottom-left)
+      const boxLeft   = left;
+      const boxBottom = bottom;
+      const boxRight  = width - right;
+      const boxTopPdf = height - top;  // PDF coord from bottom
+
+      // Recalculate properly:
+      const cl = left;                    // left crop
+      const cb = bottom;                  // bottom crop  
+      const cr = pdfPageWidth - right - (pdfPageWidth - width); // right edge
+      const ct = pdfPageHeight - top  - (pdfPageHeight - height); // top edge
+
+      const finalLeft   = cl;
+      const finalBottom = cb;
+      const finalRight  = width - right;
+      const finalTop    = height - top;  // since top margin is from top, bottom of that margin = height - topMarginPt
+
+      if (cropType === 'mediabox') {
+        page.setMediaBox(finalLeft, finalBottom, finalRight - finalLeft, finalTop - finalBottom);
+      } else {
+        page.setCropBox(finalLeft, finalBottom, finalRight - finalLeft, finalTop - finalBottom);
+      }
+    });
+
+    setProgress(80, 'Salvando...');
+    const bytes = await pdfDoc.save();
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
+    setProgress(100, 'Concluído!');
+
+    const newW = Math.round((pdfPageWidth - left - right));
+    const newH = Math.round((pdfPageHeight - top - bottom + pdfPageHeight - pdfPageHeight));
+
+    setTimeout(() => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '_recortado.pdf');
+      document.getElementById('result-sub').textContent = `${totalPages} página${totalPages !== 1 ? 's' : ''} recortada${totalPages !== 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '✂️ Aplicar novamente';
+    }, 400);
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao recortar. Tente novamente.');
+    btn.disabled = false; btn.textContent = '✂️ Aplicar recorte e salvar';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; pdfPageWidth = 0; pdfPageHeight = 0; totalPages = 0;
+  canvasW = 0; canvasH = 0; scale = 1; dragging = null;
+  fileInput.value = ''; dropZone.style.display = 'block';
+  ['file-preview','crop-section','apply-section','result-box','progress-wrap']
+    .forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('progress-bar').style.width = '0%';
+  const canvas = document.getElementById('crop-canvas');
+  const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.width = 0; canvas.height = 0;
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'; if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
+</script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+</body>
+</html>

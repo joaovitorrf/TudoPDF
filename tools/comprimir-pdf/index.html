@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="google-adsense-account" content="ca-pub-9029786875800750">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
+  <meta name="author" content="TudoPDF"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comprimir PDF Online Grátis — Reduza até 80% — TudoPDF</title>
+  <meta name="description" content="Comprima PDF online grátis e sem cadastro. Reduza o tamanho do seu PDF em até 80% sem perder qualidade. Rápido, seguro e fácil."/>
+  <link rel="canonical" href="https://www.tudopdf.site/tools/comprimir-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+
+    .tool-hero {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .tool-hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .tool-hero p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Drop zone */
+    .drop-zone {
+      border: 2.5px dashed var(--gray-2);
+      border-radius: 20px;
+      background: var(--gray-1);
+      padding: 60px 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: var(--blue);
+      background: var(--blue-light);
+      transform: scale(1.01);
+    }
+    .drop-zone input[type="file"] {
+      position: absolute; inset: 0;
+      opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .drop-icon { font-size: 3.5rem; margin-bottom: 16px; }
+    .drop-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700; font-size: 1.1rem; color: var(--text);
+      margin-bottom: 8px;
+    }
+    .drop-sub { font-size: 0.85rem; color: var(--text-muted); }
+    .drop-btn {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--blue); color: white;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.88rem;
+      transition: background 0.2s, transform 0.2s;
+      pointer-events: none;
+    }
+    .drop-zone:hover .drop-btn { background: var(--blue-dark); }
+
+    /* File preview */
+    .file-preview {
+      display: none;
+      align-items: center; gap: 16px;
+      background: var(--gray-1);
+      border: 1px solid var(--gray-2);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-top: 20px;
+    }
+    .file-preview.show { display: flex; }
+    .file-icon-big { font-size: 2.4rem; flex-shrink: 0; }
+    .file-info { flex: 1; min-width: 0; }
+    .file-name {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 0.92rem; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .file-size { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; }
+    .file-remove {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1.5px solid var(--gray-2);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+      flex-shrink: 0;
+    }
+    .file-remove:hover { border-color: #ef4444; background: #fef2f2; color: #ef4444; }
+
+    /* Options */
+    .compress-options {
+      margin-top: 28px;
+    }
+    .options-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 0.85rem; color: var(--text); margin-bottom: 14px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .quality-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .quality-card {
+      border: 2px solid var(--gray-2);
+      border-radius: 12px; padding: 16px 14px;
+      cursor: pointer; text-align: center;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .quality-card:hover { border-color: var(--blue); background: var(--blue-light); }
+    .quality-card.selected {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+    .quality-card.selected::after {
+      content: '✓';
+      position: absolute; top: 8px; right: 10px;
+      font-size: 0.75rem; color: var(--blue); font-weight: 700;
+    }
+    .qc-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .qc-label {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 0.82rem; color: var(--text); margin-bottom: 4px;
+    }
+    .qc-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+    .qc-reduction {
+      display: inline-block;
+      margin-top: 8px; padding: 2px 10px;
+      background: rgba(0,123,255,0.1); color: var(--blue);
+      border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+    }
+
+    /* Action button */
+    .compress-btn {
+      width: 100%; margin-top: 28px;
+      padding: 16px;
+      background: var(--blue); color: white;
+      border-radius: 14px;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,123,255,0.35);
+      display: none;
+    }
+    .compress-btn.show { display: block; }
+    .compress-btn:hover:not(:disabled) { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,123,255,0.4); }
+    .compress-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Progress */
+    .progress-wrap {
+      display: none; margin-top: 28px;
+    }
+    .progress-wrap.show { display: block; }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;
+    }
+    .progress-bar-bg {
+      height: 8px; background: var(--gray-2); border-radius: 50px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--blue), #00b4d8);
+      border-radius: 50px; width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Result */
+    .result-box {
+      display: none; margin-top: 28px;
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 1.5px solid #86efac;
+      border-radius: 16px; padding: 28px;
+      text-align: center;
+    }
+    .result-box.show { display: block; }
+    [data-theme="dark"] .result-box { background: linear-gradient(135deg, #052e16, #14532d); border-color: #166534; }
+    .result-icon { font-size: 2.8rem; margin-bottom: 12px; }
+    .result-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.2rem; color: #15803d; margin-bottom: 8px;
+    }
+    [data-theme="dark"] .result-title { color: #4ade80; }
+    .result-stats {
+      display: flex; justify-content: center; gap: 32px;
+      margin: 18px 0;
+      flex-wrap: wrap;
+    }
+    .result-stat { text-align: center; }
+    .result-stat-value {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: 1.6rem; color: #15803d;
+    }
+    [data-theme="dark"] .result-stat-value { color: #4ade80; }
+    .result-stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .result-divider { width: 1px; height: 48px; background: #86efac; align-self: center; }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 36px;
+      background: #16a34a; color: white;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(22,163,74,0.3);
+      margin-top: 4px;
+    }
+    .download-btn:hover { background: #15803d; transform: translateY(-2px); }
+    .compress-again {
+      display: inline-block; margin-top: 12px;
+      font-size: 0.83rem; color: var(--text-muted); cursor: pointer;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .compress-again:hover { color: var(--blue); }
+
+    /* Warning box */
+    .warn-box {
+      display: none; margin-top: 16px;
+      background: #fffbeb; border: 1.5px solid #fbbf24;
+      border-radius: 12px; padding: 14px 18px;
+      font-size: 0.82rem; color: #92400e; line-height: 1.5;
+    }
+    .warn-box.show { display: block; }
+    [data-theme="dark"] .warn-box { background: #451a03; border-color: #d97706; color: #fcd34d; }
+
+    /* Info cards */
+    .info-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin-top: 48px;
+    }
+    .info-card {
+      background: var(--card-bg); border: 1px solid var(--gray-2);
+      border-radius: 14px; padding: 22px;
+    }
+    .info-card-icon { font-size: 1.6rem; margin-bottom: 10px; }
+    .info-card h3 {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 0.9rem; color: var(--text); margin-bottom: 6px;
+    }
+    .info-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Related tools */
+    .related-tools {
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--gray-2);
+    }
+    .related-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: 1rem; color: var(--text); margin-bottom: 20px;
+    }
+    .related-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px;
+    }
+    .related-card {
+      display: flex; align-items: center; gap: 10px;
+      padding: 13px 14px;
+      background: var(--card-bg); border: 1px solid var(--gray-2);
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .related-card:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+    .related-card .ri { font-size: 1.1rem; }
+
+    @media (max-width: 640px) {
+      .quality-cards { grid-template-columns: 1fr; }
+      .info-cards { grid-template-columns: 1fr; }
+      .result-stats { gap: 16px; }
+      .result-divider { display: none; }
+    }
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+@media (max-width: 767px) {
+  .ad-leaderboard,
+  .ad-banner468,
+  .ad-halfpage { display: none !important; }
+}
+@media (min-width: 768px) {
+  .ad-mobile320 { display: none !important; }
+}
+
+// Configura worker do PDF.js
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let selectedFile   = null;
+let selectedQuality = 'medium';
+let compressedBlob = null;
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type === 'application/pdf') loadFile(file);
+  else showToast('⚠️ Por favor, selecione um arquivo PDF.');
+});
+fileInput.addEventListener('change', e => {
+  if (e.target.files[0]) loadFile(e.target.files[0]);
+});
+
+function loadFile(file) {
+  selectedFile = file;
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-size').textContent = formatBytes(file.size) + ' — pronto para comprimir';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('compress-options').style.display = 'block';
+  document.getElementById('compress-btn').classList.add('show');
+  document.getElementById('warn-box').classList.add('show');
+  dropZone.style.display = 'none';
+  document.getElementById('result-box').classList.remove('show');
+  document.getElementById('progress-wrap').classList.remove('show');
+}
+
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+function resetTool() {
+  selectedFile   = null;
+  compressedBlob = null;
+  fileInput.value = '';
+  dropZone.style.display = 'block';
+  document.getElementById('file-preview').classList.remove('show');
+  document.getElementById('compress-options').style.display = 'none';
+  document.getElementById('compress-btn').classList.remove('show');
+  document.getElementById('warn-box').classList.remove('show');
+  document.getElementById('result-box').classList.remove('show');
+  document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function selectQuality(q, el) {
+  selectedQuality = q;
+  document.querySelectorAll('.quality-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+async function startCompress() {
+  if (!selectedFile) return;
+
+  const btn = document.getElementById('compress-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Processando...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+  document.getElementById('warn-box').classList.remove('show');
+
+  // Configurações por nível de qualidade
+  // scale: resolução de renderização (menor = menor arquivo)
+  // imgQ:  qualidade JPEG (0.0 - 1.0)
+  const configs = {
+    low:    { scale: 1.5, imgQ: 0.82 },  // Alta qualidade visual
+    medium: { scale: 1.2, imgQ: 0.65 },  // Recomendado
+    high:   { scale: 0.9, imgQ: 0.45 },  // Máxima compressão
+  };
+  const { scale, imgQ } = configs[selectedQuality];
+
+  try {
+    const originalSize = selectedFile.size;
+    const arrayBuffer  = await selectedFile.arrayBuffer();
+
+    // Carrega o PDF com PDF.js
+    setProgress(5, 'Carregando PDF...');
+    const pdfDoc   = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const numPages = pdfDoc.numPages;
+
+    // Detecta orientação da primeira página
+    const firstPage    = await pdfDoc.getPage(1);
+    const firstVP      = firstPage.getViewport({ scale: 1 });
+    const isLandscape  = firstVP.width > firstVP.height;
+
+    // Cria instância do jsPDF com o tamanho correto
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      orientation: isLandscape ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: 'a4',
+      compress: true,
+    });
+
+    // Dimensões A4 em px (jsPDF interno)
+    const pdfW = pdf.internal.pageSize.getWidth();
+    const pdfH = pdf.internal.pageSize.getHeight();
+
+    // Canvas reutilizável
+    const canvas = document.createElement('canvas');
+    const ctx    = canvas.getContext('2d');
+
+    for (let i = 1; i <= numPages; i++) {
+      const pct = Math.round(5 + (i / numPages) * 88);
+      setProgress(pct, `Comprimindo página ${i} de ${numPages}...`);
+
+      const page     = await pdfDoc.getPage(i);
+      const viewport = page.getViewport({ scale });
+
+      canvas.width  = viewport.width;
+      canvas.height = viewport.height;
+
+      // Fundo branco (evita transparência virar preto no JPEG)
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      // Converte para JPEG com a qualidade escolhida
+      const imgData = canvas.toDataURL('image/jpeg', imgQ);
+
+      // Calcula proporção para caber na página A4
+      const ratio    = Math.min(pdfW / viewport.width, pdfH / viewport.height);
+      const imgW     = viewport.width  * ratio;
+      const imgH     = viewport.height * ratio;
+      const offsetX  = (pdfW - imgW) / 2;
+      const offsetY  = (pdfH - imgH) / 2;
+
+      if (i > 1) pdf.addPage();
+      pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH, undefined, 'FAST');
+    }
+
+    setProgress(96, 'Finalizando...');
+
+    // Gera o Blob final
+    const pdfBytes    = pdf.output('arraybuffer');
+    compressedBlob    = new Blob([pdfBytes], { type: 'application/pdf' });
+
+    setProgress(100, 'Concluído!');
+
+    setTimeout(() => {
+      showResult(originalSize, compressedBlob.size);
+      btn.disabled  = false;
+      btn.textContent = '🗜️ Comprimir outro PDF';
+    }, 400);
+
+  } catch (err) {
+    console.error(err);
+    showToast('❌ Erro ao processar o arquivo. Tente novamente.');
+    btn.disabled = false;
+    btn.textContent = '🗜️ Comprimir PDF agora';
+    document.getElementById('progress-wrap').classList.remove('show');
+    document.getElementById('warn-box').classList.add('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function showResult(originalSize, newSize) {
+  document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('original-size-result').textContent = formatBytes(originalSize);
+  document.getElementById('new-size-result').textContent      = formatBytes(newSize);
+
+  const saved = Math.round((1 - newSize / originalSize) * 100);
+  const savedEl = document.getElementById('saved-result');
+  savedEl.textContent = (saved > 0 ? saved : 0) + '%';
+
+  // Se ficou maior (PDF só-texto pode acontecer), avisa
+  if (newSize >= originalSize) {
+    savedEl.textContent = '—';
+    savedEl.style.color = 'var(--text-muted)';
+    document.getElementById('result-box').querySelector('.result-title').textContent =
+      'PDF processado! (já estava otimizado)';
+  }
+
+  // Link de download com o arquivo REAL comprimido
+  const url  = URL.createObjectURL(compressedBlob);
+  const link = document.getElementById('download-link');
+  link.href     = url;
+  link.download = selectedFile.name.replace(/\.pdf$/i, '_comprimido.pdf');
+
+  document.getElementById('result-box').classList.add('show');
+  document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024)             return bytes + ' B';
+  if (bytes < 1024 * 1024)     return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  // fechar todos
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    const a = b.nextElementSibling;
+    if (a) a.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    const a = btn.nextElementSibling;
+    if (a) a.classList.add('open');
+  }
+}
+
+</script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+</body>
+</html>

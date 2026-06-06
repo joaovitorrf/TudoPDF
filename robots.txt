@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /cdn-cgi/
+Disallow: /tools/_template/
+
+Sitemap: https://www.tudopdf.site/sitemap.xml
