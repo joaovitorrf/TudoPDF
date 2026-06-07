@@ -571,43 +571,112 @@ function downloadTXT() {
 }
 
 async function downloadSearchablePDF() {
-  const text = getCurrentText();
-  if (!text) return;
+  if (!pageTexts.length) return;
   const btn = document.querySelector('.out-btn.dl-pdf');
-  btn.textContent = '⏳ Gerando...'; btn.disabled = true;
+  btn.textContent = '⏳ Gerando PDF pesquisável...'; btn.disabled = true;
 
   try {
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation:'portrait', unit:'pt', format:'a4' });
-    const pageW = pdf.internal.pageSize.getWidth();
-    const margin = 50;
-    const lineH  = 14;
-    const maxW   = pageW - margin*2;
 
-    pdf.setFont('helvetica','normal');
-    pdf.setFontSize(11);
+    // Re-render pages as images (same canvases used in OCR)
+    let canvases = [];
 
-    // Split text into lines that fit the page
-    const allLines = pdf.splitTextToSize(text, maxW);
-    const pageH    = pdf.internal.pageSize.getHeight();
-    const usableH  = pageH - margin*2;
-    const linesPerPage = Math.floor(usableH / lineH);
-
-    for (let i = 0; i < allLines.length; i += linesPerPage) {
-      if (i > 0) pdf.addPage();
-      const chunk = allLines.slice(i, i + linesPerPage);
-      pdf.text(chunk, margin, margin + lineH);
+    if (selectedFile.type.startsWith('image/')) {
+      const url = URL.createObjectURL(selectedFile);
+      const img = document.createElement('img');
+      await new Promise(r => { img.onload = r; img.src = url; });
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img, 0, 0);
+      canvases.push(canvas);
+    } else {
+      const buf    = await selectedFile.arrayBuffer();
+      const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+      const total  = pageTexts.length; // only pages already OCR'd
+      for (let i = 1; i <= total; i++) {
+        const page = await pdfDoc.getPage(i);
+        const vp   = page.getViewport({ scale: 2.0 });
+        const canvas = document.createElement('canvas');
+        canvas.width = vp.width; canvas.height = vp.height;
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+        canvases.push(canvas);
+      }
     }
 
+    // Re-run OCR to get word-level bounding boxes
+    const lang   = document.getElementById('ocr-lang').value;
+    const worker = await Tesseract.createWorker(lang, 1, { logger: () => {} });
+
+    let pdf = null;
+
+    for (let i = 0; i < canvases.length; i++) {
+      const canvas  = canvases[i];
+      const cw      = canvas.width;
+      const ch      = canvas.height;
+
+      // Page dimensions in pt — keep original aspect ratio, fit A4 width
+      const A4W = 595.28; // pt
+      const scale = A4W / cw;
+      const A4H   = ch * scale;
+
+      if (!pdf) {
+        pdf = new jsPDF({ orientation: cw > ch ? 'landscape' : 'portrait', unit: 'pt', format: [A4W, A4H], compress: true });
+      } else {
+        pdf.addPage([A4W, A4H], cw > ch ? 'landscape' : 'portrait');
+      }
+
+      // 1. Draw the page image (background — original visual)
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      pdf.addImage(imgData, 'JPEG', 0, 0, A4W, A4H, undefined, 'FAST');
+
+      // 2. Overlay invisible text using word-level OCR data
+      const { data } = await worker.recognize(canvas);
+
+      // Use word boxes for precise positioning
+      pdf.setFontSize(1); // tiny — invisible but selectable
+      pdf.setTextColor(0, 0, 0, 0); // fully transparent (alpha 0)
+
+      for (const word of data.words) {
+        if (!word.text.trim()) continue;
+        const bbox = word.bbox; // {x0, y0, x1, y1} in canvas pixels
+
+        // Scale bbox to PDF pt coordinates
+        const x  = bbox.x0 * scale;
+        const y  = bbox.y1 * scale; // jsPDF y is baseline (bottom of text)
+        const bw = (bbox.x1 - bbox.x0) * scale;
+        const bh = (bbox.y1 - bbox.y0) * scale;
+
+        // Set font size to match the word height
+        const fs = Math.max(bh * 0.85, 1);
+        pdf.setFontSize(fs);
+
+        // Scale text to fit the bounding box width
+        const textW = pdf.getTextWidth(word.text);
+        if (textW > 0) {
+          const scaleX = bw / textW;
+          // Use transform to stretch text horizontally
+          pdf.text(word.text, x, y, {
+            renderingMode: 'invisible', // invisible text — PDF spec mode 3
+            charSpace: 0,
+            horizontalScale: scaleX * 100, // jsPDF horizontalScale is in %
+          });
+        }
+      }
+    }
+
+    await worker.terminate();
+
     const bytes = pdf.output('arraybuffer');
-    const blob  = new Blob([bytes], { type:'application/pdf' });
+    const blob  = new Blob([bytes], { type: 'application/pdf' });
     const url   = URL.createObjectURL(blob);
     const a     = document.createElement('a');
     a.href = url; a.download = fileName + '_pesquisavel.pdf'; a.click();
+    showToast('✅ PDF pesquisável gerado!');
   } catch(err) {
     console.error(err);
-    showToast('❌ Erro ao gerar PDF. Tente novamente.');
+    showToast('❌ Erro ao gerar PDF pesquisável. Tente novamente.');
   }
+
   btn.textContent = '⬇️ PDF pesquisável'; btn.disabled = false;
 }
 

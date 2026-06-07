@@ -293,10 +293,17 @@
       </div>
       <div class="images-grid" id="images-grid"></div>
       <div class="add-more-wrap">
-        <button class="add-more-btn">
+        <button class="add-more-btn" id="add-more-btn-wrap">
           <input type="file" id="add-more-input" accept="image/*" multiple/>
           ＋ Adicionar mais imagens
         </button>
+      </div>
+      <!-- Login gate +6 imagens -->
+      <div id="login-gate" style="display:none;margin-top:14px;padding:18px 20px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #f59e0b;border-radius:14px;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:8px">🔐</div>
+        <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:.95rem;color:#92400e;margin-bottom:6px">Limite de 6 imagens atingido!</div>
+        <div style="font-size:.83rem;color:#78350f;margin-bottom:14px">Faça login com Google gratuitamente para converter imagens ilimitadas.</div>
+        <button onclick="loginWithGoogle()" style="padding:10px 24px;background:#f59e0b;color:white;border-radius:10px;font-family:Montserrat,sans-serif;font-weight:700;font-size:.85rem;border:none;cursor:pointer">Entrar com Google →</button>
       </div>
     </div>
 
@@ -421,12 +428,31 @@
 let images    = []; // [{id, dataUrl, name, file}]
 let outputMode = 'single';
 let dragSrcIdx = null;
+const MAX_FREE = 6;
+let isLoggedIn = false;
+window._onAuthChange = (user) => { isLoggedIn = !!user; updateAddMoreBtn(); };
 
 const fileInput    = document.getElementById('file-input');
 const addMoreInput = document.getElementById('add-more-input');
 
 fileInput.addEventListener('change',    e => { addImages([...e.target.files]); e.target.value=''; });
 addMoreInput.addEventListener('change', e => { addImages([...e.target.files]); e.target.value=''; });
+
+function updateAddMoreBtn() {
+  const wrap = document.getElementById('add-more-btn-wrap');
+  if (!wrap) return;
+  const remaining = isLoggedIn ? '∞' : Math.max(0, MAX_FREE - images.length);
+  if (!isLoggedIn && images.length >= MAX_FREE) {
+    wrap.innerHTML = '🔐 Login para adicionar mais';
+    wrap.style.color = '#f59e0b';
+    wrap.style.borderColor = '#f59e0b';
+  } else {
+    wrap.innerHTML = `<input type="file" id="add-more-input" accept="image/*" multiple/> ＋ Adicionar mais imagens${isLoggedIn ? '' : ` (${remaining} restante${remaining!==1?'s':''})`}`;
+    document.getElementById('add-more-input').addEventListener('change', e => { addImages([...e.target.files]); e.target.value=''; });
+    wrap.style.color = '';
+    wrap.style.borderColor = '';
+  }
+}
 
 const dropZone = document.getElementById('drop-zone');
 dropZone.addEventListener('dragover', e=>{ e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -438,16 +464,29 @@ dropZone.addEventListener('drop', e=>{
 });
 
 async function addImages(files) {
-  for (const f of files) {
-    if (!f.type.startsWith('image/')) continue;
+  const validFiles = files.filter(f => f.type.startsWith('image/'));
+  const canAdd = isLoggedIn ? validFiles.length : Math.max(0, MAX_FREE - images.length);
+  const toLoad = validFiles.slice(0, canAdd);
+  const blocked = validFiles.length - toLoad.length;
+
+  for (const f of toLoad) {
     const dataUrl = await readAsDataURL(f);
     images.push({ id:'i_'+Date.now()+'_'+Math.random().toString(36).slice(2), dataUrl, name:f.name, file:f });
   }
-  renderImages();
-  document.getElementById('images-section').classList.add('show');
-  document.getElementById('options-section').classList.add('show');
-  document.getElementById('convert-btn').classList.add('show');
-  document.getElementById('result-box').classList.remove('show');
+
+  if (blocked > 0) {
+    document.getElementById('login-gate').style.display = 'block';
+    showToast(`⚠️ ${blocked} imagem(ns) ignorada(s). Faça login para mais de ${MAX_FREE} imagens.`);
+  }
+
+  if (images.length > 0) {
+    renderImages();
+    document.getElementById('images-section').classList.add('show');
+    document.getElementById('options-section').classList.add('show');
+    document.getElementById('convert-btn').classList.add('show');
+    document.getElementById('result-box').classList.remove('show');
+  }
+  updateAddMoreBtn();
 }
 
 function readAsDataURL(file) {
@@ -638,8 +677,10 @@ function resetTool(){
   document.getElementById('images-grid').innerHTML='';
   document.getElementById('result-content').innerHTML='';
   document.getElementById('progress-bar').style.width='0%';
+  document.getElementById('login-gate').style.display='none';
   document.querySelector('[data-mode="single"]').classList.add('selected');
   document.querySelector('[data-mode="separate"]').classList.remove('selected');
+  updateAddMoreBtn();
 }
 
 function formatBytes(b){

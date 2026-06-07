@@ -39,6 +39,8 @@ window.logoutGoogle = async function () {
 
 /* ── Atualiza a UI conforme estado do login ── */
 onAuthStateChanged(auth, (user) => {
+  // Notifica ferramentas que dependem de auth state
+  if (typeof window._onAuthChange === 'function') window._onAuthChange(user);
   const btnHeader  = document.getElementById("btn-login-header");
   const userMenu   = document.getElementById("user-menu");
   const userAvatar = document.getElementById("user-avatar");

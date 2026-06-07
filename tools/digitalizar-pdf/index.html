@@ -309,11 +309,18 @@
       </div>
       <div class="images-grid" id="images-grid"></div>
       <div class="add-more-wrap">
-        <button class="add-more-btn">
+        <button class="add-more-btn" id="add-more-btn-wrap">
           <input type="file" id="add-more-input" accept="image/*" multiple/>
           ＋ Adicionar imagens
         </button>
-        <button class="add-cam-btn" onclick="openCamera()">📷 Câmera</button>
+        <button class="add-cam-btn" id="add-cam-btn" onclick="tryOpenCamera()">📷 Câmera</button>
+      </div>
+      <!-- Login gate +5 fotos -->
+      <div id="login-gate" style="display:none;margin-top:14px;padding:18px 20px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #f59e0b;border-radius:14px;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:8px">🔐</div>
+        <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:.95rem;color:#92400e;margin-bottom:6px">Limite de 5 fotos atingido!</div>
+        <div style="font-size:.83rem;color:#78350f;margin-bottom:14px">Faça login com Google gratuitamente para digitalizar fotos ilimitadas.</div>
+        <button onclick="loginWithGoogle()" style="padding:10px 24px;background:#f59e0b;color:white;border-radius:10px;font-family:Montserrat,sans-serif;font-weight:700;font-size:.85rem;border:none;cursor:pointer">Entrar com Google →</button>
       </div>
     </div>
 
@@ -422,6 +429,9 @@
 let images = []; // [{id, dataUrl, name}]
 let dragSrcIdx = null;
 let cameraStream = null;
+const MAX_FREE = 5;
+let isLoggedIn = false;
+window._onAuthChange = (user) => { isLoggedIn = !!user; updateAddMoreBtn(); };
 
 const fileInput    = document.getElementById('file-input');
 const addMoreInput = document.getElementById('add-more-input');
@@ -429,14 +439,54 @@ const addMoreInput = document.getElementById('add-more-input');
 fileInput.addEventListener('change',    e => addImages([...e.target.files]));
 addMoreInput.addEventListener('change', e => { addImages([...e.target.files]); e.target.value=''; });
 
+function updateAddMoreBtn() {
+  const wrap = document.getElementById('add-more-btn-wrap');
+  const camBtn = document.getElementById('add-cam-btn');
+  if (!wrap) return;
+  if (!isLoggedIn && images.length >= MAX_FREE) {
+    wrap.innerHTML = '🔐 Login para adicionar mais';
+    wrap.style.color = '#f59e0b';
+    wrap.style.borderColor = '#f59e0b';
+    if (camBtn) { camBtn.textContent = '🔐'; camBtn.style.color='#f59e0b'; camBtn.style.borderColor='#f59e0b'; }
+  } else {
+    const remaining = isLoggedIn ? '∞' : Math.max(0, MAX_FREE - images.length);
+    wrap.innerHTML = `<input type="file" id="add-more-input" accept="image/*" multiple/> ＋ Adicionar imagens${isLoggedIn ? '' : ` (${remaining})`}`;
+    document.getElementById('add-more-input').addEventListener('change', e => { addImages([...e.target.files]); e.target.value=''; });
+    wrap.style.color = ''; wrap.style.borderColor = '';
+    if (camBtn) { camBtn.textContent = '📷 Câmera'; camBtn.style.color=''; camBtn.style.borderColor=''; }
+  }
+}
+
+function tryOpenCamera() {
+  if (!isLoggedIn && images.length >= MAX_FREE) {
+    document.getElementById('login-gate').style.display = 'block';
+    showToast('🔐 Faça login para adicionar mais de ' + MAX_FREE + ' fotos!');
+    return;
+  }
+  openCamera();
+}
+
 async function addImages(files) {
-  for (const f of files) {
-    if (!f.type.startsWith('image/')) continue;
+  const validFiles = files.filter(f => f.type.startsWith('image/'));
+  const canAdd = isLoggedIn ? validFiles.length : Math.max(0, MAX_FREE - images.length);
+  const toLoad = validFiles.slice(0, canAdd);
+  const blocked = validFiles.length - toLoad.length;
+
+  for (const f of toLoad) {
     const dataUrl = await readAsDataURL(f);
     images.push({ id: 'i_'+Date.now()+'_'+Math.random().toString(36).slice(2), dataUrl, name: f.name });
   }
-  renderImages();
-  showImagesSection();
+
+  if (blocked > 0) {
+    document.getElementById('login-gate').style.display = 'block';
+    showToast(`⚠️ ${blocked} foto(s) ignorada(s). Faça login para mais de ${MAX_FREE} fotos.`);
+  }
+
+  if (images.length > 0) {
+    renderImages();
+    showImagesSection();
+  }
+  updateAddMoreBtn();
 }
 
 function readAsDataURL(file) {
@@ -499,9 +549,16 @@ function capturePhoto() {
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
   const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+  if (!isLoggedIn && images.length >= MAX_FREE) {
+    closeCamera();
+    document.getElementById('login-gate').style.display = 'block';
+    showToast('🔐 Faça login para adicionar mais de ' + MAX_FREE + ' fotos!');
+    return;
+  }
   images.push({ id: 'cam_'+Date.now(), dataUrl, name: `foto_${images.length+1}.jpg` });
   renderImages();
   showImagesSection();
+  updateAddMoreBtn();
   closeCamera();
 }
 
@@ -600,6 +657,8 @@ function resetTool() {
   document.getElementById('generate-btn').classList.remove('show');
   document.getElementById('images-grid').innerHTML = '';
   document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('login-gate').style.display = 'none';
+  updateAddMoreBtn();
 }
 
 function formatBytes(b) {

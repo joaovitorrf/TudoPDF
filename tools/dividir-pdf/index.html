@@ -260,7 +260,251 @@
 @media (min-width: 768px) {
   .ad-mobile320 { display: none !important; }
 }
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
 
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header" id="btn-login-header" onclick="loginWithGoogle()">Entrar com Google</button>
+      <div id="user-menu" style="display:none;align-items:center;gap:10px;position:relative">
+        <img id="user-avatar" src="" alt="avatar" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--blue)"/>
+        <button onclick="logoutGoogle()" class="btn-header" style="background:var(--gray-2);color:var(--text)">Sair</button>
+      </div>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Dividir PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>✂️ Dividir PDF</h1>
+      <p>Separe seu PDF por intervalos de páginas ou extraia cada página individualmente. Grátis, sem cadastro e sem marca d'água.</p>
+    </div>
+
+    <!-- Drop Zone -->
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">✂️</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <!-- File preview -->
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name">arquivo.pdf</div>
+        <div class="file-size" id="file-size-info">0 KB</div>
+      </div>
+      <div class="file-remove" id="file-remove" title="Remover">✕</div>
+    </div>
+
+    <!-- Mode selector -->
+    <div class="mode-section" id="mode-section">
+      <div class="section-title">Como deseja dividir?</div>
+      <div class="mode-cards">
+        <div class="mode-card selected" data-mode="interval" onclick="selectMode('interval', this)">
+          <div class="mc-icon">📋</div>
+          <div class="mc-label">Por intervalo de páginas</div>
+          <div class="mc-desc">Defina intervalos como "1-3", "5-8". Cada intervalo vira um PDF separado.</div>
+        </div>
+        <div class="mode-card" data-mode="each" onclick="selectMode('each', this)">
+          <div class="mc-icon">📄</div>
+          <div class="mc-label">Páginas individuais</div>
+          <div class="mc-desc">Selecione visualmente quais páginas extrair. Cada uma vira um arquivo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interval input -->
+    <div class="interval-section" id="interval-section">
+      <div class="interval-hint">Digite um intervalo (ex: <strong>1-3</strong>) ou página única (ex: <strong>5</strong>) e clique em Adicionar.</div>
+      <div class="interval-row">
+        <input class="interval-input" id="interval-input" type="text" placeholder="Ex: 1-3 ou 5"/>
+        <button class="add-interval-btn" onclick="addInterval()">＋ Adicionar</button>
+      </div>
+      <div class="interval-error" id="interval-error">Formato inválido. Use "N" ou "N-M".</div>
+      <div class="interval-tags" id="interval-tags"></div>
+    </div>
+
+    <!-- Page viewer (each mode) -->
+    <div class="page-viewer" id="page-viewer">
+      <div class="selection-bar" id="selection-bar">
+        <span id="sel-count">Nenhuma página selecionada</span>
+        <div class="sel-actions">
+          <button class="sel-action-btn" onclick="selectAll()">Selecionar todas</button>
+          <button class="sel-action-btn outline" onclick="clearSelection()">Limpar</button>
+        </div>
+      </div>
+      <div class="pages-grid" id="pages-grid"></div>
+    </div>
+
+    <button class="split-btn" id="split-btn" onclick="startSplit()">
+      ✂️ Dividir PDF agora
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Processando...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-header">
+        <div class="result-icon">🎉</div>
+        <div class="result-title">PDF dividido com sucesso!</div>
+      </div>
+      <div class="result-files-list" id="result-files-list"></div>
+      <button class="download-all-btn" id="download-all-btn" style="display:none">⬇️ Baixar todos como ZIP</button>
+      <span class="split-again" onclick="resetTool()">Dividir outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">✂️</div><h3>Divisão precisa</h3><p>Defina exatamente quais páginas extrair. Suporte a múltiplos intervalos em uma única operação.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no seu navegador. Nenhum arquivo é enviado para servidores externos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de divisões, sem marca d'água no resultado.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/juntar-pdf/"><span class="ri">🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/extrair-paginas/"><span class="ri">📤</span> Extrair Páginas</a>
+        <a class="related-card" href="/tools/organizar-pdf/"><span class="ri">📂</span> Organizar PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span class="ri">🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/remover-paginas/"><span class="ri">🗑️</span> Remover Páginas</a>
+        <a class="related-card" href="/tools/proteger-pdf/"><span class="ri">🔒</span> Proteger PDF</a>
+      </div>
+    </div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Como dividir um PDF em partes?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Faça upload do PDF, escolha o modo "Por intervalo", digite os intervalos desejados (ex: 1-3, 5-8) e clique em Dividir. Cada intervalo vira um arquivo separado para download.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Posso extrair páginas específicas?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim! Escolha o modo "Páginas individuais", clique nas miniaturas das páginas que deseja extrair e clique em Dividir. Cada página vira um PDF separado.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Os arquivos originais são modificados?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. O arquivo original nunca é modificado. A ferramenta gera novos PDFs com as páginas selecionadas. Você pode dividir à vontade sem medo.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Meus arquivos são enviados para algum servidor?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. Todo o processamento acontece 100% no seu navegador. Seus arquivos nunca saem do seu dispositivo.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">É gratuito dividir PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, 100% gratuito. Sem cadastro, sem limite de uso e sem marca d'água no resultado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul>
+        <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
+        <li><a href="/tools/juntar-pdf/">Juntar PDF</a></li>
+        <li><a href="/tools/dividir-pdf/">Dividir PDF</a></li>
+        <li><a href="/tools/organizar-pdf/">Organizar PDF</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/caracteristicas/">Características</a></li>
+        <li><a href="/precos/">Preços</a></li>
+        <li><a href="/seguranca/">Segurança</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="/privacidade/">Privacidade</a></li>
+        <li><a href="/termos/">Termos de Uso</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.SITE</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script defer src="../../assets/js/main.js"></script>
+<script>
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 

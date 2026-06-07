@@ -320,7 +320,259 @@
 @media (min-width: 768px) {
   .ad-mobile320 { display: none !important; }
 }
+</style>
 
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Comprimir PDF Online Grátis — TudoPDF",
+  "url":"https://www.tudopdf.site/tools/comprimir-pdf/",
+  "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Início","item":"https://www.tudopdf.site/"},
+    {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},
+    {"@type":"ListItem","position":3,"name":"Comprimir PDF","item":"https://www.tudopdf.site/tools/comprimir-pdf/"}
+  ]},
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"18432","bestRating":"5","worstRating":"1"}
+}
+</script>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/dividir-pdf/">Dividir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/organizar-pdf/">Organizar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header" id="btn-login-header" onclick="loginWithGoogle()">Entrar com Google</button>
+      <div id="user-menu" style="display:none;align-items:center;gap:10px;position:relative">
+        <img id="user-avatar" src="" alt="avatar" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--blue)"/>
+        <button onclick="logoutGoogle()" class="btn-header" style="background:var(--gray-2);color:var(--text)">Sair</button>
+      </div>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/juntar-pdf/">Juntar PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/dividir-pdf/">Dividir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Comprimir PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>🗜️ Comprimir PDF</h1>
+      <p>Reduza o tamanho do seu PDF em até 80% sem perder qualidade visível. Grátis, sem cadastro e sem marca d'água.</p>
+    </div>
+
+    <!-- Drop Zone -->
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">🗜️</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <!-- File preview -->
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name">arquivo.pdf</div>
+        <div class="file-size" id="file-size">0 KB</div>
+      </div>
+      <div class="file-remove" id="file-remove" title="Remover">✕</div>
+    </div>
+
+    <!-- Quality options -->
+    <div class="compress-options" id="compress-options" style="display:none">
+      <div class="options-title">Nível de compressão</div>
+      <div class="quality-cards">
+        <div class="quality-card" data-q="low" onclick="selectQuality('low',this)">
+          <div class="qc-icon">🟢</div>
+          <div class="qc-label">Alta qualidade</div>
+          <div class="qc-desc">Compressão leve, ótima nitidez</div>
+          <div class="qc-reduction">~30% menor</div>
+        </div>
+        <div class="quality-card selected" data-q="medium" onclick="selectQuality('medium',this)">
+          <div class="qc-icon">🟡</div>
+          <div class="qc-label">Recomendado</div>
+          <div class="qc-desc">Equilíbrio perfeito</div>
+          <div class="qc-reduction">~55% menor</div>
+        </div>
+        <div class="quality-card" data-q="high" onclick="selectQuality('high',this)">
+          <div class="qc-icon">🔴</div>
+          <div class="qc-label">Máxima compressão</div>
+          <div class="qc-desc">Menor arquivo possível</div>
+          <div class="qc-reduction">~80% menor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-box" id="warn-box">
+      ⚠️ <strong>Atenção:</strong> PDFs com texto puro (sem imagens) podem não reduzir muito, pois já são naturalmente compactos. O melhor resultado é em PDFs com imagens, fotos ou scans.
+    </div>
+
+    <button class="compress-btn" id="compress-btn" onclick="startCompress()">
+      🗜️ Comprimir PDF agora
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Processando...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF comprimido com sucesso!</div>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-value" id="original-size-result">—</div>
+          <div class="result-stat-label">Tamanho original</div>
+        </div>
+        <div class="result-divider"></div>
+        <div class="result-stat">
+          <div class="result-stat-value" id="new-size-result">—</div>
+          <div class="result-stat-label">Novo tamanho</div>
+        </div>
+        <div class="result-divider"></div>
+        <div class="result-stat">
+          <div class="result-stat-value" id="saved-result">—</div>
+          <div class="result-stat-label">Economia</div>
+        </div>
+      </div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF comprimido</a>
+      <br/><span class="compress-again" onclick="resetTool()">Comprimir outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🗜️</div><h3>Até 80% menor</h3><p>Nossa tecnologia reduz o tamanho do PDF mantendo a qualidade visual necessária para leitura e impressão.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no seu navegador. Nenhum arquivo é enviado para servidores externos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de tamanho de arquivo, sem marca d'água no resultado.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/juntar-pdf/"><span class="ri">🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/dividir-pdf/"><span class="ri">✂️</span> Dividir PDF</a>
+        <a class="related-card" href="/tools/organizar-pdf/"><span class="ri">📂</span> Organizar PDF</a>
+        <a class="related-card" href="/tools/proteger-pdf/"><span class="ri">🔒</span> Proteger PDF</a>
+        <a class="related-card" href="/tools/pdf-para-word/"><span class="ri">📝</span> PDF para Word</a>
+        <a class="related-card" href="/tools/jpg-para-pdf/"><span class="ri">🖼️</span> JPG para PDF</a>
+      </div>
+    </div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O PDF perde qualidade ao ser comprimido?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Depende do nível escolhido. "Alta qualidade" mantém a nitidez quase intacta. "Recomendado" oferece ótimo equilíbrio. "Máxima compressão" prioriza tamanho, com leve redução de qualidade perceptível em zoom.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Por que meu PDF não reduziu muito?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">PDFs com texto puro já são compactos por natureza. O melhor resultado de compressão acontece em PDFs com muitas imagens, fotos ou documentos escaneados.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Meus arquivos são enviados para algum servidor?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. Todo o processamento acontece 100% no seu navegador. Seus arquivos nunca saem do seu dispositivo.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">É gratuito comprimir PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, 100% gratuito. Sem cadastro, sem limite de uso e sem marca d'água no resultado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul>
+        <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
+        <li><a href="/tools/juntar-pdf/">Juntar PDF</a></li>
+        <li><a href="/tools/dividir-pdf/">Dividir PDF</a></li>
+        <li><a href="/tools/organizar-pdf/">Organizar PDF</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/caracteristicas/">Características</a></li>
+        <li><a href="/precos/">Preços</a></li>
+        <li><a href="/seguranca/">Segurança</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="/privacidade/">Privacidade</a></li>
+        <li><a href="/termos/">Termos de Uso</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.SITE</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script defer src="../../assets/js/main.js"></script>
+<script>
 // Configura worker do PDF.js
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';

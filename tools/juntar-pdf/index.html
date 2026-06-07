@@ -237,11 +237,18 @@
       </div>
       <div class="files-list" id="files-list"></div>
       <div class="add-more-wrap">
-        <button class="add-more-btn">
+        <button class="add-more-btn" id="add-more-btn-wrap">
           <input type="file" id="add-more-input" accept="application/pdf" multiple/>
           ＋ Adicionar mais PDFs
         </button>
       </div>
+    <!-- Login gate +10 PDFs -->
+    <div id="login-gate" style="display:none;margin-top:14px;padding:18px 20px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #f59e0b;border-radius:14px;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:8px">🔐</div>
+      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:.95rem;color:#92400e;margin-bottom:6px">Limite de 10 PDFs atingido!</div>
+      <div style="font-size:.83rem;color:#78350f;margin-bottom:14px">Faça login com Google gratuitamente para juntar PDFs ilimitados.</div>
+      <button onclick="loginWithGoogle()" style="padding:10px 24px;background:#f59e0b;color:white;border-radius:10px;font-family:Montserrat,sans-serif;font-weight:700;font-size:.85rem;border:none;cursor:pointer">Entrar com Google →</button>
+    </div>
     </div>
 
     <!-- AD mid -->
@@ -377,13 +384,46 @@
 // ── State ─────────────────────────────────────────────────────
 let pdfs = []; // [{id, name, size, arrayBuffer}]
 let dragSrcIdx = null;
+const MAX_FREE = 10;
+let isLoggedIn = false;
+window._onAuthChange = (user) => { isLoggedIn = !!user; updateAddMoreBtn(); };
 
 // ── Inputs ────────────────────────────────────────────────────
 const fileInput    = document.getElementById('file-input');
 const addMoreInput = document.getElementById('add-more-input');
 
 fileInput.addEventListener('change',    e => { addFiles([...e.target.files]); e.target.value=''; });
-addMoreInput.addEventListener('change', e => { addFiles([...e.target.files]); e.target.value=''; });
+addMoreInput.addEventListener('change', e => {
+  if (!isLoggedIn && pdfs.length >= MAX_FREE) {
+    document.getElementById('login-gate').style.display = 'block';
+    showToast('🔐 Faça login para adicionar mais de ' + MAX_FREE + ' PDFs!');
+    e.target.value=''; return;
+  }
+  addFiles([...e.target.files]); e.target.value='';
+});
+
+function updateAddMoreBtn() {
+  const wrap = document.getElementById('add-more-btn-wrap');
+  if (!wrap) return;
+  if (!isLoggedIn && pdfs.length >= MAX_FREE) {
+    wrap.textContent = '🔐 Login para adicionar mais';
+    wrap.style.color = '#f59e0b';
+    wrap.style.borderColor = '#f59e0b';
+  } else {
+    const remaining = isLoggedIn ? '∞' : (MAX_FREE - pdfs.length);
+    wrap.innerHTML = '<input type="file" id="add-more-input" accept="application/pdf" multiple/> ＋ Adicionar mais PDFs' + (isLoggedIn ? '' : ` (${remaining} restante${remaining!==1?'s':''})`);
+    document.getElementById('add-more-input').addEventListener('change', e => {
+      if (!isLoggedIn && pdfs.length >= MAX_FREE) {
+        document.getElementById('login-gate').style.display = 'block';
+        showToast('🔐 Faça login para adicionar mais de ' + MAX_FREE + ' PDFs!');
+        e.target.value=''; return;
+      }
+      addFiles([...e.target.files]); e.target.value='';
+    });
+    wrap.style.color = '';
+    wrap.style.borderColor = '';
+  }
+}
 
 // ── Drop Zone ─────────────────────────────────────────────────
 const dropZone = document.getElementById('drop-zone');
@@ -398,8 +438,11 @@ dropZone.addEventListener('drop', e => {
 
 // ── Add Files ─────────────────────────────────────────────────
 async function addFiles(files) {
-  for (const f of files) {
-    if (f.type !== 'application/pdf') continue;
+  const canAdd = isLoggedIn ? files.length : Math.max(0, MAX_FREE - pdfs.length);
+  const toLoad = files.filter(f => f.type === 'application/pdf').slice(0, canAdd);
+  const blocked = files.filter(f => f.type === 'application/pdf').length - toLoad.length;
+
+  for (const f of toLoad) {
     const ab = await f.arrayBuffer();
     pdfs.push({
       id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2),
@@ -408,13 +451,19 @@ async function addFiles(files) {
       arrayBuffer: ab
     });
   }
-  renderFiles();
-  document.getElementById('files-section').classList.add('show');
-  document.getElementById('merge-btn').classList.add('show');
-  document.getElementById('result-box').classList.remove('show');
-  // Show mid ad once files are loaded
-  document.getElementById('ad-mid').style.display = 'flex';
-  document.getElementById('ad-mid-mobile').style.display = 'flex';
+
+  if (blocked > 0) {
+    document.getElementById('login-gate').style.display = 'block';
+    showToast(`⚠️ ${blocked} PDF(s) ignorado(s). Faça login para mais de ${MAX_FREE} PDFs.`);
+  }
+
+  if (pdfs.length > 0) {
+    renderFiles();
+    document.getElementById('files-section').classList.add('show');
+    document.getElementById('merge-btn').classList.add('show');
+    document.getElementById('result-box').classList.remove('show');
+  }
+  updateAddMoreBtn();
 }
 
 // ── Render File Cards ─────────────────────────────────────────
@@ -544,8 +593,8 @@ function resetTool() {
   document.getElementById('progress-wrap').classList.remove('show');
   document.getElementById('files-list').innerHTML = '';
   document.getElementById('progress-bar').style.width = '0%';
-  document.getElementById('ad-mid').style.display = 'none';
-  document.getElementById('ad-mid-mobile').style.display = 'none';
+  document.getElementById('login-gate').style.display = 'none';
+  updateAddMoreBtn();
 }
 
 function formatBytes(b) {

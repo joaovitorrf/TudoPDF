@@ -312,9 +312,20 @@
         <span id="toolbar-hint">☰ Arraste as miniaturas para reordenar</span>
       </div>
       <div class="toolbar-actions">
+        <button class="tb-btn" id="btn-add-pdf" onclick="triggerAddPdf()">➕ Adicionar PDF</button>
+        <input type="file" id="file-input-extra" accept=".pdf" style="display:none" multiple/>
         <button class="tb-btn" onclick="reverseOrder()">🔃 Inverter ordem</button>
-        <button class="tb-btn danger" onclick="resetTool()">✕ Trocar arquivo</button>
+        <button class="tb-btn danger" onclick="resetTool()">✕ Recomeçar</button>
       </div>
+    </div>
+    <!-- Aviso de PDFs carregados -->
+    <div id="pdf-list-bar" style="display:none;margin-top:10px;padding:10px 16px;background:var(--blue-light);border:1px solid var(--blue);border-radius:10px;font-size:.82rem;font-family:Montserrat,sans-serif;font-weight:600;color:var(--blue)"></div>
+    <!-- Banner login para +5 PDFs -->
+    <div id="login-gate" style="display:none;margin-top:16px;padding:18px 20px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #f59e0b;border-radius:14px;text-align:center">
+      <div style="font-size:1.6rem;margin-bottom:8px">🔐</div>
+      <div style="font-family:Montserrat,sans-serif;font-weight:800;font-size:.95rem;color:#92400e;margin-bottom:6px">Limite de 5 PDFs atingido!</div>
+      <div style="font-size:.83rem;color:#78350f;margin-bottom:14px">Faça login com Google gratuitamente para organizar PDFs ilimitados.</div>
+      <button onclick="loginWithGoogle()" style="padding:10px 24px;background:#f59e0b;color:white;border-radius:10px;font-family:Montserrat,sans-serif;font-weight:700;font-size:.85rem;border:none;cursor:pointer">Entrar com Google →</button>
     </div>
 
     <!-- Pages grid -->
@@ -474,40 +485,116 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-let selectedFile = null;
-let pdfJsDoc     = null;
-let pageOrder    = []; // array de índices 0-based na ordem atual
-let dragSrcIdx   = null;
+const MAX_FREE_PDFS = 5;
+
+// Estado global
+let loadedPdfs = [];
+// loadedPdfs = [{file, pdfJsDoc, numPages, label}, ...]
+let pageOrder  = [];
+// pageOrder = [{pdfIdx, pageIdx (0-based)}, ...]
+let dragSrcIdx = null;
+let isLoggedIn = false;
+
+// Detecta login via Firebase (firebase-auth.js seta window._firebaseUser)
+window._onAuthChange = (user) => { isLoggedIn = !!user; };
 
 const dropZone  = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
+const fileInputExtra = document.getElementById('file-input-extra');
 
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => {
+dropZone.addEventListener('drop', async e => {
   e.preventDefault(); dropZone.classList.remove('drag-over');
-  const f = e.dataTransfer.files[0];
-  if (f?.type === 'application/pdf') loadFile(f);
-  else showToast('⚠️ Selecione um arquivo PDF.');
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf');
+  if (!files.length) { showToast('⚠️ Selecione arquivos PDF.'); return; }
+  await handleNewFiles(files);
 });
-fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+fileInput.addEventListener('change', async e => {
+  if (e.target.files.length) await handleNewFiles(Array.from(e.target.files));
+});
+fileInputExtra.addEventListener('change', async e => {
+  if (e.target.files.length) await handleNewFiles(Array.from(e.target.files));
+  fileInputExtra.value = '';
+});
 
-async function loadFile(file) {
-  selectedFile = file;
-  const buf = await file.arrayBuffer();
-  pdfJsDoc  = await pdfjsLib.getDocument({ data: buf }).promise;
-  pageOrder = Array.from({ length: pdfJsDoc.numPages }, (_, i) => i); // 0-based
+function triggerAddPdf() {
+  const total = loadedPdfs.length;
+  if (total >= MAX_FREE_PDFS && !isLoggedIn) {
+    document.getElementById('login-gate').style.display = 'block';
+    document.getElementById('login-gate').scrollIntoView({behavior:'smooth',block:'center'});
+    showToast('🔐 Faça login para adicionar mais de 5 PDFs!');
+    return;
+  }
+  fileInputExtra.click();
+}
 
+async function handleNewFiles(files) {
+  const canAdd = isLoggedIn ? files.length : Math.max(0, MAX_FREE_PDFS - loadedPdfs.length);
+  const toLoad = files.slice(0, canAdd);
+  const blocked = files.length - toLoad.length;
+
+  if (toLoad.length === 0) {
+    document.getElementById('login-gate').style.display = 'block';
+    showToast('🔐 Faça login para adicionar mais de 5 PDFs!');
+    return;
+  }
+
+  for (const file of toLoad) {
+    const buf = await file.arrayBuffer();
+    const pdfJsDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+    const pdfIdx = loadedPdfs.length;
+    loadedPdfs.push({ file, pdfJsDoc, numPages: pdfJsDoc.numPages, label: file.name.replace(/\.pdf$/i,'') });
+    for (let i = 0; i < pdfJsDoc.numPages; i++) {
+      pageOrder.push({ pdfIdx, pageIdx: i });
+    }
+  }
+
+  if (blocked > 0) {
+    document.getElementById('login-gate').style.display = 'block';
+    showToast(`⚠️ ${blocked} PDF(s) ignorado(s). Faça login para mais de ${MAX_FREE_PDFS} PDFs.`);
+  }
+
+  // Mostrar interface
   dropZone.style.display = 'none';
   document.getElementById('tool-toolbar').classList.add('show');
   document.getElementById('pages-section').classList.add('show');
   document.getElementById('save-btn').classList.add('show');
   document.getElementById('result-box').classList.remove('show');
-  document.getElementById('toolbar-info').querySelector('#toolbar-hint').textContent =
-    `☰ Arraste para reordenar · ${pdfJsDoc.numPages} páginas`;
 
+  updatePdfListBar();
+  updateAddBtn();
   await renderGrid();
 }
+
+function updatePdfListBar() {
+  const bar = document.getElementById('pdf-list-bar');
+  if (loadedPdfs.length === 0) { bar.style.display = 'none'; return; }
+  bar.style.display = 'block';
+  const totalPages = pageOrder.length;
+  const names = loadedPdfs.map((p, i) => `<strong>${i+1}.</strong> ${p.label} (${p.numPages}p)`).join(' &nbsp;|&nbsp; ');
+  bar.innerHTML = `📄 ${loadedPdfs.length} PDF${loadedPdfs.length>1?'s':''} carregado${loadedPdfs.length>1?'s':''}: ${names} &nbsp;·&nbsp; <strong>${totalPages} páginas</strong> no total`;
+
+  // Atualizar hint
+  const hint = document.getElementById('toolbar-hint');
+  if (hint) hint.textContent = `☰ Arraste para reordenar · ${totalPages} páginas de ${loadedPdfs.length} PDF(s)`;
+}
+
+function updateAddBtn() {
+  const btn = document.getElementById('btn-add-pdf');
+  if (!btn) return;
+  const remaining = MAX_FREE_PDFS - loadedPdfs.length;
+  if (!isLoggedIn && remaining <= 0) {
+    btn.textContent = '🔐 Adicionar PDF (Login)';
+  } else if (!isLoggedIn) {
+    btn.textContent = `➕ Adicionar PDF (${remaining} restante${remaining!==1?'s':''})`;
+  } else {
+    btn.textContent = '➕ Adicionar PDF';
+  }
+}
+
+// Cores por PDF para identificar visualmente
+const PDF_COLORS = ['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6'];
 
 async function renderGrid() {
   const grid = document.getElementById('pages-grid');
@@ -516,27 +603,33 @@ async function renderGrid() {
   grid.innerHTML = '';
 
   for (let pos = 0; pos < pageOrder.length; pos++) {
-    const pageIdx = pageOrder[pos]; // 0-based
-    const page    = await pdfJsDoc.getPage(pageIdx + 1);
-    const vp      = page.getViewport({ scale: 0.35 });
-    const canvas  = document.createElement('canvas');
-    canvas.width  = vp.width; canvas.height = vp.height;
+    const { pdfIdx, pageIdx } = pageOrder[pos];
+    const pdf   = loadedPdfs[pdfIdx];
+    const page  = await pdf.pdfJsDoc.getPage(pageIdx + 1);
+    const vp    = page.getViewport({ scale: 0.35 });
+    const canvas = document.createElement('canvas');
+    canvas.width = vp.width; canvas.height = vp.height;
     await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
 
+    const color = PDF_COLORS[pdfIdx % PDF_COLORS.length];
     const thumb = document.createElement('div');
     thumb.className   = 'page-thumb';
     thumb.draggable   = true;
     thumb.dataset.pos = pos;
+    thumb.style.borderColor = 'var(--gray-2)';
     thumb.innerHTML = `
       <div class="pt-drag-handle">☰</div>
+      <div style="position:absolute;top:6px;right:8px;background:${color};color:white;font-family:Montserrat,sans-serif;font-weight:700;font-size:.6rem;padding:2px 7px;border-radius:99px;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${pdf.label}">PDF ${pdfIdx+1}</div>
       <div class="pt-preview"></div>
       <div class="pt-footer">
-        <div class="pt-num">Pág. orig. ${pageIdx + 1}</div>
-        <div class="pt-badge">${pos + 1}</div>
+        <div class="pt-num">p. orig. ${pageIdx+1}</div>
+        <div class="pt-badge" style="background:${color}">${pos+1}</div>
       </div>
+      <button onclick="removePage(${pos})" title="Remover página" style="position:absolute;bottom:6px;left:8px;background:none;border:none;cursor:pointer;font-size:.9rem;color:#94a3b8;padding:2px" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#94a3b8'">🗑️</button>
     `;
     thumb.querySelector('.pt-preview').appendChild(canvas);
 
+    // Drag events
     thumb.addEventListener('dragstart', e => {
       dragSrcIdx = parseInt(e.currentTarget.dataset.pos);
       e.currentTarget.classList.add('dragging');
@@ -564,6 +657,13 @@ async function renderGrid() {
   }
 }
 
+function removePage(pos) {
+  if (pageOrder.length <= 1) { showToast('⚠️ O PDF precisa ter ao menos 1 página.'); return; }
+  pageOrder.splice(pos, 1);
+  updatePdfListBar();
+  renderGrid();
+}
+
 function reverseOrder() {
   pageOrder.reverse();
   renderGrid();
@@ -576,16 +676,25 @@ async function saveOrganized() {
   document.getElementById('result-box').classList.remove('show');
 
   try {
-    setProgress(10, 'Carregando PDF original...');
-    const buf    = await selectedFile.arrayBuffer();
-    const srcDoc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+    setProgress(10, 'Preparando PDFs...');
     const newDoc = await PDFLib.PDFDocument.create();
 
-    setProgress(40, 'Reorganizando páginas...');
-    const pages = await newDoc.copyPages(srcDoc, pageOrder);
-    pages.forEach(p => newDoc.addPage(p));
+    // Load all source PDFs into pdf-lib
+    const srcDocs = [];
+    for (let i = 0; i < loadedPdfs.length; i++) {
+      setProgress(10 + Math.round((i / loadedPdfs.length) * 40), `Carregando PDF ${i+1}/${loadedPdfs.length}...`);
+      const buf = await loadedPdfs[i].file.arrayBuffer();
+      srcDocs.push(await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true }));
+    }
 
-    setProgress(85, 'Salvando...');
+    setProgress(55, 'Reorganizando páginas...');
+    for (let pos = 0; pos < pageOrder.length; pos++) {
+      const { pdfIdx, pageIdx } = pageOrder[pos];
+      const [copiedPage] = await newDoc.copyPages(srcDocs[pdfIdx], [pageIdx]);
+      newDoc.addPage(copiedPage);
+    }
+
+    setProgress(88, 'Salvando...');
     const bytes = await newDoc.save();
     const blob  = new Blob([bytes], { type: 'application/pdf' });
 
@@ -594,9 +703,12 @@ async function saveOrganized() {
       const url  = URL.createObjectURL(blob);
       const link = document.getElementById('download-link');
       link.href  = url;
-      link.download = selectedFile.name.replace(/\.pdf$/i, '_organizado.pdf');
+      const baseName = loadedPdfs.length === 1
+        ? loadedPdfs[0].file.name.replace(/\.pdf$/i, '_organizado.pdf')
+        : 'pdf_organizado.pdf';
+      link.download = baseName;
       document.getElementById('result-sub').textContent =
-        `${pageOrder.length} páginas · ${formatBytes(blob.size)}`;
+        `${pageOrder.length} páginas de ${loadedPdfs.length} PDF(s) · ${formatBytes(blob.size)}`;
       document.getElementById('progress-wrap').classList.remove('show');
       document.getElementById('result-box').classList.add('show');
       document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -617,16 +729,19 @@ function setProgress(pct, label) {
 }
 
 function resetTool() {
-  selectedFile = null; pdfJsDoc = null; pageOrder = [];
-  fileInput.value = '';
+  loadedPdfs = []; pageOrder = []; dragSrcIdx = null;
+  fileInput.value = ''; fileInputExtra.value = '';
   dropZone.style.display = 'block';
   document.getElementById('tool-toolbar').classList.remove('show');
   document.getElementById('pages-section').classList.remove('show');
   document.getElementById('save-btn').classList.remove('show');
   document.getElementById('result-box').classList.remove('show');
   document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('pdf-list-bar').style.display = 'none';
+  document.getElementById('login-gate').style.display = 'none';
   document.getElementById('pages-grid').innerHTML = '';
   document.getElementById('progress-bar').style.width = '0%';
+  updateAddBtn();
 }
 
 function formatBytes(b) {
@@ -637,7 +752,6 @@ function formatBytes(b) {
 
 function toggleFaq(btn) {
   const expanded = btn.getAttribute('aria-expanded') === 'true';
-  // fechar todos
   document.querySelectorAll('.faq-q').forEach(b => {
     b.setAttribute('aria-expanded', 'false');
     const a = b.nextElementSibling;
@@ -649,7 +763,6 @@ function toggleFaq(btn) {
     if (a) a.classList.add('open');
   }
 }
-
 </script>
 <script type="module" src="/assets/js/firebase-auth.js"></script>
 </body>
