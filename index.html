@@ -32,6 +32,30 @@
 @media (min-width: 768px) {
   .ad-mobile320 { display: none !important; }
 }
+
+/* ── FIX HERO MOBILE ── */
+@media (max-width: 768px) {
+  #hero {
+    min-height: unset !important;
+    height: auto !important;
+    padding: 48px 20px 40px !important;
+  }
+  #particles { display: none !important; }
+  .hero-title {
+    font-size: 1.9rem !important;
+    line-height: 1.2 !important;
+  }
+  .hero-subtitle { font-size: 0.93rem !important; }
+  .hero-visual { display: none !important; }
+  .hero-content { grid-template-columns: 1fr !important; gap: 24px !important; }
+}
+@media (max-width: 480px) {
+  #hero { padding: 36px 16px 32px !important; }
+  .hero-title { font-size: 1.65rem !important; }
+  .hero-ctas { flex-direction: column !important; gap: 10px !important; }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-outline { width: 100% !important; text-align: center !important; }
+}
 </style>
   <script type="application/ld+json">
   {
