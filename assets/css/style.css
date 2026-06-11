@@ -846,6 +846,11 @@ nav { display: flex; align-items: center; gap: 4px; flex: 1; }
 }
 
 /* ── GOOGLE LOGIN BUTTON ── */
+@media (max-width: 768px) {
+  #btn-login-header { display: none !important; }
+  #user-menu { display: none !important; }
+}
+
 #btn-login-header {
   display: flex;
   align-items: center;
