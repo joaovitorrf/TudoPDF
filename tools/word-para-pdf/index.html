@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="google-adsense-account" content="ca-pub-9029786875800750">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
+  <meta name="author" content="TudoPDF"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word para PDF Online Grátis — Converter DOCX para PDF — TudoPDF</title>
+  <meta name="description" content="Converta arquivos Word (.doc, .docx) para PDF online, grátis e sem cadastro. Mantém formatação, imagens e estilos. Rápido e seguro. TudoPDF."/>
+  <link rel="canonical" href="https://www.tudopdf.site/tools/word-para-pdf/"/>
+  <meta property="og:title" content="Word para PDF Online Grátis — TudoPDF"/>
+  <meta property="og:description" content="Converta Word para PDF mantendo formatação. Grátis, sem cadastro e sem marca d'água."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.tudopdf.site/tools/word-para-pdf/"/>
+  <meta property="og:image" content="https://www.tudopdf.site/assets/img/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Word para PDF Online Grátis — TudoPDF",
+    "url":"https://www.tudopdf.site/tools/word-para-pdf/",
+    "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.tudopdf.site/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"Word para PDF","item":"https://www.tudopdf.site/tools/word-para-pdf/"}
+    ]},
+    "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"21450","bestRating":"5","worstRating":"1"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"HowTo",
+    "name":"Como converter Word para PDF",
+    "step":[
+      {"@type":"HowToStep","name":"Faça upload do arquivo","text":"Selecione o arquivo .doc ou .docx do seu computador."},
+      {"@type":"HowToStep","name":"Visualize o documento","text":"Confira a prévia do documento convertido no navegador."},
+      {"@type":"HowToStep","name":"Baixe o PDF","text":"Clique em Baixar PDF e salve o arquivo convertido."}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"O PDF mantém a formatação do Word?","acceptedAnswer":{"@type":"Answer","text":"Sim! Parágrafos, negrito, itálico, listas, tabelas e imagens são preservados."}},
+      {"@type":"Question","name":"Funciona com .doc e .docx?","acceptedAnswer":{"@type":"Answer","text":"Sim, aceitamos ambos os formatos — .doc (Word antigo) e .docx (Word moderno)."}},
+      {"@type":"Question","name":"Meus arquivos são enviados para algum servidor?","acceptedAnswer":{"@type":"Answer","text":"Não. Todo o processamento acontece 100% no seu navegador. Seus arquivos nunca saem do seu dispositivo."}},
+      {"@type":"Question","name":"É gratuito converter Word para PDF?","acceptedAnswer":{"@type":"Answer","text":"Sim, 100% gratuito. Sem cadastro, sem limite de uso e sem marca d'água."}}
+    ]
+  }
+  </script>
+
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:border-color .2s,background .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Preview section */
+    .preview-section{display:none;margin-top:24px}
+    .preview-section.show{display:block}
+    .preview-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+    .preview-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text)}
+    .preview-badge{background:var(--blue-light);color:var(--blue);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;padding:3px 10px;border-radius:99px}
+    .doc-preview{
+      background:white;border:1.5px solid var(--gray-2);border-radius:14px;
+      padding:40px 48px;max-height:600px;overflow-y:auto;
+      font-family:'Open Sans',Georgia,serif;font-size:.92rem;color:#1e293b;
+      line-height:1.8;box-shadow:inset 0 2px 8px rgba(0,0,0,.04);
+    }
+    [data-theme="dark"] .doc-preview{background:#1e293b;color:#e2e8f0;border-color:var(--gray-2)}
+    .doc-preview h1,.doc-preview h2,.doc-preview h3,.doc-preview h4{font-family:'Montserrat',sans-serif;font-weight:700;margin:1.2em 0 .5em;line-height:1.3}
+    .doc-preview h1{font-size:1.6rem}
+    .doc-preview h2{font-size:1.3rem}
+    .doc-preview h3{font-size:1.1rem}
+    .doc-preview p{margin:.6em 0}
+    .doc-preview table{border-collapse:collapse;width:100%;margin:1em 0}
+    .doc-preview td,.doc-preview th{border:1px solid #cbd5e1;padding:8px 12px;font-size:.85rem}
+    .doc-preview th{background:#f1f5f9;font-weight:700}
+    [data-theme="dark"] .doc-preview th{background:#334155}
+    .doc-preview ul,.doc-preview ol{padding-left:24px;margin:.6em 0}
+    .doc-preview li{margin:.3em 0}
+    .doc-preview img{max-width:100%;border-radius:6px;margin:.5em 0}
+    .doc-preview blockquote{border-left:4px solid var(--blue);padding-left:16px;margin:1em 0;color:var(--text-muted);font-style:italic}
+
+    /* Scroll indicator */
+    .scroll-hint{text-align:center;font-size:.75rem;color:var(--text-muted);margin-top:6px}
+
+    /* Convert button */
+    .convert-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .convert-btn.show{display:block}
+    .convert-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .convert-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Progress */
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+
+    /* Result */
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    /* Limitation note */
+    .limit-note{margin-top:16px;padding:14px 18px;background:var(--blue-light);border:1px solid var(--blue);border-radius:12px;font-size:.82rem;color:var(--blue);line-height:1.6}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    .faq-section{margin-top:48px}
+    .faq-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text);margin-bottom:20px;text-align:center}
+    .faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+    .faq-item{border:1.5px solid var(--gray-2);border-radius:12px;overflow:hidden;background:var(--bg);transition:border-color .2s}
+    .faq-item:hover{border-color:var(--blue)}
+    .faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);text-align:left;gap:12px}
+    .faq-arrow{font-size:1rem;transition:transform .25s;flex-shrink:0;color:var(--blue)}
+    .faq-q[aria-expanded="true"] .faq-arrow{transform:rotate(180deg)}
+    .faq-a{display:none;padding:0 20px 16px}
+    .faq-a.open{display:block}
+    .faq-a p{font-size:.88rem;color:var(--text-muted);line-height:1.7;margin:0}
+    @media(max-width:640px){.info-cards{grid-template-columns:1fr}.doc-preview{padding:24px 20px}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/pdf-para-word/">PDF para Word</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header" id="btn-login-header" onclick="loginWithGoogle()">Entrar com Google</button>
+      <div id="user-menu" style="display:none;align-items:center;gap:10px;position:relative">
+        <img id="user-avatar" src="" alt="avatar" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--blue)"/>
+        <button onclick="logoutGoogle()" class="btn-header" style="background:var(--gray-2);color:var(--text)">Sair</button>
+      </div>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/pdf-para-word/">PDF para Word <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Word para PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>📝 Word para PDF</h1>
+      <p>Converta arquivos Word (.doc e .docx) em PDF mantendo a formatação. Grátis, sem cadastro e sem marca d'água.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+      <div class="drop-icon">📝</div>
+      <div class="drop-title">Arraste seu arquivo Word aqui</div>
+      <div class="drop-sub">.doc e .docx — clique ou arraste para começar</div>
+      <div class="drop-btn">Selecionar arquivo Word</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📝</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove" title="Remover">✕</div>
+    </div>
+
+    <div class="limit-note" id="limit-note" style="display:none">
+      ℹ️ <strong>Processamento local:</strong> A conversão acontece 100% no seu navegador usando a biblioteca Mammoth.js. Documentos muito complexos (com muitas imagens ou macros) podem ter pequenas diferenças de formatação — o resultado visual é fiel ao conteúdo de texto, listas e tabelas.
+    </div>
+
+    <div class="preview-section" id="preview-section">
+      <div class="preview-header">
+        <div class="preview-title">👁️ Prévia do documento</div>
+        <div class="preview-badge" id="preview-badge">Carregando...</div>
+      </div>
+      <div class="doc-preview" id="doc-preview"></div>
+      <div class="scroll-hint">↕ Role para ver o documento completo</div>
+    </div>
+
+    <button class="convert-btn" id="convert-btn" onclick="convertToPDF()">
+      📄 Converter para PDF
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Convertendo...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF gerado com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF</a>
+      <br/><span class="reset-link" onclick="resetTool()">Converter outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">📐</div><h3>Formatação preservada</h3><p>Títulos, parágrafos, negrito, itálico, listas numeradas, tabelas e imagens são mantidos no PDF gerado.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no seu navegador. Nenhum arquivo Word é enviado para servidores externos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de conversões, sem marca d'água no PDF gerado.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/pdf-para-word/"><span>📝</span> PDF para Word</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/jpg-para-pdf/"><span>🖼️</span> JPG para PDF</a>
+        <a class="related-card" href="/tools/ocr-pdf/"><span>🔍</span> OCR PDF</a>
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+      </div>
+    </div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O PDF mantém a formatação do Word?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim! Parágrafos, negrito, itálico, sublinhado, listas, tabelas e imagens são preservados. Documentos muito complexos com macros ou fontes personalizadas podem ter pequenas variações.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Funciona com .doc e .docx?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, aceitamos ambos os formatos — .docx (Word moderno, recomendado) e .doc (Word antigo). Para melhor resultado, use .docx.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Meus arquivos são enviados para algum servidor?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. Todo o processamento acontece 100% no seu navegador usando JavaScript. Seus arquivos nunca saem do seu dispositivo.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O PDF gerado tem marca d'água?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. O PDF é completamente limpo, sem qualquer marca d'água ou logo do TudoPDF.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul>
+        <li><a href="/tools/word-para-pdf/">Word para PDF</a></li>
+        <li><a href="/tools/pdf-para-word/">PDF para Word</a></li>
+        <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
+        <li><a href="/tools/juntar-pdf/">Juntar PDF</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/caracteristicas/">Características</a></li>
+        <li><a href="/precos/">Preços</a></li>
+        <li><a href="/seguranca/">Segurança</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="/privacidade/">Privacidade</a></li>
+        <li><a href="/termos/">Termos de Uso</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.SITE</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Mammoth.js: converte DOCX → HTML no browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<!-- jsPDF: gera o PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- html2canvas: renderiza o HTML em canvas para o PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script defer src="../../assets/js/main.js"></script>
+<script>
+let selectedFile  = null;
+let docHtml       = '';
+let resultBlob    = null;
+
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+// Drop zone events
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f && isWordFile(f)) loadFile(f);
+  else showToast('⚠️ Selecione um arquivo .doc ou .docx.');
+});
+fileInput.addEventListener('change', e => {
+  if (e.target.files[0]) loadFile(e.target.files[0]);
+});
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+function isWordFile(f) {
+  return f.name.match(/\.(doc|docx)$/i) ||
+    f.type === 'application/msword' ||
+    f.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+}
+
+async function loadFile(file) {
+  selectedFile = file;
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = formatBytes(file.size) + ' — ' + (file.name.endsWith('.docx') ? 'Word moderno (.docx)' : 'Word antigo (.doc)');
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('limit-note').style.display = 'block';
+  document.getElementById('result-box').classList.remove('show');
+
+  // Show loading preview
+  document.getElementById('preview-section').classList.add('show');
+  document.getElementById('preview-badge').textContent = 'Carregando...';
+  document.getElementById('doc-preview').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted)">⏳ Lendo documento...</div>';
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const result = await mammoth.convertToHtml({ arrayBuffer }, {
+      styleMap: [
+        "p[style-name='Heading 1'] => h1:fresh",
+        "p[style-name='Heading 2'] => h2:fresh",
+        "p[style-name='Heading 3'] => h3:fresh",
+        "p[style-name='Heading 4'] => h4:fresh",
+        "b => strong",
+        "i => em",
+        "u => u",
+      ]
+    });
+
+    docHtml = result.value;
+    document.getElementById('doc-preview').innerHTML = docHtml || '<p style="color:var(--text-muted);text-align:center;padding:40px">Documento vazio ou sem conteúdo de texto.</p>';
+
+    // Count words
+    const words = docHtml.replace(/<[^>]+>/g,'').trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('preview-badge').textContent = `${words.toLocaleString('pt-BR')} palavras`;
+
+    document.getElementById('convert-btn').classList.add('show');
+  } catch(err) {
+    console.error(err);
+    document.getElementById('doc-preview').innerHTML = '<p style="color:#ef4444;text-align:center;padding:40px">❌ Erro ao ler o documento. Verifique se é um arquivo .doc ou .docx válido.</p>';
+    document.getElementById('preview-badge').textContent = 'Erro';
+    showToast('❌ Não foi possível ler o arquivo. Tente outro documento.');
+  }
+}
+
+async function convertToPDF() {
+  if (!docHtml) return;
+  const btn = document.getElementById('convert-btn');
+  btn.disabled = true; btn.textContent = '⏳ Gerando PDF...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    setProgress(10, 'Preparando documento...');
+
+    const { jsPDF } = window.jspdf;
+
+    // Create a hidden render container styled like A4
+    const container = document.createElement('div');
+    container.style.cssText = `
+      position:fixed; left:-9999px; top:0;
+      width:794px; /* A4 at 96dpi */
+      padding:60px 72px;
+      background:white;
+      font-family:'Open Sans',Georgia,serif;
+      font-size:13px; line-height:1.8; color:#1e293b;
+      box-sizing:border-box;
+    `;
+    container.innerHTML = `
+      <style>
+        h1{font-size:22px;font-weight:700;margin:18px 0 8px;font-family:sans-serif}
+        h2{font-size:18px;font-weight:700;margin:16px 0 6px;font-family:sans-serif}
+        h3{font-size:15px;font-weight:700;margin:14px 0 5px;font-family:sans-serif}
+        h4{font-size:13px;font-weight:700;margin:12px 0 4px;font-family:sans-serif}
+        p{margin:6px 0}
+        table{border-collapse:collapse;width:100%;margin:10px 0}
+        td,th{border:1px solid #cbd5e1;padding:7px 10px;font-size:12px}
+        th{background:#f1f5f9;font-weight:700}
+        ul,ol{padding-left:22px;margin:6px 0}
+        li{margin:3px 0}
+        img{max-width:100%;border-radius:4px;margin:6px 0}
+        blockquote{border-left:3px solid #3b82f6;padding-left:14px;margin:8px 0;color:#64748b;font-style:italic}
+        strong,b{font-weight:700}
+        em,i{font-style:italic}
+        u{text-decoration:underline}
+        br{display:block;margin:4px 0}
+      </style>
+      ${docHtml}
+    `;
+    document.body.appendChild(container);
+
+    setProgress(30, 'Renderizando páginas...');
+
+    // Render to canvas
+    const canvas = await html2canvas(container, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      width: 794,
+      windowWidth: 794,
+    });
+
+    document.body.removeChild(container);
+    setProgress(70, 'Gerando PDF...');
+
+    const A4_W_MM = 210;
+    const A4_H_MM = 297;
+    const A4_W_PX = canvas.width;  // at scale 2: 1588px
+    const A4_H_PX = A4_W_PX * (A4_H_MM / A4_W_MM); // proportional A4 height
+
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+
+    const totalHeight = canvas.height;
+    let yOffset = 0;
+    let pageNum = 0;
+
+    while (yOffset < totalHeight) {
+      if (pageNum > 0) pdf.addPage();
+
+      // Slice the canvas for this page
+      const pageCanvas = document.createElement('canvas');
+      pageCanvas.width  = A4_W_PX;
+      pageCanvas.height = Math.min(A4_H_PX, totalHeight - yOffset);
+      const ctx = pageCanvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+      ctx.drawImage(canvas, 0, yOffset, A4_W_PX, pageCanvas.height, 0, 0, A4_W_PX, pageCanvas.height);
+
+      const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+      const sliceH  = (pageCanvas.height / A4_W_PX) * A4_W_MM;
+      pdf.addImage(imgData, 'JPEG', 0, 0, A4_W_MM, sliceH, undefined, 'FAST');
+
+      yOffset  += A4_H_PX;
+      pageNum  += 1;
+    }
+
+    setProgress(95, 'Finalizando...');
+    const pdfBytes = pdf.output('arraybuffer');
+    resultBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+    setProgress(100, 'Concluído!');
+
+    setTimeout(() => {
+      const url  = URL.createObjectURL(resultBlob);
+      const link = document.getElementById('download-link');
+      link.href     = url;
+      link.download = selectedFile.name.replace(/\.(doc|docx)$/i, '.pdf');
+      document.getElementById('result-sub').textContent =
+        `${pageNum} página${pageNum > 1 ? 's' : ''} · ${formatBytes(resultBlob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '📄 Converter novamente';
+    }, 400);
+
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erro ao gerar PDF. Tente novamente.');
+    btn.disabled = false; btn.textContent = '📄 Converter para PDF';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; docHtml = ''; resultBlob = null;
+  fileInput.value = '';
+  dropZone.style.display = 'block';
+  document.getElementById('file-preview').classList.remove('show');
+  document.getElementById('preview-section').classList.remove('show');
+  document.getElementById('convert-btn').classList.remove('show');
+  document.getElementById('result-box').classList.remove('show');
+  document.getElementById('progress-wrap').classList.remove('show');
+  document.getElementById('limit-note').style.display = 'none';
+  document.getElementById('doc-preview').innerHTML = '';
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+  return (b / 1048576).toFixed(2) + ' MB';
+}
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    b.nextElementSibling?.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.nextElementSibling?.classList.add('open');
+  }
+}
+</script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+</body>
+</html>
