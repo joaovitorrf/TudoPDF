@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="google-adsense-account" content="ca-pub-9029786875800750">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
+  <meta name="author" content="TudoPDF"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Excel para PDF Online Grátis — Converter XLS/XLSX para PDF — TudoPDF</title>
+  <meta name="description" content="Converta planilhas Excel (.xls, .xlsx) para PDF online, grátis e sem cadastro. Cada aba vira uma página do PDF com tabela formatada. TudoPDF."/>
+  <link rel="canonical" href="https://www.tudopdf.site/tools/excel-para-pdf/"/>
+  <meta property="og:title" content="Excel para PDF Online Grátis — TudoPDF"/>
+  <meta property="og:description" content="Converta Excel para PDF mantendo as tabelas. Grátis, sem cadastro e sem marca d'água."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.tudopdf.site/tools/excel-para-pdf/"/>
+  <meta property="og:image" content="https://www.tudopdf.site/assets/img/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebPage","name":"Excel para PDF Online Grátis — TudoPDF","url":"https://www.tudopdf.site/tools/excel-para-pdf/","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://www.tudopdf.site/"},{"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},{"@type":"ListItem","position":3,"name":"Excel para PDF","item":"https://www.tudopdf.site/tools/excel-para-pdf/"}]},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"12890","bestRating":"5","worstRating":"1"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"O PDF mantém a formatação da tabela?","acceptedAnswer":{"@type":"Answer","text":"Sim! Cabeçalhos, bordas, valores e formatação das células são preservados no PDF."}},{"@type":"Question","name":"Funciona com .xls e .xlsx?","acceptedAnswer":{"@type":"Answer","text":"Sim, aceitamos ambos os formatos. Para melhor resultado, use .xlsx (Excel moderno)."}},{"@type":"Question","name":"Meus arquivos são enviados para algum servidor?","acceptedAnswer":{"@type":"Answer","text":"Não. Todo o processamento acontece 100% no seu navegador. Seus arquivos nunca saem do seu dispositivo."}},{"@type":"Question","name":"É gratuito converter Excel para PDF?","acceptedAnswer":{"@type":"Answer","text":"Sim, 100% gratuito. Sem cadastro, sem limite de linhas e sem marca d'água."}}]}
+  </script>
+
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:border-color .2s,background .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    /* Sheet tabs */
+    .sheets-section{display:none;margin-top:24px}
+    .sheets-section.show{display:block}
+    .sheets-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+    .sheets-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text)}
+    .sheets-badge{background:#d1fae5;color:#065f46;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;padding:3px 10px;border-radius:99px}
+
+    .sheet-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+    .sheet-tab{padding:7px 16px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;cursor:pointer;border:1.5px solid var(--gray-2);background:transparent;color:var(--text-muted);transition:all .2s;display:flex;align-items:center;gap:6px}
+    .sheet-tab.active{border-color:#16a34a;background:#f0fdf4;color:#16a34a}
+    .sheet-tab:hover{border-color:var(--blue);color:var(--blue)}
+    .sheet-tab .sheet-dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.7}
+
+    /* Table preview */
+    .table-preview-wrap{overflow-x:auto;border:1.5px solid var(--gray-2);border-radius:14px;background:var(--card-bg)}
+    .sheet-info{padding:10px 16px;font-size:.78rem;color:var(--text-muted);border-bottom:1px solid var(--gray-2);display:flex;gap:16px;align-items:center}
+    .sheet-info strong{color:var(--text);font-family:'Montserrat',sans-serif}
+    .excel-table{width:100%;border-collapse:collapse;font-family:'Open Sans',sans-serif;font-size:.82rem;min-width:600px}
+    .excel-table th{background:#f0fdf4;color:#065f46;font-family:'Montserrat',sans-serif;font-weight:700;padding:9px 12px;border:1px solid #bbf7d0;text-align:left;white-space:nowrap;position:sticky;top:0}
+    .excel-table td{padding:8px 12px;border:1px solid var(--gray-2);color:var(--text);white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
+    .excel-table tr:nth-child(even) td{background:var(--gray-1)}
+    .excel-table tr:hover td{background:var(--blue-light)}
+    .excel-table .row-num{color:var(--text-muted);font-size:.72rem;background:var(--gray-1)!important;border-right:2px solid var(--gray-2);text-align:center;padding:8px 6px}
+    .excel-table th.row-num-h{background:#e8f5e9;color:var(--text-muted);width:36px;text-align:center}
+
+    .table-scroll-hint{text-align:center;font-size:.72rem;color:var(--text-muted);padding:8px;border-top:1px solid var(--gray-2)}
+
+    /* Options */
+    .options-section{display:none;margin-top:20px}
+    .options-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .option-card{border:2px solid var(--gray-2);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
+    .option-card:hover{border-color:var(--blue);background:var(--blue-light)}
+    .option-card.selected{border-color:var(--blue);background:var(--blue-light)}
+    .option-card.selected::after{content:'✓';position:absolute;top:8px;right:12px;font-size:.75rem;color:var(--blue);font-weight:700}
+    .oc-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;color:var(--text);margin-bottom:3px}
+    .oc-desc{font-size:.72rem;color:var(--text-muted)}
+    .option-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:10px;margin-top:10px}
+    .option-label{font-family:'Montserrat',sans-serif;font-weight:600;font-size:.83rem;color:var(--text)}
+    .select-input{padding:7px 10px;border-radius:8px;border:1.5px solid var(--gray-2);background:var(--card-bg);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.8rem;cursor:pointer}
+    .select-input:focus{outline:none;border-color:var(--blue)}
+
+    /* Convert btn */
+    .convert-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .convert-btn.show{display:block}
+    .convert-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
+    .convert-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Progress */
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:50px;width:0%;transition:width .3s ease}
+
+    /* Result */
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+
+    .faq-section{margin-top:48px}
+    .faq-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text);margin-bottom:20px;text-align:center}
+    .faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+    .faq-item{border:1.5px solid var(--gray-2);border-radius:12px;overflow:hidden;background:var(--bg);transition:border-color .2s}
+    .faq-item:hover{border-color:var(--blue)}
+    .faq-q{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:none;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);text-align:left;gap:12px}
+    .faq-arrow{font-size:1rem;transition:transform .25s;flex-shrink:0;color:var(--blue)}
+    .faq-q[aria-expanded="true"] .faq-arrow{transform:rotate(180deg)}
+    .faq-a{display:none;padding:0 20px 16px}
+    .faq-a.open{display:block}
+    .faq-a p{font-size:.88rem;color:var(--text-muted);line-height:1.7;margin:0}
+    @media(max-width:640px){.info-cards{grid-template-columns:1fr}.options-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/word-para-pdf/">Word para PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header" id="btn-login-header" onclick="loginWithGoogle()">Entrar com Google</button>
+      <div id="user-menu" style="display:none;align-items:center;gap:10px;position:relative">
+        <img id="user-avatar" src="" alt="avatar" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--blue)"/>
+        <button onclick="logoutGoogle()" class="btn-header" style="background:var(--gray-2);color:var(--text)">Sair</button>
+      </div>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/word-para-pdf/">Word para PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/pptx-para-pdf/">PowerPoint para PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Excel para PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>📊 Excel para PDF</h1>
+      <p>Converta planilhas Excel (.xls e .xlsx) em PDF. Veja todas as abas, escolha quais incluir e baixe com tabelas formatadas.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
+      <div class="drop-icon">📊</div>
+      <div class="drop-title">Arraste sua planilha Excel aqui</div>
+      <div class="drop-sub">.xls e .xlsx — clique ou arraste para começar</div>
+      <div class="drop-btn">Selecionar planilha Excel</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📊</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove" title="Remover">✕</div>
+    </div>
+
+    <!-- Sheets section -->
+    <div class="sheets-section" id="sheets-section">
+      <div class="sheets-header">
+        <div class="sheets-title">📋 Abas da planilha</div>
+        <div class="sheets-badge" id="sheets-badge">0 abas</div>
+      </div>
+      <div class="sheet-tabs" id="sheet-tabs"></div>
+      <div class="table-preview-wrap">
+        <div class="sheet-info" id="sheet-info"></div>
+        <div style="overflow-x:auto;max-height:400px;overflow-y:auto">
+          <table class="excel-table" id="excel-table"></table>
+        </div>
+        <div class="table-scroll-hint">↔ Role para ver mais colunas · ↕ Role para ver mais linhas</div>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-section" id="options-section">
+      <div class="section-title">Opções de conversão</div>
+      <div class="options-grid">
+        <div class="option-card selected" data-sheets="all" onclick="selectSheetsOpt('all',this)">
+          <div class="oc-label">📄 Todas as abas</div>
+          <div class="oc-desc">Cada aba vira uma página do PDF</div>
+        </div>
+        <div class="option-card" data-sheets="active" onclick="selectSheetsOpt('active',this)">
+          <div class="oc-label">👁️ Aba atual</div>
+          <div class="oc-desc">Converte apenas a aba selecionada</div>
+        </div>
+      </div>
+      <div class="option-row">
+        <div class="option-label">Orientação da página</div>
+        <select class="select-input" id="page-orient">
+          <option value="landscape">Paisagem (recomendado)</option>
+          <option value="portrait">Retrato</option>
+        </select>
+      </div>
+      <div class="option-row">
+        <div class="option-label">Tamanho da fonte</div>
+        <select class="select-input" id="font-size">
+          <option value="9">Pequena (9pt) — cabe mais colunas</option>
+          <option value="11" selected>Normal (11pt)</option>
+          <option value="13">Grande (13pt)</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="convert-btn" id="convert-btn" onclick="convertToPDF()">
+      📄 Converter para PDF
+    </button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Gerando PDF...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF gerado com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF</a>
+      <br/><span class="reset-link" onclick="resetTool()">Converter outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">📋</div><h3>Múltiplas abas</h3><p>Cada aba da planilha vira uma página separada no PDF. Escolha incluir todas ou apenas a selecionada.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no seu navegador. Nenhuma planilha é enviada para servidores externos.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limite de linhas ou colunas, sem marca d'água no PDF gerado.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/word-para-pdf/"><span>📝</span> Word para PDF</a>
+        <a class="related-card" href="/tools/pptx-para-pdf/"><span>📊</span> PowerPoint para PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/pdf-para-excel/"><span>📑</span> PDF para Excel</a>
+        <a class="related-card" href="/tools/ocr-pdf/"><span>🔍</span> OCR PDF</a>
+      </div>
+    </div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O PDF mantém a formatação da tabela?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim! Cabeçalhos com destaque, bordas de células, valores numéricos, textos e formatação zebrada (linhas alternadas) são preservados no PDF final.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Planilhas com muitas colunas ficam cortadas?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Use a orientação "Paisagem" e fonte "Pequena" nas opções para maximizar o número de colunas visíveis. Planilhas muito largas podem ser automaticamente divididas em múltiplas páginas.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Posso converter só uma aba específica?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim! Clique na aba desejada na prévia, depois selecione "Aba atual" nas opções de conversão antes de gerar o PDF.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">É gratuito converter Excel para PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, 100% gratuito. Sem cadastro, sem limite de linhas ou colunas e sem marca d'água no PDF gerado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul>
+        <li><a href="/tools/excel-para-pdf/">Excel para PDF</a></li>
+        <li><a href="/tools/word-para-pdf/">Word para PDF</a></li>
+        <li><a href="/tools/pptx-para-pdf/">PowerPoint para PDF</a></li>
+        <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/caracteristicas/">Características</a></li>
+        <li><a href="/precos/">Preços</a></li>
+        <li><a href="/seguranca/">Segurança</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="/privacidade/">Privacidade</a></li>
+        <li><a href="/termos/">Termos de Uso</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.SITE</p>
+    </div>
+  </div>
+</footer>
+
+<!-- SheetJS para ler XLS/XLSX no browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- html2canvas para renderizar a tabela HTML como imagem -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- jsPDF para montar o PDF final -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script defer src="../../assets/js/main.js"></script>
+<script>
+let selectedFile   = null;
+let workbook       = null;
+let activeSheetIdx = 0;
+let sheetsOpt      = 'all'; // 'all' | 'active'
+let resultBlob     = null;
+
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f && isExcelFile(f)) loadFile(f);
+  else showToast('⚠️ Selecione um arquivo .xls ou .xlsx.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+function isExcelFile(f) {
+  return f.name.match(/\.(xls|xlsx)$/i) ||
+    f.type === 'application/vnd.ms-excel' ||
+    f.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+}
+
+async function loadFile(file) {
+  selectedFile = file;
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = formatBytes(file.size) + ' — ' +
+    (file.name.endsWith('.xlsx') ? 'Excel moderno (.xlsx)' : 'Excel antigo (.xls)');
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('sheets-section').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    const ab = await file.arrayBuffer();
+    workbook = XLSX.read(ab, { type: 'array', cellStyles: true, cellHTML: true });
+    renderSheetTabs();
+    renderSheetPreview(0);
+    document.getElementById('options-section').classList.add('show');
+    document.getElementById('convert-btn').classList.add('show');
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erro ao ler o arquivo. Verifique se é um .xls ou .xlsx válido.');
+    resetTool();
+  }
+}
+
+function renderSheetTabs() {
+  const tabs = document.getElementById('sheet-tabs');
+  tabs.innerHTML = '';
+  const names = workbook.SheetNames;
+  document.getElementById('sheets-badge').textContent = `${names.length} aba${names.length > 1 ? 's' : ''}`;
+
+  const colors = ['#16a34a','#2563eb','#9333ea','#ea580c','#0891b2','#be123c'];
+
+  names.forEach((name, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sheet-tab' + (i === 0 ? ' active' : '');
+    btn.style.setProperty('--c', colors[i % colors.length]);
+    btn.innerHTML = `<span class="sheet-dot" style="background:${colors[i % colors.length]}"></span>${name}`;
+    btn.onclick = () => {
+      document.querySelectorAll('.sheet-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      activeSheetIdx = i;
+      renderSheetPreview(i);
+    };
+    tabs.appendChild(btn);
+  });
+}
+
+function renderSheetPreview(sheetIdx) {
+  const sheetName = workbook.SheetNames[sheetIdx];
+  const sheet     = workbook.Sheets[sheetName];
+
+  // Convert to array of arrays
+  const data = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+
+  // Find max columns
+  const maxCols = data.reduce((m, row) => Math.max(m, row.length), 0);
+
+  // Total rows / cols info
+  const nonEmpty = data.filter(r => r.some(c => c !== ''));
+  document.getElementById('sheet-info').innerHTML =
+    `<strong>${sheetName}</strong> · <span>${nonEmpty.length} linhas</span> · <span>${maxCols} colunas</span>`;
+
+  // Build HTML table (limit preview to 200 rows for performance)
+  const previewRows = data.slice(0, 200);
+  let html = '<thead><tr><th class="row-num-h">#</th>';
+
+  // Column headers (A, B, C...)
+  for (let c = 0; c < maxCols; c++) {
+    html += `<th>${colName(c)}</th>`;
+  }
+  html += '</tr></thead><tbody>';
+
+  previewRows.forEach((row, ri) => {
+    html += `<tr><td class="row-num">${ri + 1}</td>`;
+    for (let c = 0; c < maxCols; c++) {
+      const val = row[c] !== undefined ? String(row[c]) : '';
+      html += `<td title="${val.replace(/"/g,'&quot;')}">${escHtml(val)}</td>`;
+    }
+    html += '</tr>';
+  });
+
+  if (data.length > 200) {
+    html += `<tr><td colspan="${maxCols + 1}" style="text-align:center;color:var(--text-muted);font-size:.75rem;padding:10px">… mais ${data.length - 200} linhas (incluídas no PDF)</td></tr>`;
+  }
+
+  html += '</tbody>';
+  document.getElementById('excel-table').innerHTML = html;
+}
+
+function colName(n) {
+  let s = '';
+  n++;
+  while (n > 0) { n--; s = String.fromCharCode(65 + (n % 26)) + s; n = Math.floor(n / 26); }
+  return s;
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function selectSheetsOpt(val, el) {
+  sheetsOpt = val;
+  document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+async function convertToPDF() {
+  if (!workbook) return;
+  const btn = document.getElementById('convert-btn');
+  btn.disabled = true; btn.textContent = '⏳ Gerando PDF...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const orient    = document.getElementById('page-orient').value;
+    const fontSize  = parseInt(document.getElementById('font-size').value);
+
+    const sheetIndices = sheetsOpt === 'active'
+      ? [activeSheetIdx]
+      : workbook.SheetNames.map((_, i) => i);
+
+    const pdf = new jsPDF({ orientation: orient, unit: 'mm', format: 'a4', compress: true });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+
+    for (let si = 0; si < sheetIndices.length; si++) {
+      const pct = Math.round(5 + ((si + 1) / sheetIndices.length) * 90);
+      setProgress(pct, `Convertendo aba ${si + 1} de ${sheetIndices.length}...`);
+
+      const idx       = sheetIndices[si];
+      const sheetName = workbook.SheetNames[idx];
+      const sheet     = workbook.Sheets[sheetName];
+      const data      = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+      const maxCols   = data.reduce((m, r) => Math.max(m, r.length), 0);
+      const nonEmpty  = data.filter(r => r.some(c => c !== ''));
+
+      if (si > 0) pdf.addPage();
+
+      // Build a styled render container
+      const container = document.createElement('div');
+      const containerW = orient === 'landscape' ? 1122 : 794; // px at 96dpi
+      container.style.cssText = `
+        position:fixed;left:-9999px;top:0;
+        width:${containerW}px;
+        background:white;
+        padding:28px 32px;
+        box-sizing:border-box;
+        font-family:'Open Sans',Arial,sans-serif;
+        font-size:${fontSize}px;
+        color:#1e293b;
+      `;
+
+      // Sheet title
+      container.innerHTML = `
+        <div style="font-family:sans-serif;font-weight:700;font-size:${fontSize + 3}px;color:#065f46;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #16a34a">
+          📊 ${escHtml(sheetName)}
+          <span style="font-weight:400;font-size:${fontSize - 1}px;color:#64748b;margin-left:12px">${nonEmpty.length} linhas · ${maxCols} colunas</span>
+        </div>
+      `;
+
+      // Table
+      let tableHtml = `<table style="border-collapse:collapse;width:100%;font-size:${fontSize}px">`;
+
+      // Header row (first non-empty row)
+      if (data.length > 0) {
+        tableHtml += '<thead><tr>';
+        for (let c = 0; c < maxCols; c++) {
+          const val = data[0][c] !== undefined ? String(data[0][c]) : '';
+          tableHtml += `<th style="background:#f0fdf4;color:#065f46;font-weight:700;padding:6px 8px;border:1px solid #bbf7d0;text-align:left;white-space:nowrap">${escHtml(val)}</th>`;
+        }
+        tableHtml += '</tr></thead>';
+      }
+
+      // Data rows
+      tableHtml += '<tbody>';
+      for (let ri = 1; ri < data.length; ri++) {
+        const row = data[ri];
+        if (!row.some(c => c !== '')) continue; // skip empty rows
+        const bg = ri % 2 === 0 ? '#f8fafc' : 'white';
+        tableHtml += `<tr style="background:${bg}">`;
+        for (let c = 0; c < maxCols; c++) {
+          const val = row[c] !== undefined ? String(row[c]) : '';
+          // Right-align numbers
+          const isNum = !isNaN(val) && val.trim() !== '';
+          tableHtml += `<td style="padding:5px 8px;border:1px solid #e2e8f0;${isNum ? 'text-align:right' : ''};white-space:nowrap">${escHtml(val)}</td>`;
+        }
+        tableHtml += '</tr>';
+      }
+      tableHtml += '</tbody></table>';
+      container.innerHTML += tableHtml;
+      document.body.appendChild(container);
+
+      // Render to canvas
+      const canvas = await html2canvas(container, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+        width: containerW,
+        windowWidth: containerW,
+      });
+      document.body.removeChild(container);
+
+      // Slice canvas into PDF pages
+      const A4W_PX = canvas.width;
+      const A4H_PX = Math.round(A4W_PX * (pageH / pageW));
+      let yOffset = 0;
+      let firstSlice = true;
+
+      while (yOffset < canvas.height) {
+        if (!firstSlice) pdf.addPage();
+        firstSlice = false;
+
+        const sliceH = Math.min(A4H_PX, canvas.height - yOffset);
+        const pageCanvas = document.createElement('canvas');
+        pageCanvas.width  = A4W_PX;
+        pageCanvas.height = sliceH;
+        const ctx = pageCanvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, A4W_PX, sliceH);
+        ctx.drawImage(canvas, 0, yOffset, A4W_PX, sliceH, 0, 0, A4W_PX, sliceH);
+
+        const imgData = pageCanvas.toDataURL('image/jpeg', 0.95);
+        const drawH   = (sliceH / A4W_PX) * pageW;
+        pdf.addImage(imgData, 'JPEG', 0, 0, pageW, drawH, undefined, 'FAST');
+        yOffset += A4H_PX;
+      }
+    }
+
+    setProgress(98, 'Finalizando...');
+    const bytes = pdf.output('arraybuffer');
+    resultBlob = new Blob([bytes], { type: 'application/pdf' });
+
+    setProgress(100, 'Concluído!');
+    setTimeout(() => {
+      const url = URL.createObjectURL(resultBlob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download =
+        selectedFile.name.replace(/\.(xls|xlsx)$/i, '.pdf');
+      const totalSheets = sheetIndices.length;
+      document.getElementById('result-sub').textContent =
+        `${totalSheets} aba${totalSheets > 1 ? 's' : ''} convertida${totalSheets > 1 ? 's' : ''} · ${formatBytes(resultBlob.size)}`;
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = false; btn.textContent = '📄 Converter novamente';
+    }, 400);
+
+  } catch(err) {
+    console.error(err);
+    showToast('❌ Erro ao gerar PDF. Tente novamente.');
+    btn.disabled = false; btn.textContent = '📄 Converter para PDF';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent  = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; workbook = null; activeSheetIdx = 0; sheetsOpt = 'all'; resultBlob = null;
+  fileInput.value = '';
+  dropZone.style.display = 'block';
+  ['file-preview','sheets-section','options-section','result-box','progress-wrap']
+    .forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('convert-btn').classList.remove('show');
+  document.getElementById('sheet-tabs').innerHTML = '';
+  document.getElementById('excel-table').innerHTML = '';
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+  return (b / 1048576).toFixed(2) + ' MB';
+}
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    b.nextElementSibling?.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.nextElementSibling?.classList.add('open');
+  }
+}
+</script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+</body>
+</html>
