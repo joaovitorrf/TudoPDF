@@ -763,12 +763,25 @@ nav { display: flex; align-items: center; gap: 4px; flex: 1; }
   .workflow-cards { grid-template-columns: 1fr; }
   .trust-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
+
+  /* Hero responsivo no mobile */
+  #hero {
+    min-height: auto;
+    padding: 48px 20px 40px;
+  }
+  .hero-title { font-size: 2rem; line-height: 1.2; }
+  .hero-subtitle { font-size: 0.95rem; }
+  .hero-badge { font-size: 0.78rem; padding: 6px 14px; }
 }
 @media (max-width: 480px) {
   .footer-top { grid-template-columns: 1fr; }
   .hero-ctas { flex-direction: column; }
   .tools-grid { grid-template-columns: 1fr 1fr; }
   .hero-search { max-width: 100%; }
+
+  /* Hero ainda mais compacto em telas pequenas */
+  #hero { padding: 36px 16px 32px; }
+  .hero-title { font-size: 1.7rem !important; }
 }
 
 /* ============================================================
