@@ -354,7 +354,8 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script src="../../assets/js/main.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -396,7 +397,8 @@ async function startConvert() {
   document.getElementById('result-box').classList.remove('show');
 
   const fontName   = document.getElementById('opt-font').value;
-  const fontSize   = parseInt(document.getElementById('opt-size').value) * 2; // half-points
+  const fontSizePt = parseInt(document.getElementById('opt-size').value);
+  const fontSize   = fontSizePt * 2;
   const detectH    = document.getElementById('opt-headings').value === 'yes';
   const pageBreaks = document.getElementById('opt-pagebreak').value === 'yes';
 
@@ -405,22 +407,34 @@ async function startConvert() {
     const buf    = await selectedFile.arrayBuffer();
     const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
     const total  = pdfDoc.numPages;
-    const { Document, Paragraph, TextRun, HeadingLevel, PageBreak, AlignmentType } = docx;
+
+    // Access docx classes safely
+    const docxLib = window.docx;
+    if (!docxLib) throw new Error('Biblioteca docx nao carregada. Recarregue a pagina.');
+
+    const { Document, Paragraph, TextRun, HeadingLevel, PageBreak, Packer } = docxLib;
 
     const children = [];
 
     for (let i = 1; i <= total; i++) {
-      setProgress(Math.round(5 + (i / total) * 80), `Extraindo texto — página ${i} de ${total}...`);
+      setProgress(Math.round(5 + (i / total) * 80), 'Extraindo texto — pagina ' + i + ' de ' + total + '...');
       const page    = await pdfDoc.getPage(i);
       const content = await page.getTextContent();
 
-      // Group items into lines by Y position
+      // Sort items by Y (descending) then X (ascending) for correct reading order
+      const items = content.items
+        .filter(it => it.str && it.str.trim())
+        .sort((a, b) => {
+          const dy = Math.round(b.transform[5]) - Math.round(a.transform[5]);
+          return dy !== 0 ? dy : a.transform[4] - b.transform[4];
+        });
+
+      // Group into lines
       const lines = [];
-      let lastY   = null;
-      let curLine = [];
-      content.items.forEach(item => {
+      let lastY = null, curLine = [];
+      items.forEach(item => {
         const y = Math.round(item.transform[5]);
-        if (lastY !== null && Math.abs(y - lastY) > 3) {
+        if (lastY !== null && Math.abs(y - lastY) > 4) {
           if (curLine.length) lines.push(curLine.map(c => c.str).join(' ').trim());
           curLine = [];
         }
@@ -430,19 +444,19 @@ async function startConvert() {
       if (curLine.length) lines.push(curLine.map(c => c.str).join(' ').trim());
 
       lines.forEach(line => {
-        if (!line) return;
-        const isHeading = detectH && line.length < 80 &&
-          (line === line.toUpperCase() || /^[A-ZÁÉÍÓÚÂÊÎÔÛÃÕÀÇ0-9\s\-:]{4,}$/.test(line));
+        if (!line.trim()) return;
+        const isHeading = detectH && line.trim().length < 80 && line.trim().length > 2 &&
+          line.trim() === line.trim().toUpperCase() && /[A-Z]/.test(line);
 
         if (isHeading) {
           children.push(new Paragraph({
-            text: line,
+            text: line.trim(),
             heading: HeadingLevel.HEADING_2,
             spacing: { before: 240, after: 120 },
           }));
         } else {
           children.push(new Paragraph({
-            children: [new TextRun({ text: line, font: fontName, size: fontSize })],
+            children: [new TextRun({ text: line.trim(), font: fontName, size: fontSize })],
             spacing: { after: 80 },
           }));
         }
@@ -453,27 +467,35 @@ async function startConvert() {
       }
     }
 
+    if (children.length === 0) {
+      throw new Error('Nenhum texto encontrado. Para PDFs escaneados, use OCR PDF primeiro.');
+    }
+
     setProgress(88, 'Montando documento WORD...');
     const doc = new Document({
       sections: [{ properties: {}, children }],
-      styles: {
-        default: {
-          document: {
-            run: { font: fontName, size: fontSize },
-          },
-        },
-      },
     });
 
     setProgress(95, 'Salvando .docx...');
-    const blob = await docx.Packer.toBlob(doc);
-    setProgress(100, 'Concluído!');
+    const blob = await Packer.toBlob(doc);
+    setProgress(100, 'Concluido!');
 
     setTimeout(() => {
-      const url  = URL.createObjectURL(blob);
+      const outName = selectedFile.name.replace(/\.pdf$/i, '.docx');
+      // Trigger download immediately via FileSaver
+      if (window.saveAs) {
+        saveAs(blob, outName);
+      } else {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = outName; a.click();
+      }
+      // Also set button link
+      const url = URL.createObjectURL(blob);
       document.getElementById('download-link').href = url;
-      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '.docx');
-      document.getElementById('result-sub').textContent = `${total} página${total > 1 ? 's' : ''} extraída${total > 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('download-link').download = outName;
+      document.getElementById('result-sub').textContent =
+        total + ' pagina' + (total > 1 ? 's' : '') + ' extraida' + (total > 1 ? 's' : '') + ' · ' + formatBytes(blob.size);
       document.getElementById('progress-wrap').classList.remove('show');
       document.getElementById('result-box').classList.add('show');
       document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -481,8 +503,8 @@ async function startConvert() {
     }, 400);
 
   } catch (err) {
-    console.error(err);
-    showToast('❌ Erro ao converter. Tente novamente.');
+    console.error('Erro PDF->Word:', err);
+    showToast('❌ ' + (err.message || 'Erro ao converter. Tente novamente.'));
     btn.disabled = false; btn.textContent = '📝 Converter para WORD';
     document.getElementById('progress-wrap').classList.remove('show');
   }
