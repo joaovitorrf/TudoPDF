@@ -364,6 +364,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/libs/pptxgen.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script src="../../assets/js/main.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -457,6 +458,7 @@ async function startConvert() {
       slideW = 10; slideH = 10 / ratio;
     }
 
+    if (typeof PptxGenJS === 'undefined') throw new Error('Biblioteca PptxGenJS nao carregada. Recarregue a pagina.');
     const prs = new PptxGenJS();
     prs.layout = 'LAYOUT_WIDE';
     prs.defineLayout({ name: 'CUSTOM', width: slideW, height: slideH });
@@ -502,14 +504,44 @@ async function startConvert() {
     }
 
     setProgress(96, 'Salvando .pptx...');
-    const blob = await prs.write({ outputType: 'blob' });
-    setProgress(100, 'Concluído!');
 
+    // pptxgenjs v3: use write() with 'blob' type OR writeFile()
+    // Try multiple approaches for browser compatibility
+    let blob = null;
+    try {
+      // Method 1: write returns a blob directly in v3.12
+      const result = await prs.write('blob');
+      blob = result instanceof Blob ? result : new Blob([result], { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
+    } catch(e1) {
+      try {
+        // Method 2: writeBase64 then convert
+        const b64 = await prs.write('base64');
+        const bin = atob(b64);
+        const bytes = new Uint8Array(bin.length);
+        for (let k = 0; k < bin.length; k++) bytes[k] = bin.charCodeAt(k);
+        blob = new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
+      } catch(e2) {
+        throw new Error('Erro ao gerar PPTX: ' + e2.message);
+      }
+    }
+
+    setProgress(100, 'Concluido!');
+
+    const outName = selectedFile.name.replace(/\.pdf$/i, '.pptx');
     setTimeout(() => {
-      const url  = URL.createObjectURL(blob);
+      // Download immediately
+      if (window.saveAs) {
+        saveAs(blob, outName);
+      } else {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = outName; a.click();
+      }
+      // Also set download button
+      const url = URL.createObjectURL(blob);
       document.getElementById('download-link').href = url;
-      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '.pptx');
-      document.getElementById('result-sub').textContent = `${total} slide${total > 1 ? 's' : ''} · ${formatBytes(blob.size)}`;
+      document.getElementById('download-link').download = outName;
+      document.getElementById('result-sub').textContent = total + ' slide' + (total > 1 ? 's' : '') + ' · ' + formatBytes(blob.size);
       document.getElementById('progress-wrap').classList.remove('show');
       document.getElementById('result-box').classList.add('show');
       document.getElementById('result-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -517,8 +549,8 @@ async function startConvert() {
     }, 400);
 
   } catch (err) {
-    console.error(err);
-    showToast('❌ Erro ao converter. Tente novamente.');
+    console.error('Erro PDF->PPTX:', err);
+    showToast('❌ ' + (err.message || 'Erro ao converter. Tente novamente.'));
     btn.disabled = false; btn.textContent = '📊 Converter para PowerPoint';
     document.getElementById('progress-wrap').classList.remove('show');
   }
