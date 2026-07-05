@@ -23,14 +23,6 @@
     .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
     .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
 
-    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
-    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
-    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-    .drop-icon{font-size:3.5rem;margin-bottom:16px}
-    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
-    .drop-sub{font-size:.85rem;color:var(--text-muted)}
-    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
-
     /* Toolbar */
     .tool-toolbar{display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:24px;padding:14px 18px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px}
     .tool-toolbar.show{display:flex}
@@ -149,13 +141,6 @@
       {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},
       {"@type":"ListItem","position":3,"name":"Rodar PDF","item":"https://www.tudopdf.site/tools/rodar-pdf/"}
     ]
-  },
-  "aggregateRating":{
-    "@type":"AggregateRating",
-    "ratingValue":"4.8",
-    "reviewCount":"9347",
-    "bestRating":"5",
-    "worstRating":"1"
   }
 }
 </script>
@@ -312,6 +297,54 @@
         <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
         <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
         <a class="related-card" href="/tools/dividir-pdf/"><span>✂️</span> Dividir PDF</a>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2 class="faq-title">Perguntas frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>Como girar páginas de um PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a"><p>Faça upload, selecione as páginas, escolha o ângulo e salve.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>Posso girar apenas uma página?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a"><p>Sim! Gire páginas individualmente sem afetar o restante.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>Posso girar todas as páginas de uma vez?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a"><p>Sim, existe a opção de girar todas simultaneamente.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>Por que meu PDF ficou de lado?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a"><p>É comum ao digitalizar documentos em paisagem. Nossa ferramenta corrige em segundos.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>A rotação altera a qualidade?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a"><p>Não. Rotacionar é uma operação matemática que não recomprime a imagem.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>Funciona com PDFs de muitas páginas?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a"><p>Sim, sem limite de páginas.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>É gratuito girar PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a"><p>Sim, totalmente gratuito.</p></div>
+        </div>
       </div>
     </div>
   </div>
