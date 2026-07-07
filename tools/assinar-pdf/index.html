@@ -161,6 +161,330 @@
 @media (min-width: 768px) {
   .ad-mobile320 { display: none !important; }
 }
+  </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Assinar PDF Online Grátis — TudoPDF",
+  "url":"https://www.tudopdf.site/tools/assinar-pdf/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.tudopdf.site/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"Assinar PDF","item":"https://www.tudopdf.site/tools/assinar-pdf/"}
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar Assinar PDF Online",
+  "description":"Assine PDFs online desenhando, digitando ou enviando uma imagem da sua assinatura.",
+  "step":[
+    {"@type":"HowToStep","name":"Faça upload do PDF","text":"Selecione o documento que precisa assinar."},
+    {"@type":"HowToStep","name":"Crie sua assinatura","text":"Desenhe com o mouse/dedo, digite com uma fonte de assinatura ou envie uma imagem."},
+    {"@type":"HowToStep","name":"Posicione e salve","text":"Arraste a assinatura até o lugar certo na página e baixe o PDF assinado."}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/proteger-pdf/">Proteger PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header" id="btn-login-header" onclick="loginWithGoogle()">Entrar com Google</button>
+      <div id="user-menu" style="display:none;align-items:center;gap:10px;position:relative">
+        <img id="user-avatar" src="" alt="avatar" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--blue)"/>
+        <button onclick="logoutGoogle()" class="btn-header" style="background:var(--gray-2);color:var(--text)">Sair</button>
+      </div>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/proteger-pdf/">Proteger PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/comprimir-pdf/">Comprimir PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Assinar PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+    <div class="tool-hero">
+      <h1>✍️ Assinar PDF</h1>
+      <p>Desenhe, digite ou faça upload da sua assinatura e posicione exatamente onde quiser no documento.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">✍️</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <div class="sign-section" id="sign-section">
+      <div class="section-title">Crie sua assinatura</div>
+      <div class="sign-tabs">
+        <button class="sign-tab active" onclick="switchSignTab('draw', this)">✏️ Desenhar</button>
+        <button class="sign-tab" onclick="switchSignTab('type', this)">⌨️ Digitar</button>
+        <button class="sign-tab" onclick="switchSignTab('upload', this)">🖼️ Upload</button>
+      </div>
+
+      <div class="sign-panel active" id="sign-panel-draw">
+        <div class="draw-canvas-wrap"><canvas id="draw-canvas"></canvas></div>
+        <div class="draw-actions">
+          <button class="draw-btn" onclick="clearDraw()">🗑️ Limpar</button>
+          <input type="color" class="draw-color" id="draw-color" value="#1e3a8a"/>
+          <button class="apply-btn" style="width:auto;margin:0;padding:9px 20px;font-size:.82rem" onclick="confirmSignature('draw')">Usar esta assinatura →</button>
+        </div>
+      </div>
+
+      <div class="sign-panel" id="sign-panel-type">
+        <input type="text" class="type-input" id="type-input" placeholder="Digite seu nome" style="font-family:'Dancing Script',cursive"/>
+        <div class="font-options">
+          <button class="font-btn selected" data-font="Dancing Script" onclick="selectFont(this)">Dancing Script</button>
+          <button class="font-btn" data-font="Pacifico" onclick="selectFont(this)">Pacifico</button>
+          <button class="font-btn" data-font="Georgia" onclick="selectFont(this)">Georgia</button>
+        </div>
+        <button class="apply-btn" style="width:auto;margin-top:14px;padding:9px 20px;font-size:.82rem" onclick="confirmSignature('type')">Usar esta assinatura →</button>
+      </div>
+
+      <div class="sign-panel" id="sign-panel-upload">
+        <div class="img-upload-zone" id="sig-upload-zone">
+          <input type="file" id="sig-img-input" accept="image/*"/>
+          <div style="font-size:1.8rem;margin-bottom:8px">🖼️</div>
+          <div style="font-family:Montserrat,sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:4px">Clique ou arraste a imagem</div>
+          <div style="font-size:.75rem;color:var(--text-muted)">PNG com fundo transparente recomendado</div>
+        </div>
+        <img class="sign-img-preview" id="sign-img-preview" src="" alt="Assinatura"/>
+        <button class="apply-btn" id="upload-use-btn" style="display:none;width:auto;margin-top:14px;padding:9px 20px;font-size:.82rem" onclick="confirmSignature('upload')">Usar esta assinatura →</button>
+      </div>
+    </div>
+
+    <div class="positioner-section" id="positioner-section">
+      <div class="section-title">Posicione a assinatura</div>
+      <div class="page-canvas-wrap" id="page-canvas-wrap">
+        <canvas id="page-canvas"></canvas>
+        <div class="sig-drag" id="sig-drag" style="width:140px;height:60px;left:20px;top:20px">
+          <img id="sig-drag-img" src="" alt="Assinatura"/>
+          <span class="sig-drag-hint">arraste para posicionar</span>
+        </div>
+      </div>
+      <div class="pos-controls">
+        <span class="pos-label">Tamanho:</span>
+        <input type="range" class="size-slider" id="sig-size" min="60" max="320" value="140" oninput="resizeSig()"/>
+        <span class="pos-label" id="sig-size-val">140px</span>
+      </div>
+      <div class="page-nav">
+        <button class="page-nav-btn" id="prev-page-btn" onclick="changePage(-1)">← Página anterior</button>
+        <span class="page-info" id="page-info">Página 1 de 1</span>
+        <button class="page-nav-btn" id="next-page-btn" onclick="changePage(1)">Próxima página →</button>
+      </div>
+      <button class="apply-btn" id="apply-sign-btn" onclick="applySignature()">✍️ Aplicar assinatura e salvar</button>
+    </div>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Processando...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF assinado com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF Assinado</a>
+      <br/><span class="reset-link" onclick="resetTool()">Assinar outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">✍️</div><h3>3 formas de assinar</h3><p>Desenhe com o mouse ou o dedo, digite com uma fonte de assinatura ou envie uma imagem da sua assinatura real.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% Seguro</h3><p>Tudo processado no navegador. Nenhum arquivo é enviado para servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem marca d'água, sem limite de assinaturas.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas populares</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/proteger-pdf/"><span>🔒</span> Proteger PDF</a>
+        <a class="related-card" href="/tools/desbloquear-pdf/"><span>🔓</span> Desbloquear PDF</a>
+        <a class="related-card" href="/tools/comprimir-pdf/"><span>🗜️</span> Comprimir PDF</a>
+        <a class="related-card" href="/tools/juntar-pdf/"><span>🔗</span> Juntar PDF</a>
+        <a class="related-card" href="/tools/pdf-para-word/"><span>📝</span> PDF para Word</a>
+        <a class="related-card" href="/tools/marca-dagua/"><span>💧</span> Marca d'água</a>
+      </div>
+    </div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">A assinatura feita aqui tem validade jurídica?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Esta ferramenta cria uma assinatura visual (desenhada, digitada ou de imagem), como uma rubrica em papel. Para assinaturas com certificação digital ICP-Brasil ou validade jurídica avançada, é necessário um certificado digital específico.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Posso desenhar a assinatura pelo celular?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, o campo de desenho funciona com o dedo em telas touch, além do mouse no computador.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Consigo colocar a assinatura em qualquer página?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim. Navegue entre as páginas do documento antes de aplicar e escolha exatamente onde a assinatura deve aparecer.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Meus arquivos são enviados para algum servidor?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. Todo o processamento acontece no seu navegador. Seu PDF e sua assinatura nunca saem do seu dispositivo.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">É gratuito assinar PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, 100% gratuito, sem cadastro e sem limite de uso.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p style="text-align:center;margin-top:20px;font-size:.85rem;color:var(--text-muted)">
+      📖 Quer o passo a passo completo? Leia <a href="/blog/como-assinar-pdf-sem-imprimir/" style="color:var(--blue);font-weight:700">Como assinar um PDF sem imprimir</a>.
+    </p>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Ferramentas</h4><ul>
+        <li><a href="/tools/assinar-pdf/">Assinar PDF</a></li>
+        <li><a href="/tools/proteger-pdf/">Proteger PDF</a></li>
+        <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
+        <li><a href="/tools/juntar-pdf/">Juntar PDF</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/caracteristicas/">Características</a></li>
+        <li><a href="/precos/">Preços</a></li>
+        <li><a href="/seguranca/">Segurança</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="/privacidade/">Privacidade</a></li>
+        <li><a href="/termos/">Termos de Uso</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.SITE</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let selectedFile = null, pdfJsDoc = null, totalPages = 0, currentPageNum = 1;
+let signatureDataUrl = null, signType = 'draw', selectedFont = 'Dancing Script';
+let sigPos = { x: 20, y: 20 }, isDraggingSig = false, dragOffsetX = 0, dragOffsetY = 0;
+
+const dropZone  = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f?.type === 'application/pdf') loadFile(f);
+  else showToast('⚠️ Selecione um arquivo PDF.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+async function loadFile(file) {
+  selectedFile = file;
+  const buf = await file.arrayBuffer();
+  pdfJsDoc   = await pdfjsLib.getDocument({ data: buf }).promise;
+  totalPages = pdfJsDoc.numPages;
+  currentPageNum = 1;
+
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = `${formatBytes(file.size)} · ${totalPages} página${totalPages !== 1 ? 's' : ''}`;
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('sign-section').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+  initDrawCanvas();
+}
+
 function initDrawCanvas() {
   const canvas = document.getElementById('draw-canvas');
   const ctx = canvas.getContext('2d');

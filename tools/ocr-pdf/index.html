@@ -164,13 +164,6 @@
       {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},
       {"@type":"ListItem","position":3,"name":"OCR PDF","item":"https://www.tudopdf.site/tools/ocr-pdf/"}
     ]
-  },
-  "aggregateRating":{
-    "@type":"AggregateRating",
-    "ratingValue":"4.8",
-    "reviewCount":"9347",
-    "bestRating":"5",
-    "worstRating":"1"
   }
 }
 </script>
@@ -187,21 +180,7 @@
   ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"O que \u00e9 OCR em PDF?","acceptedAnswer":{"@type":"Answer","text":"OCR (Reconhecimento \u00d3ptico de Caracteres) l\u00ea imagens de texto em PDFs escaneados e extrai o texto real, tornando o documento pesquis\u00e1vel e edit\u00e1vel."}},
-    {"@type":"Question","name":"Como transformar PDF escaneado em texto?","acceptedAnswer":{"@type":"Answer","text":"Use nossa ferramenta OCR: fa\u00e7a upload do PDF, clique em 'Aplicar OCR' e baixe o PDF com texto reconhecido."}},
-    {"@type":"Question","name":"O OCR funciona em portugu\u00eas?","acceptedAnswer":{"@type":"Answer","text":"Sim! Nosso OCR suporta portugu\u00eas e dezenas de outros idiomas automaticamente."}},
-    {"@type":"Question","name":"Qual a precis\u00e3o do reconhecimento?","acceptedAnswer":{"@type":"Answer","text":"Para documentos bem digitalizados, a precis\u00e3o chega a 95%+. Fotos desfocadas reduzem a precis\u00e3o."}},
-    {"@type":"Question","name":"Funciona com foto do celular?","acceptedAnswer":{"@type":"Answer","text":"Sim, desde que a foto esteja n\u00edtida e bem iluminada."}},
-    {"@type":"Question","name":"O OCR funciona com tabelas?","acceptedAnswer":{"@type":"Answer","text":"Sim, tentamos preservar a estrutura de tabelas no documento resultante."}},
-    {"@type":"Question","name":"Ap\u00f3s o OCR posso editar o texto?","acceptedAnswer":{"@type":"Answer","text":"O PDF ter\u00e1 texto selecion\u00e1vel. Para editar diretamente, use PDF para Word depois."}}
-  ]
-}
-</script>
+
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -356,6 +335,73 @@
   </div>
 </div>
 
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O que é OCR em PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">OCR (Reconhecimento Óptico de Caracteres) lê imagens de texto em PDFs escaneados e extrai o texto real, tornando o documento pesquisável e editável.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Como transformar PDF escaneado em texto?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Use nossa ferramenta OCR: faça upload do PDF, clique em 'Aplicar OCR' e baixe o PDF com texto reconhecido.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O OCR funciona em português?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim! Nosso OCR suporta português e dezenas de outros idiomas automaticamente.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Qual a precisão do reconhecimento?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Para documentos bem digitalizados, a precisão chega a 95%+. Fotos desfocadas reduzem a precisão.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Funciona com foto do celular?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, desde que a foto esteja nítida e bem iluminada.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O OCR funciona com tabelas?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, tentamos preservar a estrutura de tabelas no documento resultante.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Após o OCR posso editar o texto?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">O PDF terá texto selecionável. Para editar diretamente, use PDF para Word depois.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p style="text-align:center;margin-top:20px;font-size:.85rem;color:var(--text-muted)">
+      📖 Quer o passo a passo completo? Leia <a href="/blog/o-que-e-ocr-pdf/" style="color:var(--blue);font-weight:700">O que é OCR em PDF</a>.
+    </p>
+
+
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -366,7 +412,7 @@
       </div>
       <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/ocr-pdf/">OCR PDF</a></li><li><a href="/tools/digitalizar-pdf/">Digitalizar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
-      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="/sobre/">Sobre nós</a></li><li><a href="/privacidade/">Privacidade</a></li><li><a href="/termos/">Termos</a></li></ul></div>
       <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@www.tudopdf.site</a></li><li><a href="#">Blog</a></li></ul></div>
     </div>
     <div class="footer-bottom">

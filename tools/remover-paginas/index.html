@@ -235,21 +235,7 @@
   ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"Como deletar uma p\u00e1gina de um PDF?","acceptedAnswer":{"@type":"Answer","text":"Fa\u00e7a upload, selecione as p\u00e1ginas que quer excluir e clique em 'Remover P\u00e1ginas'."}},
-    {"@type":"Question","name":"Posso remover v\u00e1rias p\u00e1ginas de uma vez?","acceptedAnswer":{"@type":"Answer","text":"Sim, selecione m\u00faltiplas p\u00e1ginas em uma \u00fanica opera\u00e7\u00e3o."}},
-    {"@type":"Question","name":"Remover p\u00e1ginas danifica o restante?","acceptedAnswer":{"@type":"Answer","text":"N\u00e3o. Apenas as p\u00e1ginas selecionadas s\u00e3o removidas."}},
-    {"@type":"Question","name":"\u00c9 poss\u00edvel desfazer a remo\u00e7\u00e3o?","acceptedAnswer":{"@type":"Answer","text":"S\u00f3 se n\u00e3o baixar. O PDF original nunca \u00e9 alterado."}},
-    {"@type":"Question","name":"Posso remover a primeira ou \u00faltima p\u00e1gina?","acceptedAnswer":{"@type":"Answer","text":"Sim, qualquer p\u00e1gina pode ser removida."}},
-    {"@type":"Question","name":"\u00c9 gratuito remover p\u00e1ginas?","acceptedAnswer":{"@type":"Answer","text":"Sim, 100% gratuito."}},
-    {"@type":"Question","name":"A qualidade fica igual?","acceptedAnswer":{"@type":"Answer","text":"Sim, remover p\u00e1ginas n\u00e3o afeta a qualidade das restantes."}}
-  ]
-}
-</script>
+
 </head>
 <body>
 
@@ -390,55 +376,72 @@
       </div>
     </div>
 
-    <div class="faq-section">
-      <h2 class="faq-title">Perguntas frequentes</h2>
+        <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
       <div class="faq-list">
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Como deletar uma página de um PDF?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Como deletar uma página de um PDF?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Faça upload, selecione as páginas que quer excluir e clique em "Remover Páginas".</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Faça upload, selecione as páginas que quer excluir e clique em 'Remover Páginas'.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Posso remover várias páginas de uma vez?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Posso remover várias páginas de uma vez?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim, selecione múltiplas páginas em uma única operação.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, selecione múltiplas páginas em uma única operação.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Remover páginas danifica o restante?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Remover páginas danifica o restante?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Não. Apenas as páginas selecionadas são removidas.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. Apenas as páginas selecionadas são removidas.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>É possível desfazer a remoção?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">É possível desfazer a remoção?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Só se não baixar. O PDF original nunca é alterado.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Só se não baixar. O PDF original nunca é alterado.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Posso remover a primeira ou última página?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Posso remover a primeira ou última página?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim, qualquer página pode ser removida.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, qualquer página pode ser removida.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>É gratuito remover páginas?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">É gratuito remover páginas?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim, 100% gratuito.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, 100% gratuito.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>A qualidade fica igual?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">A qualidade fica igual?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim, remover páginas não afeta a qualidade das restantes.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, remover páginas não afeta a qualidade das restantes.</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-  </div>
+    <p style="text-align:center;margin-top:20px;font-size:.85rem;color:var(--text-muted)">
+      📖 Quer o passo a passo completo? Leia <a href="/blog/como-remover-paginas-pdf/" style="color:var(--blue);font-weight:700">Como remover páginas de um PDF</a>.
+    </p>
+</div>
 </div>
 
 <footer id="footer">
@@ -451,7 +454,7 @@
       </div>
       <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li><li><a href="/tools/juntar-pdf/">Juntar PDF</a></li><li><a href="/tools/remover-paginas/">Remover Páginas</a></li></ul></div>
-      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="/sobre/">Sobre nós</a></li><li><a href="/privacidade/">Privacidade</a></li><li><a href="/termos/">Termos</a></li></ul></div>
       <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@www.tudopdf.site</a></li><li><a href="#">Blog</a></li></ul></div>
     </div>
     <div class="footer-bottom">

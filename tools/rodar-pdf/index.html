@@ -157,21 +157,7 @@
   ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"Como girar p\u00e1ginas de um PDF?","acceptedAnswer":{"@type":"Answer","text":"Fa\u00e7a upload, selecione as p\u00e1ginas, escolha o \u00e2ngulo e salve."}},
-    {"@type":"Question","name":"Posso girar apenas uma p\u00e1gina?","acceptedAnswer":{"@type":"Answer","text":"Sim! Gire p\u00e1ginas individualmente sem afetar o restante."}},
-    {"@type":"Question","name":"Posso girar todas as p\u00e1ginas de uma vez?","acceptedAnswer":{"@type":"Answer","text":"Sim, existe a op\u00e7\u00e3o de girar todas simultaneamente."}},
-    {"@type":"Question","name":"Por que meu PDF ficou de lado?","acceptedAnswer":{"@type":"Answer","text":"\u00c9 comum ao digitalizar documentos em paisagem. Nossa ferramenta corrige em segundos."}},
-    {"@type":"Question","name":"A rota\u00e7\u00e3o altera a qualidade?","acceptedAnswer":{"@type":"Answer","text":"N\u00e3o. Rotacionar \u00e9 uma opera\u00e7\u00e3o matem\u00e1tica que n\u00e3o recomprime a imagem."}},
-    {"@type":"Question","name":"Funciona com PDFs de muitas p\u00e1ginas?","acceptedAnswer":{"@type":"Answer","text":"Sim, sem limite de p\u00e1ginas."}},
-    {"@type":"Question","name":"\u00c9 gratuito girar PDF?","acceptedAnswer":{"@type":"Answer","text":"Sim, totalmente gratuito."}}
-  ]
-}
-</script>
+
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -300,54 +286,72 @@
       </div>
     </div>
 
-    <div class="faq-section">
-      <h2 class="faq-title">Perguntas frequentes</h2>
+        <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
       <div class="faq-list">
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Como girar páginas de um PDF?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Como girar páginas de um PDF?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Faça upload, selecione as páginas, escolha o ângulo e salve.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Faça upload, selecione as páginas, escolha o ângulo e salve.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Posso girar apenas uma página?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Posso girar apenas uma página?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim! Gire páginas individualmente sem afetar o restante.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim! Gire páginas individualmente sem afetar o restante.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Posso girar todas as páginas de uma vez?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Posso girar todas as páginas de uma vez?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim, existe a opção de girar todas simultaneamente.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, existe a opção de girar todas simultaneamente.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Por que meu PDF ficou de lado?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Por que meu PDF ficou de lado?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>É comum ao digitalizar documentos em paisagem. Nossa ferramenta corrige em segundos.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">É comum ao digitalizar documentos em paisagem. Nossa ferramenta corrige em segundos.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>A rotação altera a qualidade?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">A rotação altera a qualidade?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Não. Rotacionar é uma operação matemática que não recomprime a imagem.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Não. Rotacionar é uma operação matemática que não recomprime a imagem.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>Funciona com PDFs de muitas páginas?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">Funciona com PDFs de muitas páginas?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim, sem limite de páginas.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, sem limite de páginas.</p>
+          </div>
         </div>
-        <div class="faq-item">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
           <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-            <span>É gratuito girar PDF?</span><span class="faq-arrow">▾</span>
+            <span itemprop="name">É gratuito girar PDF?</span><span class="faq-arrow">▾</span>
           </button>
-          <div class="faq-a"><p>Sim, totalmente gratuito.</p></div>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, totalmente gratuito.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+
+    <p style="text-align:center;margin-top:20px;font-size:.85rem;color:var(--text-muted)">
+      📖 Quer o passo a passo completo? Leia <a href="/blog/como-girar-paginas-pdf/" style="color:var(--blue);font-weight:700">Como girar páginas de um PDF</a>.
+    </p>
+</div>
 </div>
 
 <footer id="footer">
@@ -360,7 +364,7 @@
       </div>
       <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
       <div class="footer-col"><h4>Ferramentas</h4><ul><li><a href="/tools/rodar-pdf/">Rodar PDF</a></li><li><a href="/tools/organizar-pdf/">Organizar PDF</a></li><li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li></ul></div>
-      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#">Sobre nós</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="/sobre/">Sobre nós</a></li><li><a href="/privacidade/">Privacidade</a></li><li><a href="/termos/">Termos</a></li></ul></div>
       <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@www.tudopdf.site</a></li><li><a href="#">Blog</a></li></ul></div>
     </div>
     <div class="footer-bottom">
