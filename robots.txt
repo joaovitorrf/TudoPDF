@@ -3,5 +3,6 @@ Allow: /
 
 Disallow: /cdn-cgi/
 Disallow: /tools/_template/
+Disallow: /blog/_template/
 
 Sitemap: https://www.tudopdf.site/sitemap.xml

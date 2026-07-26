@@ -115,8 +115,8 @@
       <label class="form-label" for="contact-msg">Mensagem</label>
       <textarea class="form-textarea" id="contact-msg" placeholder="Descreva com detalhes..."></textarea>
     </div>
-    <button class="form-submit" onclick="submitContact()">📨 Enviar mensagem</button>
-    <div class="success-msg" id="success-msg">✅ Mensagem enviada! Responderemos em breve no e-mail informado.</div>
+    <button class="form-submit" onclick="submitContact()">📨 Abrir e-mail para enviar</button>
+    <div class="success-msg" id="success-msg">✅ Seu aplicativo de e-mail vai abrir com a mensagem pronta — é só confirmar o envio para contato@tudopdf.site.</div>
   </div>
 
   <div class="contact-alt">
@@ -148,14 +148,21 @@
 function submitContact() {
   const name = document.getElementById('contact-name').value.trim();
   const email = document.getElementById('contact-email').value.trim();
+  const subjectSelect = document.getElementById('contact-subject');
+  const subjectLabel = subjectSelect.options[subjectSelect.selectedIndex]?.text || 'Outro assunto';
   const msg = document.getElementById('contact-msg').value.trim();
   if (!name || !email || !msg) { showToast('⚠️ Preencha todos os campos obrigatórios.'); return; }
   if (!email.includes('@')) { showToast('⚠️ Informe um e-mail válido.'); return; }
-  // Simulate send (replace with actual form handler like Formspree)
+
+  // Abre o cliente de e-mail do usuário com a mensagem pronta para envio.
+  // Isso garante que a mensagem realmente chega — nada fica "preso" no site.
+  const to = 'contato@tudopdf.site';
+  const subject = `[TudoPDF] ${subjectLabel} — via site`;
+  const body = `Nome: ${name}\nE-mail para resposta: ${email}\n\nMensagem:\n${msg}`;
+  const mailtoUrl = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  window.location.href = mailtoUrl;
   document.getElementById('success-msg').style.display = 'block';
-  document.getElementById('contact-name').value = '';
-  document.getElementById('contact-email').value = '';
-  document.getElementById('contact-msg').value = '';
 }
 </script>
 <script type="module" src="/assets/js/firebase-auth.js"></script>

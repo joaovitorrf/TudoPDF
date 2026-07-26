@@ -18,9 +18,9 @@ const TOOLS = [
   { name: 'OCR PDF',              icon: '🔍', cat: 'organizar', url: '/tools/ocr-pdf/',              desc: 'Reconheça texto em imagens',           live: true  },
   // Converter → PDF
   { name: 'JPG para PDF',         icon: '🖼️',  cat: 'converter', url: '/tools/jpg-para-pdf/',         desc: 'Imagens viram PDF instantâneo',        live: true  },
-  { name: 'WORD para PDF',        icon: '📝', cat: 'converter', url: '/tools/word-para-pdf/',        desc: 'Converta .docx com perfeição',         live: false },
-  { name: 'POWERPOINT para PDF',  icon: '📊', cat: 'converter', url: '/tools/powerpoint-para-pdf/',  desc: 'Apresentações em PDF',                 live: false },
-  { name: 'EXCEL para PDF',       icon: '📈', cat: 'converter', url: '/tools/excel-para-pdf/',       desc: 'Planilhas preservadas',                live: false },
+  { name: 'WORD para PDF',        icon: '📝', cat: 'converter', url: '/tools/word-para-pdf/',        desc: 'Converta .docx com perfeição',         live: true  },
+  { name: 'POWERPOINT para PDF',  icon: '📊', cat: 'converter', url: '/tools/powerpoint-para-pdf/',  desc: 'Apresentações em PDF',                 live: true  },
+  { name: 'EXCEL para PDF',       icon: '📈', cat: 'converter', url: '/tools/excel-para-pdf/',       desc: 'Planilhas preservadas',                live: true  },
   { name: 'HTML para PDF',        icon: '🌐', cat: 'converter', url: '/tools/html-para-pdf/',        desc: 'Páginas web em documento',             live: true  },
   // Converter → de PDF
   { name: 'PDF para JPG',         icon: '🖼️',  cat: 'converter', url: '/tools/pdf-para-jpg/',         desc: 'Exporte páginas como imagem',          live: true  },
