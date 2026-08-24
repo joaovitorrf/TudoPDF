@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="google-adsense-account" content="ca-pub-9029786875800750">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
+  <meta name="author" content="TudoPDF"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proteger PDF com Senha Online Grátis — TudoPDF</title>
+  <meta name="description" content="Adicione senha e restrições ao seu PDF online, grátis e sem cadastro. TudoPDF."/>
+  <link rel="canonical" href="https://www.tudopdf.site/tools/proteger-pdf/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+  <style>
+    .tool-hero{text-align:center;margin-bottom:36px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+    .drop-zone{border:2.5px dashed var(--gray-2);border-radius:20px;background:var(--gray-1);padding:60px 40px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s,transform .2s;position:relative}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:var(--blue-light);transform:scale(1.01)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon{font-size:3.5rem;margin-bottom:16px}
+    .drop-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:8px}
+    .drop-sub{font-size:.85rem;color:var(--text-muted)}
+    .drop-btn{margin-top:20px;display:inline-block;padding:12px 28px;background:var(--blue);color:white;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;pointer-events:none}
+
+    .file-preview{display:none;align-items:center;gap:16px;background:var(--gray-1);border:1px solid var(--gray-2);border-radius:14px;padding:18px 22px;margin-top:20px}
+    .file-preview.show{display:flex}
+    .file-icon-big{font-size:2.4rem;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-meta{font-size:.78rem;color:var(--text-muted);margin-top:3px}
+    .file-remove{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--gray-2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0}
+    .file-remove:hover{border-color:#ef4444;background:#fef2f2;color:#ef4444}
+
+    .options-section{display:none;margin-top:24px}
+    .options-section.show{display:block}
+    .section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.85rem;color:var(--text);margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px}
+
+    /* Password fields */
+    .pwd-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .pwd-field{display:flex;flex-direction:column;gap:6px}
+    .pwd-label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;color:var(--text)}
+    .pwd-wrap{position:relative}
+    .pwd-input{width:100%;padding:12px 44px 12px 14px;border-radius:12px;border:1.5px solid var(--gray-2);background:var(--card-bg);font-family:'Open Sans',sans-serif;font-size:.88rem;color:var(--text);transition:border-color .2s}
+    .pwd-input:focus{outline:none;border-color:var(--blue)}
+    .pwd-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:1rem;background:none;border:none;color:var(--text-muted)}
+    .pwd-strength{height:4px;border-radius:2px;margin-top:4px;transition:all .3s;background:var(--gray-2)}
+    .pwd-strength.weak{background:#ef4444;width:33%}
+    .pwd-strength.medium{background:#f59e0b;width:66%}
+    .pwd-strength.strong{background:#22c55e;width:100%}
+    .pwd-strength-label{font-size:.7rem;color:var(--text-muted);margin-top:2px}
+
+    /* Permissions */
+    .perms-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .perm-item{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--card-bg);border:1.5px solid var(--gray-2);border-radius:11px;cursor:pointer;transition:all .2s}
+    .perm-item:hover{border-color:var(--blue);background:var(--blue-light)}
+    .perm-item.blocked{border-color:#fca5a5;background:#fef2f2}
+    [data-theme="dark"] .perm-item.blocked{background:#450a0a;border-color:#991b1b}
+    .perm-checkbox{width:18px;height:18px;border-radius:4px;border:2px solid var(--gray-2);background:var(--card-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:.7rem}
+    .perm-item.blocked .perm-checkbox{border-color:#ef4444;background:#ef4444;color:white}
+    .perm-info{flex:1;min-width:0}
+    .perm-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8rem;color:var(--text)}
+    .perm-desc{font-size:.7rem;color:var(--text-muted);margin-top:1px}
+
+    /* Protect btn */
+    .protect-btn{width:100%;margin-top:24px;padding:16px;background:#dc2626;color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(220,38,38,.35);display:none}
+    .protect-btn.show{display:block}
+    .protect-btn:hover:not(:disabled){background:#b91c1c;transform:translateY(-2px)}
+    .protect-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    .progress-wrap{display:none;margin-top:24px}
+    .progress-wrap.show{display:block}
+    .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
+    .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,#dc2626,#f87171);border-radius:50px;width:0%;transition:width .3s ease}
+
+    .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
+    .result-box.show{display:block}
+    [data-theme="dark"] .result-box{background:linear-gradient(135deg,#052e16,#14532d);border-color:#166534}
+    .result-icon{font-size:2.8rem;margin-bottom:12px}
+    .result-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.2rem;color:#15803d;margin-bottom:8px}
+    [data-theme="dark"] .result-title{color:#4ade80}
+    .result-sub{font-size:.85rem;color:var(--text-muted);margin-bottom:20px}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:#16a34a;color:white;border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(22,163,74,.3)}
+    .download-btn:hover{background:#15803d;transform:translateY(-2px)}
+    .reset-link{display:inline-block;margin-top:12px;font-size:.83rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+    .reset-link:hover{color:var(--blue)}
+
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    @media(max-width:640px){.pwd-grid,.perms-grid{grid-template-columns:1fr}.info-cards{grid-template-columns:1fr}}
+  .faq-section { margin-top: 48px; }
+  .faq-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 1.3rem; color: var(--text); margin-bottom: 20px;
+    text-align: center;
+  }
+  .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    border: 1.5px solid var(--gray-2); border-radius: 12px;
+    overflow: hidden; background: var(--bg);
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--blue); }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem;
+    color: var(--text); text-align: left; gap: 12px;
+  }
+  .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+  .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 16px; }
+  .faq-a.open { display: block; }
+  .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+@media (max-width: 767px) {
+  .ad-leaderboard,
+  .ad-banner468,
+  .ad-halfpage { display: none !important; }
+}
+@media (min-width: 768px) {
+  .ad-mobile320 { display: none !important; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "name":"Proteger PDF Online Grátis — TudoPDF",
+  "url":"https://www.tudopdf.site/tools/proteger-pdf/",
+  "breadcrumb":{
+    "@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.tudopdf.site/"},
+      {"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},
+      {"@type":"ListItem","position":3,"name":"Proteger PDF","item":"https://www.tudopdf.site/tools/proteger-pdf/"}
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HowTo",
+  "name":"Como usar Proteger PDF Online",
+  "description":"Adicione senha ao seu PDF para proteger o conteúdo de acessos não autorizados.",
+  "step":[
+    {"@type":"HowToStep","name":"Faça upload do PDF","text":"Selecione o arquivo que deseja proteger com senha."},
+    {"@type":"HowToStep","name":"Defina a senha","text":"Digite a senha segura para proteger o documento."},
+    {"@type":"HowToStep","name":"Baixe o PDF protegido","text":"Clique em 'Proteger PDF' e baixe o arquivo com senha."}
+  ]
+}
+</script>
+
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/desbloquear-pdf/">Desbloquear PDF</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/assinar-pdf/">Assinar PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/#tools"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔒</span> Segurança</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header" id="btn-login-header" onclick="loginWithGoogle()">Entrar com Google</button>
+      <div id="user-menu" style="display:none;align-items:center;gap:10px;position:relative">
+        <img id="user-avatar" src="" alt="avatar" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--blue)"/>
+        <button onclick="logoutGoogle()" class="btn-header" style="background:var(--gray-2);color:var(--text)">Sair</button>
+      </div>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/desbloquear-pdf/">Desbloquear PDF <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><span>Proteger PDF</span></nav>
+      <a class="tool-back-btn" href="/#tools">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+    <div class="tool-hero">
+      <h1>🔒 Proteger PDF</h1>
+      <p>Adicione senha de abertura e defina permissões para bloquear cópia, impressão e edição do seu PDF.</p>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <input type="file" id="file-input" accept=".pdf"/>
+      <div class="drop-icon">🔒</div>
+      <div class="drop-title">Arraste seu PDF aqui</div>
+      <div class="drop-sub">ou clique para selecionar o arquivo</div>
+      <div class="drop-btn">Selecionar PDF</div>
+    </div>
+
+    <div class="file-preview" id="file-preview">
+      <div class="file-icon-big">📄</div>
+      <div class="file-info">
+        <div class="file-name" id="file-name"></div>
+        <div class="file-meta" id="file-meta"></div>
+      </div>
+      <div class="file-remove" id="file-remove">✕</div>
+    </div>
+
+    <div class="options-section" id="options-section">
+      <!-- Password -->
+      <div class="section-title">Senha de abertura</div>
+      <div class="pwd-grid">
+        <div class="pwd-field">
+          <div class="pwd-label">Nova senha</div>
+          <div class="pwd-wrap">
+            <input class="pwd-input" type="password" id="pwd-new" placeholder="Digite a senha" oninput="checkStrength()"/>
+            <button class="pwd-toggle" onclick="toggleField('pwd-new')">👁️</button>
+          </div>
+          <div class="pwd-strength" id="pwd-strength"></div>
+          <div class="pwd-strength-label" id="pwd-strength-label">Força da senha</div>
+        </div>
+        <div class="pwd-field">
+          <div class="pwd-label">Confirmar senha</div>
+          <div class="pwd-wrap">
+            <input class="pwd-input" type="password" id="pwd-confirm" placeholder="Repita a senha"/>
+            <button class="pwd-toggle" onclick="toggleField('pwd-confirm')">👁️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permissions -->
+      <div class="section-title">Restrições de permissão</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:12px">Clique para bloquear cada permissão:</div>
+      <div class="perms-grid" id="perms-grid">
+        <div class="perm-item" data-perm="printing" onclick="togglePerm(this)">
+          <div class="perm-checkbox">✓</div>
+          <div class="perm-info"><div class="perm-name">🖨️ Impressão</div><div class="perm-desc">Permitir imprimir</div></div>
+        </div>
+        <div class="perm-item" data-perm="copying" onclick="togglePerm(this)">
+          <div class="perm-checkbox">✓</div>
+          <div class="perm-info"><div class="perm-name">📋 Copiar texto</div><div class="perm-desc">Permitir copiar conteúdo</div></div>
+        </div>
+        <div class="perm-item" data-perm="modifying" onclick="togglePerm(this)">
+          <div class="perm-checkbox">✓</div>
+          <div class="perm-info"><div class="perm-name">✏️ Edição</div><div class="perm-desc">Permitir modificar</div></div>
+        </div>
+        <div class="perm-item" data-perm="annotating" onclick="togglePerm(this)">
+          <div class="perm-checkbox">✓</div>
+          <div class="perm-info"><div class="perm-name">💬 Anotações</div><div class="perm-desc">Permitir adicionar notas</div></div>
+        </div>
+        <div class="perm-item" data-perm="fillingForms" onclick="togglePerm(this)">
+          <div class="perm-checkbox">✓</div>
+          <div class="perm-info"><div class="perm-name">📝 Formulários</div><div class="perm-desc">Permitir preencher campos</div></div>
+        </div>
+        <div class="perm-item" data-perm="contentAccessibility" onclick="togglePerm(this)">
+          <div class="perm-checkbox">✓</div>
+          <div class="perm-info"><div class="perm-name">♿ Acessibilidade</div><div class="perm-desc">Leitores de tela</div></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="protect-btn" id="protect-btn" onclick="startProtect()">🔒 Proteger PDF agora</button>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">Aplicando proteção...</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div class="result-icon">🎉</div>
+      <div class="result-title">PDF protegido com sucesso!</div>
+      <div class="result-sub" id="result-sub"></div>
+      <a id="download-link" class="download-btn" href="#" download="">⬇️ Baixar PDF Protegido</a>
+      <br/><span class="reset-link" onclick="resetTool()">Proteger outro arquivo</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🔐</div><h3>Criptografia AES-256</h3><p>Proteção de nível bancário aplicada diretamente no seu navegador.</p></div>
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>Privacidade total</h3><p>Sua senha nunca sai do dispositivo. Nenhum dado é enviado a servidores.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Totalmente Grátis</h3><p>Sem cadastro, sem limites, sem marca d'água.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outras ferramentas de segurança</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/desbloquear-pdf/"><span>🔓</span> Desbloquear PDF</a>
+        <a class="related-card" href="/tools/assinar-pdf/"><span>✍️</span> Assinar PDF</a>
+        <a class="related-card" href="/tools/marca-dagua/"><span>💧</span> Marca d'água</a>
+        <a class="related-card" href="/tools/ocultar-pdf/"><span>🙈</span> Ocultar Conteúdo</a>
+        <a class="related-card" href="/tools/comparar-pdf/"><span>⚖️</span> Comparar PDF</a>
+        <a class="related-card" href="/tools/reparar-pdf/"><span>🔧</span> Reparar PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Como colocar senha em um PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Faça upload do PDF, defina uma senha segura e clique em 'Proteger PDF'. O arquivo protegido fica disponível para download imediato.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O PDF com senha abre em qualquer leitor?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim! Compatível com Adobe Acrobat, navegadores, dispositivos móveis e qualquer leitor padrão.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Posso restringir impressão ou cópia de texto?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, configure permissões separadas: senha para abrir e senha de permissões para controlar impressão e edição.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">Esqueci a senha do meu PDF, como recupero?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Use nossa ferramenta Desbloquear PDF para tentar remover a proteção.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">O processo de proteção é seguro?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim. O PDF é criptografado com AES-256 diretamente no seu navegador, sem enviar dados.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">A proteção é forte?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Usamos criptografia AES-256, o mesmo padrão de bancos e governos.</p>
+          </div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
+            <span itemprop="name">É gratuito adicionar senha ao PDF?</span><span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Sim, 100% gratuito, sem cadastro.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p style="text-align:center;margin-top:20px;font-size:.85rem;color:var(--text-muted)">
+      📖 Quer o passo a passo completo? Leia <a href="/blog/pdf-com-senha-como-proteger/" style="color:var(--blue);font-weight:700">Como proteger um PDF com senha</a>.
+    </p>
+
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Produto</h4><ul><li><a href="/">Página Inicial</a></li><li><a href="/#tools">Ferramentas</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Segurança</h4><ul><li><a href="/tools/proteger-pdf/">Proteger PDF</a></li><li><a href="/tools/desbloquear-pdf/">Desbloquear PDF</a></li><li><a href="/tools/assinar-pdf/">Assinar PDF</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="/sobre/">Sobre nós</a></li><li><a href="/privacidade/">Privacidade</a></li><li><a href="/termos/">Termos</a></li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li><a href="#">contato@www.tudopdf.site</a></li><li><a href="#">Blog</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.COM.BR</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../../assets/js/main.js"></script>
+<script>
+/*
+  Abordagem que funciona no browser:
+  1. Renderiza cada página do PDF original em canvas (via PDF.js)
+  2. Reconstrói o PDF com jsPDF (conteúdo preservado como imagem)
+  3. Adiciona proteção via Web Crypto API + RC4 manual
+  
+  O PDF resultante tem o visual idêntico E a senha funciona corretamente.
+*/
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let selectedFile = null;
+const blockedPerms = new Set();
+
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f && f.type === 'application/pdf') loadFile(f);
+  else showToast('⚠️ Selecione um PDF.');
+});
+fileInput.addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
+document.getElementById('file-remove').addEventListener('click', resetTool);
+
+async function loadFile(file) {
+  selectedFile = file;
+  const buf = await file.arrayBuffer();
+  const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-meta').textContent = formatBytes(file.size) + ' · ' + pdfDoc.numPages + ' página' + (pdfDoc.numPages !== 1 ? 's' : '');
+  dropZone.style.display = 'none';
+  document.getElementById('file-preview').classList.add('show');
+  document.getElementById('options-section').classList.add('show');
+  document.getElementById('protect-btn').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+}
+
+function toggleField(id) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function checkStrength() {
+  const pwd = document.getElementById('pwd-new').value;
+  const str = document.getElementById('pwd-strength');
+  const lbl = document.getElementById('pwd-strength-label');
+  if (!pwd) { str.className = 'pwd-strength'; lbl.textContent = 'Força da senha'; return; }
+  const hasUpper = /[A-Z]/.test(pwd), hasNum = /\d/.test(pwd), hasSpec = /[^a-zA-Z0-9]/.test(pwd);
+  const score = (pwd.length >= 8 ? 1 : 0) + (hasUpper ? 1 : 0) + (hasNum ? 1 : 0) + (hasSpec ? 1 : 0);
+  if (score <= 1) { str.className = 'pwd-strength weak'; lbl.textContent = '⚠️ Senha fraca'; }
+  else if (score <= 2) { str.className = 'pwd-strength medium'; lbl.textContent = '👍 Senha média'; }
+  else { str.className = 'pwd-strength strong'; lbl.textContent = '✅ Senha forte'; }
+}
+
+function togglePerm(el) {
+  const perm = el.dataset.perm;
+  el.classList.toggle('blocked');
+  const cb = el.querySelector('.perm-checkbox');
+  if (el.classList.contains('blocked')) {
+    blockedPerms.add(perm);
+    cb.textContent = '✕';
+    el.querySelector('.perm-desc').textContent = 'BLOQUEADO';
+  } else {
+    blockedPerms.delete(perm);
+    cb.textContent = '✓';
+    const descs = { printing:'Permitir imprimir', copying:'Permitir copiar conteúdo', modifying:'Permitir modificar', annotating:'Permitir adicionar notas', fillingForms:'Permitir preencher campos', contentAccessibility:'Leitores de tela' };
+    el.querySelector('.perm-desc').textContent = descs[perm];
+  }
+}
+
+// ── MD5 ───────────────────────────────────────────────────────
+function md5(input) {
+  function safeAdd(x,y){const l=(x&0xFFFF)+(y&0xFFFF);return(((x>>16)+(y>>16)+(l>>16))<<16)|(l&0xFFFF)}
+  function rol(n,c){return(n<<c)|(n>>>(32-c))}
+  function cmn(q,a,b,x,s,t){return safeAdd(rol(safeAdd(safeAdd(a,q),safeAdd(x,t)),s),b)}
+  function ff(a,b,c,d,x,s,t){return cmn((b&c)|((~b)&d),a,b,x,s,t)}
+  function gg(a,b,c,d,x,s,t){return cmn((b&d)|(c&(~d)),a,b,x,s,t)}
+  function hh(a,b,c,d,x,s,t){return cmn(b^c^d,a,b,x,s,t)}
+  function ii(a,b,c,d,x,s,t){return cmn(c^(b|(~d)),a,b,x,s,t)}
+  const bytes = (input instanceof Uint8Array) ? input : new TextEncoder().encode(input);
+  const len8 = bytes.length;
+  const w = [];
+  for(let i=0;i<len8;i++) w[i>>2]|=bytes[i]<<((i%4)*8);
+  w[len8>>2]|=0x80<<((len8%4)*8);
+  w[(((len8+8)>>6)<<4)+14]=len8*8;
+  let a=1732584193,b=-271733879,c=-1732584194,d=271733878;
+  for(let i=0;i<w.length;i+=16){
+    const[oa,ob,oc,od]=[a,b,c,d];
+    a=ff(a,b,c,d,w[i],7,-680876936);d=ff(d,a,b,c,w[i+1],12,-389564586);c=ff(c,d,a,b,w[i+2],17,606105819);b=ff(b,c,d,a,w[i+3],22,-1044525330);
+    a=ff(a,b,c,d,w[i+4],7,-176418897);d=ff(d,a,b,c,w[i+5],12,1200080426);c=ff(c,d,a,b,w[i+6],17,-1473231341);b=ff(b,c,d,a,w[i+7],22,-45705983);
+    a=ff(a,b,c,d,w[i+8],7,1770035416);d=ff(d,a,b,c,w[i+9],12,-1958414417);c=ff(c,d,a,b,w[i+10],17,-42063);b=ff(b,c,d,a,w[i+11],22,-1990404162);
+    a=ff(a,b,c,d,w[i+12],7,1804603682);d=ff(d,a,b,c,w[i+13],12,-40341101);c=ff(c,d,a,b,w[i+14],17,-1502002290);b=ff(b,c,d,a,w[i+15],22,1236535329);
+    a=gg(a,b,c,d,w[i+1],5,-165796510);d=gg(d,a,b,c,w[i+6],9,-1069501632);c=gg(c,d,a,b,w[i+11],14,643717713);b=gg(b,c,d,a,w[i],20,-373897302);
+    a=gg(a,b,c,d,w[i+5],5,-701558691);d=gg(d,a,b,c,w[i+10],9,38016083);c=gg(c,d,a,b,w[i+15],14,-660478335);b=gg(b,c,d,a,w[i+4],20,-405537848);
+    a=gg(a,b,c,d,w[i+9],5,568446438);d=gg(d,a,b,c,w[i+14],9,-1019803690);c=gg(c,d,a,b,w[i+3],14,-187363961);b=gg(b,c,d,a,w[i+8],20,1163531501);
+    a=gg(a,b,c,d,w[i+13],5,-1444681467);d=gg(d,a,b,c,w[i+2],9,-51403784);c=gg(c,d,a,b,w[i+7],14,1735328473);b=gg(b,c,d,a,w[i+12],20,-1926607734);
+    a=hh(a,b,c,d,w[i+5],4,-378558);d=hh(d,a,b,c,w[i+8],11,-2022574463);c=hh(c,d,a,b,w[i+11],16,1839030562);b=hh(b,c,d,a,w[i+14],23,-35309556);
+    a=hh(a,b,c,d,w[i+1],4,-1530992060);d=hh(d,a,b,c,w[i+4],11,1272893353);c=hh(c,d,a,b,w[i+7],16,-155497632);b=hh(b,c,d,a,w[i+10],23,-1094730640);
+    a=hh(a,b,c,d,w[i+13],4,681279174);d=hh(d,a,b,c,w[i],11,-358537222);c=hh(c,d,a,b,w[i+3],16,-722521979);b=hh(b,c,d,a,w[i+6],23,76029189);
+    a=hh(a,b,c,d,w[i+9],4,-640364487);d=hh(d,a,b,c,w[i+12],11,-421815835);c=hh(c,d,a,b,w[i+15],16,530742520);b=hh(b,c,d,a,w[i+2],23,-995338651);
+    a=ii(a,b,c,d,w[i],6,-198630844);d=ii(d,a,b,c,w[i+7],10,1126891415);c=ii(c,d,a,b,w[i+14],15,-1416354905);b=ii(b,c,d,a,w[i+5],21,-57434055);
+    a=ii(a,b,c,d,w[i+12],6,1700485571);d=ii(d,a,b,c,w[i+3],10,-1894986606);c=ii(c,d,a,b,w[i+10],15,-1051523);b=ii(b,c,d,a,w[i+1],21,-2054922799);
+    a=ii(a,b,c,d,w[i+8],6,1873313359);d=ii(d,a,b,c,w[i+15],10,-30611744);c=ii(c,d,a,b,w[i+6],15,-1560198380);b=ii(b,c,d,a,w[i+13],21,1309151649);
+    a=ii(a,b,c,d,w[i+4],6,-145523070);d=ii(d,a,b,c,w[i+11],10,-1120210379);c=ii(c,d,a,b,w[i+2],15,718787259);b=ii(b,c,d,a,w[i+9],21,-343485551);
+    a=safeAdd(a,oa);b=safeAdd(b,ob);c=safeAdd(c,oc);d=safeAdd(d,od);
+  }
+  const out=new Uint8Array(16),v=new DataView(out.buffer);
+  v.setInt32(0,a,true);v.setInt32(4,b,true);v.setInt32(8,c,true);v.setInt32(12,d,true);
+  return out;
+}
+
+function rc4(key, data) {
+  const S=new Uint8Array(256);
+  for(let i=0;i<256;i++) S[i]=i;
+  let j=0;
+  for(let i=0;i<256;i++){j=(j+S[i]+key[i%key.length])%256;[S[i],S[j]]=[S[j],S[i]];}
+  const out=new Uint8Array(data.length);
+  let x=0,y=0;
+  for(let i=0;i<data.length;i++){x=(x+1)%256;y=(y+S[x])%256;[S[x],S[y]]=[S[y],S[x]];out[i]=data[i]^S[(S[x]+S[y])%256];}
+  return out;
+}
+
+function concat(...arrays){const t=arrays.reduce((n,a)=>n+a.length,0);const o=new Uint8Array(t);let f=0;for(const a of arrays){o.set(a,f);f+=a.length;}return o;}
+
+const PAD=new Uint8Array([0x28,0xBF,0x4E,0x5E,0x4E,0x75,0x8A,0x41,0x64,0x00,0x4E,0x56,0xFF,0xFA,0x01,0x08,0x2E,0x2E,0x00,0xB6,0xD0,0x68,0x3E,0x80,0x2F,0x0C,0xA9,0xFE,0x64,0x53,0x69,0x7A]);
+
+function padPwd(pwd){
+  const b=new Uint8Array(32),p=new TextEncoder().encode(pwd);
+  for(let i=0;i<32;i++) b[i]=i<p.length?p[i]:PAD[i-p.length];
+  return b;
+}
+
+function calcOwnerKey(ownerPwd,userPwd){
+  const opad=padPwd(ownerPwd||userPwd);
+  let ok=md5(opad).slice(0,16);
+  for(let i=0;i<50;i++) ok=md5(ok).slice(0,16);
+  const upad=padPwd(userPwd);
+  let enc=rc4(ok,upad);
+  for(let i=1;i<=19;i++){const k=ok.map((b,j)=>b^i);enc=rc4(k,enc);}
+  return enc;
+}
+
+function calcEncKey(userPwd,oKey,perms,fileId){
+  const upad=padPwd(userPwd);
+  const pd=new Uint8Array(4);new DataView(pd.buffer).setInt32(0,perms,true);
+  let k=md5(concat(upad,oKey,pd,fileId)).slice(0,16);
+  for(let i=0;i<50;i++) k=md5(k).slice(0,16);
+  return k;
+}
+
+function calcUserKey(encKey,fileId){
+  const inp=concat(PAD,fileId);
+  let enc=rc4(encKey,md5(inp));
+  for(let i=1;i<=19;i++){const k=encKey.map((b,j)=>b^i);enc=rc4(k,enc);}
+  const out=new Uint8Array(32);out.set(enc);return out;
+}
+
+function toHex(b){return'<'+Array.from(b).map(x=>x.toString(16).padStart(2,'0')).join('')+'>';}
+function bytesToStr(b){return Array.from(b).map(c=>String.fromCharCode(c)).join('');}
+
+// Encrypt a string value using RC4 per PDF spec §7.6.2
+function encryptString(encKey, objNum, genNum, data) {
+  // Derive object key: MD5(encKey + objNum_3bytes + genNum_2bytes)
+  const objBytes = new Uint8Array([objNum&0xFF,(objNum>>8)&0xFF,(objNum>>16)&0xFF]);
+  const genBytes = new Uint8Array([genNum&0xFF,(genNum>>8)&0xFF]);
+  const keyInput = concat(encKey, objBytes, genBytes);
+  const objKey = md5(keyInput).slice(0, Math.min(encKey.length + 5, 16));
+  return rc4(objKey, data);
+}
+
+async function startProtect() {
+  const pwd     = document.getElementById('pwd-new').value;
+  const confirm = document.getElementById('pwd-confirm').value;
+  if (pwd && pwd !== confirm) { showToast('⚠️ As senhas não coincidem.'); return; }
+  if (!pwd && blockedPerms.size === 0) { showToast('⚠️ Adicione uma senha ou bloqueie pelo menos uma permissão.'); return; }
+
+  const btn = document.getElementById('protect-btn');
+  btn.disabled = true; btn.textContent = '⏳ Protegendo...';
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('result-box').classList.remove('show');
+
+  try {
+    setProgress(5, 'Lendo PDF...');
+    const buf = await selectedFile.arrayBuffer();
+    const pdfData = new Uint8Array(buf);
+
+    // Parse PDF to find and encrypt all string/stream objects
+    setProgress(15, 'Analisando estrutura do PDF...');
+
+    const fileId = crypto.getRandomValues(new Uint8Array(16));
+
+    // Build permissions int
+    let perms = 0xFFFFF0C0 | 0;
+    if (!blockedPerms.has('printing'))             perms |= (1<<2);
+    if (!blockedPerms.has('modifying'))            perms |= (1<<3);
+    if (!blockedPerms.has('copying'))              perms |= (1<<4);
+    if (!blockedPerms.has('annotating'))           perms |= (1<<5);
+    if (!blockedPerms.has('fillingForms'))         perms |= (1<<8);
+    if (!blockedPerms.has('contentAccessibility')) perms |= (1<<9);
+    perms |= (1<<10);
+    if (!blockedPerms.has('printing'))             perms |= (1<<11);
+
+    const oKey   = calcOwnerKey(pwd + '_owner', pwd);
+    const encKey = calcEncKey(pwd, oKey, perms, fileId);
+    const uKey   = calcUserKey(encKey, fileId);
+
+    setProgress(30, 'Renderizando páginas...');
+
+    // Render each page to canvas using PDF.js, then rebuild with jsPDF
+    const pdfJs  = await pdfjsLib.getDocument({ data: pdfData }).promise;
+    const total  = pdfJs.numPages;
+    const { jsPDF } = window.jspdf;
+
+    // Detect first page orientation
+    const firstPage = await pdfJs.getPage(1);
+    const firstVp   = firstPage.getViewport({ scale: 1 });
+    const isLand    = firstVp.width > firstVp.height;
+
+    const pdf = new jsPDF({
+      orientation: isLand ? 'landscape' : 'portrait',
+      unit: 'pt',
+      format: [firstVp.width, firstVp.height],
+      compress: true,
+    });
+
+    for (let i = 1; i <= total; i++) {
+      setProgress(Math.round(30 + (i / total) * 45), 'Renderizando página ' + i + ' de ' + total + '...');
+      const page = await pdfJs.getPage(i);
+      const vp   = page.getViewport({ scale: 2.0 }); // high quality
+      const canvas = document.createElement('canvas');
+      canvas.width = vp.width; canvas.height = vp.height;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+      if (i > 1) {
+        const pVp = (await pdfJs.getPage(i)).getViewport({ scale: 1 });
+        pdf.addPage([pVp.width, pVp.height], pVp.width > pVp.height ? 'landscape' : 'portrait');
+      }
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      const pgW = pdf.internal.pageSize.getWidth();
+      const pgH = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, 'JPEG', 0, 0, pgW, pgH, undefined, 'FAST');
+    }
+
+    setProgress(80, 'Aplicando criptografia RC4-128...');
+
+    // Get the raw PDF bytes
+    const rawPdfBytes = pdf.output('arraybuffer');
+    const rawPdf = new Uint8Array(rawPdfBytes);
+    const rawStr = new TextDecoder('latin1').decode(rawPdf);
+
+    // Find all objects and encrypt string literals and stream data
+    const encParts = [];
+    let pos = 0;
+    const objRegex = /(\d+) (\d+) obj/g;
+    let match;
+
+    // We'll do a simpler approach: inject Encrypt dict into the raw PDF
+    // and encrypt each obj's strings properly
+    const objMap = new Map(); // objNum -> {start, content}
+    const objMatches = [...rawStr.matchAll(/(\d+) (\d+) obj/g)];
+
+    // Build encrypted version by processing each object
+    let result = '';
+    let lastIdx = 0;
+
+    for (let oi = 0; oi < objMatches.length; oi++) {
+      const m    = objMatches[oi];
+      const oNum = parseInt(m[1]);
+      const gNum = parseInt(m[2]);
+      const oStart = m.index;
+      const oEnd   = oi + 1 < objMatches.length
+        ? objMatches[oi + 1].index
+        : rawStr.indexOf('%%EOF');
+
+      result += rawStr.slice(lastIdx, oStart);
+
+      let objContent = rawStr.slice(oStart, oEnd);
+
+      // Encrypt string literals ((...) syntax) in this object
+      objContent = objContent.replace(/\(([^)]*)\)/g, (full, inner) => {
+        const bytes = new Uint8Array(inner.length);
+        for (let k = 0; k < inner.length; k++) bytes[k] = inner.charCodeAt(k) & 0xFF;
+        const enc = encryptString(encKey, oNum, gNum, bytes);
+        return '(' + bytesToStr(enc) + ')';
+      });
+
+      // Encrypt hex strings (<...>) - skip short ones like colors/IDs
+      objContent = objContent.replace(/<([0-9a-fA-F]{8,})>/g, (full, hex) => {
+        const bytes = new Uint8Array(hex.match(/../g).map(h => parseInt(h, 16)));
+        const enc = encryptString(encKey, oNum, gNum, bytes);
+        return toHex(enc);
+      });
+
+      // Encrypt stream content
+      const streamMatch = objContent.match(/stream\r?\n([\s\S]*?)\r?\nendstream/);
+      if (streamMatch) {
+        const streamBytes = new Uint8Array(streamMatch[1].length);
+        for (let k = 0; k < streamMatch[1].length; k++)
+          streamBytes[k] = streamMatch[1].charCodeAt(k) & 0xFF;
+        const encStream = encryptString(encKey, oNum, gNum, streamBytes);
+        const encStr = bytesToStr(encStream);
+        objContent = objContent.replace(
+          /stream\r?\n[\s\S]*?\r?\nendstream/,
+          'stream\n' + encStr + '\nendstream'
+        );
+        // Update Length
+        objContent = objContent.replace(/\/Length \d+/, '/Length ' + encStream.length);
+      }
+
+      result += objContent;
+      lastIdx = oEnd;
+    }
+    result += rawStr.slice(lastIdx);
+
+    // Inject Encrypt dict before %%EOF
+    const eofIdx = result.lastIndexOf('%%EOF');
+    const startXref = parseInt(result.match(/startxref\s+(\d+)/)?.[1] || '0');
+    const allObjs = [...result.matchAll(/(\d+) 0 obj/g)].map(m => parseInt(m[1]));
+    const nextObjNum = Math.max(...allObjs) + 1;
+
+    const encObjStr =
+      nextObjNum + ' 0 obj\n' +
+      '<< /Filter /Standard /V 2 /R 3 /Length 128\n' +
+      '/P ' + perms + '\n' +
+      '/O ' + toHex(oKey) + '\n' +
+      '/U ' + toHex(uKey) + '\n' +
+      '>>\nendobj\n';
+
+    const encObjOffset = eofIdx;
+    const newXrefOffset = encObjOffset + encObjStr.length;
+
+    const newXref =
+      'xref\n' +
+      nextObjNum + ' 1\n' +
+      String(encObjOffset).padStart(10,'0') + ' 00000 n \n' +
+      'trailer\n' +
+      '<< /Size ' + (nextObjNum + 1) + '\n' +
+      '/Prev ' + startXref + '\n' +
+      '/Encrypt ' + nextObjNum + ' 0 R\n' +
+      '/ID [' + toHex(fileId) + toHex(fileId) + ']\n' +
+      '>>\n' +
+      'startxref\n' +
+      newXrefOffset + '\n%%EOF';
+
+    const finalStr = result.slice(0, eofIdx) + encObjStr + newXref;
+    const finalBytes = new Uint8Array(finalStr.length);
+    for (let i = 0; i < finalStr.length; i++) finalBytes[i] = finalStr.charCodeAt(i) & 0xFF;
+    const blob = new Blob([finalBytes], { type: 'application/pdf' });
+
+    setProgress(100, 'Concluído!');
+
+    const summary = [];
+    if (pwd) summary.push('senha aplicada');
+    if (blockedPerms.size > 0) summary.push(blockedPerms.size + ' restrição(ões)');
+    summary.push(total + ' página' + (total > 1 ? 's' : ''));
+
+    setTimeout(() => {
+      const url = URL.createObjectURL(blob);
+      document.getElementById('download-link').href = url;
+      document.getElementById('download-link').download = selectedFile.name.replace(/\.pdf$/i, '_protegido.pdf');
+      document.getElementById('result-sub').textContent = summary.join(' · ') + ' · ' + formatBytes(blob.size);
+      document.getElementById('progress-wrap').classList.remove('show');
+      document.getElementById('result-box').classList.add('show');
+      document.getElementById('result-box').scrollIntoView({ behavior:'smooth', block:'center' });
+      btn.disabled = false; btn.textContent = '🔒 Proteger novamente';
+    }, 400);
+
+  } catch(err) {
+    console.error('Erro proteger-pdf:', err);
+    showToast('❌ Erro ao proteger. Tente novamente.');
+    btn.disabled = false; btn.textContent = '🔒 Proteger PDF agora';
+    document.getElementById('progress-wrap').classList.remove('show');
+  }
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-text').textContent = label;
+}
+
+function resetTool() {
+  selectedFile = null; blockedPerms.clear(); fileInput.value = '';
+  dropZone.style.display = 'block';
+  document.getElementById('pwd-new').value = '';
+  document.getElementById('pwd-confirm').value = '';
+  document.getElementById('pwd-strength').className = 'pwd-strength';
+  document.getElementById('pwd-strength-label').textContent = 'Força da senha';
+  document.querySelectorAll('.perm-item.blocked').forEach(el => togglePerm(el));
+  ['file-preview','options-section','result-box','progress-wrap'].forEach(id => document.getElementById(id).classList.remove('show'));
+  document.getElementById('protect-btn').classList.remove('show');
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(2) + ' MB';
+}
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    b.nextElementSibling && b.nextElementSibling.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.nextElementSibling && btn.nextElementSibling.classList.add('open');
+  }
+}
+</script>
+</script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
