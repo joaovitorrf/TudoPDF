@@ -1,0 +1,51 @@
+.dl-hero {
+  padding-top: 60px;
+  padding-bottom: 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.dl-hero-icon {
+  width: 96px; height: 96px; border-radius: 26px;
+  margin-inline: auto 24px;
+  box-shadow: var(--shadow-glow-brand-lg);
+  animation: tu-float 5s ease-in-out infinite;
+}
+.dl-hero h1 { max-width: 640px; margin-inline: auto 16px; }
+.dl-hero p { max-width: 480px; margin-inline: auto; }
+.dl-hero-actions { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+.dl-hero-note { margin-top: 16px; font-size: 0.8rem; color: var(--text-tertiary); }
+
+.dl-platform-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+
+.dl-steps-wrap { display: none; max-width: 720px; margin-inline: auto; }
+.dl-steps-wrap.active { display: block; }
+
+.dl-benefits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.dl-benefit { padding: 24px; text-align: center; }
+.dl-benefit-icon {
+  width: 44px; height: 44px; border-radius: 13px; margin-inline: auto 14px;
+  background: var(--bg-surface-2); border: 1px solid var(--border-default);
+  display: flex; align-items: center; justify-content: center; color: var(--blue-300);
+}
+.dl-benefit-icon svg { width: 20px; height: 20px; }
+.dl-benefit h4 { font-family: var(--font-display); font-size: 0.88rem; margin-bottom: 6px; }
+.dl-benefit p { font-size: 0.8rem; }
+@media (max-width: 900px) { .dl-benefits { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .dl-benefits { grid-template-columns: 1fr; } }
+
+.dl-phone-mock {
+  width: 220px;
+  aspect-ratio: 9/18;
+  margin-inline: auto 40px;
+  border-radius: 34px;
+  border: 8px solid var(--bg-surface-3);
+  background: var(--bg-surface);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+.dl-phone-mock::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40%; height: 20px; background: var(--bg-surface-3); border-radius: 0 0 14px 14px; }
+.dl-phone-screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: var(--gradient-brand-deep); }
+.dl-phone-screen img { width: 56px; height: 56px; border-radius: 16px; }
+.dl-phone-screen span { color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 0.78rem; }

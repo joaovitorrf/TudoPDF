@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme', t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Minha conta — TudoUtil</title>
+<meta name="description" content="Gerencie seu perfil, favoritos, histórico e preferências no TudoUtil."/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="canonical" href="https://www.tudopdf.site/conta/"/>
+<meta name="theme-color" content="#05070d"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="/assets/css/tudoutil.css"/>
+<link rel="stylesheet" href="/assets/css/account.css"/>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body class="has-tabbar">
+
+<header class="tu-header">
+  <div class="tu-header-inner">
+    <a class="tu-logo" href="/">
+      <img src="/assets/img/icon-192.png" width="34" height="34" alt="TudoUtil"/>
+      <span class="tu-logo-word">Tudo<span>Util</span></span>
+    </a>
+    <nav class="tu-nav">
+      <a class="tu-nav-link" href="/#categorias">Categorias</a>
+      <a class="tu-nav-link" href="/#estudante-trabalho">Estudante &amp; Trabalho</a>
+      <a class="tu-nav-link" href="/#ia">IA</a>
+      <a class="tu-nav-link" href="/blog/">Blog</a>
+    </nav>
+    <div class="tu-header-actions">
+      <button class="tu-search-trigger" data-search-open type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <span>Buscar ferramenta</span>
+        <kbd>&#8984;K</kbd>
+      </button>
+      <button class="btn-icon" data-theme-toggle type="button" aria-label="Alternar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="btn-header-login btn btn-secondary btn-sm" id="btn-login-header" onclick="loginWithGoogle()" type="button">Entrar</button>
+      <a id="user-menu" href="/conta/" style="display:none">
+        <span class="tu-userbtn">
+          <img id="user-avatar" src="" alt=""/>
+          <span id="user-name">Conta</span>
+        </span>
+      </a>
+      <button class="tu-hamburger" data-drawer-open type="button" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="tu-drawer">
+  <div class="tu-drawer-backdrop" data-drawer-close></div>
+  <div class="tu-drawer-panel">
+    <div class="tu-drawer-head">
+      <span class="tu-logo"><img src="/assets/img/icon-192.png" width="30" height="30" alt=""/><span class="tu-logo-word">Tudo<span>Util</span></span></span>
+      <button class="btn-icon sm" data-drawer-close type="button" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="tu-drawer-section">TudoUtil</div>
+    <a class="tu-drawer-link" href="/#categorias">Categorias<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#estudante-trabalho">Estudante &amp; Trabalho<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/baixar/">Baixar o app<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/blog/">Blog<span class="arrow">→</span></a>
+    <div class="tu-drawer-foot">
+      <button class="btn btn-primary btn-block" onclick="loginWithGoogle()" type="button">Entrar com Google</button>
+    </div>
+  </div>
+</div>
+
+<main>
+<section class="account-hero">
+  <div class="tu-container">
+    <div class="card account-profile-card">
+      <img class="account-avatar-lg" id="profile-avatar" src="" alt="" style="display:none"/>
+      <div class="account-avatar-lg" id="profile-avatar-fallback">?</div>
+      <div class="account-profile-info">
+        <h1 id="profile-name">Visitante</h1>
+        <p id="profile-email">Você não está logado neste dispositivo.</p>
+        <div class="account-profile-badges">
+          <span class="badge badge-soft"><span id="stat-favs">0</span> favoritos</span>
+          <span class="badge badge-soft"><span id="stat-history">0</span> no histórico</span>
+        </div>
+      </div>
+      <div class="account-guest-actions" id="guest-actions">
+        <a href="/login/" class="btn btn-primary">Entrar ou criar conta</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section-tight">
+  <div class="tu-container">
+    <div class="account-mobile-tabs" id="account-mobile-tabs">
+      <button class="chip active" data-tab="favoritos" type="button">Favoritos</button>
+      <button class="chip" data-tab="historico" type="button">Histórico</button>
+      <button class="chip" data-tab="recentes" type="button">Recentes</button>
+      <button class="chip" data-tab="fluxos" type="button">Fluxos</button>
+      <button class="chip" data-tab="config" type="button">Configurações</button>
+      <button class="chip" data-tab="privacidade" type="button">Privacidade</button>
+      <button class="chip" data-tab="perfil" type="button">Minha conta</button>
+    </div>
+    <div class="account-layout">
+      <aside class="account-sidebar" id="account-sidebar">
+        <button class="tu-sidebar-link active" data-tab="favoritos" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 17.3l-5.6 3.3 1.5-6.3-4.9-4.2 6.4-.5L12 3.5l2.6 5.9 6.4.5-4.9 4.2 1.5 6.3z" stroke-linejoin="round"/></svg>
+          Favoritos <span class="count" id="side-count-favs"></span>
+        </button>
+        <button class="tu-sidebar-link" data-tab="historico" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Histórico <span class="count" id="side-count-history"></span>
+        </button>
+        <button class="tu-sidebar-link" data-tab="recentes" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3v5a1 1 0 001 1h5M6 3h8l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-linejoin="round"/></svg>
+          Arquivos recentes
+        </button>
+        <button class="tu-sidebar-link" data-tab="fluxos" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="7" rx="2"/><rect x="14" y="4" width="7" height="7" rx="2"/><rect x="8.5" y="15" width="7" height="6" rx="2"/><path d="M6.5 11v2a2 2 0 002 2M17.5 11v2a2 2 0 01-2 2" stroke-linecap="round"/></svg>
+          Fluxos
+        </button>
+        <button class="tu-sidebar-link" data-tab="config" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a7.7 7.7 0 000-3l1.9-1.5-2-3.4-2.2.9a7.8 7.8 0 00-2.6-1.5L14 2.5h-4l-.5 2.5a7.8 7.8 0 00-2.6 1.5l-2.2-.9-2 3.4L4.6 10.5a7.7 7.7 0 000 3L2.7 15l2 3.4 2.2-.9c.77.65 1.65 1.16 2.6 1.5l.5 2.5h4l.5-2.5a7.8 7.8 0 002.6-1.5l2.2.9 2-3.4z" stroke-linejoin="round"/></svg>
+          Configurações
+        </button>
+        <button class="tu-sidebar-link" data-tab="privacidade" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke-linejoin="round"/></svg>
+          Privacidade
+        </button>
+        <button class="tu-sidebar-link" data-tab="perfil" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" stroke-linecap="round"/></svg>
+          Minha conta
+        </button>
+      </aside>
+
+      <div class="account-content">
+        <div class="account-section active" id="tab-favoritos">
+          <div class="account-section-head">
+            <div><h2>Favoritos</h2><p>Ferramentas que você marcou com estrela.</p></div>
+          </div>
+          <div id="favoritos-empty" class="account-empty" style="display:none">
+            <div class="account-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 17.3l-5.6 3.3 1.5-6.3-4.9-4.2 6.4-.5L12 3.5l2.6 5.9 6.4.5-4.9 4.2 1.5 6.3z" stroke-linejoin="round"/></svg></div>
+            <h3>Nenhum favorito ainda</h3>
+            <p>Clique na estrela de qualquer ferramenta pra guardá-la aqui.</p>
+            <a href="/#ferramentas" class="btn btn-secondary">Explorar ferramentas</a>
+          </div>
+          <div class="fav-grid" id="favoritos-grid"></div>
+        </div>
+
+        <div class="account-section" id="tab-historico">
+          <div class="account-section-head">
+            <div><h2>Histórico</h2><p>Últimas ferramentas que você usou neste dispositivo.</p></div>
+            <button class="btn btn-ghost btn-sm" id="btn-clear-history" type="button">Limpar histórico</button>
+          </div>
+          <div id="historico-empty" class="account-empty" style="display:none">
+            <div class="account-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Seu histórico está vazio</h3>
+            <p>Assim que você usar uma ferramenta, ela aparece aqui.</p>
+            <a href="/#ferramentas" class="btn btn-secondary">Explorar ferramentas</a>
+          </div>
+          <div class="history-list" id="historico-list"></div>
+        </div>
+
+        <div class="account-section" id="tab-recentes">
+          <div class="account-section-head">
+            <div><h2>Arquivos recentes</h2><p>Acesso rápido pra retomar de onde parou.</p></div>
+          </div>
+          <div id="recentes-empty" class="account-empty" style="display:none">
+            <div class="account-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3v5a1 1 0 001 1h5M6 3h8l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z" stroke-linejoin="round"/></svg></div>
+            <h3>Nada por aqui ainda</h3>
+            <p>Seus arquivos processados recentemente aparecem aqui pra acesso rápido.</p>
+          </div>
+          <div class="fav-grid" id="recentes-grid"></div>
+        </div>
+
+        <div class="account-section" id="tab-fluxos">
+          <div class="account-section-head">
+            <div><h2>Fluxos salvos</h2><p>Sequências de ferramentas prontas pra repetir com um clique.</p></div>
+          </div>
+          <div class="account-empty">
+            <div class="account-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="7" rx="2"/><rect x="14" y="4" width="7" height="7" rx="2"/><rect x="8.5" y="15" width="7" height="6" rx="2"/></svg></div>
+            <h3>Fluxos automáticos estão a caminho</h3>
+            <p>Em breve você vai poder montar uma sequência de ferramentas, salvar e repetir sempre que precisar.</p>
+            <span class="badge badge-muted">Chegando em breve</span>
+          </div>
+        </div>
+
+        <div class="account-section" id="tab-config">
+          <div class="account-section-head"><div><h2>Configurações</h2><p>Preferências salvas neste dispositivo.</p></div></div>
+          <div class="card" style="padding:26px">
+            <div class="settings-group">
+              <div class="settings-row">
+                <div class="settings-row-text"><strong>Tema escuro</strong><span>TudoUtil no visual azul e roxo sobre fundo escuro</span></div>
+                <label class="switch"><input type="checkbox" id="settings-theme-switch"/><span class="switch-track"></span><span class="switch-thumb"></span></label>
+              </div>
+            </div>
+            <div class="settings-group">
+              <div class="settings-row">
+                <div class="settings-row-text"><strong>Uso de armazenamento local</strong><span>Favoritos, histórico e preferências guardados neste navegador</span></div>
+                <span class="tu-mono" id="storage-usage" style="font-size:0.82rem;color:var(--text-tertiary)">0 KB</span>
+              </div>
+              <div class="settings-storage-bar">
+                <div class="progress"><div class="progress-bar" id="storage-bar" style="width:2%"></div></div>
+              </div>
+            </div>
+            <div class="settings-group">
+              <div class="settings-row">
+                <div class="settings-row-text"><strong>Limpar dados locais</strong><span>Remove favoritos, histórico e preferências deste dispositivo</span></div>
+                <button class="btn btn-secondary btn-sm" id="btn-clear-all-local" type="button">Limpar tudo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="account-section" id="tab-privacidade">
+          <div class="account-section-head"><div><h2>Privacidade</h2><p>O que a gente guarda e por quanto tempo.</p></div></div>
+          <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:16px">
+            <p class="tu-lede">Favoritos e histórico ficam salvos só no seu navegador — a gente nunca envia essa lista pra nenhum servidor. Arquivos que passam por processamento no servidor são excluídos automaticamente logo depois. Se você tem uma conta, guardamos apenas nome, e-mail e foto do perfil, fornecidos pelo provedor de login.</p>
+            <a href="/privacidade/" class="btn btn-secondary" style="align-self:flex-start">Ler política de privacidade completa</a>
+          </div>
+        </div>
+
+        <div class="account-section" id="tab-perfil">
+          <div class="account-section-head"><div><h2>Minha conta</h2><p>Dados do seu perfil e opções da conta.</p></div></div>
+          <div id="perfil-locked" class="card locked-panel">
+            <div class="locked-panel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3" stroke-linecap="round"/></svg></div>
+            <h3>Você não está logado</h3>
+            <p>Entre com Google ou e-mail pra editar seu perfil e gerenciar sua conta.</p>
+            <a href="/login/" class="btn btn-primary">Entrar ou criar conta</a>
+          </div>
+          <div id="perfil-unlocked" style="display:none">
+            <div class="card" style="padding:26px;margin-bottom:16px">
+              <div class="field" style="margin-bottom:16px">
+                <label class="field-label" for="perfil-name-input">Nome de exibição</label>
+                <input class="input" type="text" id="perfil-name-input"/>
+              </div>
+              <div class="field" style="margin-bottom:20px">
+                <label class="field-label">E-mail</label>
+                <input class="input" type="text" id="perfil-email-input" disabled/>
+              </div>
+              <button class="btn btn-primary" id="btn-save-profile" type="button">Salvar alterações</button>
+            </div>
+            <div class="card danger-zone" style="padding:26px">
+              <h3>Excluir conta</h3>
+              <p>Isso remove seu login permanentemente. Favoritos e histórico salvos neste navegador não são afetados.</p>
+              <button class="btn btn-danger" id="btn-delete-account" type="button">Excluir minha conta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="tu-modal-layer" id="modal-delete">
+  <div class="tu-modal-backdrop" data-modal-close></div>
+  <div class="tu-modal">
+    <button class="btn-icon sm tu-modal-close" data-modal-close type="button" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+    </button>
+    <h3 class="tu-h3" style="margin-bottom:10px">Tem certeza?</h3>
+    <p class="tu-lede" style="margin-bottom:22px">Essa ação exclui sua conta permanentemente e não pode ser desfeita.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-secondary btn-block" data-modal-close type="button">Cancelar</button>
+      <button class="btn btn-danger btn-block" id="btn-confirm-delete" type="button">Sim, excluir</button>
+    </div>
+  </div>
+</div>
+
+<nav class="tu-tabbar is-enabled">
+  <div class="tu-tabbar-row">
+    <a class="tu-tabbar-item" href="/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z" stroke-linejoin="round"/></svg>
+      Início
+    </a>
+    <a class="tu-tabbar-item" href="/#categorias">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Categorias
+    </a>
+    <a class="tu-tabbar-fab" href="/#hero" aria-label="Enviar arquivo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
+    </a>
+    <button class="tu-tabbar-item" data-search-open type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+      Buscar
+    </button>
+    <a class="tu-tabbar-item active" href="/conta/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" stroke-linecap="round"/></svg>
+      Conta
+    </a>
+  </div>
+</nav>
+
+<script defer src="/assets/js/tudoutil.js"></script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+<script type="module" src="/assets/js/auth-extra.js"></script>
+<script>
+function tuAccountTile(tool) {
+  return '' +
+    '<div class="tool-tile" data-tool-url="' + tool.url + '">' +
+      '<div class="tool-tile-top">' +
+        '<div class="tool-tile-icon tag-' + tool.tag + '">' + tool.mono + '</div>' +
+        '<button class="tool-tile-fav active" data-fav-url="' + tool.url + '" aria-label="Remover dos favoritos" type="button"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8"><path d="M12 17.3l-5.6 3.3 1.5-6.3-4.9-4.2 6.4-.5L12 3.5l2.6 5.9 6.4.5-4.9 4.2 1.5 6.3z" stroke-linejoin="round"/></svg></button>' +
+      '</div>' +
+      '<div><div class="tool-tile-name">' + tool.name + '</div><div class="tool-tile-desc">' + tool.desc + '</div></div>' +
+    '</div>';
+}
+
+function tuRenderFavorites() {
+  var urls = TU.getFavorites();
+  var tools = urls.map(function (u) { return TU_TOOLS.find(function (t) { return t.url === u; }); }).filter(Boolean);
+  document.getElementById('favoritos-grid').innerHTML = tools.map(tuAccountTile).join('');
+  document.getElementById('favoritos-empty').style.display = tools.length ? 'none' : 'block';
+  document.getElementById('stat-favs').textContent = urls.length;
+  document.getElementById('side-count-favs').textContent = urls.length || '';
+  TU.wireToolTiles();
+}
+
+function tuHistoryIconFor(entry) {
+  var tool = TU_TOOLS.find(function (t) { return t.url === entry.url; });
+  return tool ? { tag: tool.tag, mono: tool.mono } : { tag: 'pdf', mono: 'PDF' };
+}
+
+function tuFormatDate(ts) {
+  try {
+    var d = new Date(ts);
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) + ' · ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+  } catch (e) { return ''; }
+}
+
+function tuRenderHistory() {
+  var items = TU.getHistory().slice().reverse();
+  var list = document.getElementById('historico-list');
+  document.getElementById('historico-empty').style.display = items.length ? 'none' : 'block';
+  document.getElementById('stat-history').textContent = items.length;
+  document.getElementById('side-count-history').textContent = items.length || '';
+  list.innerHTML = items.map(function (it) {
+    var ic = tuHistoryIconFor(it);
+    return '<div class="history-row"><div class="history-row-icon tag-' + ic.tag + '">' + ic.mono + '</div>' +
+      '<div class="history-row-text"><strong>' + (it.tool || 'Ferramenta') + '</strong><span>' + (it.file || '') + '</span></div>' +
+      '<div class="history-row-date">' + tuFormatDate(it.date || Date.now()) + '</div></div>';
+  }).join('');
+
+  var recent = items.slice(0, 6).map(function (it) {
+    var tool = TU_TOOLS.find(function (t) { return t.url === it.url; });
+    return tool || { name: it.tool || 'Ferramenta', desc: it.file || '', tag: tuHistoryIconFor(it).tag, mono: tuHistoryIconFor(it).mono, url: it.url || '#' };
+  });
+  document.getElementById('recentes-empty').style.display = recent.length ? 'none' : 'block';
+  document.getElementById('recentes-grid').innerHTML = recent.map(function (t) {
+    return '<div class="tool-tile" data-tool-url="' + t.url + '"><div class="tool-tile-top"><div class="tool-tile-icon tag-' + t.tag + '">' + t.mono + '</div></div><div><div class="tool-tile-name">' + t.name + '</div><div class="tool-tile-desc">' + t.desc + '</div></div></div>';
+  }).join('');
+  TU.wireToolTiles();
+}
+
+function tuSetAccountTab(tab) {
+  document.querySelectorAll('.account-section').forEach(function (s) { s.classList.toggle('active', s.id === 'tab-' + tab); });
+  document.querySelectorAll('#account-sidebar .tu-sidebar-link').forEach(function (b) { b.classList.toggle('active', b.dataset.tab === tab); });
+  document.querySelectorAll('#account-mobile-tabs .chip').forEach(function (b) { b.classList.toggle('active', b.dataset.tab === tab); });
+  history.replaceState(null, '', '#' + tab);
+}
+document.querySelectorAll('[data-tab]').forEach(function (el) {
+  el.addEventListener('click', function () { tuSetAccountTab(el.dataset.tab); });
+});
+if (location.hash) tuSetAccountTab(location.hash.slice(1));
+
+document.getElementById('btn-clear-history').addEventListener('click', function () {
+  TU.clearHistory();
+  tuRenderHistory();
+  TU.toast('Histórico limpo');
+});
+document.getElementById('btn-clear-all-local').addEventListener('click', function () {
+  localStorage.removeItem('tudopdf-history');
+  localStorage.removeItem('tudopdf-favorites');
+  tuRenderHistory();
+  tuRenderFavorites();
+  tuUpdateStorageUsage();
+  TU.toast('Dados locais apagados');
+});
+
+function tuUpdateStorageUsage() {
+  var bytes = 0;
+  ['tudopdf-history', 'tudopdf-favorites', 'tudoutil-theme'].forEach(function (k) {
+    var v = localStorage.getItem(k);
+    if (v) bytes += v.length;
+  });
+  var kb = (bytes / 1024).toFixed(1);
+  document.getElementById('storage-usage').textContent = kb + ' KB';
+  document.getElementById('storage-bar').style.width = Math.min(100, bytes / 50).toFixed(0) + '%';
+}
+
+var themeSwitch = document.getElementById('settings-theme-switch');
+function tuSyncThemeSwitch() { themeSwitch.checked = document.documentElement.getAttribute('data-theme') === 'dark'; }
+themeSwitch.addEventListener('change', function () {
+  document.documentElement.setAttribute('data-theme', themeSwitch.checked ? 'dark' : 'light');
+  localStorage.setItem('tudoutil-theme', themeSwitch.checked ? 'dark' : 'light');
+});
+tuSyncThemeSwitch();
+
+document.getElementById('btn-save-profile').addEventListener('click', async function () {
+  var name = document.getElementById('perfil-name-input').value.trim();
+  if (!name) return;
+  await window.tuUpdateDisplayName(name);
+  document.getElementById('profile-name').textContent = name;
+});
+
+function tuOpenModal(id) { document.getElementById(id).classList.add('is-open'); }
+function tuCloseModal(id) { document.getElementById(id).classList.remove('is-open'); }
+document.getElementById('btn-delete-account').addEventListener('click', function () { tuOpenModal('modal-delete'); });
+document.querySelectorAll('#modal-delete [data-modal-close]').forEach(function (b) { b.addEventListener('click', function () { tuCloseModal('modal-delete'); }); });
+document.getElementById('btn-confirm-delete').addEventListener('click', async function () {
+  var res = await window.tuDeleteAccount();
+  tuCloseModal('modal-delete');
+  if (res.ok) window.location.href = '/';
+});
+
+window._onAuthChange = function (user) {
+  var guestActions = document.getElementById('guest-actions');
+  var lockedPanel = document.getElementById('perfil-locked');
+  var unlockedPanel = document.getElementById('perfil-unlocked');
+  var avatarImg = document.getElementById('profile-avatar');
+  var avatarFallback = document.getElementById('profile-avatar-fallback');
+  if (user) {
+    document.getElementById('profile-name').textContent = user.displayName || 'Minha conta';
+    document.getElementById('profile-email').textContent = user.email || '';
+    guestActions.style.display = 'none';
+    lockedPanel.style.display = 'none';
+    unlockedPanel.style.display = 'block';
+    document.getElementById('perfil-name-input').value = user.displayName || '';
+    document.getElementById('perfil-email-input').value = user.email || '';
+    if (user.photoURL) {
+      avatarImg.src = user.photoURL;
+      avatarImg.style.display = 'block';
+      avatarFallback.style.display = 'none';
+    } else {
+      avatarFallback.textContent = (user.displayName || user.email || '?').charAt(0).toUpperCase();
+      avatarFallback.style.display = 'flex';
+      avatarImg.style.display = 'none';
+    }
+  } else {
+    document.getElementById('profile-name').textContent = 'Visitante';
+    document.getElementById('profile-email').textContent = 'Você não está logado neste dispositivo.';
+    guestActions.style.display = 'flex';
+    lockedPanel.style.display = 'block';
+    unlockedPanel.style.display = 'none';
+    avatarFallback.textContent = '?';
+    avatarFallback.style.display = 'flex';
+    avatarImg.style.display = 'none';
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+  tuRenderFavorites();
+  tuRenderHistory();
+  tuUpdateStorageUsage();
+});
+document.addEventListener('tu:favorites-changed', tuRenderFavorites);
+
+</script>
+</body>
+</html>

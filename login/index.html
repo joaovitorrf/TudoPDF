@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme', t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Entrar — TudoUtil</title>
+<meta name="description" content="Entre ou crie sua conta gratuita no TudoUtil para salvar favoritos, histórico e muito mais."/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="canonical" href="https://www.tudopdf.site/login/"/>
+<meta name="theme-color" content="#05070d"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="/assets/css/tudoutil.css"/>
+<link rel="stylesheet" href="/assets/css/login.css"/>
+</head>
+<body>
+
+<div class="auth-shell">
+  <div class="auth-brand">
+    <div class="auth-brand-rings" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="auth-brand-glow" aria-hidden="true"></div>
+    <a class="auth-brand-top" href="/">
+      <img src="/assets/img/icon-192.png" alt="TudoUtil"/>
+      <span>TudoUtil</span>
+    </a>
+    <div class="auth-brand-mid">
+      <h1>Sua central de arquivos, do jeito que ela deveria ser.</h1>
+      <p>Entre pra salvar favoritos, ver seu histórico de arquivos e ter tudo sincronizado sempre que voltar.</p>
+    </div>
+    <div class="auth-brand-bullets">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Mais de 80 ferramentas, sempre gratuitas</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Favoritos e histórico salvos na sua conta</div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Seus arquivos nunca ficam guardados sem motivo</div>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <div class="auth-back">
+      <a class="auth-back-panel" href="/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Voltar ao site
+      </a>
+    </div>
+    <div class="auth-card">
+      <a class="auth-mobile-logo" href="/">
+        <img src="/assets/img/icon-192.png" alt="TudoUtil"/>
+        <span class="tu-logo-word">Tudo<span style="background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent">Util</span></span>
+      </a>
+
+      <div id="panel-access">
+        <div class="auth-card-head">
+          <h2 class="tu-h3">Bem-vindo de volta</h2>
+          <p class="tu-lede" style="margin-top:6px">Entre pra continuar de onde parou.</p>
+        </div>
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-auth-tab="signin" type="button">Entrar</button>
+          <button class="auth-tab" data-auth-tab="signup" type="button">Criar conta</button>
+        </div>
+
+        <button class="btn auth-google-btn" id="google-btn" onclick="loginWithGoogle()" type="button">
+          <svg viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 01-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.95v2.33A9 9 0 009 18z"/><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 013.68 9c0-.59.1-1.17.27-1.7V4.97H.95A9 9 0 000 9c0 1.45.35 2.83.95 4.03l3-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.51.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 00.95 4.97l3 2.33C4.66 5.17 6.65 3.58 9 3.58z"/></svg>
+          Continuar com Google
+        </button>
+        <div class="auth-divider"><span>ou com e-mail</span></div>
+
+        <div class="auth-mode-panel active" id="mode-signin">
+          <form class="auth-form" id="form-signin">
+            <div class="field">
+              <label class="field-label" for="signin-email">E-mail</label>
+              <input class="input" type="email" id="signin-email" placeholder="voce@email.com" required/>
+            </div>
+            <div class="field">
+              <div class="auth-row-between">
+                <label class="field-label" for="signin-password">Senha</label>
+                <span class="auth-link-sm" data-auth-tab="reset" style="cursor:pointer">Esqueci minha senha</span>
+              </div>
+              <input class="input" type="password" id="signin-password" placeholder="••••••••" required/>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+          </form>
+        </div>
+
+        <div class="auth-mode-panel" id="mode-signup">
+          <form class="auth-form" id="form-signup">
+            <div class="field">
+              <label class="field-label" for="signup-name">Nome</label>
+              <input class="input" type="text" id="signup-name" placeholder="Como podemos te chamar?" required/>
+            </div>
+            <div class="field">
+              <label class="field-label" for="signup-email">E-mail</label>
+              <input class="input" type="email" id="signup-email" placeholder="voce@email.com" required/>
+            </div>
+            <div class="field">
+              <label class="field-label" for="signup-password">Senha</label>
+              <input class="input" type="password" id="signup-password" placeholder="Pelo menos 6 caracteres" minlength="6" required/>
+            </div>
+            <label class="checkbox-row">
+              <input type="checkbox" id="signup-terms" required/>
+              <span class="checkbox-box"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="checkbox-label">Concordo com os <a href="/termos/">Termos de uso</a> e a <a href="/privacidade/">Política de Privacidade</a></span>
+            </label>
+            <button class="btn btn-primary btn-block" type="submit">Criar conta</button>
+          </form>
+        </div>
+
+        <p class="auth-footer-note">Ao continuar, você concorda com nossos <a href="/termos/">Termos</a> e <a href="/privacidade/">Privacidade</a>.</p>
+      </div>
+
+      <div class="auth-mode-panel" id="mode-reset">
+        <button class="auth-link-sm" data-auth-tab="signin" type="button" style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Voltar
+        </button>
+        <div class="auth-card-head">
+          <h2 class="tu-h3">Recuperar senha</h2>
+          <p class="tu-lede" style="margin-top:6px">Digite seu e-mail e enviaremos um link de redefinição.</p>
+        </div>
+        <form class="auth-form" id="form-reset">
+          <div class="field">
+            <label class="field-label" for="reset-email">E-mail</label>
+            <input class="input" type="email" id="reset-email" placeholder="voce@email.com" required/>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Enviar link de redefinição</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script defer src="/assets/js/tudoutil.js"></script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+<script type="module" src="/assets/js/auth-extra.js"></script>
+<script>
+function tuSetAuthMode(mode) {
+  document.querySelectorAll('.auth-mode-panel').forEach(function (p) { p.classList.remove('active'); });
+  document.getElementById('panel-access').style.display = mode === 'reset' ? 'none' : '';
+  if (mode === 'reset') {
+    document.getElementById('mode-reset').classList.add('active');
+  } else {
+    document.getElementById('panel-access').style.display = '';
+    document.getElementById('mode-' + mode).classList.add('active');
+    document.querySelectorAll('.auth-tab').forEach(function (t) { t.classList.toggle('active', t.dataset.authTab === mode); });
+  }
+}
+document.querySelectorAll('[data-auth-tab]').forEach(function (el) {
+  el.addEventListener('click', function () { tuSetAuthMode(el.dataset.authTab); });
+});
+
+function tuSetLoading(btn, loading) {
+  if (loading) { btn.dataset.label = btn.textContent; btn.textContent = 'Um instante...'; btn.disabled = true; }
+  else { btn.textContent = btn.dataset.label || btn.textContent; btn.disabled = false; }
+}
+
+document.getElementById('form-signin').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  tuSetLoading(btn, true);
+  var res = await window.tuLoginEmail(document.getElementById('signin-email').value, document.getElementById('signin-password').value);
+  tuSetLoading(btn, false);
+  if (res.ok) window.location.href = '/conta/';
+});
+
+document.getElementById('form-signup').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  tuSetLoading(btn, true);
+  var res = await window.tuRegisterEmail(document.getElementById('signup-name').value, document.getElementById('signup-email').value, document.getElementById('signup-password').value);
+  tuSetLoading(btn, false);
+  if (res.ok) window.location.href = '/conta/';
+});
+
+document.getElementById('form-reset').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  tuSetLoading(btn, true);
+  var res = await window.tuResetPassword(document.getElementById('reset-email').value);
+  tuSetLoading(btn, false);
+  if (res.ok) tuSetAuthMode('signin');
+});
+
+window._onAuthChange = function (user) {
+  if (user) window.location.href = '/conta/';
+};
+</script>
+</body>
+</html>

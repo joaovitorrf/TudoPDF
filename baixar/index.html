@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme', t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Baixar o TudoUtil — App e Programa</title>
+<meta name="description" content="Instale o TudoUtil como aplicativo no celular ou como programa no computador. Rápido, leve e sem loja de aplicativos."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.tudopdf.site/baixar/"/>
+<meta name="theme-color" content="#05070d"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="/assets/css/tudoutil.css"/>
+<link rel="stylesheet" href="/assets/css/baixar.css"/>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body class="has-tabbar">
+
+<header class="tu-header">
+  <div class="tu-header-inner">
+    <a class="tu-logo" href="/">
+      <img src="/assets/img/icon-192.png" width="34" height="34" alt="TudoUtil"/>
+      <span class="tu-logo-word">Tudo<span>Util</span></span>
+    </a>
+    <nav class="tu-nav">
+      <a class="tu-nav-link" href="/#categorias">Categorias</a>
+      <a class="tu-nav-link" href="/#estudante-trabalho">Estudante &amp; Trabalho</a>
+      <a class="tu-nav-link" href="/#ia">IA</a>
+      <a class="tu-nav-link" href="/blog/">Blog</a>
+    </nav>
+    <div class="tu-header-actions">
+      <button class="tu-search-trigger" data-search-open type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <span>Buscar ferramenta</span>
+        <kbd>&#8984;K</kbd>
+      </button>
+      <button class="btn-icon" data-theme-toggle type="button" aria-label="Alternar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="btn-header-login btn btn-secondary btn-sm" id="btn-login-header" onclick="loginWithGoogle()" type="button">Entrar</button>
+      <a id="user-menu" href="/conta/" style="display:none">
+        <span class="tu-userbtn"><img id="user-avatar" src="" alt=""/><span id="user-name">Conta</span></span>
+      </a>
+      <button class="tu-hamburger" data-drawer-open type="button" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="tu-drawer">
+  <div class="tu-drawer-backdrop" data-drawer-close></div>
+  <div class="tu-drawer-panel">
+    <div class="tu-drawer-head">
+      <span class="tu-logo"><img src="/assets/img/icon-192.png" width="30" height="30" alt=""/><span class="tu-logo-word">Tudo<span>Util</span></span></span>
+      <button class="btn-icon sm" data-drawer-close type="button" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="tu-drawer-section">TudoUtil</div>
+    <a class="tu-drawer-link" href="/#categorias">Categorias<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/blog/">Blog<span class="arrow">→</span></a>
+    <div class="tu-drawer-foot">
+      <a href="/conta/" class="btn btn-secondary btn-block">Minha conta</a>
+      <button class="btn btn-primary btn-block" onclick="loginWithGoogle()" type="button">Entrar com Google</button>
+    </div>
+  </div>
+</div>
+
+<main>
+<section class="tu-section dl-hero">
+  <div class="tu-aurora"></div>
+  <div class="tu-container" style="position:relative;z-index:1">
+    <img class="dl-hero-icon" src="/assets/img/icon-192.png" alt="TudoUtil"/>
+    <span class="tu-eyebrow">Leve no bolso</span>
+    <h1 class="tu-h1" style="margin-top:14px">Instale o TudoUtil no seu dispositivo</h1>
+    <p class="tu-lede">Como app no celular ou como programa no computador. Sem loja de aplicativos, sem espaço ocupado — abre na hora, direto da tela inicial.</p>
+    <div class="dl-hero-actions">
+      <button class="btn btn-primary btn-lg" id="btn-install-main" type="button" hidden>Instalar agora</button>
+      <a class="btn btn-secondary btn-lg" href="#como-instalar" id="btn-see-steps">Ver como instalar</a>
+    </div>
+    <p class="dl-hero-note" id="install-status"></p>
+  </div>
+</section>
+
+<section class="tu-section-tight">
+  <div class="tu-container">
+    <div class="dl-benefits">
+      <div class="card dl-benefit" data-reveal>
+        <div class="dl-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7z" stroke-linejoin="round"/></svg></div>
+        <h4>Abre na hora</h4>
+        <p>Ícone na tela inicial, sem passar pelo navegador</p>
+      </div>
+      <div class="card dl-benefit" data-reveal data-reveal-delay="1">
+        <div class="dl-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/></svg></div>
+        <h4>Sem loja de aplicativos</h4>
+        <p>Instala direto do site, sem baixar de nenhum lugar externo</p>
+      </div>
+      <div class="card dl-benefit" data-reveal data-reveal-delay="2">
+        <div class="dl-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke-linejoin="round"/></svg></div>
+        <h4>Leve de verdade</h4>
+        <p>Poucos KB de espaço, nada parecido com um app tradicional</p>
+      </div>
+      <div class="card dl-benefit" data-reveal data-reveal-delay="3">
+        <div class="dl-benefit-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10" stroke-linecap="round"/></svg></div>
+        <h4>Sempre atualizado</h4>
+        <p>Você já usa a versão mais nova, sem nunca precisar atualizar</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section" id="como-instalar">
+  <div class="tu-container">
+    <div class="tu-section-head center">
+      <span class="tu-eyebrow">Passo a passo</span>
+      <h2 class="tu-h2">Como instalar</h2>
+    </div>
+    <div class="dl-platform-tabs">
+      <button class="chip" data-platform="android" type="button">Android</button>
+      <button class="chip" data-platform="ios" type="button">iPhone</button>
+      <button class="chip" data-platform="desktop" type="button">Computador</button>
+    </div>
+
+    <div class="dl-steps-wrap" data-platform-panel="android">
+      <div class="step-card-holder"></div>
+    </div>
+    <div class="dl-steps-wrap" data-platform-panel="ios">
+      <div class="step-card-holder"></div>
+    </div>
+    <div class="dl-steps-wrap" data-platform-panel="desktop">
+      <div class="step-card-holder"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="tu-footer">
+  <div class="tu-footer-grid">
+    <div class="tu-footer-brand">
+      <a class="tu-logo" href="/"><img src="/assets/img/icon-192.png" width="32" height="32" alt="TudoUtil"/><span class="tu-logo-word">Tudo<span>Util</span></span></a>
+      <p>Central de arquivos com mais de 80 ferramentas gratuitas. Jogue seu arquivo, diga o que precisa, resolva.</p>
+    </div>
+    <div class="tu-footer-col">
+      <h4>Produto</h4>
+      <ul>
+        <li><a href="/#categorias">Categorias</a></li>
+        <li><a href="/#ferramentas">Ferramentas populares</a></li>
+        <li><a href="/baixar/">Baixar o app</a></li>
+      </ul>
+    </div>
+    <div class="tu-footer-col">
+      <h4>Conta</h4>
+      <ul>
+        <li><a href="/login/">Entrar</a></li>
+        <li><a href="/conta/">Minha conta</a></li>
+      </ul>
+    </div>
+    <div class="tu-footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/contato/">Contato</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tu-footer-bottom">
+    <p>&copy; 2026 TudoUtil. Todos os direitos reservados.</p>
+    <div class="tu-footer-bottom-links">
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/termos/">Termos de uso</a>
+      <a href="/cookies/">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<nav class="tu-tabbar is-enabled">
+  <div class="tu-tabbar-row">
+    <a class="tu-tabbar-item" href="/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z" stroke-linejoin="round"/></svg>
+      Início
+    </a>
+    <a class="tu-tabbar-item" href="/#categorias">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Categorias
+    </a>
+    <a class="tu-tabbar-fab" href="/#hero" aria-label="Enviar arquivo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
+    </a>
+    <button class="tu-tabbar-item" data-search-open type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+      Buscar
+    </button>
+    <a class="tu-tabbar-item" href="/conta/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" stroke-linecap="round"/></svg>
+      Conta
+    </a>
+  </div>
+</nav>
+
+<script defer src="/assets/js/tudoutil.js"></script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+<script>
+var STEPS = {
+  android: [
+    ['Abra pelo Chrome', 'Acesse tudopdf.site pelo navegador Chrome no seu Android.'],
+    ['Toque em instalar', 'Toque no botão "Instalar agora" no topo desta página, ou no menu ⋮ do navegador em "Instalar app".'],
+    ['Confirme', 'Toque em "Instalar" na janela que aparecer.'],
+    ['Pronto!', 'O ícone do TudoUtil aparece na sua tela inicial, como qualquer outro app.']
+  ],
+  ios: [
+    ['Abra pelo Safari', 'No iPhone, o PWA só instala pelo navegador Safari (não funciona pelo Chrome no iOS).'],
+    ['Toque em Compartilhar', 'Toque no ícone de compartilhamento (o quadrado com uma seta pra cima) na barra inferior.'],
+    ['Adicionar à Tela de Início', 'Role as opções e toque em "Adicionar à Tela de Início".'],
+    ['Confirme e pronto', 'Toque em "Adicionar" no canto superior direito. O ícone aparece na sua tela inicial.']
+  ],
+  desktop: [
+    ['Abra pelo Chrome ou Edge', 'Acesse tudopdf.site pelo Google Chrome, Microsoft Edge ou outro navegador baseado em Chromium.'],
+    ['Clique em instalar', 'Clique no botão "Instalar agora" no topo desta página, ou no ícone de instalação que aparece na barra de endereço.'],
+    ['Confirme a instalação', 'Clique em "Instalar" na janela que aparecer.'],
+    ['Pronto!', 'O TudoUtil abre como um programa próprio, com ícone na área de trabalho e no menu iniciar.']
+  ]
+};
+function stepsHtml(list) {
+  return '<div class="card" style="padding:8px 28px">' + list.map(function (s, i) {
+    return '<div style="display:flex;gap:16px;padding:22px 0' + (i < list.length - 1 ? ';border-bottom:1px solid var(--border-subtle)' : '') + '">' +
+      '<div style="width:34px;height:34px;border-radius:10px;background:var(--bg-surface-2);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;color:var(--blue-300);flex-shrink:0">' + (i + 1) + '</div>' +
+      '<div><strong style="font-family:var(--font-display);font-size:0.94rem;display:block;margin-bottom:4px">' + s[0] + '</strong><span style="font-size:0.86rem;color:var(--text-secondary)">' + s[1] + '</span></div>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+Object.keys(STEPS).forEach(function (k) {
+  document.querySelector('[data-platform-panel="' + k + '"] .step-card-holder').innerHTML = stepsHtml(STEPS[k]);
+});
+
+function tuSetPlatform(p) {
+  document.querySelectorAll('.dl-platform-tabs .chip').forEach(function (b) { b.classList.toggle('active', b.dataset.platform === p); });
+  document.querySelectorAll('.dl-steps-wrap').forEach(function (w) { w.classList.toggle('active', w.dataset.platformPanel === p); });
+}
+document.querySelectorAll('[data-platform]').forEach(function (b) { b.addEventListener('click', function () { tuSetPlatform(b.dataset.platform); }); });
+
+var ua = navigator.userAgent;
+var isIOS = /iPad|iPhone|iPod/.test(ua);
+var isAndroid = /Android/.test(ua);
+var detected = isIOS ? 'ios' : (isAndroid ? 'android' : 'desktop');
+tuSetPlatform(detected);
+
+var mainBtn = document.getElementById('btn-install-main');
+var statusEl = document.getElementById('install-status');
+if (isIOS) {
+  statusEl.textContent = 'No iPhone, a instalação é manual pelo Safari — veja o passo a passo abaixo.';
+} else {
+  statusEl.textContent = 'Se o botão não aparecer, seu navegador já pode ter o TudoUtil instalado, ou não suporta instalação direta — use o passo a passo abaixo.';
+}
+document.addEventListener('tu:pwa-installable', function () { mainBtn.hidden = false; });
+mainBtn.addEventListener('click', function () { window.tuInstallPWA(); });
+window.addEventListener('appinstalled', function () { mainBtn.hidden = true; statusEl.textContent = 'TudoUtil já está instalado neste dispositivo. 🎉'; });
+</script>
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme', t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>TudoUtil — Jogue seu arquivo. Diga o que precisa. Resolva.</title>
+<meta name="description" content="TudoUtil é a central de arquivos com mais de 80 ferramentas gratuitas: PDF, imagens, documentos, texto, cálculos e mais. Sem instalar nada, sem complicação."/>
+<meta name="author" content="TudoUtil"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.tudopdf.site/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="TudoUtil"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta property="og:title" content="TudoUtil — Jogue seu arquivo. Diga o que precisa. Resolva."/>
+<meta property="og:description" content="Mais de 80 ferramentas gratuitas para PDF, imagens, documentos, texto e cálculos, tudo em um só lugar."/>
+<meta property="og:url" content="https://www.tudopdf.site/"/>
+<meta property="og:image" content="https://www.tudopdf.site/assets/img/og-image.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="TudoUtil — Jogue seu arquivo. Diga o que precisa. Resolva."/>
+<meta name="twitter:description" content="Mais de 80 ferramentas gratuitas para PDF, imagens, documentos, texto e cálculos."/>
+<meta name="twitter:image" content="https://www.tudopdf.site/assets/img/og-image.jpg"/>
+<meta name="theme-color" content="#05070d"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="/assets/css/tudoutil.css"/>
+<link rel="stylesheet" href="/assets/css/home.css"/>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"TudoUtil","url":"https://www.tudopdf.site/","potentialAction":{"@type":"SearchAction","target":"https://www.tudopdf.site/?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+</head>
+<body class="has-tabbar">
+
+<header class="tu-header">
+  <div class="tu-header-inner">
+    <a class="tu-logo" href="/">
+      <img src="/assets/img/icon-192.png" width="34" height="34" alt="TudoUtil"/>
+      <span class="tu-logo-word">Tudo<span>Util</span></span>
+    </a>
+    <nav class="tu-nav">
+      <div class="tu-nav-item">
+        <span class="tu-nav-link">Ferramentas <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="tu-mega">
+          <div class="tu-mega-grid">
+            <div class="tu-mega-cat">
+              <div class="tu-mega-label"><span class="ic tag-pdf">P</span>PDF</div>
+              <a class="tu-mega-item" href="/tools/comprimir-pdf/">Comprimir PDF</a>
+              <a class="tu-mega-item" href="/tools/juntar-pdf/">Juntar PDF</a>
+              <a class="tu-mega-item" href="/tools/pdf-para-word/">PDF para Word</a>
+              <a class="tu-mega-item" href="/tools/assinar-pdf/">Assinar PDF</a>
+            </div>
+            <div class="tu-mega-cat">
+              <div class="tu-mega-label"><span class="ic tag-img">I</span>Imagens</div>
+              <a class="tu-mega-item" href="/#categorias">Comprimir imagem</a>
+              <a class="tu-mega-item" href="/#categorias">Redimensionar</a>
+              <a class="tu-mega-item" href="/tools/jpg-para-pdf/">JPG para PDF</a>
+              <a class="tu-mega-item" href="/#categorias">Converter WebP</a>
+            </div>
+            <div class="tu-mega-cat">
+              <div class="tu-mega-label"><span class="ic tag-doc">D</span>Documentos</div>
+              <a class="tu-mega-item" href="/#categorias">Gerador de currículo</a>
+              <a class="tu-mega-item" href="/#categorias">Gerador de recibo</a>
+              <a class="tu-mega-item" href="/#categorias">Contrato simples</a>
+              <a class="tu-mega-item" href="/#categorias">Declaração</a>
+            </div>
+            <div class="tu-mega-cat">
+              <div class="tu-mega-label"><span class="ic tag-calc">#</span>Cálculos</div>
+              <a class="tu-mega-item" href="/#categorias">Porcentagem</a>
+              <a class="tu-mega-item" href="/#categorias">IMC</a>
+              <a class="tu-mega-item" href="/#categorias">Dias entre datas</a>
+              <a class="tu-mega-item" href="/#categorias">Conversor de moedas</a>
+            </div>
+          </div>
+          <div class="tu-mega-foot">
+            <span>Mais de 80 ferramentas no catálogo</span>
+            <a href="/#categorias">Ver todas as categorias →</a>
+          </div>
+        </div>
+      </div>
+      <a class="tu-nav-link" href="/#categorias">Categorias</a>
+      <a class="tu-nav-link" href="/#estudante-trabalho">Estudante &amp; Trabalho</a>
+      <a class="tu-nav-link" href="/#ia">IA</a>
+      <a class="tu-nav-link" href="/blog/">Blog</a>
+    </nav>
+    <div class="tu-header-actions">
+      <button class="tu-search-trigger" data-search-open type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+        <span>Buscar ferramenta</span>
+        <kbd>&#8984;K</kbd>
+      </button>
+      <button class="btn-icon" data-theme-toggle type="button" aria-label="Alternar tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="btn-header-login btn btn-secondary btn-sm" id="btn-login-header" onclick="loginWithGoogle()" type="button">Entrar</button>
+      <a id="user-menu" href="/conta/" style="display:none">
+        <span class="tu-userbtn">
+          <img id="user-avatar" src="" alt=""/>
+          <span id="user-name">Conta</span>
+        </span>
+      </a>
+      <button class="tu-hamburger" data-drawer-open type="button" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="tu-drawer">
+  <div class="tu-drawer-backdrop" data-drawer-close></div>
+  <div class="tu-drawer-panel">
+    <div class="tu-drawer-head">
+      <span class="tu-logo"><img src="/assets/img/icon-192.png" width="30" height="30" alt=""/><span class="tu-logo-word">Tudo<span>Util</span></span></span>
+      <button class="btn-icon sm" data-drawer-close type="button" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <button class="btn btn-secondary btn-block" data-search-open type="button" style="justify-content:flex-start">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+      Buscar ferramenta
+    </button>
+    <div class="tu-drawer-section">Categorias</div>
+    <a class="tu-drawer-link" href="/#categorias"><span class="ic drawer-tag tag-pdf">PDF</span>PDF<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#categorias"><span class="ic drawer-tag tag-img">IMG</span>Imagens<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#categorias"><span class="ic drawer-tag tag-doc">DOC</span>Documentos<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#categorias"><span class="ic drawer-tag tag-txt">TXT</span>Texto<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#categorias"><span class="ic drawer-tag tag-calc">123</span>Cálculos<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#categorias"><span class="ic drawer-tag tag-web">WEB</span>Web<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#categorias"><span class="ic drawer-tag tag-dev">{ }</span>Dev<span class="arrow">→</span></a>
+    <div class="tu-drawer-section">TudoUtil</div>
+    <a class="tu-drawer-link" href="/#estudante-trabalho">Estudante &amp; Trabalho<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/#ia">IA para documentos<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/baixar/">Baixar o app<span class="arrow">→</span></a>
+    <a class="tu-drawer-link" href="/blog/">Blog<span class="arrow">→</span></a>
+    <div class="tu-drawer-foot">
+      <a href="/conta/" class="btn btn-secondary btn-block">Minha conta</a>
+      <button class="btn btn-primary btn-block" onclick="loginWithGoogle()" type="button">Entrar com Google</button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section class="hero" id="hero">
+  <div class="tu-aurora"></div>
+  <div class="tu-container hero-inner">
+    <div class="hero-copy" data-reveal>
+      <span class="tu-eyebrow">Central de arquivos · 100% gratuito</span>
+      <h1 class="tu-h1">Jogue seu arquivo.<br/>Diga o que precisa.<br/><span class="tu-text-gradient">Resolva.</span></h1>
+      <p class="tu-lede">PDF, imagens, documentos, texto e mais de 80 ferramentas num só lugar. Sem instalar nada — arraste o arquivo, escolha o que precisa e pronto.</p>
+      <div class="hero-chips">
+        <a class="chip" href="/tools/comprimir-pdf/">Comprimir PDF</a>
+        <a class="chip" href="/tools/juntar-pdf/">Juntar PDF</a>
+        <a class="chip" href="/tools/word-para-pdf/">Word para PDF</a>
+        <a class="chip" href="/tools/assinar-pdf/">Assinar PDF</a>
+        <a class="chip" href="#categorias">Ver tudo →</a>
+      </div>
+      <div class="hero-proof">
+        <span class="hero-proof-stack" aria-hidden="true">
+          <span style="background:var(--blue-500)">PDF</span>
+          <span style="background:var(--purple-500)">IMG</span>
+          <span style="background:var(--blue-600)">DOC</span>
+        </span>
+        <span class="hero-proof-text"><strong>28 ferramentas de PDF</strong> já no ar · o resto do catálogo chega ferramenta por ferramenta</span>
+      </div>
+    </div>
+    <div class="hero-stage" data-reveal data-reveal-delay="2">
+      <div class="hero-orbit-ring r1"></div>
+      <div class="hero-orbit-ring r2"></div>
+      <div class="hero-orbit-spin" aria-hidden="true">
+        <div class="orbit-item" style="--angle:0deg;--radius:170px"><div class="orbit-chip tag-pdf">PDF</div></div>
+        <div class="orbit-item" style="--angle:51deg;--radius:170px"><div class="orbit-chip tag-doc">DOC</div></div>
+        <div class="orbit-item" style="--angle:102deg;--radius:170px"><div class="orbit-chip tag-xls">XLS</div></div>
+        <div class="orbit-item" style="--angle:153deg;--radius:170px"><div class="orbit-chip tag-img">JPG</div></div>
+        <div class="orbit-item" style="--angle:204deg;--radius:170px"><div class="orbit-chip tag-ppt">PPT</div></div>
+        <div class="orbit-item" style="--angle:255deg;--radius:170px"><div class="orbit-chip tag-web">WEB</div></div>
+        <div class="orbit-item" style="--angle:306deg;--radius:170px"><div class="orbit-chip tag-dev">{ }</div></div>
+      </div>
+      <div class="hero-dropzone" id="hero-dropzone">
+        <input type="file" id="hero-file-input" hidden/>
+        <div class="hero-dropzone-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="hero-dropzone-title">Solte seu arquivo aqui</div>
+        <div class="hero-dropzone-sub">ou toque para escolher · PDF, DOCX, XLSX, PPTX, JPG, PNG e mais</div>
+      </div>
+      <div class="hero-file-result" id="hero-file-result" hidden></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip">
+  <div class="tu-container stats-strip-inner">
+    <div class="stat-block" data-reveal>
+      <div class="stat-num"><span data-count-to="28" data-count-suffix="">0</span></div>
+      <div class="stat-label">Ferramentas de PDF no ar</div>
+    </div>
+    <div class="stat-block" data-reveal data-reveal-delay="1">
+      <div class="stat-num"><span data-count-to="84" data-count-suffix="+">0</span></div>
+      <div class="stat-label">Ferramentas no catálogo</div>
+    </div>
+    <div class="stat-block" data-reveal data-reveal-delay="2">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Grátis, sem cadastro</div>
+    </div>
+    <div class="stat-block" data-reveal data-reveal-delay="3">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Letras miúdas</div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section" id="tarefas">
+  <div class="tu-container">
+    <div class="tu-section-head center">
+      <span class="tu-eyebrow">Comece pela tarefa</span>
+      <h2 class="tu-h2">O que você precisa fazer agora?</h2>
+      <p class="tu-lede">Esqueça o nome da ferramenta. Diz o que você quer resolver que a gente te leva direto pra lá.</p>
+    </div>
+    <div class="task-grid">
+      <a class="card task-card" href="/tools/comprimir-pdf/" data-reveal>
+        <div class="task-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3v4a1 1 0 01-1 1H3M21 8V4a1 1 0 00-1-1h-4M16 21v-4a1 1 0 011-1h4M3 16v4a1 1 0 001 1h4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Meu arquivo tá pesado demais</h3>
+        <p>Comprima PDFs e imagens sem perder qualidade pra enviar por e-mail ou WhatsApp.</p>
+        <span class="task-card-link">Comprimir agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card task-card" href="/tools/juntar-pdf/" data-reveal data-reveal-delay="1">
+        <div class="task-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 7L9 3 5 7M9 3v13M11 17l4 4 4-4M15 21V8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Tenho vários arquivos soltos</h3>
+        <p>Junte PDFs, organize a ordem das páginas e mande tudo como um documento só.</p>
+        <span class="task-card-link">Juntar arquivos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card task-card" href="/tools/pdf-para-word/" data-reveal data-reveal-delay="2">
+        <div class="task-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z" stroke-linejoin="round"/><path d="M8 9h8M8 13h8M8 17h5" stroke-linecap="round"/></svg></div>
+        <h3>Preciso editar um PDF</h3>
+        <p>Converta para Word, mexa no que quiser e volte pra PDF quando terminar.</p>
+        <span class="task-card-link">Converter agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card task-card" href="/tools/assinar-pdf/" data-reveal>
+        <div class="task-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4L21 7M15 7h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Preciso assinar um documento</h3>
+        <p>Assinatura digital, sem imprimir e sem escanear nada. Direto na tela.</p>
+        <span class="task-card-link">Assinar documento <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card task-card" href="/tools/digitalizar-pdf/" data-reveal data-reveal-delay="1">
+        <div class="task-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="4"/><path d="M4 8V6a2 2 0 012-2h2l2-2h4l2 2h2a2 2 0 012 2v2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Só tenho a foto do documento</h3>
+        <p>Bata uma foto pelo celular e a gente transforma em PDF alinhado e nítido.</p>
+        <span class="task-card-link">Digitalizar agora <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a class="card task-card" href="/tools/proteger-pdf/" data-reveal data-reveal-delay="2">
+        <div class="task-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3" stroke-linecap="round"/></svg></div>
+        <h3>Isso aqui é confidencial</h3>
+        <p>Proteja com senha, apague metadados ou esconda trechos sensíveis do PDF.</p>
+        <span class="task-card-link">Proteger arquivo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section tu-section-tight" id="categorias">
+  <div class="tu-container">
+    <div class="tu-section-head center">
+      <span class="tu-eyebrow">O catálogo completo</span>
+      <h2 class="tu-h2">Uma categoria pra cada tipo de arquivo</h2>
+      <p class="tu-lede">Sete frentes, mais de 80 ferramentas. O time de PDF já está pronto — o resto vem sendo publicado ferramenta por ferramenta.</p>
+    </div>
+    <div class="cat-rail">
+      <a class="card cat-tile" href="#ferramentas" data-cat-filter="pdf" data-reveal>
+        <div class="cat-tile-icon tag-pdf">PDF</div>
+        <div><div class="cat-tile-name">PDF</div><div class="cat-tile-desc">Comprimir, juntar, converter, assinar</div></div>
+        <div class="cat-tile-count">28 ferramentas</div>
+      </a>
+      <a class="card cat-tile" href="#ferramentas" data-cat-filter="imagem" data-reveal data-reveal-delay="1">
+        <div class="cat-tile-icon tag-img">IMG</div>
+        <div><div class="cat-tile-name">Imagens</div><div class="cat-tile-desc">Editar, comprimir, converter</div></div>
+        <div class="cat-tile-count">11 ferramentas</div>
+      </a>
+      <a class="card cat-tile" href="#ferramentas" data-cat-filter="doc" data-reveal data-reveal-delay="2">
+        <div class="cat-tile-icon tag-doc">DOC</div>
+        <div><div class="cat-tile-name">Documentos</div><div class="cat-tile-desc">Gerar, preencher, transformar</div></div>
+        <div class="cat-tile-count">8 ferramentas</div>
+      </a>
+      <a class="card cat-tile" href="#ferramentas" data-cat-filter="texto" data-reveal data-reveal-delay="3">
+        <div class="cat-tile-icon tag-txt">TXT</div>
+        <div><div class="cat-tile-name">Texto</div><div class="cat-tile-desc">Limpar, contar, comparar</div></div>
+        <div class="cat-tile-count">10 ferramentas</div>
+      </a>
+      <a class="card cat-tile" href="#ferramentas" data-cat-filter="calc" data-reveal>
+        <div class="cat-tile-icon tag-calc">123</div>
+        <div><div class="cat-tile-name">Cálculos</div><div class="cat-tile-desc">Calculadoras, datas, conversões</div></div>
+        <div class="cat-tile-count">11 ferramentas</div>
+      </a>
+      <a class="card cat-tile" href="#ferramentas" data-cat-filter="web" data-reveal data-reveal-delay="1">
+        <div class="cat-tile-icon tag-web">WEB</div>
+        <div><div class="cat-tile-name">Web</div><div class="cat-tile-desc">QR Code, links, redes sociais</div></div>
+        <div class="cat-tile-count">6 ferramentas</div>
+      </a>
+      <a class="card cat-tile" href="#ferramentas" data-cat-filter="dev" data-reveal data-reveal-delay="2">
+        <div class="cat-tile-icon tag-dev">{ }</div>
+        <div><div class="cat-tile-name">Dev</div><div class="cat-tile-desc">JSON, regex, hash, tokens</div></div>
+        <div class="cat-tile-count">10 ferramentas</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section" id="ferramentas">
+  <div class="tu-container">
+    <div class="tools-toolbar">
+      <div class="tu-section-head" style="margin-bottom:0">
+        <span class="tu-eyebrow">Explore</span>
+        <h2 class="tu-h2">Ferramentas mais usadas</h2>
+      </div>
+      <div class="tools-filters" id="tools-filters">
+        <button class="chip active" data-filter="popular" type="button">Populares</button>
+        <button class="chip" data-filter="pdf" type="button">PDF</button>
+        <button class="chip" data-filter="imagem" type="button">Imagens</button>
+        <button class="chip" data-filter="doc" type="button">Documentos</button>
+        <button class="chip" data-filter="texto" type="button">Texto</button>
+        <button class="chip" data-filter="calc" type="button">Cálculos</button>
+        <button class="chip" data-filter="web" type="button">Web</button>
+        <button class="chip" data-filter="dev" type="button">Dev</button>
+      </div>
+    </div>
+    <div class="tool-grid" id="tool-grid-main" data-tool-grid="popular" data-tool-limit="12"></div>
+  </div>
+</section>
+
+<section class="tu-section tu-section-tight" id="estudante-trabalho">
+  <div class="tu-container">
+    <div class="split-band">
+      <div class="card split-card mode-student" data-reveal>
+        <span class="badge badge-soft">Modo estudante</span>
+        <h3>Pra quem vive entregando trabalho</h3>
+        <p>Da pesquisa à entrega: resuma matéria, junte os trabalhos do grupo e mande tudo dentro do prazo.</p>
+        <ul class="split-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Resumir matéria e gerar flashcards</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Juntar e numerar trabalhos em grupo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Digitalizar anotações da aula</li>
+        </ul>
+        <a href="/tools/juntar-pdf/" class="btn btn-secondary">Ver ferramentas de estudo</a>
+      </div>
+      <div class="card split-card mode-work" data-reveal data-reveal-delay="1">
+        <span class="badge badge-soft">Modo trabalho</span>
+        <h3>Pra quem vive entre documentos</h3>
+        <p>Currículo, proposta, orçamento, contrato. Gere, converta e assine sem sair do navegador.</p>
+        <ul class="split-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Currículo, proposta e orçamento</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Assinatura digital em contratos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>Conversão em lote pra fechar o mês</li>
+        </ul>
+        <a href="/tools/assinar-pdf/" class="btn btn-secondary">Ver ferramentas de trabalho</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section" id="ia">
+  <div class="tu-container">
+    <div class="feature-band">
+      <div data-reveal>
+        <span class="tu-eyebrow">Novidade</span>
+        <h2 class="tu-h2" style="margin:14px 0">Converse com seu documento</h2>
+        <p class="tu-lede">Solte um PDF e pergunte o que quiser. A IA lê por você, resume, encontra datas e valores, e ainda monta flashcards pra estudar.</p>
+        <ul class="feature-list">
+          <li><span class="num">1</span><div><strong>Envie o documento</strong><span>PDF, contrato, artigo ou apostila</span></div></li>
+          <li><span class="num">2</span><div><strong>Pergunte em português</strong><span>"Qual o valor total?" ou "resume em tópicos"</span></div></li>
+          <li><span class="num">3</span><div><strong>Receba a resposta</strong><span>Resumo, tabela, flashcards ou tradução</span></div></li>
+        </ul>
+        <span class="badge badge-muted">Chegando em breve</span>
+      </div>
+      <div class="feature-visual" data-reveal data-reveal-delay="1">
+        <div class="feature-visual-glow" style="background:var(--purple-500)"></div>
+        <div class="chat-mock">
+          <div class="chat-bubble user">Resume esse contrato em 3 pontos</div>
+          <div class="chat-bubble ai">1. Vigência de 12 meses · 2. Reajuste anual pelo IPCA · 3. Multa de 2 meses em caso de rescisão antecipada</div>
+          <div class="chat-bubble user">Qual a data de vencimento?</div>
+          <div class="chat-bubble ai">15 de março, todo mês 📅</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section tu-section-tight" id="scanner">
+  <div class="tu-container">
+    <div class="feature-band reverse">
+      <div data-reveal>
+        <span class="tu-eyebrow">Direto do celular</span>
+        <h2 class="tu-h2" style="margin:14px 0">Scanner de documentos no bolso</h2>
+        <p class="tu-lede">Aponte a câmera, a gente corrige a perspectiva, tira a sombra e entrega um PDF nítido e pesquisável.</p>
+        <ul class="feature-list">
+          <li><span class="num">1</span><div><strong>Detecção automática de bordas</strong><span>Alinha o documento sozinho</span></div></li>
+          <li><span class="num">2</span><div><strong>Contraste e sombra corrigidos</strong><span>Fica com cara de escaneado de verdade</span></div></li>
+          <li><span class="num">3</span><div><strong>OCR incluso</strong><span>Texto pesquisável e copiável no PDF final</span></div></li>
+        </ul>
+        <span class="badge badge-muted">Chegando em breve</span>
+      </div>
+      <div class="feature-visual" data-reveal data-reveal-delay="1">
+        <div class="feature-visual-glow" style="background:var(--blue-500)"></div>
+        <div class="scan-mock"><div class="scan-line"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section" id="fluxos">
+  <div class="tu-container">
+    <div class="tu-section-head center">
+      <span class="tu-eyebrow">Pra quem repete o processo</span>
+      <h2 class="tu-h2">Monte seu próprio fluxo</h2>
+      <p class="tu-lede">Empilhe ferramentas numa sequência, salve e repita com um clique sempre que precisar.</p>
+    </div>
+    <div class="flow-strip" data-reveal>
+      <div class="flow-step"><div class="flow-step-icon">↑</div><span>Upload</span></div>
+      <svg class="flow-arrow" viewBox="0 0 46 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12h40M34 4l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="flow-step"><div class="flow-step-icon tag-pdf" style="color:#fff">−</div><span>Remover páginas</span></div>
+      <svg class="flow-arrow" viewBox="0 0 46 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12h40M34 4l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="flow-step"><div class="flow-step-icon tag-pdf" style="color:#fff">%</div><span>Comprimir</span></div>
+      <svg class="flow-arrow" viewBox="0 0 46 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12h40M34 4l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="flow-step"><div class="flow-step-icon tag-sec" style="color:#fff">💧</div><span>Marca d'água</span></div>
+      <svg class="flow-arrow" viewBox="0 0 46 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12h40M34 4l8 8-8 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="flow-step"><div class="flow-step-icon">↓</div><span>Download</span></div>
+    </div>
+    <div style="text-align:center;margin-top:8px">
+      <span class="badge badge-muted">Chegando em breve</span>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section tu-section-tight" id="confianca">
+  <div class="tu-container">
+    <div class="tu-section-head center">
+      <span class="tu-eyebrow">Sem letras miúdas</span>
+      <h2 class="tu-h2">O que a gente faz com seu arquivo — e o que não faz</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="card trust-card" data-reveal>
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3" stroke-linecap="round"/></svg></div>
+        <h4>Processamento local, sempre que possível</h4>
+        <p>Boa parte das ferramentas processa o arquivo direto no seu navegador. Nada sobe pro servidor sem necessidade.</p>
+      </div>
+      <div class="card trust-card" data-reveal data-reveal-delay="1">
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m2 0v14a1 1 0 01-1 1H7a1 1 0 01-1-1V6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Exclusão automática</h4>
+        <p>Quando um arquivo passa pelo servidor, ele é apagado logo depois do processamento. Você também pode apagar na hora.</p>
+      </div>
+      <div class="card trust-card" data-reveal data-reveal-delay="2">
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke-linejoin="round"/></svg></div>
+        <h4>Grátis de verdade</h4>
+        <p>Sem limite diário escondido, sem marca d'água no resultado e sem pedir cartão de crédito pra usar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section-tight">
+  <div class="tu-container">
+    <div class="pwa-banner" data-reveal>
+      <div class="pwa-banner-glow"></div>
+      <div>
+        <h2>Leve o TudoUtil no bolso</h2>
+        <p>Instale como app no celular ou como programa no computador. Sem loja de aplicativos, sem espaço ocupado — é só instalar e usar.</p>
+      </div>
+      <div class="pwa-banner-actions">
+        <a href="/baixar/" class="btn btn-white">Baixar o app</a>
+        <a href="/baixar/" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff">Como funciona</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section" id="faq">
+  <div class="tu-container tu-container-narrow">
+    <div class="tu-section-head center">
+      <span class="tu-eyebrow">Dúvidas rápidas</span>
+      <h2 class="tu-h2">Perguntas frequentes</h2>
+    </div>
+    <div class="tu-faq-list">
+      <div class="tu-faq-item">
+        <button class="tu-faq-q" type="button">O TudoUtil é realmente gratuito?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="tu-faq-a"><div class="tu-faq-a-inner">Sim. Todas as ferramentas de PDF já publicadas são 100% gratuitas, sem limite diário escondido e sem pedir cartão de crédito. Criar conta é opcional — só se você quiser salvar favoritos e histórico.</div></div>
+      </div>
+      <div class="tu-faq-item">
+        <button class="tu-faq-q" type="button">Preciso criar conta pra usar as ferramentas?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="tu-faq-a"><div class="tu-faq-a-inner">Não. Todas as ferramentas funcionam sem login. A conta existe pra quem quer salvar favoritos, ver histórico de arquivos e, no futuro, montar fluxos automáticos.</div></div>
+      </div>
+      <div class="tu-faq-item">
+        <button class="tu-faq-q" type="button">Meus arquivos ficam salvos em algum servidor?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="tu-faq-a"><div class="tu-faq-a-inner">Não por padrão. Ferramentas que processam no navegador nunca enviam o arquivo pra fora do seu computador. Quando o processamento exige servidor, o arquivo é excluído automaticamente logo depois.</div></div>
+      </div>
+      <div class="tu-faq-item">
+        <button class="tu-faq-q" type="button">As ferramentas que ainda não existem vão demorar?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="tu-faq-a"><div class="tu-faq-a-inner">Elas estão sendo construídas categoria por categoria. As 28 ferramentas de PDF já estão no ar; imagens, documentos, texto, cálculos, web e dev chegam nas próximas atualizações.</div></div>
+      </div>
+      <div class="tu-faq-item">
+        <button class="tu-faq-q" type="button">Funciona no celular?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="tu-faq-a"><div class="tu-faq-a-inner">Sim, o site inteiro foi desenhado mobile-first. Você também pode instalar o TudoUtil como aplicativo no Android ou como programa no computador — veja em "Baixar o app".</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tu-section final-cta">
+  <div class="tu-container tu-container-narrow">
+    <h2 class="tu-h2">Bora resolver esse arquivo?</h2>
+    <p class="tu-lede" style="margin-inline:auto">Sem cadastro, sem instalar nada. É só jogar o arquivo aqui em cima.</p>
+    <div class="final-cta-actions">
+      <button class="btn btn-primary btn-lg" onclick="document.getElementById('hero-dropzone').scrollIntoView({behavior:'smooth',block:'center'})" type="button">Começar agora</button>
+      <a class="btn btn-outline btn-lg" href="#categorias">Ver categorias</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="tu-footer">
+  <div class="tu-footer-grid">
+    <div class="tu-footer-brand">
+      <a class="tu-logo" href="/"><img src="/assets/img/icon-192.png" width="32" height="32" alt="TudoUtil"/><span class="tu-logo-word">Tudo<span>Util</span></span></a>
+      <p>Central de arquivos com mais de 80 ferramentas gratuitas. Jogue seu arquivo, diga o que precisa, resolva.</p>
+      <div class="tu-footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3v11.5a3.5 3.5 0 11-3.5-3.5M14 3a5 5 0 005 5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l16 16M20 4L4 20" stroke-linecap="round"/></svg></a>
+      </div>
+    </div>
+    <div class="tu-footer-col">
+      <h4>Produto</h4>
+      <ul>
+        <li><a href="/#categorias">Categorias</a></li>
+        <li><a href="/#ferramentas">Ferramentas populares</a></li>
+        <li><a href="/#ia">IA para documentos</a></li>
+        <li><a href="/baixar/">Baixar o app</a></li>
+      </ul>
+    </div>
+    <div class="tu-footer-col">
+      <h4>Ferramentas PDF</h4>
+      <ul>
+        <li><a href="/tools/comprimir-pdf/">Comprimir PDF</a></li>
+        <li><a href="/tools/juntar-pdf/">Juntar PDF</a></li>
+        <li><a href="/tools/pdf-para-word/">PDF para Word</a></li>
+        <li><a href="/tools/assinar-pdf/">Assinar PDF</a></li>
+      </ul>
+    </div>
+    <div class="tu-footer-col">
+      <h4>Conta</h4>
+      <ul>
+        <li><a href="/login/">Entrar</a></li>
+        <li><a href="/conta/">Minha conta</a></li>
+        <li><a href="/conta/#favoritos">Favoritos</a></li>
+        <li><a href="/conta/#historico">Histórico</a></li>
+      </ul>
+    </div>
+    <div class="tu-footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/contato/">Contato</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tu-footer-bottom">
+    <p>&copy; 2026 TudoUtil. Todos os direitos reservados.</p>
+    <div class="tu-footer-bottom-links">
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/termos/">Termos de uso</a>
+      <a href="/cookies/">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<nav class="tu-tabbar is-enabled">
+  <div class="tu-tabbar-row">
+    <a class="tu-tabbar-item active" href="/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z" stroke-linejoin="round"/></svg>
+      Início
+    </a>
+    <a class="tu-tabbar-item" href="/#categorias">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Categorias
+    </a>
+    <a class="tu-tabbar-fab" href="#hero" aria-label="Enviar arquivo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke-linecap="round"/></svg>
+    </a>
+    <button class="tu-tabbar-item" data-search-open type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+      Buscar
+    </button>
+    <a class="tu-tabbar-item" href="/conta/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" stroke-linecap="round"/></svg>
+      Conta
+    </a>
+  </div>
+</nav>
+
+<button class="tu-back-top" aria-label="Voltar ao topo" type="button">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script defer src="/assets/js/tudoutil.js"></script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('#tools-filters .chip').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('#tools-filters .chip').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var grid = document.getElementById('tool-grid-main');
+      var filter = btn.dataset.filter;
+      grid.dataset.toolGrid = filter;
+      grid.dataset.toolLimit = filter === 'popular' ? '12' : '0';
+      var list = filter === 'popular' ? TU_TOOLS.filter(function (t) { return t.live; }).slice(0, 12) : TU_TOOLS.filter(function (t) { return t.cat === filter; });
+      grid.innerHTML = list.map(TU.toolTileHtml).join('');
+      TU.wireToolTiles();
+    });
+  });
+  document.querySelectorAll('[data-cat-filter]').forEach(function (tile) {
+    tile.addEventListener('click', function (e) {
+      e.preventDefault();
+      var cat = tile.dataset.catFilter;
+      document.querySelectorAll('#tools-filters .chip').forEach(function (b) { b.classList.toggle('active', b.dataset.filter === cat); });
+      var grid = document.getElementById('tool-grid-main');
+      grid.innerHTML = TU_TOOLS.filter(function (t) { return t.cat === cat; }).map(TU.toolTileHtml).join('');
+      TU.wireToolTiles();
+      document.getElementById('ferramentas').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+});
+</script>
+</body>
+</html>
