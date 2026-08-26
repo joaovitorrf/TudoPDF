@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --blue: #2F5CF0;
+  --blue-dark: #2748C4;
+  --blue-deeper: #1D3AA8;
+  --blue-light: #EEF1FE;
+  --purple: #7C3AED;
+  --purple-dark: #6428C7;
+  --white: #ffffff;
+  --gray-1: #F6F8FC;
+  --gray-2: #E7EBF6;
+  --gray-3: #A6AFC7;
+  --text: #12142B;
+  --text-muted: #4C5372;
+  --card-bg: #ffffff;
+  --header-bg: rgba(255,255,255,0.92);
+  --footer-bg: #05070d;
+  --shadow-sm: 0 2px 8px rgba(47,92,240,0.10);
+  --shadow-md: 0 8px 32px rgba(47,92,240,0.14);
+  --shadow-lg: 0 20px 60px rgba(47,92,240,0.18);
+  --radius: 18px;
+}
+
+[data-theme="dark"] {
+  --blue: #3E6BFF;
+  --blue-dark: #6E93FF;
+  --blue-deeper: #9DBBFF;
+  --blue-light: #151A2E;
+  --purple: #8B4DFF;
+  --purple-dark: #A876FF;
+  --gray-1: #05070d;
+  --gray-2: #1c2133;
+  --gray-3: #5D6683;
+  --text: #F4F6FC;
+  --text-muted: #9AA3C4;
+  --card-bg: #10131F;
+  --header-bg: rgba(5,7,13,0.86);
+  --shadow-sm: 0 2px 10px rgba(0,0,0,0.35);
+  --shadow-md: 0 10px 34px rgba(2,4,10,0.5);
+  --shadow-lg: 0 12px 40px rgba(62,107,255,0.16), 0 4px 16px rgba(139,77,255,0.14);
+}
+
+body, .btn-header, .nav-link, .mobile-nav-item, .mobile-nav-section, .dropdown-label,
+.logo, .tool-back-btn, .breadcrumb, .footer-col a, .footer-col h4, .toast,
+button, input, select, textarea {
+  font-family: 'Inter', 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.logo, .tool-hero h1, .drop-title, .drop-btn, .compress-btn,
+[class$="-btn"], [class$="-title"], [class$="-label"],
+.result-title, .options-title, .qc-label, .file-name,
+.footer-col h4, .btn-header {
+  font-family: 'Space Grotesk', 'Montserrat', sans-serif !important;
+}
+
+.tu-tools-mono, .file-size, .progress-pct, #progress-pct {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+html { scrollbar-color: var(--gray-2) transparent; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-2); border-radius: 99px; border: 3px solid var(--gray-1); }
+::selection { background: var(--purple); color: #fff; }
+
+:focus-visible { outline: 2px solid var(--blue-dark); outline-offset: 3px; border-radius: 4px; }
+
+#header { backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); }
+
+.logo-icon-img {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.logo span { background: linear-gradient(135deg, var(--blue-dark), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.footer-brand .logo span { background: none; -webkit-background-clip: initial; background-clip: initial; color: #6b7a99 !important; }
+
+.btn-header {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  box-shadow: 0 8px 24px rgba(62,107,255,0.28);
+}
+.btn-header:hover { filter: brightness(1.08); box-shadow: 0 10px 30px rgba(139,77,255,0.32); }
+
+.theme-toggle:hover { border-color: var(--purple); }
+
+#back-top { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+
+.nav-link:hover, .nav-item:hover > .nav-link { background: var(--blue-light); }
+.dropdown-item:hover { background: var(--blue-light); color: var(--blue-dark); }
+.mobile-nav-item:hover { background: var(--blue-light); color: var(--blue-dark); }
+
+.quality-card.selected, .drop-zone.drag-over, .drop-zone:hover {
+  box-shadow: 0 0 0 1px var(--blue) inset;
+}
+
+[data-theme="dark"] .drop-zone { background: var(--card-bg); border-color: var(--gray-2); }
+[data-theme="dark"] .file-preview { background: var(--card-bg); }
+[data-theme="dark"] .search-results { background: var(--card-bg); box-shadow: var(--shadow-lg); }
+[data-theme="dark"] .search-result-item:hover { background: var(--blue-light); }
+[data-theme="dark"] .hero-search input { background: rgba(16,19,31,0.95); color: var(--text); }
+[data-theme="dark"] .social-btn:hover { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+[data-theme="dark"] .type-input { color: var(--blue-deeper); }
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
