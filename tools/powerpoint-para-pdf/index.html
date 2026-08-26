@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="google-adsense-account" content="ca-pub-9029786875800750">
@@ -7,13 +7,13 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
-  <meta name="author" content="TudoPDF"/>
+  <meta name="author" content="TudoUtil"/>
   <meta name="robots" content="index, follow"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PowerPoint para PDF Online Grátis — Converter PPTX para PDF — TudoPDF</title>
-  <meta name="description" content="Converta apresentações PowerPoint (.ppt, .pptx) para PDF online, grátis e sem cadastro. Cada slide vira uma página do PDF. Rápido e seguro. TudoPDF."/>
+  <title>PowerPoint para PDF Online Grátis — Converter PPTX para PDF — TudoUtil</title>
+  <meta name="description" content="Converta apresentações PowerPoint (.ppt, .pptx) para PDF online, grátis e sem cadastro. Cada slide vira uma página do PDF. Rápido e seguro. TudoUtil."/>
   <link rel="canonical" href="https://www.tudopdf.site/tools/pptx-para-pdf/"/>
-  <meta property="og:title" content="PowerPoint para PDF Online Grátis — TudoPDF"/>
+  <meta property="og:title" content="PowerPoint para PDF Online Grátis — TudoUtil"/>
   <meta property="og:description" content="Converta PPTX para PDF mantendo os slides. Grátis, sem cadastro e sem marca d'água."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="https://www.tudopdf.site/tools/pptx-para-pdf/"/>
@@ -28,7 +28,7 @@
   <script type="application/ld+json">
   {
     "@context":"https://schema.org","@type":"WebPage",
-    "name":"PowerPoint para PDF Online Grátis — TudoPDF",
+    "name":"PowerPoint para PDF Online Grátis — TudoUtil",
     "url":"https://www.tudopdf.site/tools/pptx-para-pdf/",
     "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[
       {"@type":"ListItem","position":1,"name":"Início","item":"https://www.tudopdf.site/"},
@@ -79,7 +79,7 @@
     .slides-badge{background:var(--blue-light);color:var(--blue);font-family:'Montserrat',sans-serif;font-weight:700;font-size:.72rem;padding:3px 10px;border-radius:99px}
     .slides-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
     .slide-card{background:var(--card-bg);border:2px solid var(--gray-2);border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
-    .slide-card:hover{border-color:var(--blue);box-shadow:0 4px 16px rgba(0,123,255,.12)}
+    .slide-card:hover{border-color:var(--blue);box-shadow:0 4px 16px rgba(62,107,255,.12)}
     .slide-thumb{width:100%;aspect-ratio:16/9;object-fit:contain;background:#1e1e2e;display:block}
     .slide-thumb-canvas{width:100%;aspect-ratio:16/9;background:#1e1e2e;display:block}
     .slide-footer{padding:8px 12px;display:flex;align-items:center;justify-content:space-between}
@@ -88,7 +88,7 @@
     .slides-loading{text-align:center;padding:40px;color:var(--text-muted);font-size:.9rem;grid-column:1/-1}
 
     /* Convert button */
-    .convert-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,123,255,.35);display:none}
+    .convert-btn{width:100%;margin-top:24px;padding:16px;background:var(--blue);color:white;border-radius:14px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(62,107,255,.35);display:none}
     .convert-btn.show{display:block}
     .convert-btn:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-2px)}
     .convert-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
@@ -98,7 +98,7 @@
     .progress-wrap.show{display:block}
     .progress-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);margin-bottom:8px}
     .progress-bar-bg{height:8px;background:var(--gray-2);border-radius:50px;overflow:hidden}
-    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#00b4d8);border-radius:50px;width:0%;transition:width .3s ease}
+    .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),#8B4DFF);border-radius:50px;width:0%;transition:width .3s ease}
 
     /* Result */
     .result-box{display:none;margin-top:24px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:16px;padding:28px;text-align:center}
@@ -137,6 +137,7 @@
     .faq-a p{font-size:.88rem;color:var(--text-muted);line-height:1.7;margin:0}
     @media(max-width:640px){.info-cards{grid-template-columns:1fr}.slides-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}}
   </style>
+<link rel="stylesheet" href="../../assets/css/tools-theme.css"/>
 </head>
 <body>
 <div class="toast" id="toast"></div>
@@ -144,7 +145,7 @@
 
 <header id="header">
   <div class="header-inner">
-    <a class="logo" href="/"><div class="logo-icon">📄</div>Tudo<span>PDF</span></a>
+    <a class="logo" href="/"><img class="logo-icon-img" src="/assets/img/icon-192.png" alt=""/>Tudo<span>Util</span></a>
     <nav>
       <div class="nav-item"><a class="nav-link" href="/tools/juntar-pdf/">Juntar PDF</a></div>
       <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
@@ -311,7 +312,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="logo" style="color:white;margin-bottom:14px"><div class="logo-icon">📄</div>Tudo<span style="color:#475569">PDF</span></div>
+        <div class="logo" style="color:white;margin-bottom:14px"><img class="logo-icon-img" src="/assets/img/icon-192.png" alt=""/>Tudo<span style="color:#475569">Util</span></div>
         <p>A plataforma completa para todas as suas necessidades com documentos PDF.</p>
         <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
       </div>
@@ -334,7 +335,7 @@
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2025 TudoPDF. Todos os direitos reservados.</p>
+      <p class="footer-copy">&copy; 2026 TudoUtil. Todos os direitos reservados.</p>
       <p class="footer-watermark">TUDOPDF.SITE</p>
     </div>
   </div>
