@@ -45,7 +45,7 @@ const TOOLS = [
 const THEME_KEY = 'tudopdf-theme';
 
 function initTheme() {
-  const saved = localStorage.getItem(THEME_KEY) || 'light';
+  const saved = localStorage.getItem(THEME_KEY) || 'dark';
   applyTheme(saved);
 }
 
