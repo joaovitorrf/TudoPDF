@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="google-adsense-account" content="ca-pub-9029786875800750">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon-512.png"/>
+  <meta name="author" content="TudoUtil"/>
+  <meta name="robots" content="index, follow"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gerador de Documentos Personalizados Grátis — Monte o seu em PDF — TudoUtil</title>
+  <meta name="description" content="Monte qualquer documento formal simples: escolha o título, escreva as seções e gere um PDF pronto para assinar. Flexível e grátis."/>
+  <link rel="canonical" href="https://www.tudopdf.site/tools/gerador-de-documento-personalizado/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Gerador de Documentos Personalizados Grátis — Monte o seu em PDF — TudoUtil"/>
+  <meta property="og:description" content="Monte qualquer documento formal simples: escolha o título, escreva as seções e gere um PDF pronto para assinar. Flexível e grátis."/>
+  <meta property="og:url" content="https://www.tudopdf.site/tools/gerador-de-documento-personalizado/"/>
+  <meta property="og:image" content="https://www.tudopdf.site/assets/img/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../../assets/css/style.css"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebPage","name":"Gerador de Documentos Personalizados Grátis — Monte o seu em PDF — TudoUtil","url":"https://www.tudopdf.site/tools/gerador-de-documento-personalizado/","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Início","item":"https://www.tudopdf.site/"},{"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://www.tudopdf.site/ferramentas/"},{"@type":"ListItem","position":3,"name":"Documento Personalizado","item":"https://www.tudopdf.site/tools/gerador-de-documento-personalizado/"}]}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type": "Question", "name": "Que tipo de documento posso montar aqui?", "acceptedAnswer": {"@type": "Answer", "text": "Qualquer documento formal simples que não se encaixe nos outros modelos: termo de compromisso, ata simples, comunicado interno, carta formal, entre outros — você define o título e o conteúdo."}}, {"@type": "Question", "name": "Posso adicionar quantas seções eu quiser?", "acceptedAnswer": {"@type": "Answer", "text": "Sim, clique em \"Adicionar seção de texto\" quantas vezes precisar para organizar o conteúdo do seu documento."}}, {"@type": "Question", "name": "Dá para gerar um documento sem linha de assinatura?", "acceptedAnswer": {"@type": "Answer", "text": "Sim, basta desmarcar a opção \"Incluir linha de assinatura\" na seção de assinatura."}}, {"@type": "Question", "name": "Esse gerador serve para documentos com múltiplas páginas?", "acceptedAnswer": {"@type": "Answer", "text": "Sim, o PDF se ajusta automaticamente ao tamanho do conteúdo, podendo gerar quantas páginas forem necessárias."}}]}
+  </script>
+
+  <style>
+    .tool-hero{text-align:center;margin-bottom:30px}
+    .tool-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--text);margin-bottom:10px}
+    .tool-hero p{color:var(--text-muted);font-size:1rem;max-width:560px;margin:0 auto;line-height:1.6}
+    .info-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .info-card{background:var(--card-bg);border:1px solid var(--gray-2);border-radius:14px;padding:22px}
+    .info-card-icon{font-size:1.6rem;margin-bottom:10px}
+    .info-card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:6px}
+    .info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6}
+    .related-tools{margin-top:48px;padding-top:40px;border-top:1px solid var(--gray-2)}
+    .related-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:20px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+    .related-card{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--card-bg);border:1px solid var(--gray-2);border-radius:12px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.8rem;color:var(--text-muted);transition:border-color .2s,color .2s,background .2s}
+    .related-card:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+    .faq-section { margin-top: 48px; }
+    .faq-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--text); margin-bottom: 20px; text-align: center; }
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-item { border: 1.5px solid var(--gray-2); border-radius: 12px; overflow: hidden; background: var(--card-bg); transition: border-color 0.2s; }
+    .faq-item:hover { border-color: var(--blue); }
+    .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: none; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem; color: var(--text); text-align: left; gap: 12px; }
+    .faq-arrow { font-size: 1rem; transition: transform 0.25s; flex-shrink: 0; color: var(--blue); }
+    .faq-q[aria-expanded="true"] .faq-arrow { transform: rotate(180deg); }
+    .faq-a { display: none; padding: 0 20px 16px; }
+    .faq-a.open { display: block; }
+    .faq-a p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; margin: 0; }
+    .legal-note { display:flex; gap:10px; align-items:flex-start; background:var(--blue-light); border:1px solid var(--blue); border-radius:12px; padding:14px 16px; margin:20px 0 4px; font-size:.78rem; color:var(--text-muted); line-height:1.6; }
+    .legal-note b { color: var(--text); }
+    @media(max-width:640px){.info-cards{grid-template-columns:1fr}}
+    
+  </style>
+<link rel="stylesheet" href="../../assets/css/tools-theme.css"/>
+<link rel="stylesheet" href="../../assets/css/gerador-theme.css"/>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<button id="back-top" aria-label="Voltar ao topo" onclick="backToTop()">↑</button>
+
+<header id="header">
+  <div class="header-inner">
+    <a class="logo" href="/"><img class="logo-icon-img" src="/assets/img/icon-192.png" alt=""/>Tudo<span>Util</span></a>
+    <nav>
+      <div class="nav-item"><a class="nav-link" href="/tools/gerador-de-recibo/">Gerador de Recibo</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/gerador-de-curriculo/">Gerador de Currículo</a></div>
+      <div class="nav-item"><a class="nav-link" href="/tools/comprimir-pdf/">Comprimir PDF</a></div>
+      <div class="nav-item">
+        <span class="nav-link">Todas as Ferramentas <span class="arrow">▾</span></span>
+        <div class="dropdown" style="min-width:200px;left:auto;right:0;transform:none">
+          <a class="dropdown-item" href="/ferramentas/"><span class="di">⚡</span> Ver todas</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📁</span> Organizar</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">🔄</span> Converter</a>
+          <a class="dropdown-item" href="/#tools"><span class="di">📝</span> Documentos</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <button class="theme-toggle" id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="btn-header" id="btn-login-header" onclick="loginWithGoogle()">Entrar com Google</button>
+      <div id="user-menu" style="display:none;align-items:center;gap:10px;position:relative">
+        <img id="user-avatar" src="" alt="avatar" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--blue)"/>
+        <button onclick="logoutGoogle()" class="btn-header" style="background:var(--gray-2);color:var(--text)">Sair</button>
+      </div>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<div id="mobile-nav">
+  <button onclick="closeMobileNav()" style="position:absolute;top:20px;right:20px;font-size:1.4rem;background:none;border:none;cursor:pointer;color:var(--text)">✕</button>
+  <div style="margin-top:24px">
+    <a class="mobile-nav-item" href="/">Início <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/gerador-de-recibo/">Gerador de Recibo <span>→</span></a>
+    <a class="mobile-nav-item" href="/tools/gerador-de-curriculo/">Gerador de Currículo <span>→</span></a>
+    <a class="mobile-nav-item" href="/#tools" style="color:var(--blue)">Ver todas →</a>
+  </div>
+</div>
+
+<div class="tool-page-wrap">
+  <div class="tool-topbar">
+    <div class="tool-topbar-inner">
+      <nav class="breadcrumb"><a href="/">Início</a><span class="sep">›</span><a href="/ferramentas/">Ferramentas</a><span class="sep">›</span><span>Documento Personalizado</span></nav>
+      <a class="tool-back-btn" href="/ferramentas/">← Todas as ferramentas</a>
+    </div>
+  </div>
+  <div class="tool-content-area">
+
+    <div class="tool-hero">
+      <h1>🧩 Gerador de Documentos Personalizados</h1>
+      <p>Não encontrou o modelo certo? Monte o seu: título, seções de texto livre e assinatura — do seu jeito.</p>
+    </div>
+
+    <div class="gerador-layout">
+      <div class="gform-col">
+        <form id="gform">
+
+          <div class="gform-section">
+            <div class="gform-section-title">🏷️ Cabeçalho</div>
+            <div class="gfield"><label>Título do documento</label><input type="text" id="titulo" placeholder="Ex: TERMO DE COMPROMISSO" style="text-transform:uppercase"></div>
+            <div class="gfield"><label>Subtítulo <span class="opt">(opcional)</span></label><input type="text" id="subtitulo" placeholder="Ex: Referente ao evento de agosto/2026"></div>
+          </div>
+          <div class="gform-section">
+            <div class="gform-section-title">👤 Identificação <span class="opt">(opcional)</span></div>
+            <div class="gfield"><label>Nome da pessoa ou empresa relacionada</label><input type="text" id="pessoa"></div>
+            <div class="gfield"><label>CPF/CNPJ <span class="opt">(opcional)</span></label><input type="text" id="doc"></div>
+          </div>
+          <div class="gform-section">
+            <div class="gform-section-title">📄 Conteúdo</div>
+            <div id="sec-container"></div>
+            <button type="button" class="grepeat-add" id="btn-add-sec">+ Adicionar seção de texto</button>
+          </div>
+          <div class="gform-section">
+            <div class="gform-section-title">✍️ Assinatura</div>
+            <label class="gcheck" style="margin-bottom:12px"><input type="checkbox" id="mostrar-assinatura" checked> Incluir linha de assinatura</label>
+            <div class="gfield"><label>Nome de quem assina <span class="opt">(opcional)</span></label><input type="text" id="assinante"></div>
+            <div class="gfield"><label>Cargo/função <span class="opt">(opcional)</span></label><input type="text" id="cargo"></div>
+          </div>
+          <div class="gform-section">
+            <div class="gform-section-title">📍 Local e data</div>
+            <div class="gfield-row">
+              <div class="gfield"><label>Cidade</label><input type="text" id="cidade" placeholder="Ex: Marabá - PA"></div>
+              <div class="gfield"><label>Data</label><input type="date" id="data"></div>
+            </div>
+          </div>
+
+        </form>
+
+        <div class="gerador-actions">
+          <button type="button" class="gbtn-primary" id="btn-gerar" onclick="gerarPDF()">⬇️ Baixar PDF</button>
+          <button type="button" class="gbtn-secondary" onclick="limparForm()">Limpar</button>
+        </div>
+        <p class="gform-hint">🔒 Tudo é processado no seu navegador — nada é enviado a nenhum servidor. Preencha e o PDF é gerado localmente.</p>
+
+      </div>
+
+      <div class="gpreview-col">
+        <div class="gpreview-label"><span>Prévia do documento</span><span class="gpages-badge" id="pages-badge">1 página</span></div>
+        <div class="gpaper-wrap">
+          <div class="doc-paper" id="doc-preview"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><div class="info-card-icon">🔒</div><h3>100% no navegador</h3><p>Nenhum dado que você digita sai do seu dispositivo. O PDF é montado localmente, sem passar por servidor.</p></div>
+      <div class="info-card"><div class="info-card-icon">🆓</div><h3>Grátis, sem cadastro</h3><p>Preencha, veja a prévia em tempo real e baixe. Sem limite de uso e sem marca d'água.</p></div>
+      <div class="info-card"><div class="info-card-icon">📄</div><h3>Pronto pra imprimir</h3><p>Gera um PDF em A4, formatado e pronto para assinar, imprimir ou enviar por e-mail.</p></div>
+    </div>
+
+    <div class="related-tools">
+      <div class="related-title">Outros geradores e ferramentas</div>
+      <div class="related-grid">
+        <a class="related-card" href="/tools/gerador-de-declaracao/"><span>📝</span> Gerador de Declaração</a>
+        <a class="related-card" href="/tools/gerador-de-ficha-cadastral/"><span>🗂️</span> Ficha Cadastral</a>
+        <a class="related-card" href="/tools/gerador-de-contrato/"><span>🤝</span> Gerador de Contrato</a>
+        <a class="related-card" href="/tools/gerador-de-requerimento/"><span>🏛️</span> Gerador de Requerimento</a>
+        <a class="related-card" href="/tools/assinar-pdf/"><span>✍️</span> Assinar PDF</a>
+      </div>
+    </div>
+
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+      <h2 class="faq-title">Perguntas Frequentes</h2>
+      <div class="faq-list">
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)"><span itemprop="name">Que tipo de documento posso montar aqui?</span><span class="faq-arrow">▾</span></button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Qualquer documento formal simples que não se encaixe nos outros modelos: termo de compromisso, ata simples, comunicado interno, carta formal, entre outros — você define o título e o conteúdo.</p></div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)"><span itemprop="name">Posso adicionar quantas seções eu quiser?</span><span class="faq-arrow">▾</span></button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Sim, clique em "Adicionar seção de texto" quantas vezes precisar para organizar o conteúdo do seu documento.</p></div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)"><span itemprop="name">Dá para gerar um documento sem linha de assinatura?</span><span class="faq-arrow">▾</span></button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Sim, basta desmarcar a opção "Incluir linha de assinatura" na seção de assinatura.</p></div>
+        </div>
+        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)"><span itemprop="name">Esse gerador serve para documentos com múltiplas páginas?</span><span class="faq-arrow">▾</span></button>
+          <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Sim, o PDF se ajusta automaticamente ao tamanho do conteúdo, podendo gerar quantas páginas forem necessárias.</p></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo" style="color:white;margin-bottom:14px"><img class="logo-icon-img" src="/assets/img/icon-192.png" alt=""/>Tudo<span style="color:#475569">Util</span></div>
+        <p>A plataforma completa para todas as suas necessidades com documentos, PDF e muito mais.</p>
+        <div class="footer-social"><div class="social-btn">𝕏</div><div class="social-btn">f</div><div class="social-btn">📸</div><div class="social-btn">in</div></div>
+      </div>
+      <div class="footer-col"><h4>Geradores</h4><ul>
+        <li><a href="/tools/gerador-de-documento-personalizado/">Documentos Personalizados</a></li>
+        <li><a href="/tools/gerador-de-declaracao/">Gerador de Declaração</a></li>
+        <li><a href="/tools/gerador-de-ficha-cadastral/">Ficha Cadastral</a></li>
+        <li><a href="/ferramentas/">Ver todos →</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="/sobre/">Sobre nós</a></li>
+        <li><a href="/precos/">Preços</a></li>
+        <li><a href="/seguranca/">Segurança</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul>
+        <li><a href="/privacidade/">Privacidade</a></li>
+        <li><a href="/termos/">Termos de Uso</a></li>
+        <li><a href="/cookies/">Cookies</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 TudoUtil. Todos os direitos reservados.</p>
+      <p class="footer-watermark">TUDOPDF.SITE</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script defer src="../../assets/js/main.js"></script>
+<script src="../../assets/js/gerador-engine.js"></script>
+<script>
+
+const secList = new TU.RepeatList(document.getElementById('sec-container'), {
+  minRows: 1,
+  rowHTML: (idx, d) => `
+    <div class="gfield"><label>Subtítulo da seção <span class="opt">(opcional)</span></label><input type="text" data-field="titulo" value="${TU.escapeHtml(d.titulo||'')}" placeholder="Ex: Do objetivo"></div>
+    <div class="gfield"><label>Texto</label><textarea data-field="texto" style="min-height:80px" placeholder="Escreva o texto desta seção...">${TU.escapeHtml(d.texto||'')}</textarea></div>
+    <button type="button" class="grepeat-remove">✕</button>
+  `,
+  onChange: () => render(),
+});
+
+function coletar() {
+  const v = id => (document.getElementById(id).value || '').trim();
+  return { titulo:v('titulo'), subtitulo:v('subtitulo'), pessoa:v('pessoa'), doc:v('doc'),
+    secoes: secList.values(), mostrarAssinatura: document.getElementById('mostrar-assinatura').checked,
+    assinante:v('assinante'), cargo:v('cargo'), cidade:v('cidade'), data:v('data') };
+}
+function render() {
+  const d = coletar();
+  const secoesHtml = d.secoes.filter(s=>s.titulo||s.texto).map(s => `
+    <div class="no-break" style="margin-bottom:14px">
+      ${s.titulo ? `<div class="dp-strong" style="margin-bottom:4px">${TU.escapeHtml(s.titulo)}</div>` : ''}
+      <p class="dp-p">${s.texto ? TU.nl2br(s.texto) : ''}</p>
+    </div>`).join('') || '<p class="dp-empty">Nenhuma seção adicionada ainda</p>';
+
+  document.getElementById('doc-preview').innerHTML = `
+    <div class="dp-brand"><img src="/assets/img/icon-192.png" alt=""> tudoutil.site</div>
+    <div class="dp-title">${TU.ou(d.titulo,'Documento')}</div>
+    ${d.subtitulo ? `<div class="dp-subtitle">${TU.escapeHtml(d.subtitulo)}</div>` : ''}
+    ${(d.pessoa||d.doc) ? `<p class="dp-p">Referente a: <span class="dp-strong">${TU.ou(d.pessoa)}</span>${d.doc?', CPF/CNPJ '+TU.escapeHtml(d.doc):''}.</p>` : ''}
+    ${secoesHtml}
+    <div class="dp-place-date">${TU.ou(d.cidade,'_________________')}, ${d.data ? TU.dataExtenso(d.data) : '_____ de _______________ de ______'}.</div>
+    ${d.mostrarAssinatura ? `<div class="dp-signature-block no-break">
+      <div class="dp-signature-line"></div>
+      <div class="dp-signature-name">${TU.ou(d.assinante)}</div>
+      ${d.cargo ? `<div class="dp-signature-sub">${TU.escapeHtml(d.cargo)}</div>` : ''}
+    </div>` : ''}
+    <div class="dp-footer-note">Documento gerado em tudoutil.site</div>
+  `;
+}
+function limparForm() {
+  document.getElementById('gform').reset();
+  document.getElementById('mostrar-assinatura').checked = true;
+  document.getElementById('data').value = TU.hojeISO();
+  document.getElementById('sec-container').innerHTML = ''; secList.count = 0; secList.add();
+}
+async function gerarPDF() {
+  const nome = (document.getElementById('titulo').value || 'documento').trim() || 'documento';
+  const slug = nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  const res = await TU.exportPreviewToPDF({ el: '#doc-preview', filename: (slug||'documento') + '.pdf', button: document.getElementById('btn-gerar') });
+  if (res) document.getElementById('pages-badge').textContent = res.pages + (res.pages>1?' páginas':' página');
+}
+document.getElementById('data').value = TU.hojeISO();
+document.getElementById('btn-add-sec').onclick = () => secList.add();
+secList.add();
+TU.bindLive(document.getElementById('gform'), render);
+
+
+function toggleFaq(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('.faq-q').forEach(b => {
+    b.setAttribute('aria-expanded', 'false');
+    b.nextElementSibling && b.nextElementSibling.classList.remove('open');
+  });
+  if (!expanded) {
+    btn.setAttribute('aria-expanded', 'true');
+    btn.nextElementSibling && btn.nextElementSibling.classList.add('open');
+  }
+}
+</script>
+<script type="module" src="/assets/js/firebase-auth.js"></script>
+</body>
+</html>
