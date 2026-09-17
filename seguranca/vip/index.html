@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<script>(function(){try{var t=localStorage.getItem('tu:theme')||localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>TudoUtil VIP — R$ 10 por mês, sem anúncio e sem limite</title>
+<meta name="description" content="Assine o TudoUtil VIP por R$ 10/mês: operações ilimitadas, arquivos de até 500 MB, zero anúncios, lote em fila e fluxos salvos. Cancele quando quiser."/>
+<link rel="canonical" href="https://www.tudopdf.site/vip/"/>
+<meta name="theme-color" content="#07080F"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="TudoUtil VIP — R$ 10 por mês"/>
+<meta property="og:description" content="Operações ilimitadas, arquivos de até 500 MB e zero anúncios. Cancele quando quiser."/>
+<meta property="og:url" content="https://www.tudopdf.site/vip/"/>
+<meta property="og:image" content="https://www.tudopdf.site/assets/img/og-image.jpg"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "TudoUtil VIP",
+  "description": "Assinatura do TudoUtil com operações ilimitadas, arquivos de até 500 MB, sem anúncios, lote em fila e fluxos salvos.",
+  "brand": { "@type": "Brand", "name": "TudoUtil" },
+  "offers": {
+    "@type": "Offer",
+    "price": "10.00",
+    "priceCurrency": "BRL",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.tudopdf.site/vip/",
+    "priceValidUntil": "2027-12-31"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Quanto custa o TudoUtil VIP?",
+      "acceptedAnswer": { "@type": "Answer", "text": "O TudoUtil VIP custa R$ 10 por mês. Não há fidelidade nem multa: você cancela quando quiser e continua com acesso até o fim do período já pago." } },
+    { "@type": "Question", "name": "Preciso criar conta antes de pagar?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Não. Você paga primeiro, informando apenas o e-mail. Depois da confirmação do pagamento, você cria a senha da conta e o VIP já vem ativo." } },
+    { "@type": "Question", "name": "O plano grátis vai continuar existindo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sim. O plano grátis continua com 20 operações por dia e arquivos de até 100 MB. O VIP existe para quem usa em volume e prefere navegar sem anúncios." } },
+    { "@type": "Question", "name": "Meus arquivos ficam mais seguros no VIP?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A segurança é a mesma para todos: o processamento acontece dentro do seu navegador e nenhum arquivo é enviado para nossos servidores, seja no plano grátis ou no VIP." } },
+    { "@type": "Question", "name": "Como faço para cancelar?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pela própria página da sua conta, em dois cliques, sem precisar falar com atendimento. O acesso continua até o fim do ciclo pago." } }
+  ]
+}
+</script>
+
+<style>
+  .vip-head {
+    position: relative; overflow: hidden;
+    padding: clamp(46px, 8vw, 86px) 0 clamp(36px, 6vw, 60px);
+    text-align: center;
+    background:
+      radial-gradient(75% 90% at 50% -10%, rgba(245,196,81,.17), transparent 62%),
+      radial-gradient(60% 70% at 50% 100%, rgba(91,107,245,.12), transparent 60%),
+      var(--ink-850);
+    border-bottom: 1px solid var(--tu-line);
+  }
+  .vip-head::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: var(--tu-grid); background-size: 32px 32px; opacity: .45;
+  }
+  .vip-head > * { position: relative; }
+  .vip-head h1 { font-size: clamp(1.85rem, 4.4vw, 3rem); margin: 14px auto 14px; max-width: 16ch; }
+  .vip-head > .tu-wrap > p { font-size: clamp(1rem, 2vw, 1.14rem); max-width: 52ch; margin: 0 auto 30px; }
+
+  .price-tag { display: inline-flex; align-items: baseline; gap: 5px; margin-bottom: 8px; }
+  .price-tag b { font-family: var(--tu-font-display); font-size: clamp(2.8rem, 7vw, 4rem); line-height: 1; background: var(--tu-grad-vip); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .price-tag small { font-size: 1rem; color: var(--tu-fg-2); }
+  .price-note { font-size: .85rem; color: var(--tu-fg-3); margin-bottom: 26px; }
+
+  .cmp { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  .cmp th, .cmp td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--tu-line); }
+  .cmp thead th { font-family: var(--tu-font-display); font-size: .82rem; color: var(--tu-fg-3); text-transform: uppercase; letter-spacing: .06em; }
+  .cmp tbody th { font-weight: 500; color: var(--tu-fg-2); }
+  .cmp td { text-align: center; font-family: var(--tu-font-mono); font-size: .86rem; }
+  .cmp td.vip-col { background: rgba(245,196,81,.05); color: var(--vip); font-weight: 600; }
+  .cmp thead th.vip-col { background: rgba(245,196,81,.09); color: var(--vip); border-radius: var(--tu-r-sm) var(--tu-r-sm) 0 0; }
+  .cmp-wrap { overflow-x: auto; border: 1px solid var(--tu-line); border-radius: var(--tu-r-md); background: var(--tu-surface); }
+  .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: none; }
+
+  .vip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .vip-feat { padding: 20px; }
+  .vip-feat-ico { width: 42px; height: 42px; border-radius: var(--tu-r-sm); background: rgba(245,196,81,.12); display: grid; place-items: center; margin-bottom: 13px; }
+  .vip-feat-ico svg { width: 21px; height: 21px; color: var(--vip); }
+  .vip-feat h3 { font-size: .99rem; margin-bottom: 5px; }
+  .vip-feat p { font-size: .87rem; margin: 0; }
+
+  /* Checkout: o mínimo de campos possível. Cada campo a mais mata conversão. */
+  .checkout { max-width: 460px; margin: 0 auto; }
+  .checkout-box { padding: 26px; border: 1.5px solid rgba(245,196,81,.3); border-radius: var(--tu-r-lg); background: var(--tu-surface); }
+  .step-dots { display: flex; gap: 7px; justify-content: center; margin-bottom: 22px; }
+  .step-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--tu-surface-hi); transition: all var(--tu-t) var(--tu-ease); }
+  .step-dots i.on { width: 22px; border-radius: 99px; background: var(--tu-grad-vip); }
+
+  .pay-methods { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .pay-methods span {
+    font-family: var(--tu-font-mono); font-size: .68rem; padding: 6px 11px;
+    border: 1px solid var(--tu-line); border-radius: var(--tu-r-xs); color: var(--tu-fg-3);
+  }
+
+  .guar { display: flex; gap: 11px; align-items: flex-start; margin-top: 20px; padding: 15px; background: var(--ok-bg); border: 1px solid rgba(52,217,160,.22); border-radius: var(--tu-r-sm); font-size: .84rem; }
+  .guar svg { width: 18px; height: 18px; color: var(--ok); flex-shrink: 0; margin-top: 2px; }
+
+  @media (max-width: 640px) {
+    .cmp th, .cmp td { padding: 11px 12px; font-size: .84rem; }
+    .checkout-box { padding: 20px; }
+  }
+</style>
+<meta property="og:site_name" content="TudoUtil"/>
+<meta property="og:locale" content="pt_BR"/>
+<link rel="stylesheet" href="/assets/css/tu-ds.css"/>
+</head>
+
+<body>
+<a class="tu-skip" href="#vip-planos">Pular para os planos</a>
+
+<header style="border-bottom:1px solid var(--tu-line);background:var(--tu-header-bg);backdrop-filter:blur(18px);position:sticky;top:0;z-index:100">
+  <div class="tu-wrap tu-row-between" style="padding-block:13px">
+    <a href="/" style="display:inline-flex;align-items:center;gap:10px;font-family:var(--tu-font-display);font-weight:700">
+      <img src="/assets/img/icon-192.png" alt="" width="32" height="32" style="border-radius:9px"/>
+      <span>Tudo<span class="tu-gradient-text">Util</span></span>
+    </a>
+    <div class="tu-row" style="gap:8px">
+      <a class="tu-btn tu-btn-sm tu-btn-quiet" href="/">Ferramentas</a>
+      <a class="tu-btn tu-btn-sm tu-btn-ghost" href="/conta/" data-auth="in" hidden>Minha conta</a>
+    </div>
+  </div>
+</header>
+
+<section class="vip-head">
+  <div class="tu-wrap">
+    <span class="tu-badge tu-badge-vip">TudoUtil VIP</span>
+    <h1>Dez reais para nunca mais pensar em limite</h1>
+    <p>Todo mundo continua usando de graça. O VIP é para quem já entendeu que essa ferramenta virou parte do trabalho — e quer ela sem anúncio, sem teto e sem espera.</p>
+
+    <div class="price-tag"><small>R$</small><b>10</b><small>/mês</small></div>
+    <div class="price-note">Sem fidelidade · Cancele em 2 cliques · Preço em reais, sem IOF</div>
+
+    <a class="tu-btn tu-btn-vip tu-btn-lg" href="#assinar">Quero ser VIP</a>
+  </div>
+</section>
+
+<!-- ======================= O QUE MUDA ======================= -->
+<section class="tu-sec" id="vip-planos">
+  <div class="tu-wrap">
+    <div class="tu-sec-head is-center">
+      <span class="tu-kicker">Comparando de forma honesta</span>
+      <h2>O que muda de verdade</h2>
+      <p>Sem letras miúdas. Estes são todos os limites do site.</p>
+    </div>
+
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th scope="col">Recurso</th>
+            <th scope="col" style="text-align:center">Visitante</th>
+            <th scope="col" style="text-align:center">Grátis</th>
+            <th scope="col" class="vip-col" style="text-align:center">VIP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Operações por dia</th><td>5</td><td>20</td><td class="vip-col">∞</td></tr>
+          <tr><th scope="row">Tamanho por arquivo</th><td>25 MB</td><td>100 MB</td><td class="vip-col">500 MB</td></tr>
+          <tr><th scope="row">Arquivos por vez</th><td>5</td><td>20</td><td class="vip-col">∞</td></tr>
+          <tr><th scope="row">Anúncios</th><td>sim</td><td>sim</td><td class="vip-col">nenhum</td></tr>
+          <tr><th scope="row">Favoritos e histórico na nuvem</th><td>—</td><td>sim</td><td class="vip-col">sim</td></tr>
+          <tr><th scope="row">Lote em fila (não trava o navegador)</th><td>—</td><td>—</td><td class="vip-col">sim</td></tr>
+          <tr><th scope="row">Fluxos salvos</th><td>—</td><td>—</td><td class="vip-col">sim</td></tr>
+          <tr><th scope="row">Marca d'água no resultado</th><td>nunca</td><td>nunca</td><td class="vip-col">nunca</td></tr>
+          <tr><th scope="row">Arquivos processados no seu aparelho</th><td>sempre</td><td>sempre</td><td class="vip-col">sempre</td></tr>
+          <tr><th scope="row">Suporte por e-mail</th><td>—</td><td>72h</td><td class="vip-col">24h</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="tu-center tu-dim" style="font-size:.84rem;margin-top:16px">
+      Repare nas duas últimas linhas iguais para todo mundo: nunca colocamos marca d'água no plano grátis e nunca enviamos seu arquivo para servidor. Isso não é recurso de plano, é princípio.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= BENEFÍCIOS ======================= -->
+<section class="tu-sec" style="padding-top:0">
+  <div class="tu-wrap">
+    <div class="vip-grid">
+      <article class="tu-card tu-card-notch vip-feat">
+        <div class="vip-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4.5 13.5H11l-1 8.5L19.5 10H13z" stroke-linejoin="round"/></svg></div>
+        <h3>Sem contar operação</h3>
+        <p>Trabalhe o dia inteiro. Feche 200 PDFs numa tarde de fechamento de mês. Ninguém vai te interromper.</p>
+      </article>
+      <article class="tu-card tu-card-notch vip-feat">
+        <div class="vip-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M8 2.5v3M16 2.5v3M3 9.5h18" stroke-linecap="round"/></svg></div>
+        <h3>Arquivos de até 500 MB</h3>
+        <p>Digitalização de processo inteiro, catálogo com 400 páginas, projeto em alta. Cabe.</p>
+      </article>
+      <article class="tu-card tu-card-notch vip-feat">
+        <div class="vip-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l18 18M10.6 5.3A9 9 0 0121 12s-1 1.8-2.8 3.4M6.4 6.5A11 11 0 003 12s3.7 6.5 10 6.5c1.5 0 2.8-.3 4-.8" stroke-linecap="round"/></svg></div>
+        <h3>Zero anúncios</h3>
+        <p>Nem banner, nem script de anúncio carregando. A página fica visivelmente mais rápida.</p>
+      </article>
+      <article class="tu-card tu-card-notch vip-feat">
+        <div class="vip-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 6h6M5 12h14M5 18h9" stroke-linecap="round"/><circle cx="18" cy="6" r="2.2"/></svg></div>
+        <h3>Fluxos salvos</h3>
+        <p>Comprimir → marca d'água → senha. Monte a sequência uma vez, rode em dois cliques para sempre.</p>
+      </article>
+      <article class="tu-card tu-card-notch vip-feat">
+        <div class="vip-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7.5V18a2 2 0 002 2h12a2 2 0 002-2V9.5a2 2 0 00-2-2h-6.2L9.6 5H6a2 2 0 00-2 2z" stroke-linejoin="round"/></svg></div>
+        <h3>Lote em fila</h3>
+        <p>Solta 50 arquivos de uma vez. Processamos um a um, sem travar a aba nem estourar a memória.</p>
+      </article>
+      <article class="tu-card tu-card-notch vip-feat">
+        <div class="vip-feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5.5L12 2.5 4 5.5V12c0 6 8 10 8 10z" stroke-linejoin="round"/></svg></div>
+        <h3>Você sustenta o modelo</h3>
+        <p>Cada VIP é o motivo de o plano grátis continuar sem marca d'água e sem pegadinha. Obrigado, de verdade.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CHECKOUT ======================== -->
+<section class="tu-sec" id="assinar" style="background:var(--ink-850);border-block:1px solid var(--tu-line)">
+  <div class="tu-wrap checkout">
+    <div class="tu-sec-head is-center" style="margin-bottom:24px">
+      <span class="tu-kicker">Rápido de verdade</span>
+      <h2 style="font-size:1.55rem">Assinar leva 40 segundos</h2>
+      <p style="font-size:.93rem">Você paga primeiro e cria a conta depois. Sem formulário antes do pagamento.</p>
+    </div>
+
+    <div class="checkout-box">
+      <div class="step-dots"><i class="on" id="dot1"></i><i id="dot2"></i><i id="dot3"></i></div>
+
+      <!-- PASSO 1: e-mail e pagamento -->
+      <div id="step-pay">
+        <div class="tu-row-between" style="margin-bottom:18px">
+          <div>
+            <strong style="font-family:var(--tu-font-display);font-size:1.02rem">TudoUtil VIP</strong>
+            <div style="font-size:.82rem;color:var(--tu-fg-3)">Assinatura mensal · renova sozinho</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:var(--tu-font-display);font-size:1.4rem;color:var(--vip);font-weight:700">R$ 10,00</div>
+            <div style="font-size:.74rem;color:var(--tu-fg-3)">por mês</div>
+          </div>
+        </div>
+
+        <div class="tu-field" style="margin-bottom:16px">
+          <label class="tu-label" for="ck-email">Seu e-mail</label>
+          <input class="tu-input" id="ck-email" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com"/>
+          <span class="tu-hint">É só para mandar o recibo e liberar seu acesso. Nada de senha agora.</span>
+        </div>
+
+        <button class="tu-btn tu-btn-vip tu-btn-block tu-btn-lg" id="btn-pay" type="button">
+          Ir para o pagamento
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <div class="pay-methods">
+          <span>PIX</span><span>CARTÃO</span><span>BOLETO</span>
+        </div>
+
+        <div class="guar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5.5L12 2.5 4 5.5V12c0 6 8 10 8 10z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><strong>7 dias de garantia.</strong> Não gostou, devolvemos os R$ 10 sem perguntar o motivo. E o número do seu cartão nunca passa por nós — quem processa é o gateway.</span>
+        </div>
+      </div>
+
+      <!-- PASSO 2: pagamento em processamento -->
+      <div id="step-wait" hidden style="text-align:center;padding:14px 0">
+        <div class="tu-skeleton" style="width:56px;height:56px;border-radius:50%;margin:0 auto 18px"></div>
+        <h3 style="font-size:1.1rem;margin-bottom:6px">Abrindo o pagamento seguro...</h3>
+        <p style="font-size:.88rem">Se a janela não abrir em alguns segundos, verifique se o navegador bloqueou o pop-up.</p>
+      </div>
+
+      <!-- PASSO 3: criar conta DEPOIS de pagar -->
+      <div id="step-account" hidden>
+        <div style="text-align:center;margin-bottom:20px">
+          <div style="width:62px;height:62px;margin:0 auto 14px;border-radius:50%;background:var(--ok-bg);display:grid;place-items:center">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--ok)" stroke-width="2.6"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 style="font-size:1.18rem;margin-bottom:5px">Pagamento confirmado</h3>
+          <p style="font-size:.9rem">Falta só criar sua senha para o VIP ficar ativo em todos os seus aparelhos.</p>
+        </div>
+
+        <button class="btn-google-vip tu-btn tu-btn-block" id="btn-vip-google" type="button"
+                style="background:#fff;color:#1f1f1f;min-height:52px;margin-bottom:14px">
+          <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.76c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.11a6.6 6.6 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.05l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/>
+          </svg>
+          Ativar com Google
+        </button>
+
+        <div class="tu-row" style="gap:12px;margin:16px 0;color:var(--tu-fg-3);font-size:.8rem">
+          <span style="flex:1;height:1px;background:var(--tu-line)"></span>ou<span style="flex:1;height:1px;background:var(--tu-line)"></span>
+        </div>
+
+        <div class="tu-field" style="margin-bottom:12px">
+          <label class="tu-label" for="ac-email">E-mail da compra</label>
+          <input class="tu-input" id="ac-email" type="email" readonly/>
+        </div>
+        <div class="tu-field" style="margin-bottom:16px">
+          <label class="tu-label" for="ac-pass">Crie uma senha</label>
+          <input class="tu-input" id="ac-pass" type="password" autocomplete="new-password" placeholder="Pelo menos 6 caracteres"/>
+        </div>
+        <button class="tu-btn tu-btn-vip tu-btn-block" id="btn-vip-create" type="button">Ativar meu VIP</button>
+      </div>
+    </div>
+
+    <p class="tu-center tu-dim" style="font-size:.78rem;margin-top:16px">
+      Ao assinar você concorda com os <a href="/termos/" style="color:var(--tu-fg-2);text-decoration:underline">Termos</a> e a
+      <a href="/privacidade/" style="color:var(--tu-fg-2);text-decoration:underline">Política de privacidade</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ========================== FAQ ========================== -->
+<section class="tu-sec">
+  <div class="tu-wrap tu-wrap-narrow">
+    <div class="tu-sec-head is-center">
+      <span class="tu-kicker">Perguntas diretas</span>
+      <h2>Dúvidas antes de assinar</h2>
+    </div>
+    <div class="tu-faq">
+      <details open>
+        <summary>Preciso criar conta antes de pagar?</summary>
+        <div>Não. Você informa só o e-mail, paga, e só então cria a senha. Achamos errado pedir cadastro antes de você ter certeza de que quer comprar.</div>
+      </details>
+      <details>
+        <summary>E se eu quiser cancelar?</summary>
+        <div>Dois cliques na página da sua conta, sem falar com atendimento e sem multa. Seu acesso continua até o fim do mês que você já pagou.</div>
+      </details>
+      <details>
+        <summary>O plano grátis vai piorar depois?</summary>
+        <div>Não. O compromisso público é: o plano grátis nunca terá marca d'água no resultado nem envio de arquivo para servidor. O VIP é para quem usa em volume, não uma forma de estragar o grátis.</div>
+      </details>
+      <details>
+        <summary>Meus arquivos ficam mais seguros no VIP?</summary>
+        <div>A segurança é exatamente a mesma: o processamento acontece dentro do seu navegador nos dois planos. Não existe versão "mais segura" paga porque não existe versão insegura grátis.</div>
+      </details>
+      <details>
+        <summary>Posso usar em mais de um aparelho?</summary>
+        <div>Pode. O VIP segue a sua conta, então funciona no computador do trabalho, no notebook de casa e no celular ao mesmo tempo.</div>
+      </details>
+      <details>
+        <summary>Emitem nota fiscal?</summary>
+        <div>Sim, o recibo chega por e-mail logo após a confirmação do pagamento. Se precisar de nota com CNPJ, responda esse e-mail informando os dados.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink-900);border-top:1px solid var(--tu-line);padding:34px 0">
+  <div class="tu-wrap tu-row-between" style="flex-wrap:wrap;gap:14px">
+    <span class="tu-dim" style="font-size:.84rem">© <span id="yr"></span> TudoUtil · Processamento 100% no seu navegador</span>
+    <div class="tu-row" style="gap:16px;font-size:.84rem">
+      <a class="tu-muted" href="/privacidade/">Privacidade</a>
+      <a class="tu-muted" href="/termos/">Termos</a>
+      <a class="tu-muted" href="/contato/">Contato</a>
+    </div>
+  </div>
+</footer>
+
+<script defer src="/assets/js/tu-core.js"></script>
+<script type="module" src="/assets/js/tu-cloud.js"></script>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+document.addEventListener('tu:ready', function () {
+  'use strict';
+
+  /* =====================================================================
+     PONTO DE INTEGRAÇÃO DO GATEWAY DE PAGAMENTO
+     ---------------------------------------------------------------------
+     Troque o corpo de startCheckout() pela chamada do gateway escolhido.
+     O resto do fluxo (passos, criação de conta, ativação) já está pronto.
+     Detalhes e exemplos: PENDENCIAS.txt, item 3.
+     ===================================================================== */
+  var GATEWAY = {
+    // preencha quando decidir o gateway:
+    provider: null,              // 'mercadopago' | 'stripe' | 'asaas' | 'pagarme'
+    checkoutUrl: null,           // link de checkout ou endpoint que cria a sessão
+    priceId: null                // id do plano no gateway
+  };
+
+  function step(n) {
+    document.getElementById('step-pay').hidden = n !== 1;
+    document.getElementById('step-wait').hidden = n !== 2;
+    document.getElementById('step-account').hidden = n !== 3;
+    document.getElementById('dot1').className = n >= 1 ? 'on' : '';
+    document.getElementById('dot2').className = n >= 2 ? 'on' : '';
+    document.getElementById('dot3').className = n >= 3 ? 'on' : '';
+  }
+
+  function validEmail(v) { return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v); }
+
+  async function startCheckout(email) {
+    TU.track('begin_checkout', { value: 10, currency: 'BRL' });
+    try { sessionStorage.setItem('tu:ck-email', email); } catch (e) {}
+
+    if (!GATEWAY.checkoutUrl) {
+      // Modo "terreno preparado": ainda não há gateway ligado.
+      step(1);
+      TU.toast(
+        'O pagamento ainda não está ligado neste site. Assim que o gateway for conectado, este botão leva direto ao checkout.',
+        { type: 'warn', title: 'Checkout em configuração', duration: 8000 }
+      );
+      return;
+    }
+
+    step(2);
+    // Redireciona para o checkout do gateway, levando o e-mail e a URL de retorno.
+    var back = encodeURIComponent(location.origin + '/vip/?status=sucesso');
+    location.href = GATEWAY.checkoutUrl +
+      '?email=' + encodeURIComponent(email) +
+      '&price=' + encodeURIComponent(GATEWAY.priceId || '') +
+      '&return_url=' + back;
+  }
+
+  document.getElementById('btn-pay').addEventListener('click', function () {
+    var input = document.getElementById('ck-email');
+    var email = input.value.trim();
+    if (!validEmail(email)) {
+      input.classList.add('has-error');
+      input.focus();
+      TU.toast('Precisamos de um e-mail válido para enviar seu recibo.', { type: 'warn' });
+      setTimeout(function () { input.classList.remove('has-error'); }, 2500);
+      return;
+    }
+    startCheckout(email);
+  });
+
+  /* --------- Retorno do gateway: ?status=sucesso&ref=XXXX ---------- */
+  var params = new URLSearchParams(location.search);
+  if (params.get('status') === 'sucesso') {
+    var email = params.get('email') || (function () {
+      try { return sessionStorage.getItem('tu:ck-email') || ''; } catch (e) { return ''; }
+    })();
+    document.getElementById('ac-email').value = email;
+    step(3);
+    TU.track('purchase', { value: 10, currency: 'BRL', transaction_id: params.get('ref') || '' });
+    document.getElementById('assinar').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  if (params.get('from') === 'limite' || params.get('from') === 'fluxos') {
+    TU.track('vip_page_from_limit', { from: params.get('from') });
+  }
+
+  /* ------------ Criação da conta DEPOIS do pagamento -------------- */
+  async function claimAfterLogin() {
+    var ref = params.get('ref') || '';
+    if (window.tuClaimVip) await window.tuClaimVip(ref);
+    TU.toast('Conta criada. Assim que o pagamento for confirmado pelo provedor, o VIP aparece aqui.', { type: 'ok', title: 'Quase lá' });
+    setTimeout(function () { location.href = '/conta/'; }, 1600);
+  }
+
+  document.getElementById('btn-vip-google').addEventListener('click', async function () {
+    var r = await window.tuLoginGoogle();
+    if (r && r.ok) claimAfterLogin();
+  });
+
+  document.getElementById('btn-vip-create').addEventListener('click', async function () {
+    var email = document.getElementById('ac-email').value.trim();
+    var pass = document.getElementById('ac-pass').value;
+    if (!validEmail(email)) return TU.toast('E-mail inválido.', { type: 'warn' });
+    if (pass.length < 6) return TU.toast('A senha precisa de pelo menos 6 caracteres.', { type: 'warn' });
+    this.classList.add('is-loading');
+    var r = await window.tuRegisterEmail('', email, pass);
+    this.classList.remove('is-loading');
+    if (r && r.ok) claimAfterLogin();
+  });
+
+  /* Já é VIP? Não faz sentido mostrar a oferta. */
+  document.addEventListener('tu:plan', function () {
+    if (TU.planId() === 'vip') {
+      document.getElementById('assinar').innerHTML =
+        '<div class="tu-wrap checkout"><div class="checkout-box" style="text-align:center">' +
+        '<span class="tu-badge tu-badge-vip" style="margin-bottom:12px">VIP ativo</span>' +
+        '<h2 style="font-size:1.3rem;margin-bottom:8px">Você já é VIP</h2>' +
+        '<p style="font-size:.92rem;margin-bottom:18px">Obrigado por sustentar o plano grátis de todo mundo.</p>' +
+        '<a class="tu-btn tu-btn-vip" href="/conta/">Ir para minha conta</a></div></div>';
+    }
+  });
+});
+</script>
+</body>
+</html>

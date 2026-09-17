@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<script>(function(){try{var t=localStorage.getItem('tu:theme')||localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Baixar o TudoUtil — app no celular e programa para Windows | TudoUtil</title>
+<meta name="description" content="Instale o TudoUtil no celular ou no computador em 10 segundos. Abre offline, ocupa menos de 1 MB e continua processando os arquivos dentro do seu aparelho."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.tudopdf.site/baixar/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="TudoUtil"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta property="og:title" content="Baixar o TudoUtil — app no celular e programa para Windows"/>
+<meta property="og:description" content="Instale em 10 segundos. Menos de 1 MB, abre offline e os arquivos nunca saem do seu aparelho."/>
+<meta property="og:url" content="https://www.tudopdf.site/baixar/"/>
+<meta property="og:image" content="https://www.tudopdf.site/assets/img/og-image.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="theme-color" content="#05070d"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="/assets/css/tudoutil.css"/>
+<style>
+  .dl-hero{padding:clamp(48px,9vw,96px) 0 12px}
+  .dl-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,56px);align-items:center}
+  @media(max-width:900px){.dl-grid{grid-template-columns:1fr}}
+  .dl-kicker{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 var(--tu-font-mono,ui-monospace,monospace);letter-spacing:.14em;text-transform:uppercase;color:var(--tu-accent-2,#CBF24E);border:1px solid color-mix(in srgb,var(--tu-accent-2,#CBF24E) 40%,transparent);border-radius:999px;padding:7px 12px;background:color-mix(in srgb,var(--tu-accent-2,#CBF24E) 10%,transparent)}
+  .dl-title{font:800 clamp(34px,5.4vw,58px)/1.04 var(--tu-font-display,system-ui);letter-spacing:-.025em;margin:18px 0 14px}
+  .dl-title em{font-style:normal;color:var(--tu-accent-2,#CBF24E)}
+  .dl-sub{font-size:clamp(16px,2vw,19px);line-height:1.6;color:var(--tu-fg-2,#9aa3b2);max-width:54ch}
+  .dl-cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .dl-note{margin-top:14px;font-size:13px;color:var(--tu-fg-3,#6f7889)}
+  /* mock do aparelho */
+  .dl-stage{position:relative;display:flex;justify-content:center;align-items:flex-end;gap:18px;min-height:320px}
+  .dl-phone{width:190px;aspect-ratio:9/18.5;border-radius:30px;border:1px solid var(--tu-line,#232a38);background:var(--tu-surface,#0d1220);box-shadow:0 30px 70px -30px rgba(0,0,0,.85);padding:10px;position:relative;overflow:hidden}
+  .dl-phone::before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:54px;height:5px;border-radius:99px;background:var(--tu-line,#232a38)}
+  .dl-screen{height:100%;border-radius:22px;background:linear-gradient(160deg,color-mix(in srgb,var(--tu-accent,#5B6BF5) 22%,transparent),transparent 55%),var(--tu-bg,#05070d);display:flex;flex-direction:column;gap:9px;padding:26px 12px 12px}
+  .dl-appicon{width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,var(--tu-accent-2,#CBF24E),#8fd53a);display:grid;place-items:center;font:800 17px/1 var(--tu-font-display,system-ui);color:#0b1005;margin:0 auto 6px}
+  .dl-row{height:9px;border-radius:5px;background:var(--tu-line,#232a38)}
+  .dl-row.w70{width:70%}.dl-row.w50{width:50%}.dl-row.w85{width:85%}
+  .dl-tile{height:34px;border-radius:9px;background:color-mix(in srgb,var(--tu-accent,#5B6BF5) 16%,transparent);border:1px solid color-mix(in srgb,var(--tu-accent,#5B6BF5) 30%,transparent)}
+  .dl-desk{flex:1;max-width:290px;border-radius:14px;border:1px solid var(--tu-line,#232a38);background:var(--tu-surface,#0d1220);box-shadow:0 30px 70px -35px rgba(0,0,0,.85);overflow:hidden}
+  @media(max-width:520px){.dl-desk{display:none}}
+  .dl-bar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--tu-line,#232a38)}
+  .dl-dot{width:9px;height:9px;border-radius:99px;background:var(--tu-line,#2b3346)}
+  .dl-deskbody{padding:16px;display:flex;flex-direction:column;gap:9px}
+  /* cards de plataforma */
+  .plat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:26px}
+  .plat{border:1px solid var(--tu-line,#232a38);border-radius:16px;background:var(--tu-surface,#0d1220);padding:22px;display:flex;flex-direction:column;gap:12px}
+  .plat[data-primary="1"]{border-color:color-mix(in srgb,var(--tu-accent-2,#CBF24E) 55%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--tu-accent-2,#CBF24E) 10%,transparent)}
+  .plat h3{font:700 18px/1.2 var(--tu-font-display,system-ui);margin:0;display:flex;align-items:center;gap:9px}
+  .plat-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--tu-accent,#5B6BF5) 18%,transparent);color:var(--tu-accent,#a9b2ff);flex:none}
+  .plat ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:9px;font-size:14.5px;line-height:1.55;color:var(--tu-fg-2,#9aa3b2)}
+  .plat ol b{color:var(--tu-fg,#eef1f7);font-weight:650}
+  .plat .plat-tag{font:600 11px/1 var(--tu-font-mono,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--tu-fg-3,#6f7889)}
+  .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px}
+  .why div{border:1px solid var(--tu-line,#232a38);border-radius:14px;padding:18px;background:color-mix(in srgb,var(--tu-surface,#0d1220) 70%,transparent)}
+  .why b{display:block;font:700 15px/1.3 var(--tu-font-display,system-ui);margin-bottom:6px}
+  .why span{font-size:14px;line-height:1.55;color:var(--tu-fg-2,#9aa3b2)}
+  .dl-answer{border-left:3px solid var(--tu-accent-2,#CBF24E);padding:14px 0 14px 18px;margin:0 0 6px;font-size:16.5px;line-height:1.65;max-width:70ch}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"TudoUtil","operatingSystem":"Android, iOS, Windows, macOS, Linux","applicationCategory":"UtilitiesApplication","url":"https://www.tudopdf.site/baixar/","offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"},"description":"Central de ferramentas para PDF, documentos e imagens que processa os arquivos dentro do próprio aparelho. Instalável como aplicativo no celular e como programa no Windows."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"Como instalar o TudoUtil no celular","totalTime":"PT1M","step":[{"@type":"HowToStep","name":"Abra o site","text":"Abra www.tudopdf.site no navegador do celular."},{"@type":"HowToStep","name":"Toque em instalar","text":"Toque no botão Instalar o aplicativo, ou no menu do navegador escolha Adicionar à tela de início."},{"@type":"HowToStep","name":"Confirme","text":"Confirme e o ícone do TudoUtil aparece junto dos seus outros aplicativos."}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"O TudoUtil ocupa espaço no celular?","acceptedAnswer":{"@type":"Answer","text":"Praticamente nada. A instalação é um aplicativo web (PWA) de menos de 1 MB, contra 60 MB ou mais de aplicativos parecidos na loja."}},
+{"@type":"Question","name":"Preciso baixar na Play Store ou na App Store?","acceptedAnswer":{"@type":"Answer","text":"Não. A instalação é feita direto pelo navegador, em um toque, sem loja, sem cadastro e sem permissões de acesso a contatos, câmera ou localização."}},
+{"@type":"Question","name":"Funciona sem internet?","acceptedAnswer":{"@type":"Answer","text":"Sim para a maioria das ferramentas. Como o processamento acontece dentro do seu aparelho, depois da primeira abertura as ferramentas continuam funcionando mesmo sem conexão."}},
+{"@type":"Question","name":"É seguro instalar?","acceptedAnswer":{"@type":"Answer","text":"Sim. O aplicativo é o próprio site em tela cheia, servido por HTTPS. Ele não pede permissão de sistema e não envia seus arquivos para servidor nenhum."}},
+{"@type":"Question","name":"Como desinstalo?","acceptedAnswer":{"@type":"Answer","text":"Igual a qualquer aplicativo: segure o ícone e escolha desinstalar. No Windows, use Aplicativos instalados nas configurações. Nada fica para trás."}}]}
+</script>
+<link rel="stylesheet" href="/assets/css/tu-ds.css"/>
+</head>
+<body>
+<a class="tu-skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="tu-header">
+  <div class="tu-header-inner">
+    <a class="tu-logo" href="/">
+      <img src="/assets/img/icon-192.png" width="34" height="34" alt="TudoUtil"/>
+      <span class="tu-logo-word">Tudo<span>Util</span></span>
+    </a>
+    <nav class="tu-nav">
+      <a class="tu-nav-link" href="/ferramentas/">Ferramentas</a>
+      <a class="tu-nav-link" href="/vip/">VIP</a>
+      <a class="tu-nav-link" href="/baixar/" aria-current="page">Baixar</a>
+      <a class="tu-nav-link" href="/faq/">Ajuda</a>
+    </nav>
+    <div class="tu-header-actions">
+      <button class="tu-icon-btn" data-theme-toggle type="button" aria-label="Alternar tema">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg>
+      </button>
+      <a class="btn-header-login btn btn-secondary btn-sm" id="btn-login-header" href="/login/">Entrar</a>
+      <a id="user-menu" href="/conta/" style="display:none">
+        <span class="tu-avatar-wrap">
+          <img id="user-avatar" src="" alt=""/>
+          <span id="user-name">Conta</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- HERO -->
+  <section class="tu-section dl-hero">
+    <div class="tu-container dl-grid">
+      <div>
+        <span class="dl-kicker" id="dl-kicker">Instalação em 10 segundos</span>
+        <h1 class="dl-title">Leve o TudoUtil<br/>pra <em id="dl-word">dentro do seu celular</em>.</h1>
+        <p class="dl-sub" id="dl-sub">Um toque e o TudoUtil vira ícone junto dos seus outros aplicativos: abre em tela cheia, carrega instantâneo, funciona offline e continua fazendo tudo dentro do seu aparelho.</p>
+
+        <div class="dl-cta-row">
+          <button class="tu-btn tu-btn-hot tu-btn-lg" id="dl-install" type="button">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3v12M7 11l5 5 5-5M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="dl-install-label">Instalar o aplicativo</span>
+          </button>
+          <a class="tu-btn tu-btn-quiet tu-btn-lg" href="#como">Ver o passo a passo</a>
+        </div>
+        <p class="dl-note" id="dl-note">Grátis, sem loja de aplicativos, sem cadastro e sem permissão de câmera, contatos ou localização.</p>
+      </div>
+
+      <div class="dl-stage" aria-hidden="true">
+        <div class="dl-desk">
+          <div class="dl-bar"><span class="dl-dot"></span><span class="dl-dot"></span><span class="dl-dot"></span></div>
+          <div class="dl-deskbody">
+            <div class="dl-row w50"></div>
+            <div class="dl-tile"></div>
+            <div class="dl-row w85"></div>
+            <div class="dl-row w70"></div>
+          </div>
+        </div>
+        <div class="dl-phone">
+          <div class="dl-screen">
+            <div class="dl-appicon">TU</div>
+            <div class="dl-tile"></div>
+            <div class="dl-row w85"></div>
+            <div class="dl-row w70"></div>
+            <div class="dl-row w50"></div>
+            <div class="dl-tile"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESPOSTA DIRETA (AEO) -->
+  <section class="tu-section tu-section-tight">
+    <div class="tu-container">
+      <p class="dl-answer"><b>Resumo:</b> o TudoUtil se instala direto pelo navegador, em um toque, sem passar por loja de aplicativos. A instalação ocupa menos de 1 MB, abre offline e não pede nenhuma permissão do sistema — porque o aplicativo é o próprio site rodando em tela cheia, com o processamento acontecendo dentro do seu aparelho.</p>
+    </div>
+  </section>
+
+  <!-- PASSO A PASSO -->
+  <section class="tu-section" id="como">
+    <div class="tu-container">
+      <h2 class="tu-h2">Escolha o seu aparelho</h2>
+      <p class="tu-sub">Detectamos automaticamente o que você está usando e deixamos em destaque. Os outros ficam aqui embaixo caso você queira instalar no celular também.</p>
+
+      <div class="plat-grid">
+        <article class="plat" data-plat="android">
+          <span class="plat-tag">Celular Android</span>
+          <h3><span class="plat-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18.5h2" stroke-linecap="round"/></svg></span>Android (Chrome, Edge, Samsung)</h3>
+          <ol>
+            <li>Toque no botão <b>Instalar o aplicativo</b> aqui em cima.</li>
+            <li>Se ele não aparecer, abra o menu <b>⋮</b> do navegador e escolha <b>Instalar aplicativo</b> ou <b>Adicionar à tela inicial</b>.</li>
+            <li>Confirme. O ícone do TudoUtil aparece na sua tela e no gaveta de apps.</li>
+          </ol>
+        </article>
+
+        <article class="plat" data-plat="ios">
+          <span class="plat-tag">iPhone e iPad</span>
+          <h3><span class="plat-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 5.5h4" stroke-linecap="round"/></svg></span>iOS (Safari)</h3>
+          <ol>
+            <li>Abra o TudoUtil no <b>Safari</b> (no iPhone só funciona pelo Safari).</li>
+            <li>Toque no ícone de <b>Compartilhar</b> — o quadradinho com a seta pra cima, na barra de baixo.</li>
+            <li>Role e toque em <b>Adicionar à Tela de Início</b>, depois em <b>Adicionar</b>.</li>
+          </ol>
+        </article>
+
+        <article class="plat" data-plat="windows">
+          <span class="plat-tag">Computador</span>
+          <h3><span class="plat-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8" stroke-linecap="round"/></svg></span>Programa para Windows</h3>
+          <ol>
+            <li>Clique em <b>Baixar o programa para Windows</b> aqui em cima.</li>
+            <li>Se preferir pelo navegador: no Chrome ou no Edge, clique no ícone de <b>instalar</b> (uma telinha com seta) na barra de endereço, à direita.</li>
+            <li>O TudoUtil vira um programa de verdade: aparece no menu Iniciar, na barra de tarefas e abre em janela própria, sem abas.</li>
+          </ol>
+        </article>
+
+        <article class="plat" data-plat="mac">
+          <span class="plat-tag">Computador</span>
+          <h3><span class="plat-ic"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H4z"/><path d="M2 20h20" stroke-linecap="round"/></svg></span>macOS e Linux</h3>
+          <ol>
+            <li>Abra o TudoUtil no <b>Chrome</b>, <b>Edge</b> ou <b>Brave</b>.</li>
+            <li>Clique no ícone de <b>instalar</b> na barra de endereço, ou no menu <b>⋮ → Transmitir, salvar e compartilhar → Instalar página como app</b>.</li>
+            <li>No Safari do macOS Sonoma ou mais novo: menu <b>Arquivo → Adicionar à Dock</b>.</li>
+          </ol>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE INSTALAR -->
+  <section class="tu-section tu-section-tight">
+    <div class="tu-container">
+      <h2 class="tu-h2">Por que vale a pena instalar</h2>
+      <div class="why">
+        <div><b>Menos de 1 MB</b><span>Aplicativos parecidos na loja passam de 60 MB. Aqui o que você instala é um atalho inteligente — o peso fica no navegador que você já tem.</span></div>
+        <div><b>Abre offline</b><span>Depois da primeira abertura, juntar, dividir, comprimir e organizar PDF continuam funcionando no avião, no ônibus ou sem sinal.</span></div>
+        <div><b>Zero permissão</b><span>Não pedimos contatos, localização, microfone nem acesso à galeria. Você escolhe o arquivo, e só ele entra.</span></div>
+        <div><b>Seus arquivos não saem daí</b><span>Instalado ou no navegador, o processamento continua acontecendo dentro do seu aparelho. Nada é enviado pra servidor.</span></div>
+        <div><b>Abre direto do compartilhar</b><span>No Android, o TudoUtil passa a aparecer na lista de "abrir com" quando você compartilha um PDF de outro aplicativo.</span></div>
+        <div><b>Atualiza sozinho</b><span>Sem baixar versão nova, sem "atualização pendente". Você sempre abre a versão mais recente.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANÚNCIO -->
+  <div class="tu-container"><div class="tu-ad" data-ad-slot="baixar-meio"></div></div>
+
+  <!-- FAQ -->
+  <section class="tu-section" id="faq">
+    <div class="tu-container">
+      <h2 class="tu-h2">Perguntas que todo mundo faz</h2>
+      <div class="tu-faq">
+        <details class="tu-faq-item"><summary>O TudoUtil ocupa espaço no celular?</summary><div class="tu-faq-body">Praticamente nada. A instalação é um aplicativo web (PWA) de menos de 1 MB. Aplicativos de PDF na loja costumam passar de 60 MB.</div></details>
+        <details class="tu-faq-item"><summary>Preciso baixar na Play Store ou na App Store?</summary><div class="tu-faq-body">Não. A instalação é feita direto pelo navegador, em um toque. Sem loja, sem conta de desenvolvedor no meio e sem cadastro obrigatório.</div></details>
+        <details class="tu-faq-item"><summary>Funciona sem internet?</summary><div class="tu-faq-body">Sim, na maior parte. Como o processamento acontece dentro do seu aparelho, depois da primeira abertura as ferramentas continuam funcionando sem conexão. Só o que depende de sincronizar com a sua conta precisa de internet.</div></details>
+        <details class="tu-faq-item"><summary>É seguro instalar?</summary><div class="tu-faq-body">Sim. O que você instala é o próprio site em tela cheia, servido por HTTPS. Ele não pede permissão de sistema, não roda em segundo plano e não tem acesso a nada além dos arquivos que você mesmo escolher.</div></details>
+        <details class="tu-faq-item"><summary>E se eu quiser desinstalar?</summary><div class="tu-faq-body">Igual a qualquer aplicativo: segure o ícone e escolha desinstalar. No Windows, vá em Configurações → Aplicativos → Aplicativos instalados. Nada fica para trás no seu aparelho.</div></details>
+        <details class="tu-faq-item"><summary>Tem versão paga?</summary><div class="tu-faq-body">O aplicativo é o mesmo pra todo mundo e é grátis. O plano <a href="/vip/">VIP por R$ 10 por mês</a> tira os anúncios e libera limites maiores, mas nada disso muda a instalação.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="tu-section tu-section-tight">
+    <div class="tu-container" style="text-align:center">
+      <h2 class="tu-h2">Prefere só usar pelo navegador?</h2>
+      <p class="tu-sub" style="margin-inline:auto">Também funciona. Instalar é conveniência, não obrigação — nenhuma ferramenta fica trancada atrás do aplicativo.</p>
+      <p style="margin-top:18px"><a class="tu-btn tu-btn-primary tu-btn-lg" href="/ferramentas/">Ver as ferramentas</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="tu-footer">
+  <div class="tu-container tu-footer-inner">
+    <div>
+      <a class="tu-logo" href="/"><span class="tu-logo-word">Tudo<span>Util</span></span></a>
+      <p class="tu-footer-note">Ferramentas de arquivo que resolvem dentro do seu aparelho. Feito no Brasil.</p>
+    </div>
+    <nav class="tu-footer-links">
+      <a href="/ferramentas/">Ferramentas</a>
+      <a href="/vip/">Plano VIP</a>
+      <a href="/baixar/">Baixar</a>
+      <a href="/privacidade/">Privacidade</a>
+      <a href="/termos/">Termos</a>
+      <a href="/contato/">Contato</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/assets/js/tu-catalog.js" defer></script>
+<script src="/assets/js/tu-core.js" defer></script>
+<script type="module" src="/assets/js/tu-cloud.js"></script>
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var isMobile = isIOS || isAndroid || /Mobi/i.test(ua);
+  var isMac = !isIOS && /Macintosh/.test(ua);
+  var isWin = /Windows/.test(ua);
+  var key = isIOS ? 'ios' : isAndroid ? 'android' : isWin ? 'windows' : isMac ? 'mac' : (isMobile ? 'android' : 'windows');
+
+  var word = document.getElementById('dl-word');
+  var sub = document.getElementById('dl-sub');
+  var label = document.getElementById('dl-install-label');
+  var note = document.getElementById('dl-note');
+  var kicker = document.getElementById('dl-kicker');
+
+  if (!isMobile) {
+    if (word) word.textContent = isWin ? 'dentro do seu Windows' : 'pra área de trabalho';
+    if (label) label.textContent = isWin ? 'Baixar o programa para Windows' : 'Instalar no computador';
+    if (sub) sub.textContent = 'Um clique e o TudoUtil vira um programa de verdade: ícone no menu Iniciar, janela própria sem abas, abre instantâneo e continua fazendo tudo dentro do seu computador.';
+    if (note) note.textContent = 'Grátis, sem instalador gigante, sem conta de administrador e sem mexer no registro do sistema.';
+    if (kicker) kicker.textContent = 'Instalação em 10 segundos';
+  }
+
+  // destaca a plataforma detectada e joga pro topo da lista
+  var card = document.querySelector('.plat[data-plat="' + key + '"]');
+  if (card) {
+    card.setAttribute('data-primary', '1');
+    card.parentNode.insertBefore(card, card.parentNode.firstChild);
+    var tag = card.querySelector('.plat-tag');
+    if (tag) tag.textContent = 'Você está aqui · ' + tag.textContent;
+  }
+
+  // botão principal
+  var btn = document.getElementById('dl-install');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      if (window.TU && TU.promptInstall) {
+        TU.promptInstall().then(function (ok) {
+          if (ok) return;
+          fallback();
+        });
+      } else { fallback(); }
+    });
+  }
+  function fallback() {
+    var target = document.querySelector('.plat[data-primary="1"]') || document.getElementById('como');
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    var msg = isIOS
+      ? 'No iPhone é assim: toque em Compartilhar e depois em "Adicionar à Tela de Início". O passo a passo está logo abaixo.'
+      : isMobile
+        ? 'Abra o menu ⋮ do navegador e toque em "Instalar aplicativo". O passo a passo está logo abaixo.'
+        : 'Clique no ícone de instalar na barra de endereço do Chrome ou do Edge. O passo a passo está logo abaixo.';
+    if (window.TU && TU.toast) TU.toast(msg, 'info', 7000);
+  }
+})();
+</script>
+</body>
+</html>

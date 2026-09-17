@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<script>(function(){try{var t=localStorage.getItem('tu:theme')||localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Minha conta — TudoUtil</title>
+<meta name="description" content="Seus favoritos, histórico, arquivos recentes e configurações do TudoUtil em um só lugar."/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="canonical" href="https://www.tudopdf.site/conta/"/>
+<meta name="theme-color" content="#07080F"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"/>
+
+<style>
+  .acc-top {
+    background:
+      radial-gradient(80% 120% at 12% 0%, rgba(91,107,245,.18), transparent 60%),
+      var(--ink-850);
+    border-bottom: 1px solid var(--tu-line);
+    padding: 22px 0 26px;
+  }
+  .acc-nav { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 26px; }
+  .acc-logo { display: inline-flex; align-items: center; gap: 10px; font-family: var(--tu-font-display); font-weight: 700; }
+  .acc-logo img { width: 32px; height: 32px; border-radius: 9px; }
+
+  .acc-head { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .acc-avatar {
+    width: 74px; height: 74px; border-radius: 50%;
+    background: var(--tu-grad); display: grid; place-items: center;
+    font-family: var(--tu-font-display); font-size: 1.7rem; font-weight: 700; color: #fff;
+    border: 2.5px solid var(--tu-line-2); flex-shrink: 0; overflow: hidden;
+  }
+  .acc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .acc-id h1 { font-size: 1.5rem; margin-bottom: 3px; }
+  .acc-id p { font-size: .88rem; margin: 0; }
+  .acc-head-actions { margin-left: auto; display: flex; gap: 9px; flex-wrap: wrap; }
+
+  .acc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 22px; }
+  .acc-stat { padding: 14px 16px; background: var(--tu-surface); border: 1px solid var(--tu-line); border-radius: var(--tu-r-sm); }
+  .acc-stat b { display: block; font-family: var(--tu-font-display); font-size: 1.5rem; line-height: 1.1; }
+  .acc-stat span { font-size: .78rem; color: var(--tu-fg-3); }
+
+  .acc-body { display: grid; grid-template-columns: 224px 1fr; gap: 30px; padding: 32px 0 70px; align-items: start; }
+  .acc-side { position: sticky; top: 20px; display: grid; gap: 3px; }
+  .acc-tab {
+    display: flex; align-items: center; gap: 11px;
+    padding: 11px 14px; border-radius: var(--tu-r-sm);
+    background: none; border: none; cursor: pointer; text-align: left; width: 100%;
+    font-family: var(--tu-font-display); font-weight: 550; font-size: .92rem;
+    color: var(--tu-fg-2); transition: all var(--tu-t-fast) var(--tu-ease);
+  }
+  .acc-tab svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .acc-tab:hover { background: var(--tu-surface-2); color: var(--tu-fg); }
+  .acc-tab.active { background: var(--tu-surface-3); color: var(--tu-fg); }
+  .acc-tab.active svg { color: var(--citrine-400); }
+  .acc-tab i { margin-left: auto; font-style: normal; font-family: var(--tu-font-mono); font-size: .72rem; color: var(--tu-fg-3); }
+
+  .acc-panel { display: none; }
+  .acc-panel.active { display: block; animation: accIn .3s var(--tu-ease); }
+  @keyframes accIn { from { opacity: 0; transform: translateY(10px); } }
+  .acc-panel > h2 { font-size: 1.3rem; margin-bottom: 5px; }
+  .acc-panel > .lead { font-size: .9rem; margin-bottom: 22px; }
+
+  .tool-mini {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 15px; background: var(--tu-surface); border: 1px solid var(--tu-line);
+    border-radius: var(--tu-r-sm); transition: all var(--tu-t) var(--tu-ease);
+  }
+  .tool-mini:hover { border-color: var(--tu-line-3); transform: translateX(3px); }
+  .tool-mini-txt { flex: 1; min-width: 0; }
+  .tool-mini-txt strong { display: block; font-family: var(--tu-font-display); font-size: .92rem; }
+  .tool-mini-txt span { font-size: .8rem; color: var(--tu-fg-3); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tool-mini-act { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+  .icon-btn {
+    width: 34px; height: 34px; border-radius: var(--tu-r-xs);
+    display: grid; place-items: center; background: var(--tu-surface-3);
+    border: none; cursor: pointer; color: var(--tu-fg-2);
+    transition: all var(--tu-t-fast) var(--tu-ease);
+  }
+  .icon-btn:hover { background: var(--tu-surface-hi); color: var(--tu-fg); }
+  .icon-btn.active { color: var(--citrine-400); }
+  .icon-btn svg { width: 17px; height: 17px; }
+
+  .acc-list { display: grid; gap: 9px; }
+  .acc-empty {
+    text-align: center; padding: 44px 24px;
+    border: 1.5px dashed var(--tu-line-2); border-radius: var(--tu-r-md);
+    color: var(--tu-fg-3);
+  }
+  .acc-empty svg { width: 42px; height: 42px; margin: 0 auto 14px; opacity: .45; }
+  .acc-empty strong { display: block; font-family: var(--tu-font-display); color: var(--tu-fg-2); margin-bottom: 5px; }
+
+  .set-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 0; border-bottom: 1px solid var(--tu-line);
+  }
+  .set-row:last-child { border-bottom: none; }
+  .set-row-txt { flex: 1; min-width: 0; }
+  .set-row-txt strong { display: block; font-family: var(--tu-font-display); font-size: .94rem; margin-bottom: 2px; }
+  .set-row-txt span { font-size: .83rem; color: var(--tu-fg-3); }
+
+  .plan-card {
+    padding: 22px; border-radius: var(--tu-r-md); margin-bottom: 22px;
+    background: radial-gradient(120% 130% at 0% 0%, rgba(91,107,245,.14), transparent 60%), var(--tu-surface);
+    border: 1px solid var(--tu-line-2);
+  }
+  .plan-card[data-tier="vip"] {
+    background: radial-gradient(120% 130% at 0% 0%, rgba(245,196,81,.17), transparent 62%), var(--tu-surface);
+    border-color: rgba(245,196,81,.34);
+  }
+
+  .acc-tabs-m { display: none; }
+
+  @media (max-width: 900px) {
+    .acc-body { grid-template-columns: 1fr; gap: 20px; }
+    .acc-side { display: none; }
+    .acc-tabs-m {
+      display: flex; gap: 7px; overflow-x: auto; padding-bottom: 6px;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .acc-tabs-m::-webkit-scrollbar { display: none; }
+    .acc-tabs-m button {
+      flex-shrink: 0; padding: 9px 15px; border-radius: 99px;
+      background: var(--tu-surface-2); border: 1px solid var(--tu-line);
+      font-family: var(--tu-font-display); font-weight: 600; font-size: .84rem;
+      color: var(--tu-fg-2); cursor: pointer; white-space: nowrap;
+    }
+    .acc-tabs-m button.active { background: var(--tu-grad-hot); color: var(--tu-on-citrine); border-color: transparent; }
+    .acc-head-actions { margin-left: 0; width: 100%; }
+    .acc-avatar { width: 58px; height: 58px; font-size: 1.3rem; }
+    .acc-id h1 { font-size: 1.22rem; }
+  }
+</style>
+<meta property="og:site_name" content="TudoUtil"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta property="og:title" content="Minha conta — TudoUtil"/>
+<meta property="og:url" content="https://www.tudopdf.site/conta/"/>
+<meta property="og:description" content="Seus favoritos, histórico, arquivos recentes e configurações do TudoUtil em um só lugar."/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="stylesheet" href="/assets/css/tu-ds.css"/>
+</head>
+
+<body>
+<a class="tu-skip" href="#acc-main">Pular para o conteúdo</a>
+
+<header class="acc-top">
+  <div class="tu-wrap">
+    <div class="acc-nav">
+      <a class="acc-logo" href="/">
+        <img src="/assets/img/icon-192.png" alt="" width="32" height="32"/>
+        <span>Tudo<span class="tu-gradient-text">Util</span></span>
+      </a>
+      <div class="tu-row" style="gap:8px">
+        <button class="icon-btn" data-theme-toggle aria-label="Alternar tema">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4" stroke-linecap="round"/></svg>
+        </button>
+        <a class="tu-btn tu-btn-sm tu-btn-ghost" href="/">Ferramentas</a>
+      </div>
+    </div>
+
+    <div class="acc-head">
+      <div class="acc-avatar" id="acc-avatar"><span id="acc-initial">?</span></div>
+      <div class="acc-id">
+        <h1 id="acc-name">Visitante</h1>
+        <p class="tu-muted" id="acc-email">Você não está conectado neste aparelho.</p>
+      </div>
+      <div class="acc-head-actions" id="acc-actions">
+        <a class="tu-btn tu-btn-sm tu-btn-hot" href="/login/?next=%2Fconta%2F" data-auth="out">Entrar / criar conta</a>
+        <a class="tu-btn tu-btn-sm tu-btn-vip" href="/vip/" data-nonvip-only>Ser VIP · R$ 10</a>
+        <button class="tu-btn tu-btn-sm tu-btn-ghost" id="btn-logout" data-auth="in" hidden type="button">Sair</button>
+      </div>
+    </div>
+
+    <div class="acc-stats">
+      <div class="acc-stat"><b id="st-plan" data-plan-label>Visitante</b><span>Seu plano</span></div>
+      <div class="acc-stat"><b id="st-ops">0</b><span>Operações hoje</span></div>
+      <div class="acc-stat"><b id="st-favs">0</b><span>Favoritos</span></div>
+      <div class="acc-stat"><b id="st-hist">0</b><span>No histórico</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="tu-wrap acc-body" id="acc-main">
+
+  <nav class="acc-side" aria-label="Seções da conta">
+    <button class="acc-tab active" data-tab="visao" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Visão geral
+    </button>
+    <button class="acc-tab" data-tab="favoritos" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-5.6 3.3 1.5-6.3-4.9-4.2 6.4-.5L12 3.5l2.6 5.9 6.4.5-4.9 4.2 1.5 6.3z" stroke-linejoin="round"/></svg>
+      Favoritos <i id="ct-favs"></i>
+    </button>
+    <button class="acc-tab" data-tab="historico" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
+      Histórico <i id="ct-hist"></i>
+    </button>
+    <button class="acc-tab" data-tab="recentes" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7.5V18a2 2 0 002 2h12a2 2 0 002-2V9.5a2 2 0 00-2-2h-6.2L9.6 5H6a2 2 0 00-2 2z" stroke-linejoin="round"/></svg>
+      Arquivos recentes <i id="ct-rec"></i>
+    </button>
+    <button class="acc-tab" data-tab="fluxos" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 6h6M5 12h14M5 18h9" stroke-linecap="round"/><circle cx="18" cy="6" r="2.2"/></svg>
+      Fluxos salvos
+    </button>
+    <button class="acc-tab" data-tab="config" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7 1.1v.2a2 2 0 11-4 0v-.1A1.6 1.6 0 006 19.4l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 002.4 14H2a2 2 0 110-4h.1A1.6 1.6 0 003.6 6l-.1-.1a2 2 0 112.8-2.8l.1.1A1.6 1.6 0 009 2.4V2a2 2 0 114 0v.1a1.6 1.6 0 002.7 1.1l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 001.1 2.7H22a2 2 0 110 4h-.1a1.6 1.6 0 00-1.5 1z" stroke-linejoin="round"/></svg>
+      Configurações
+    </button>
+    <button class="acc-tab" data-tab="privacidade" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5.5L12 2.5 4 5.5V12c0 6 8 10 8 10z" stroke-linejoin="round"/></svg>
+      Privacidade
+    </button>
+  </nav>
+
+  <div class="acc-tabs-m" id="acc-tabs-m"></div>
+
+  <div>
+
+    <!-- ========================= VISÃO GERAL ========================= -->
+    <section class="acc-panel active" id="tab-visao">
+      <div class="plan-card" id="plan-card" data-tier="free">
+        <div class="tu-row-between" style="align-items:flex-start;flex-wrap:wrap;gap:14px">
+          <div>
+            <span class="tu-badge" id="plan-badge">Plano Grátis</span>
+            <h2 style="font-size:1.18rem;margin:10px 0 5px" id="plan-title">Você tem 20 operações por dia</h2>
+            <p style="font-size:.88rem;margin:0" id="plan-sub">Arquivos de até 100 MB, favoritos e histórico sincronizados.</p>
+          </div>
+          <a class="tu-btn tu-btn-sm tu-btn-vip" href="/vip/" id="plan-cta" data-nonvip-only>Conhecer o VIP</a>
+        </div>
+        <div class="tu-quota" data-quota-widget style="margin-top:18px"></div>
+      </div>
+
+      <h2>Continuar de onde parou</h2>
+      <p class="lead">O que você usou nas últimas 24 horas.</p>
+      <div class="acc-list" id="ov-recent"></div>
+
+      <h2 style="margin-top:34px">Seus atalhos favoritos</h2>
+      <p class="lead">As ferramentas que você marcou com a estrelinha.</p>
+      <div class="acc-list" id="ov-favs"></div>
+    </section>
+
+    <!-- ========================== FAVORITOS ========================== -->
+    <section class="acc-panel" id="tab-favoritos">
+      <h2>Favoritos</h2>
+      <p class="lead">Clique na estrela em qualquer ferramenta para salvar aqui. Com conta, eles aparecem também no celular.</p>
+      <div class="acc-list" id="fav-list"></div>
+    </section>
+
+    <!-- ========================== HISTÓRICO ========================== -->
+    <section class="acc-panel" id="tab-historico">
+      <div class="tu-row-between" style="margin-bottom:5px">
+        <h2 style="margin:0">Histórico</h2>
+        <button class="tu-btn tu-btn-sm tu-btn-quiet" id="btn-clear-hist" type="button">Limpar histórico</button>
+      </div>
+      <p class="lead">Registro do que você fez. Guardamos o nome do arquivo e a ferramenta — nunca o conteúdo.</p>
+      <div class="acc-list" id="hist-list"></div>
+    </section>
+
+    <!-- ====================== ARQUIVOS RECENTES ====================== -->
+    <section class="acc-panel" id="tab-recentes">
+      <div class="tu-row-between" style="margin-bottom:5px">
+        <h2 style="margin:0">Arquivos recentes</h2>
+        <button class="tu-btn tu-btn-sm tu-btn-quiet" id="btn-clear-rec" type="button">Limpar agora</button>
+      </div>
+      <p class="lead">
+        Some sozinho em <strong>24 horas</strong>. É só a ficha do arquivo (nome, tamanho, ferramenta) para você repetir a operação rápido.
+        O arquivo em si nunca saiu do seu aparelho.
+      </p>
+      <div class="acc-list" id="rec-list"></div>
+    </section>
+
+    <!-- =========================== FLUXOS ============================ -->
+    <section class="acc-panel" id="tab-fluxos">
+      <h2>Fluxos salvos</h2>
+      <p class="lead">Encadeie ferramentas e rode tudo de uma vez. Ex.: comprimir → marca d'água → proteger com senha.</p>
+      <div class="tu-paywall" data-nonvip-only>
+        <div class="tu-paywall-crown">👑</div>
+        <h3>Fluxos são um recurso VIP</h3>
+        <p>Monte uma sequência uma vez e repita em dois cliques, quantas vezes quiser. Ideal para quem processa os mesmos documentos toda semana.</p>
+        <div class="tu-paywall-price" style="margin-bottom:16px">R$ 10/mês</div>
+        <div class="tu-paywall-actions">
+          <a class="tu-btn tu-btn-vip" href="/vip/?from=fluxos">Assinar o VIP</a>
+        </div>
+      </div>
+      <div data-vip-only hidden>
+        <div class="acc-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 6h6M5 12h14M5 18h9" stroke-linecap="round"/><circle cx="18" cy="6" r="2.2"/></svg>
+          <strong>Nenhum fluxo criado ainda</strong>
+          Abra uma ferramenta e use "Salvar como fluxo" ao terminar.
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== CONFIGURAÇÕES ======================== -->
+    <section class="acc-panel" id="tab-config">
+      <h2>Configurações</h2>
+      <p class="lead">Poucas opções, todas úteis. Nada de menu com 40 chaves que ninguém entende.</p>
+
+      <div class="tu-card" style="margin-bottom:18px">
+        <h3 style="font-size:1rem;margin-bottom:6px">Perfil</h3>
+        <div class="tu-field" style="margin:14px 0">
+          <label class="tu-label" for="cfg-name">Nome de exibição</label>
+          <div class="tu-row">
+            <input class="tu-input" id="cfg-name" maxlength="60" placeholder="Como quer ser chamado"/>
+            <button class="tu-btn tu-btn-hot" id="btn-save-name" type="button">Salvar</button>
+          </div>
+        </div>
+        <div class="tu-field">
+          <label class="tu-label" for="cfg-email">E-mail</label>
+          <input class="tu-input" id="cfg-email" disabled/>
+          <span class="tu-hint">Para trocar de e-mail, crie uma conta nova. É mais seguro assim.</span>
+        </div>
+      </div>
+
+      <div class="tu-card">
+        <div class="set-row">
+          <div class="set-row-txt">
+            <strong>Tema escuro</strong>
+            <span>Ou aperte Shift + D em qualquer página.</span>
+          </div>
+          <label class="tu-switch"><input type="checkbox" id="cfg-theme"/><span></span></label>
+        </div>
+        <div class="set-row">
+          <div class="set-row-txt">
+            <strong>Guardar histórico</strong>
+            <span>Desligue e paramos de registrar o que você faz. Na hora.</span>
+          </div>
+          <label class="tu-switch"><input type="checkbox" id="cfg-history" checked/><span></span></label>
+        </div>
+        <div class="set-row">
+          <div class="set-row-txt">
+            <strong>Baixar automaticamente</strong>
+            <span>Assim que o arquivo ficar pronto, o download começa sozinho.</span>
+          </div>
+          <label class="tu-switch"><input type="checkbox" id="cfg-autodl"/><span></span></label>
+        </div>
+        <div class="set-row">
+          <div class="set-row-txt">
+            <strong>Receber novidades por e-mail</strong>
+            <span>No máximo uma vez por mês, quando sai ferramenta nova.</span>
+          </div>
+          <label class="tu-switch"><input type="checkbox" id="cfg-news"/><span></span></label>
+        </div>
+        <div class="set-row">
+          <div class="set-row-txt">
+            <strong>Menos animações</strong>
+            <span>Interface mais sóbria e um pouco mais rápida.</span>
+          </div>
+          <label class="tu-switch"><input type="checkbox" id="cfg-motion"/><span></span></label>
+        </div>
+      </div>
+
+      <div class="tu-card" style="margin-top:18px">
+        <h3 style="font-size:1rem;margin-bottom:5px">Espaço usado neste aparelho</h3>
+        <p style="font-size:.85rem;margin-bottom:14px">Guardamos só texto: lista de favoritos, histórico e preferências.</p>
+        <div class="tu-row" style="gap:12px">
+          <div class="tu-quota-bar" style="flex:1"><i id="sto-bar" style="width:2%"></i></div>
+          <span class="tu-mono" style="font-size:.8rem;color:var(--tu-fg-2)"><span id="sto-kb">0</span> KB de 5 MB</span>
+        </div>
+        <button class="tu-btn tu-btn-sm tu-btn-ghost" id="btn-clear-local" style="margin-top:14px" type="button">Limpar dados deste aparelho</button>
+      </div>
+    </section>
+
+    <!-- ========================= PRIVACIDADE ========================= -->
+    <section class="acc-panel" id="tab-privacidade">
+      <h2>Privacidade</h2>
+      <p class="lead">Em português claro, sem juridiquês.</p>
+
+      <div class="tu-card" style="margin-bottom:16px">
+        <h3 style="font-size:1rem;margin-bottom:12px">O que acontece com seus arquivos</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:12px;font-size:.9rem">
+          <li class="tu-row" style="align-items:flex-start;gap:11px">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="var(--ok)" stroke-width="2.4" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>O PDF é aberto e editado <strong>dentro do seu navegador</strong>. Ele não é enviado para nenhum servidor nosso.</span>
+          </li>
+          <li class="tu-row" style="align-items:flex-start;gap:11px">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="var(--ok)" stroke-width="2.4" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Quando você fecha a aba, <strong>não sobra nada</strong>. Não existe "pasta de uploads" para limpar.</span>
+          </li>
+          <li class="tu-row" style="align-items:flex-start;gap:11px">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="var(--ok)" stroke-width="2.4" style="flex-shrink:0;margin-top:2px"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Com conta, guardamos apenas <strong>nome do arquivo, tamanho e ferramenta usada</strong> — some em 24h nos recentes.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tu-card">
+        <h3 style="font-size:1rem;margin-bottom:12px">Seus direitos (LGPD)</h3>
+        <div class="set-row">
+          <div class="set-row-txt"><strong>Baixar meus dados</strong><span>Um arquivo JSON com tudo que temos sobre você.</span></div>
+          <button class="tu-btn tu-btn-sm tu-btn-ghost" id="btn-export" type="button">Exportar</button>
+        </div>
+        <div class="set-row">
+          <div class="set-row-txt"><strong>Preferências de cookies</strong><span>Mude sua escolha sobre anúncios e medição a qualquer momento.</span></div>
+          <button class="tu-btn tu-btn-sm tu-btn-ghost" id="btn-cookies" type="button">Rever</button>
+        </div>
+        <div class="set-row">
+          <div class="set-row-txt"><strong style="color:var(--err)">Excluir minha conta</strong><span>Apaga conta, histórico e favoritos. Não dá para desfazer.</span></div>
+          <button class="tu-btn tu-btn-sm tu-btn-danger" id="btn-delete" type="button">Excluir</button>
+        </div>
+      </div>
+
+      <p style="font-size:.84rem;margin-top:18px">
+        Documentos completos: <a href="/privacidade/" style="color:var(--indigo-300);text-decoration:underline">Política de privacidade</a> ·
+        <a href="/termos/" style="color:var(--indigo-300);text-decoration:underline">Termos de uso</a> ·
+        <a href="/seguranca/" style="color:var(--indigo-300);text-decoration:underline">Segurança</a>
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<!-- Modal de exclusão -->
+<div class="tu-modal-layer" id="modal-del">
+  <div class="tu-modal-bg" data-close-del></div>
+  <div class="tu-modal" role="dialog" aria-modal="true" aria-labelledby="del-title">
+    <button class="tu-modal-x" data-close-del aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg></button>
+    <h3 id="del-title">Excluir sua conta?</h3>
+    <p style="font-size:.9rem;margin-bottom:16px">Isso apaga sua conta, o histórico e os favoritos guardados na nuvem. Os arquivos no seu computador continuam onde estão — nós nunca os tivemos.</p>
+    <div class="tu-field" style="margin-bottom:18px">
+      <label class="tu-label" for="del-confirm">Digite <strong>EXCLUIR</strong> para confirmar</label>
+      <input class="tu-input" id="del-confirm" autocomplete="off" placeholder="EXCLUIR"/>
+    </div>
+    <div class="tu-row" style="gap:9px">
+      <button class="tu-btn tu-btn-danger" id="btn-confirm-del" disabled type="button">Excluir para sempre</button>
+      <button class="tu-btn tu-btn-quiet" data-close-del type="button">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script defer src="/assets/js/tu-catalog.js"></script>
+<script defer src="/assets/js/tu-core.js"></script>
+<script type="module" src="/assets/js/tu-cloud.js"></script>
+<script>
+document.addEventListener('tu:ready', function () {
+  'use strict';
+  var E = TU.esc;
+
+  /* ------------------------ navegação por abas ------------------------ */
+  var TABS = [
+    ['visao', 'Visão geral'], ['favoritos', 'Favoritos'], ['historico', 'Histórico'],
+    ['recentes', 'Recentes'], ['fluxos', 'Fluxos'], ['config', 'Ajustes'], ['privacidade', 'Privacidade']
+  ];
+  var mob = document.getElementById('acc-tabs-m');
+  mob.innerHTML = TABS.map(function (t, i) {
+    return '<button type="button" data-tab="' + t[0] + '"' + (i === 0 ? ' class="active"' : '') + '>' + t[1] + '</button>';
+  }).join('');
+
+  function go(tab) {
+    if (!document.getElementById('tab-' + tab)) tab = 'visao';
+    document.querySelectorAll('.acc-panel').forEach(function (p) {
+      p.classList.toggle('active', p.id === 'tab-' + tab);
+    });
+    document.querySelectorAll('[data-tab]').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.tab === tab);
+    });
+    history.replaceState(null, '', '#' + tab);
+  }
+  document.querySelectorAll('[data-tab]').forEach(function (b) {
+    b.addEventListener('click', function () { go(b.dataset.tab); });
+  });
+  if (location.hash) go(location.hash.slice(1));
+
+  /* ------------------------ blocos reutilizáveis ---------------------- */
+  function chip(tag, mono) {
+    return '<span class="tu-chip-file is-' + E(tag || 'pdf') + '">' + E(mono || 'PDF') + '</span>';
+  }
+
+  function emptyBox(icon, title, text, ctaHref, ctaLabel) {
+    return '<div class="acc-empty">' + icon +
+      '<strong>' + E(title) + '</strong>' + E(text) +
+      (ctaHref ? '<div style="margin-top:16px"><a class="tu-btn tu-btn-sm tu-btn-hot" href="' + E(ctaHref) + '">' + E(ctaLabel) + '</a></div>' : '') +
+      '</div>';
+  }
+
+  var ICO_STAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 17.3l-5.6 3.3 1.5-6.3-4.9-4.2 6.4-.5L12 3.5l2.6 5.9 6.4.5-4.9 4.2 1.5 6.3z" stroke-linejoin="round"/></svg>';
+  var ICO_CLOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>';
+  var ICO_FOLDER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7.5V18a2 2 0 002 2h12a2 2 0 002-2V9.5a2 2 0 00-2-2h-6.2L9.6 5H6a2 2 0 00-2 2z" stroke-linejoin="round"/></svg>';
+
+  /* ---------------------------- favoritos ----------------------------- */
+  function renderFavs() {
+    var urls = TU.getFavorites();
+    var tools = urls.map(function (u) { return TU_CATALOG.byUrl(u); }).filter(Boolean);
+
+    var html = tools.length
+      ? tools.map(function (t) {
+          return '<div class="tool-mini">' + chip(t.tag, t.mono) +
+            '<a class="tool-mini-txt" href="' + E(t.url) + '"><strong>' + E(t.name) + '</strong><span>' + E(t.desc) + '</span></a>' +
+            '<div class="tool-mini-act">' +
+              '<button class="icon-btn active" data-fav-url="' + E(t.url) + '" aria-label="Remover dos favoritos" type="button">' +
+                '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3l-5.6 3.3 1.5-6.3-4.9-4.2 6.4-.5L12 3.5l2.6 5.9 6.4.5-4.9 4.2 1.5 6.3z"/></svg>' +
+              '</button>' +
+              '<a class="icon-btn" href="' + E(t.url) + '" aria-label="Abrir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' +
+            '</div></div>';
+        }).join('')
+      : emptyBox(ICO_STAR, 'Nenhum favorito ainda',
+          'Abra uma ferramenta e toque na estrela. Ela fica guardada aqui.',
+          '/', 'Ver ferramentas');
+
+    document.getElementById('fav-list').innerHTML = html;
+    document.getElementById('ov-favs').innerHTML = tools.length
+      ? tools.slice(0, 4).map(function (t) {
+          return '<a class="tool-mini" href="' + E(t.url) + '">' + chip(t.tag, t.mono) +
+            '<span class="tool-mini-txt"><strong>' + E(t.name) + '</strong><span>' + E(t.desc) + '</span></span></a>';
+        }).join('')
+      : emptyBox(ICO_STAR, 'Sem favoritos', 'Marque as ferramentas que você mais usa.');
+
+    document.getElementById('st-favs').textContent = urls.length;
+    document.getElementById('ct-favs').textContent = urls.length || '';
+    TU.syncFavButtons();
+  }
+
+  /* ---------------------------- histórico ----------------------------- */
+  function renderHist() {
+    var items = TU.getHistory();
+    document.getElementById('hist-list').innerHTML = items.length
+      ? items.map(function (h) {
+          var t = TU_CATALOG.byUrl(h.url);
+          return '<div class="tool-mini">' + chip(t ? t.tag : 'pdf', t ? t.mono : 'PDF') +
+            '<div class="tool-mini-txt">' +
+              '<strong>' + E(h.tool) + '</strong>' +
+              '<span>' + E(h.file || 'arquivo') + (h.size ? ' · ' + E(TU.fmtSize(h.size)) : '') + '</span>' +
+            '</div>' +
+            '<div class="tool-mini-act">' +
+              '<span class="tu-mono" style="font-size:.72rem;color:var(--tu-fg-3);margin-right:4px">' + E(TU.fmtDate(h.at)) + '</span>' +
+              '<a class="icon-btn" href="' + E(h.url) + '" title="Repetir esta operação" aria-label="Repetir">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5A8 8 0 105.5 7" stroke-linecap="round"/><path d="M4 3.5V8h4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+              '</a>' +
+            '</div></div>';
+        }).join('')
+      : emptyBox(ICO_CLOCK, 'Histórico vazio',
+          'Assim que você usar uma ferramenta e baixar o resultado, o registro aparece aqui.',
+          '/', 'Começar agora');
+
+    document.getElementById('st-hist').textContent = items.length;
+    document.getElementById('ct-hist').textContent = items.length || '';
+  }
+
+  /* ------------------------- arquivos recentes ------------------------ */
+  function renderRecent() {
+    var items = TU.getRecentFiles();
+    var html = items.length
+      ? items.map(function (r) {
+          var t = TU_CATALOG.byUrl(r.url);
+          return '<div class="tool-mini">' + chip(t ? t.tag : 'pdf', t ? t.mono : 'PDF') +
+            '<div class="tool-mini-txt">' +
+              '<strong>' + E(r.name) + '</strong>' +
+              '<span>' + E(r.tool || 'Ferramenta') + (r.size ? ' · ' + E(TU.fmtSize(r.size)) : '') + '</span>' +
+            '</div>' +
+            '<div class="tool-mini-act">' +
+              '<span class="tu-badge" style="font-size:.66rem">' + E(TU.ttlLabel(r)) + '</span>' +
+              '<a class="icon-btn" href="' + E(r.url) + '" title="Repetir operação" aria-label="Repetir">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11.5A8 8 0 105.5 7" stroke-linecap="round"/><path d="M4 3.5V8h4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+              '</a>' +
+            '</div></div>';
+        }).join('')
+      : emptyBox(ICO_FOLDER, 'Nada nas últimas 24 horas',
+          'Os arquivos que você processar aparecem aqui — e somem sozinhos depois de um dia.');
+
+    document.getElementById('rec-list').innerHTML = html;
+    document.getElementById('ov-recent').innerHTML = items.length
+      ? items.slice(0, 4).map(function (r) {
+          var t = TU_CATALOG.byUrl(r.url);
+          return '<a class="tool-mini" href="' + E(r.url) + '">' + chip(t ? t.tag : 'pdf', t ? t.mono : 'PDF') +
+            '<span class="tool-mini-txt"><strong>' + E(r.name) + '</strong><span>' + E(r.tool || '') + ' · ' + E(TU.ttlLabel(r)) + '</span></span></a>';
+        }).join('')
+      : emptyBox(ICO_FOLDER, 'Nada por aqui ainda', 'Use qualquer ferramenta e ela aparece nesta lista.', '/', 'Escolher ferramenta');
+
+    document.getElementById('ct-rec').textContent = items.length || '';
+  }
+
+  function renderStats() {
+    document.getElementById('st-ops').textContent = TU.getUsage().ops;
+    var kb = TU.storageBytes() / 1024;
+    document.getElementById('sto-kb').textContent = kb.toFixed(1);
+    document.getElementById('sto-bar').style.width = Math.max(2, Math.min(100, (kb / 5120) * 100)) + '%';
+  }
+
+  function renderPlan() {
+    var id = TU.planId();
+    var card = document.getElementById('plan-card');
+    var p = TU.PLANS[id];
+    card.setAttribute('data-tier', id === 'vip' ? 'vip' : 'free');
+    document.getElementById('plan-badge').textContent = 'Plano ' + p.label;
+    document.getElementById('plan-badge').className = 'tu-badge ' + (id === 'vip' ? 'tu-badge-vip' : 'tu-badge-hot');
+    document.getElementById('st-plan').textContent = p.label;
+
+    if (id === 'vip') {
+      document.getElementById('plan-title').textContent = 'Operações ilimitadas, sem anúncio';
+      document.getElementById('plan-sub').textContent = 'Arquivos de até 500 MB, lote em fila e fluxos salvos. Obrigado por manter o TudoUtil de pé.';
+    } else if (id === 'free') {
+      document.getElementById('plan-title').textContent = 'Você tem 20 operações por dia';
+      document.getElementById('plan-sub').textContent = 'Arquivos de até 100 MB, com favoritos e histórico sincronizados.';
+    } else {
+      document.getElementById('plan-title').textContent = 'Você está sem conta neste aparelho';
+      document.getElementById('plan-sub').textContent = '5 operações por dia e até 25 MB por arquivo. Criar conta é grátis e sobe para 20 e 100 MB.';
+    }
+  }
+
+  function renderAll() { renderFavs(); renderHist(); renderRecent(); renderStats(); renderPlan(); }
+  renderAll();
+
+  document.addEventListener('tu:favorites', renderFavs);
+  document.addEventListener('tu:history', function () { renderHist(); renderRecent(); renderStats(); });
+  document.addEventListener('tu:recent', renderRecent);
+  document.addEventListener('tu:plan', renderPlan);
+
+  /* ---------------------------- cabeçalho ----------------------------- */
+  document.addEventListener('tu:user', function (e) {
+    var u = e.detail && e.detail.user;
+    var av = document.getElementById('acc-avatar');
+    if (u) {
+      document.getElementById('acc-name').textContent = u.name || 'Minha conta';
+      document.getElementById('acc-email').textContent = u.email || '';
+      document.getElementById('cfg-name').value = u.name || '';
+      document.getElementById('cfg-email').value = u.email || '';
+      av.innerHTML = u.photo
+        ? '<img src="' + E(u.photo) + '" alt="" referrerpolicy="no-referrer"/>'
+        : '<span>' + E((u.name || u.email || '?').charAt(0).toUpperCase()) + '</span>';
+    } else {
+      document.getElementById('acc-name').textContent = 'Visitante';
+      document.getElementById('acc-email').textContent = 'Você não está conectado neste aparelho.';
+      av.innerHTML = '<span>?</span>';
+    }
+    setTimeout(renderAll, 400); // dá tempo do merge da nuvem chegar
+  });
+
+  document.getElementById('btn-logout').addEventListener('click', function () {
+    if (window.tuLogout) window.tuLogout();
+  });
+
+  /* -------------------------- configurações --------------------------- */
+  var prefs = TU.getPrefs();
+  document.getElementById('cfg-theme').checked = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.getElementById('cfg-history').checked = prefs.keepHistory !== false;
+  document.getElementById('cfg-autodl').checked = !!prefs.autoDownload;
+  document.getElementById('cfg-news').checked = !!prefs.emailOptIn;
+  document.getElementById('cfg-motion').checked = !!prefs.reduceMotion;
+
+  document.getElementById('cfg-theme').addEventListener('change', function () {
+    TU.applyTheme(this.checked ? 'dark' : 'light');
+  });
+  document.getElementById('cfg-history').addEventListener('change', function () {
+    TU.setPrefs({ keepHistory: this.checked });
+    TU.toast(this.checked ? 'Voltamos a registrar seu histórico.' : 'Paramos de registrar. O que já existe continua salvo até você limpar.', { type: 'ok' });
+  });
+  document.getElementById('cfg-autodl').addEventListener('change', function () { TU.setPrefs({ autoDownload: this.checked }); });
+  document.getElementById('cfg-news').addEventListener('change', function () {
+    TU.setPrefs({ emailOptIn: this.checked });
+    if (this.checked) TU.toast('Anotado. Vamos avisar quando sair ferramenta nova.', { type: 'ok' });
+  });
+  document.getElementById('cfg-motion').addEventListener('change', function () {
+    TU.setPrefs({ reduceMotion: this.checked });
+    document.documentElement.style.setProperty('--tu-t', this.checked ? '.001s' : '.26s');
+  });
+
+  document.getElementById('btn-save-name').addEventListener('click', async function () {
+    var v = document.getElementById('cfg-name').value.trim();
+    if (!v) return TU.toast('Escreva um nome antes de salvar.', { type: 'warn' });
+    if (!window.tuUpdateDisplayName) return TU.toast('Entre na sua conta para editar o perfil.', { type: 'warn' });
+    var r = await window.tuUpdateDisplayName(v);
+    if (r.ok) document.getElementById('acc-name').textContent = r.name;
+  });
+
+  /* ------------------------------ limpezas ---------------------------- */
+  document.getElementById('btn-clear-hist').addEventListener('click', function () {
+    TU.clearHistory(); renderHist(); renderStats();
+    TU.toast('Histórico apagado.', { type: 'ok' });
+  });
+  document.getElementById('btn-clear-rec').addEventListener('click', function () {
+    TU.clearRecentFiles(); renderRecent();
+    TU.toast('Lista de recentes limpa.', { type: 'ok' });
+  });
+  document.getElementById('btn-clear-local').addEventListener('click', function () {
+    TU.wipeLocal(); renderAll();
+    TU.toast('Tudo que estava guardado neste aparelho foi apagado.', { type: 'ok' });
+  });
+
+  /* ---------------------------- privacidade --------------------------- */
+  document.getElementById('btn-export').addEventListener('click', function () {
+    if (window.tuExportData && TU.user()) return window.tuExportData();
+    var blob = new Blob([JSON.stringify({
+      exportadoEm: new Date().toISOString(),
+      favoritos: TU.getFavorites(),
+      historico: TU.getHistory(),
+      recentes: TU.getRecentFiles(),
+      preferencias: TU.getPrefs(),
+      observacao: 'Dados locais deste aparelho. O TudoUtil nunca armazena o conteúdo dos seus arquivos.'
+    }, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tudoutil-meus-dados.json';
+    a.click();
+    TU.toast('Baixamos um JSON com seus dados locais.', { type: 'ok' });
+  });
+
+  document.getElementById('btn-cookies').addEventListener('click', function () { TU.reopenConsent(); });
+
+  var modal = document.getElementById('modal-del');
+  document.getElementById('btn-delete').addEventListener('click', function () {
+    if (!TU.user()) return TU.toast('Você não tem conta criada neste aparelho. Use "Limpar dados deste aparelho".', { type: 'warn' });
+    modal.classList.add('is-open');
+    document.body.classList.add('tu-no-scroll');
+  });
+  modal.querySelectorAll('[data-close-del]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      modal.classList.remove('is-open');
+      document.body.classList.remove('tu-no-scroll');
+    });
+  });
+  document.getElementById('del-confirm').addEventListener('input', function () {
+    document.getElementById('btn-confirm-del').disabled = this.value.trim().toUpperCase() !== 'EXCLUIR';
+  });
+  document.getElementById('btn-confirm-del').addEventListener('click', async function () {
+    this.classList.add('is-loading');
+    var r = await window.tuDeleteAccount();
+    this.classList.remove('is-loading');
+    if (r.ok) setTimeout(function () { location.href = '/'; }, 900);
+    else { modal.classList.remove('is-open'); document.body.classList.remove('tu-no-scroll'); }
+  });
+});
+</script>
+</body>
+</html>

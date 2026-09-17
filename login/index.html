@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<script>(function(){try{var t=localStorage.getItem('tu:theme')||localStorage.getItem('tudoutil-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Entrar no TudoUtil — conta grátis, sem cartão</title>
+<meta name="description" content="Entre no TudoUtil com Google ou e-mail. Conta grátis que salva favoritos e histórico em todos os aparelhos. Seus arquivos continuam sendo processados só no seu dispositivo."/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="canonical" href="https://www.tudopdf.site/login/"/>
+<meta name="theme-color" content="#07080F"/>
+
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.webmanifest"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://www.gstatic.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"/>
+
+<style>
+  .auth { min-height: 100vh; display: grid; grid-template-columns: 1.05fr .95fr; }
+
+  .auth-aside {
+    position: relative;
+    padding: clamp(32px, 5vw, 64px);
+    display: flex; flex-direction: column; justify-content: space-between;
+    background:
+      radial-gradient(90% 70% at 18% 8%, rgba(91,107,245,.20), transparent 62%),
+      radial-gradient(70% 60% at 88% 92%, rgba(203,242,78,.12), transparent 60%),
+      var(--ink-850);
+    border-right: 1px solid var(--tu-line);
+    overflow: hidden;
+  }
+  .auth-aside::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: var(--tu-grid); background-size: 30px 30px;
+    opacity: .5; pointer-events: none;
+  }
+  .auth-aside > * { position: relative; }
+  .auth-brand { display: inline-flex; align-items: center; gap: 11px; font-family: var(--tu-font-display); font-weight: 700; font-size: 1.16rem; }
+  .auth-brand img { width: 38px; height: 38px; border-radius: 10px; }
+  .auth-pitch h1 { font-size: clamp(1.7rem, 3.1vw, 2.5rem); margin: 0 0 14px; max-width: 13ch; }
+  .auth-pitch > p { font-size: 1.04rem; max-width: 42ch; margin-bottom: 30px; }
+  .auth-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 15px; }
+  .auth-list li { display: flex; gap: 13px; align-items: flex-start; }
+  .auth-list svg { width: 21px; height: 21px; flex-shrink: 0; margin-top: 2px; color: var(--citrine-400); }
+  .auth-list strong { display: block; font-family: var(--tu-font-display); font-size: .96rem; margin-bottom: 2px; }
+  .auth-list span { font-size: .88rem; color: var(--tu-fg-2); }
+  .auth-proof { display: flex; gap: 22px; flex-wrap: wrap; padding-top: 26px; border-top: 1px solid var(--tu-line); }
+  .auth-proof div strong { display: block; font-family: var(--tu-font-display); font-size: 1.35rem; color: var(--citrine-300); }
+  .auth-proof div span { font-size: .8rem; color: var(--tu-fg-3); }
+
+  .auth-main { display: flex; align-items: center; justify-content: center; padding: clamp(28px, 5vw, 56px) var(--tu-gutter); }
+  .auth-box { width: 100%; max-width: 410px; }
+  .auth-back { display: inline-flex; align-items: center; gap: 7px; font-size: .86rem; color: var(--tu-fg-2); margin-bottom: 26px; }
+  .auth-back:hover { color: var(--tu-fg); }
+  .auth-box h2 { font-size: 1.6rem; margin-bottom: 7px; }
+  .auth-box > div > p.sub { font-size: .93rem; margin-bottom: 26px; }
+
+  .btn-google {
+    width: 100%; min-height: 54px;
+    display: flex; align-items: center; justify-content: center; gap: 11px;
+    background: #fff; color: #1f1f1f;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: var(--tu-r-sm);
+    font-family: var(--tu-font-display); font-weight: 600; font-size: .97rem;
+    cursor: pointer;
+    transition: transform var(--tu-t-fast) var(--tu-ease), box-shadow var(--tu-t) var(--tu-ease);
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+  }
+  .btn-google:hover { transform: translateY(-1px); box-shadow: 0 8px 26px rgba(0,0,0,.28); }
+  .btn-google:active { transform: translateY(0) scale(.99); }
+  .btn-google svg { width: 20px; height: 20px; }
+
+  .auth-or { display: flex; align-items: center; gap: 14px; margin: 24px 0; color: var(--tu-fg-3); font-size: .8rem; }
+  .auth-or::before, .auth-or::after { content: ''; flex: 1; height: 1px; background: var(--tu-line); }
+
+  .auth-tabs { display: flex; gap: 4px; padding: 4px; background: var(--tu-surface-2); border-radius: var(--tu-r-sm); margin-bottom: 20px; }
+  .auth-tab {
+    flex: 1; padding: 10px; border: none; background: none; cursor: pointer;
+    border-radius: var(--tu-r-xs); font-family: var(--tu-font-display);
+    font-weight: 600; font-size: .88rem; color: var(--tu-fg-2);
+    transition: all var(--tu-t-fast) var(--tu-ease);
+  }
+  .auth-tab.active { background: var(--tu-surface); color: var(--tu-fg); box-shadow: var(--tu-sh-1); }
+
+  .auth-form { display: grid; gap: 15px; }
+  .auth-form[hidden] { display: none; }
+  .auth-row-between { display: flex; justify-content: space-between; align-items: center; }
+  .auth-link { font-size: .84rem; color: var(--indigo-300); cursor: pointer; background: none; border: none; padding: 0; }
+  .auth-link:hover { text-decoration: underline; }
+
+  .pw-wrap { position: relative; }
+  .pw-toggle {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; color: var(--tu-fg-3);
+    padding: 8px; line-height: 0; border-radius: var(--tu-r-xs);
+  }
+  .pw-toggle:hover { color: var(--tu-fg); background: var(--tu-surface-3); }
+  .pw-meter { display: flex; gap: 4px; margin-top: 7px; }
+  .pw-meter i { flex: 1; height: 3.5px; border-radius: 2px; background: var(--tu-surface-hi); transition: background var(--tu-t) var(--tu-ease); }
+  .pw-meter.s1 i:nth-child(1) { background: var(--err); }
+  .pw-meter.s2 i:nth-child(-n+2) { background: var(--warn); }
+  .pw-meter.s3 i:nth-child(-n+3) { background: var(--citrine-500); }
+  .pw-meter.s4 i { background: var(--ok); }
+
+  .auth-legal { font-size: .77rem; color: var(--tu-fg-3); text-align: center; margin-top: 22px; line-height: 1.6; }
+  .auth-legal a { color: var(--tu-fg-2); text-decoration: underline; }
+
+  .auth-safe {
+    display: flex; gap: 10px; align-items: flex-start;
+    margin-top: 24px; padding: 14px 15px;
+    background: var(--ok-bg); border: 1px solid rgba(52,217,160,.24);
+    border-radius: var(--tu-r-sm); font-size: .82rem; color: var(--tu-fg-2);
+  }
+  .auth-safe svg { width: 17px; height: 17px; color: var(--ok); flex-shrink: 0; margin-top: 2px; }
+
+  @media (max-width: 940px) {
+    .auth { grid-template-columns: 1fr; }
+    .auth-aside { border-right: none; border-bottom: 1px solid var(--tu-line); padding-bottom: 34px; }
+    .auth-pitch h1 { max-width: none; }
+    .auth-list { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+    .auth-proof { display: none; }
+    .auth-brand { margin-bottom: 26px; }
+  }
+  @media (max-width: 560px) {
+    .auth-list li:nth-child(n+3) { display: none; }
+    .auth-pitch > p { margin-bottom: 20px; font-size: .95rem; }
+  }
+</style>
+<meta property="og:site_name" content="TudoUtil"/>
+<meta property="og:locale" content="pt_BR"/>
+<meta property="og:title" content="Entrar no TudoUtil — conta grátis, sem cartão"/>
+<meta property="og:url" content="https://www.tudopdf.site/login/"/>
+<meta property="og:description" content="Entre no TudoUtil com Google ou e-mail. Conta grátis que salva favoritos e histórico em todos os aparelhos. Seus arquivos continuam sendo processados só no seu dispositivo."/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="stylesheet" href="/assets/css/tu-ds.css"/>
+</head>
+
+<body>
+<a class="tu-skip" href="#auth-main">Pular para o formulário</a>
+
+<div class="auth">
+
+  <aside class="auth-aside">
+    <a class="auth-brand" href="/">
+      <img src="/assets/img/icon-192.png" alt="" width="38" height="38"/>
+      <span>Tudo<span class="tu-gradient-text">Util</span></span>
+    </a>
+
+    <div class="auth-pitch">
+      <span class="tu-kicker">Conta grátis, sem cartão</span>
+      <h1>Suas ferramentas, do jeito que você deixou.</h1>
+      <p>A conta existe para uma coisa só: guardar suas preferências. Os arquivos continuam sendo processados dentro do seu navegador, como sempre.</p>
+
+      <ul class="auth-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17.3l-5.6 3.3 1.5-6.3-4.9-4.2 6.4-.5L12 3.5l2.6 5.9 6.4.5-4.9 4.2 1.5 6.3z" stroke-linejoin="round"/></svg>
+          <div><strong>Favoritos que te seguem</strong><span>Marcou no PC, aparece no celular.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2" stroke-linecap="round"/></svg>
+          <div><strong>Histórico e repetir operação</strong><span>Refaça o que fez ontem em um clique.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5.5L12 2.5 4 5.5V12c0 6 8 10 8 10z" stroke-linejoin="round"/></svg>
+          <div><strong>Limites maiores</strong><span>20 operações por dia e arquivos de até 100 MB.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 4v5" stroke-linecap="round"/></svg>
+          <div><strong>Arquivos recentes por 24h</strong><span>Só o nome do arquivo, nunca o conteúdo.</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="auth-proof">
+      <div><strong>0</strong><span>arquivos que saem do seu aparelho</span></div>
+      <div><strong>41</strong><span>ferramentas prontas</span></div>
+      <div><strong>R$ 0</strong><span>para sempre no plano grátis</span></div>
+    </div>
+  </aside>
+
+  <main class="auth-main" id="auth-main">
+    <div class="auth-box">
+
+      <a class="auth-back" href="/">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Voltar para as ferramentas
+      </a>
+
+      <div id="view-auth">
+        <h2 id="auth-title">Entrar no TudoUtil</h2>
+        <p class="sub" id="auth-sub">Use o Google e pronto — leva uns 3 segundos.</p>
+
+        <button class="btn-google" id="btn-google" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.76c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.11a6.6 6.6 0 0 1 0-4.22V7.05H2.18a11 11 0 0 0 0 9.9l3.66-2.84z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.05l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/>
+          </svg>
+          <span id="google-label">Continuar com Google</span>
+        </button>
+
+        <div class="auth-or">ou use seu e-mail</div>
+
+        <div class="auth-tabs" role="tablist">
+          <button class="auth-tab active" data-view="login" role="tab" aria-selected="true" type="button">Entrar</button>
+          <button class="auth-tab" data-view="signup" role="tab" aria-selected="false" type="button">Criar conta</button>
+        </div>
+
+        <form class="auth-form" id="form-login" novalidate>
+          <div class="tu-field">
+            <label class="tu-label" for="li-email">E-mail</label>
+            <input class="tu-input" id="li-email" type="email" autocomplete="email" inputmode="email" placeholder="voce@email.com" required/>
+          </div>
+          <div class="tu-field">
+            <div class="auth-row-between">
+              <label class="tu-label" for="li-pass">Senha</label>
+              <button class="auth-link" type="button" id="btn-forgot">Esqueci minha senha</button>
+            </div>
+            <div class="pw-wrap">
+              <input class="tu-input" id="li-pass" type="password" autocomplete="current-password" placeholder="Sua senha" required/>
+              <button class="pw-toggle" type="button" data-pw-toggle="li-pass" aria-label="Mostrar senha">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.7-6.5 10-6.5S22 12 22 12s-3.7 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+              </button>
+            </div>
+          </div>
+          <button class="tu-btn tu-btn-hot tu-btn-block" type="submit" id="btn-login">Entrar</button>
+        </form>
+
+        <form class="auth-form" id="form-signup" hidden novalidate>
+          <div class="tu-field">
+            <label class="tu-label" for="su-name">Como podemos te chamar?</label>
+            <input class="tu-input" id="su-name" type="text" autocomplete="name" maxlength="60" placeholder="Seu primeiro nome"/>
+          </div>
+          <div class="tu-field">
+            <label class="tu-label" for="su-email">E-mail</label>
+            <input class="tu-input" id="su-email" type="email" autocomplete="email" inputmode="email" placeholder="voce@email.com" required/>
+          </div>
+          <div class="tu-field">
+            <label class="tu-label" for="su-pass">Crie uma senha</label>
+            <div class="pw-wrap">
+              <input class="tu-input" id="su-pass" type="password" autocomplete="new-password" placeholder="Pelo menos 6 caracteres" required/>
+              <button class="pw-toggle" type="button" data-pw-toggle="su-pass" aria-label="Mostrar senha">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.7-6.5 10-6.5S22 12 22 12s-3.7 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+              </button>
+            </div>
+            <div class="pw-meter" id="pw-meter"><i></i><i></i><i></i><i></i></div>
+            <span class="tu-hint" id="pw-hint">Dica: uma frase que só você lembra funciona melhor que símbolos aleatórios.</span>
+          </div>
+          <button class="tu-btn tu-btn-hot tu-btn-block" type="submit" id="btn-signup">Criar minha conta grátis</button>
+        </form>
+
+        <div class="auth-safe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5.5L12 2.5 4 5.5V12c0 6 8 10 8 10z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Fazer login <strong>não muda nada</strong> no processamento: seus PDFs continuam sendo abertos e editados dentro do seu navegador. Nós nunca recebemos o arquivo.</span>
+        </div>
+
+        <p class="auth-legal">
+          Ao continuar você concorda com os <a href="/termos/">Termos de uso</a> e a <a href="/privacidade/">Política de privacidade</a>.
+        </p>
+      </div>
+
+      <div id="view-reset" hidden>
+        <h2>Recuperar acesso</h2>
+        <p class="sub">Digite seu e-mail e mandamos um link para você criar uma senha nova.</p>
+        <form class="auth-form" id="form-reset" novalidate>
+          <div class="tu-field">
+            <label class="tu-label" for="rs-email">E-mail da conta</label>
+            <input class="tu-input" id="rs-email" type="email" autocomplete="email" inputmode="email" placeholder="voce@email.com" required/>
+          </div>
+          <button class="tu-btn tu-btn-hot tu-btn-block" type="submit" id="btn-reset">Enviar link de recuperação</button>
+          <button class="tu-btn tu-btn-quiet tu-btn-block" type="button" id="btn-back-login">Voltar para o login</button>
+        </form>
+      </div>
+
+      <div id="view-logged" hidden style="text-align:center">
+        <div style="width:72px;height:72px;margin:0 auto 18px;border-radius:50%;background:var(--ok-bg);display:grid;place-items:center">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--ok)" stroke-width="2.4"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>Você já está conectado</h2>
+        <p class="sub" data-user-email style="margin-bottom:24px"></p>
+        <a class="tu-btn tu-btn-hot tu-btn-block" href="/conta/" style="margin-bottom:10px">Ir para minha conta</a>
+        <button class="tu-btn tu-btn-quiet tu-btn-block" type="button" id="btn-signout">Sair desta conta</button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script defer src="/assets/js/tu-core.js"></script>
+<script type="module" src="/assets/js/tu-cloud.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  function nextPath() {
+    var p = new URLSearchParams(location.search).get('next');
+    if (!p) return null;
+    try { p = decodeURIComponent(p); } catch (e) { return null; }
+    if (p.charAt(0) !== '/' || p.charAt(1) === '/') return null;
+    return p;
+  }
+  var NEXT = nextPath();
+
+  if (new URLSearchParams(location.search).get('from') === 'limite') {
+    document.getElementById('auth-title').textContent = 'Libere mais operações';
+    document.getElementById('auth-sub').textContent = 'Conta grátis, sem cartão. Leva menos tempo que ler esta frase.';
+  }
+
+  document.querySelectorAll('.auth-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var view = tab.dataset.view;
+      document.querySelectorAll('.auth-tab').forEach(function (t) {
+        var on = t === tab;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', String(on));
+      });
+      document.getElementById('form-login').hidden  = view !== 'login';
+      document.getElementById('form-signup').hidden = view !== 'signup';
+      document.getElementById('auth-title').textContent = view === 'login' ? 'Entrar no TudoUtil' : 'Criar conta grátis';
+      document.getElementById('google-label').textContent = view === 'login' ? 'Continuar com Google' : 'Criar conta com Google';
+    });
+  });
+  if (new URLSearchParams(location.search).get('novo') === '1') {
+    document.querySelector('.auth-tab[data-view="signup"]').click();
+  }
+
+  document.querySelectorAll('[data-pw-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var input = document.getElementById(btn.dataset.pwToggle);
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.setAttribute('aria-label', show ? 'Ocultar senha' : 'Mostrar senha');
+    });
+  });
+
+  var pwInput = document.getElementById('su-pass');
+  var pwMeter = document.getElementById('pw-meter');
+  var pwHint  = document.getElementById('pw-hint');
+  pwInput.addEventListener('input', function () {
+    var v = pwInput.value, s = 0;
+    if (v.length >= 6) s++;
+    if (v.length >= 10) s++;
+    if (/[A-Z]/.test(v) && /[a-z]/.test(v)) s++;
+    if (/[0-9]/.test(v) || /[^A-Za-z0-9]/.test(v)) s++;
+    pwMeter.className = 'pw-meter s' + s;
+    pwHint.textContent = v.length === 0
+      ? 'Dica: uma frase que só você lembra funciona melhor que símbolos aleatórios.'
+      : (s <= 1 ? 'Ainda curta. Que tal umas palavras a mais?'
+        : s === 2 ? 'Aceitável. Mais uma palavra deixaria bem melhor.'
+        : s === 3 ? 'Boa senha.' : 'Senha forte. Pode seguir.');
+  });
+
+  function validEmail(v) { return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v); }
+  function fail(input, msg) {
+    input.classList.add('has-error');
+    input.focus();
+    if (window.TU) TU.toast(msg, { type: 'warn' });
+    setTimeout(function () { input.classList.remove('has-error'); }, 2600);
+    return false;
+  }
+  function busy(btn, on, label) {
+    btn.classList.toggle('is-loading', on);
+    btn.disabled = on;
+    if (!on && label) btn.textContent = label;
+  }
+
+  document.getElementById('btn-google').addEventListener('click', async function () {
+    var b = this;
+    b.style.opacity = '.6'; b.disabled = true;
+    try {
+      var r = await window.tuLoginGoogle(NEXT || '/conta/');
+      if (!r.ok && !r.cancelled) { b.style.opacity = ''; b.disabled = false; }
+    } catch (e) { b.style.opacity = ''; b.disabled = false; }
+  });
+
+  document.getElementById('form-login').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var email = document.getElementById('li-email');
+    var pass  = document.getElementById('li-pass');
+    if (!validEmail(email.value.trim())) return fail(email, 'Confere esse e-mail? Parece que falta alguma coisa.');
+    if (!pass.value) return fail(pass, 'Digite sua senha para continuar.');
+    var btn = document.getElementById('btn-login');
+    busy(btn, true);
+    var res = await window.tuLoginEmail(email.value.trim(), pass.value, NEXT || '/conta/');
+    if (!res.ok) busy(btn, false, 'Entrar');
+  });
+
+  document.getElementById('form-signup').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var name  = document.getElementById('su-name');
+    var email = document.getElementById('su-email');
+    var pass  = document.getElementById('su-pass');
+    if (!validEmail(email.value.trim())) return fail(email, 'Confere esse e-mail? Parece que falta alguma coisa.');
+    if (pass.value.length < 6) return fail(pass, 'A senha precisa de pelo menos 6 caracteres.');
+    var btn = document.getElementById('btn-signup');
+    busy(btn, true);
+    var res = await window.tuRegisterEmail(name.value.trim(), email.value.trim(), pass.value, NEXT || '/conta/');
+    if (!res.ok) busy(btn, false, 'Criar minha conta grátis');
+  });
+
+  document.getElementById('btn-forgot').addEventListener('click', function () {
+    document.getElementById('view-auth').hidden = true;
+    document.getElementById('view-reset').hidden = false;
+    document.getElementById('rs-email').value = document.getElementById('li-email').value;
+    document.getElementById('rs-email').focus();
+  });
+  document.getElementById('btn-back-login').addEventListener('click', function () {
+    document.getElementById('view-reset').hidden = true;
+    document.getElementById('view-auth').hidden = false;
+  });
+  document.getElementById('form-reset').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var email = document.getElementById('rs-email');
+    if (!validEmail(email.value.trim())) return fail(email, 'Digite o e-mail que você usou para criar a conta.');
+    var btn = document.getElementById('btn-reset');
+    busy(btn, true);
+    await window.tuResetPassword(email.value.trim());
+    busy(btn, false, 'Enviar link de recuperação');
+  });
+
+  document.getElementById('btn-signout').addEventListener('click', async function () {
+    await window.tuLogout();
+    document.getElementById('view-logged').hidden = true;
+    document.getElementById('view-auth').hidden = false;
+  });
+
+  document.addEventListener('tu:auth', function (e) {
+    var logged = !!(e.detail && e.detail.user);
+    document.getElementById('view-logged').hidden = !logged;
+    document.getElementById('view-auth').hidden = logged;
+    document.getElementById('view-reset').hidden = true;
+    if (logged && NEXT) setTimeout(function () { location.href = NEXT; }, 500);
+  });
+})();
+</script>
+</body>
+</html>
