@@ -1,0 +1,83 @@
+# TudoUtil — https://www.tudopdf.site
+# Ferramentas de PDF, documentos e imagem que processam o arquivo
+# dentro do navegador do usuário, sem enviar nada para servidor.
+
+User-agent: *
+Allow: /
+Disallow: /cdn-cgi/
+Disallow: /tools/_template/
+Disallow: /blog/_template/
+Disallow: /conta/
+Disallow: /login/
+Disallow: /*?status=
+Disallow: /*?ref=
+Disallow: /*?next=
+
+# ---- Buscadores tradicionais ----
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: DuckDuckBot
+Allow: /
+User-agent: Applebot
+Allow: /
+
+# ---- AdSense (precisa rastrear para servir anúncio relevante) ----
+User-agent: Mediapartners-Google
+Allow: /
+User-agent: AdsBot-Google
+Allow: /
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+# ---- Mecanismos de resposta e IA (GEO) ----
+# Queremos aparecer nas respostas geradas: liberado de propósito.
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: Amazonbot
+Allow: /
+User-agent: Bytespider
+Allow: /
+User-agent: cohere-ai
+Allow: /
+User-agent: Meta-ExternalAgent
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+User-agent: MistralAI-User
+Allow: /
+
+# ---- Raspadores de SEO: sem valor pra gente, só custo ----
+User-agent: AhrefsBot
+Disallow: /
+User-agent: SemrushBot
+Disallow: /
+User-agent: MJ12bot
+Disallow: /
+User-agent: DotBot
+Disallow: /
+
+Sitemap: https://www.tudopdf.site/sitemap.xml

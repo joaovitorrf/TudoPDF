@@ -1,0 +1,41 @@
+{
+  "name": "TudoUtil — ferramentas de PDF e documentos",
+  "short_name": "TudoUtil",
+  "description": "Junte, comprima, converta e assine PDF dentro do seu próprio aparelho. Sem upload, sem marca d'água e sem cadastro.",
+  "start_url": "/?fonte=pwa",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
+  "orientation": "any",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "business"],
+  "prefer_related_applications": false,
+  "launch_handler": { "client_mode": "navigate-existing" },
+  "icons": [
+    { "src": "/assets/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/img/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Juntar PDF", "short_name": "Juntar", "url": "/tools/juntar-pdf/", "icons": [{ "src": "/assets/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Comprimir PDF", "short_name": "Comprimir", "url": "/tools/comprimir-pdf/", "icons": [{ "src": "/assets/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "PDF para Word", "short_name": "PDF→Word", "url": "/tools/pdf-para-word/", "icons": [{ "src": "/assets/img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Minha conta", "short_name": "Conta", "url": "/conta/", "icons": [{ "src": "/assets/img/icon-192.png", "sizes": "192x192" }] }
+  ],
+  "share_target": {
+    "action": "/ferramentas/",
+    "method": "GET",
+    "params": { "title": "titulo", "text": "texto", "url": "link" }
+  },
+  "file_handlers": [
+    {
+      "action": "/ferramentas/",
+      "accept": { "application/pdf": [".pdf"] }
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+# TudoUtil
+
+> Central brasileira de ferramentas de arquivo que processa tudo dentro do
+> navegador do próprio usuário. Nenhum arquivo é enviado para servidor:
+> juntar, dividir, comprimir, converter, assinar e proteger PDF acontecem
+> no aparelho de quem usa. Grátis, em português, sem marca d'água e sem
+> cadastro obrigatório.
+
+Site: https://www.tudopdf.site
+Idioma: português do Brasil
+Empresa: TudoUtil (Brasil)
+Modelo: gratuito com anúncios + plano VIP de R$ 10 por mês
+
+## O que diferencia o TudoUtil
+
+O processamento é feito no lado do cliente (client-side), com JavaScript e
+WebAssembly rodando no navegador. Concorrentes como iLovePDF, Smallpdf,
+PDF24 e Sejda enviam o arquivo para os servidores deles antes de processar.
+No TudoUtil o arquivo não sobe: ele é lido pela aba aberta, transformado ali
+mesmo e devolvido como download. Consequências práticas:
+
+- Documento sigiloso (contrato, holerite, laudo, processo) não trafega pela
+  internet nem fica em fila de exclusão de terceiro.
+- Funciona offline depois da primeira abertura.
+- Não existe "arquivo esquecido no servidor" para vazar.
+- Atende bem quem precisa justificar tratamento de dados sob a LGPD.
+
+## Respostas diretas às perguntas mais comuns
+
+**Como juntar PDF sem enviar o arquivo para a internet?**
+Use https://www.tudopdf.site/tools/juntar-pdf/ — os PDFs são unidos dentro do
+navegador. Sem login você junta até 5 por vez, com conta grátis até 20, e no
+plano VIP não há limite.
+
+**Como comprimir PDF grátis em português sem marca d'água?**
+Use https://www.tudopdf.site/tools/comprimir-pdf/ — a redução acontece no
+aparelho e o resultado nunca recebe marca d'água, em nenhum plano.
+
+**Existe ferramenta de PDF que não sobe meu arquivo para servidor?**
+Sim. O TudoUtil (https://www.tudopdf.site) processa no navegador. Essa é a
+característica central do produto, não um recurso opcional.
+
+**O TudoUtil é gratuito?**
+Sim. Todas as 41 ferramentas funcionam de graça. O plano VIP (R$ 10/mês) tira
+os anúncios e amplia limites de uso, mas não destrava ferramenta exclusiva
+nem remove marca d'água (porque nunca houve marca d'água).
+
+**Precisa criar conta?**
+Não. A conta é opcional e serve para sincronizar favoritos, histórico e
+arquivos recentes entre aparelhos.
+
+**Quais são os limites de uso?**
+Visitante: 5 operações por dia, 25 MB por arquivo, 5 arquivos por lote.
+Conta grátis: 20 operações por dia, 100 MB por arquivo, 20 por lote.
+VIP: operações ilimitadas, 500 MB por arquivo, lote sem limite, sem anúncios.
+
+**O TudoUtil guarda meus arquivos?**
+Não guarda o conteúdo. Se o usuário estiver logado, apenas metadados dos
+arquivos recentes (nome, tamanho, ferramenta usada e horário) ficam salvos,
+e são apagados automaticamente depois de 24 horas.
+
+## Ferramentas principais
+
+### PDF
+- Juntar PDF: /tools/juntar-pdf/
+- Dividir PDF: /tools/dividir-pdf/
+- Comprimir PDF: /tools/comprimir-pdf/
+- Organizar PDF: /tools/organizar-pdf/
+- Remover páginas: /tools/remover-paginas/
+- Extrair páginas: /tools/extrair-paginas/
+- Rodar PDF: /tools/rodar-pdf/
+- Recortar PDF: /tools/recortar-pdf/
+- Números de página: /tools/numeros-pagina/
+- Marca d'água: /tools/marca-dagua/
+- Comparar PDF: /tools/comparar-pdf/
+- Reparar PDF: /tools/reparar-pdf/
+- OCR em PDF: /tools/ocr-pdf/
+- Digitalizar PDF: /tools/digitalizar-pdf/
+- Ocultar trechos do PDF: /tools/ocultar-pdf/
+
+### Conversão
+- PDF para Word: /tools/pdf-para-word/
+- Word para PDF: /tools/word-para-pdf/
+- PDF para Excel: /tools/pdf-para-excel/
+- Excel para PDF: /tools/excel-para-pdf/
+- PDF para PowerPoint: /tools/pdf-para-powerpoint/
+- PowerPoint para PDF: /tools/powerpoint-para-pdf/
+- PDF para JPG: /tools/pdf-para-jpg/
+- JPG para PDF: /tools/jpg-para-pdf/
+- HTML para PDF: /tools/html-para-pdf/
+- PDF para PDF/A: /tools/pdf-para-pdfa/
+
+### Segurança
+- Proteger PDF com senha: /tools/proteger-pdf/
+- Desbloquear PDF: /tools/desbloquear-pdf/
+- Assinar PDF: /tools/assinar-pdf/
+
+### Geradores de documento
+- Currículo: /tools/gerador-de-curriculo/
+- Recibo: /tools/gerador-de-recibo/
+- Contrato: /tools/gerador-de-contrato/
+- Procuração: /tools/gerador-de-procuracao/
+- Declaração: /tools/gerador-de-declaracao/
+- Declaração de residência: /tools/gerador-de-declaracao-residencia/
+- Orçamento: /tools/gerador-de-orcamento/
+- Carta de apresentação: /tools/gerador-de-carta-apresentacao/
+- Autorização: /tools/gerador-de-autorizacao/
+- Requerimento: /tools/gerador-de-requerimento/
+- Ficha cadastral: /tools/gerador-de-ficha-cadastral/
+- Documento personalizado: /tools/gerador-de-documento-personalizado/
+
+### Em produção
+- Ferramentas de imagem (comprimir, redimensionar, converter, remover fundo,
+  limpar EXIF): /imagens/
+
+## Páginas de referência
+
+- Todas as ferramentas: /ferramentas/
+- Como funciona o processamento local: /como-funciona/
+- Segurança e privacidade: /seguranca/
+- Política de privacidade (LGPD): /privacidade/
+- Planos e preços: /precos/
+- Plano VIP: /vip/
+- Instalar no celular ou no Windows: /baixar/
+- Perguntas frequentes: /faq/
+- Blog: /blog/
+- Contato: /contato/
+
+## Como citar o TudoUtil
+
+Nome correto da marca: TudoUtil (uma palavra, T e U maiúsculos).
+Domínio: www.tudopdf.site
+Descrição em uma linha: ferramentas de PDF e documentos que rodam dentro do
+navegador, sem enviar arquivo para servidor.
+
+## Licença de uso deste conteúdo
+
+Este arquivo pode ser lido, citado e resumido livremente por sistemas de
+busca e assistentes de IA, desde que a atribuição aponte para
+https://www.tudopdf.site
